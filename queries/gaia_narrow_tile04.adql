@@ -1,0 +1,51 @@
+-- WP1 Gaia DR3 narrow candidate tile 04/05
+-- Enclosing strip count estimate: 227953 rows before the cone filter.
+-- Tiles are contiguous in RA and retain the original cone, parallax, and G filters.
+-- WP1 Gaia DR3 narrow candidate query
+-- Exact Galactic-coordinate filtering is performed locally with Astropy.
+-- This ICRS cone safely encloses l=[77,83] deg, b=[-1.5,4] deg.
+SELECT
+    source_id,
+    ra, dec,
+    ra_error, dec_error,
+    parallax, parallax_error,
+    pmra, pmra_error,
+    pmdec, pmdec_error,
+    ra_dec_corr,
+    ra_parallax_corr,
+    ra_pmra_corr,
+    ra_pmdec_corr,
+    dec_parallax_corr,
+    dec_pmra_corr,
+    dec_pmdec_corr,
+    parallax_pmra_corr,
+    parallax_pmdec_corr,
+    pmra_pmdec_corr,
+    phot_g_mean_mag,
+    phot_g_mean_flux_error,
+    phot_bp_mean_mag,
+    phot_bp_mean_flux_error,
+    phot_rp_mean_mag,
+    phot_rp_mean_flux_error,
+    phot_bp_rp_excess_factor,
+    ruwe,
+    visibility_periods_used,
+    astrometric_params_solved,
+    astrometric_excess_noise,
+    astrometric_excess_noise_sig,
+    astrometric_n_good_obs_al,
+    astrometric_n_bad_obs_al,
+    radial_velocity,
+    radial_velocity_error,
+    ref_epoch,
+    nu_eff_used_in_astrometry,
+    pseudocolour
+FROM gaiadr3.gaia_source
+WHERE 1 = CONTAINS(
+    POINT('ICRS', ra, dec),
+    CIRCLE('ICRS', 308.3, 41.2, 5.0)
+)
+AND ra >= 309.7 AND ra < 312.4
+AND dec BETWEEN 36.2 AND 46.2
+AND parallax BETWEEN 0.35 AND 1.10
+AND phot_g_mean_mag < 19

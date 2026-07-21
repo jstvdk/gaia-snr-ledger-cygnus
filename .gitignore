@@ -1,0 +1,23 @@
+# macOS and editor metadata
+.DS_Store
+.vscode/
+
+# Python caches and local environments
+__pycache__/
+*.py[cod]
+.ipynb_checkpoints/
+.venv/
+venv/
+
+# Downloaded and derived data products
+data/raw/
+data/processed/
+
+# Temporary TAP job state can contain live archive URLs and is easy to regenerate.
+# Keep completed execution records tracked as provenance.
+provenance/*_job.json
+
+# Local logs and temporary files
+*.log
+*.tmp
+

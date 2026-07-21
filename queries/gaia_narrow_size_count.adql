@@ -1,0 +1,7 @@
+-- WP1 Gaia DR3 sizing query for the enclosing ICRS rectangle
+SELECT COUNT(*) AS n
+FROM gaiadr3.gaia_source
+WHERE ra >= 301.6 AND ra < 315.0
+  AND dec BETWEEN 36.2 AND 46.2
+  AND parallax BETWEEN 0.35 AND 1.10
+  AND phot_g_mean_mag < 19
