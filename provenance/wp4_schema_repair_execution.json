@@ -1,0 +1,96 @@
+{
+  "script": "scripts/wp4_schema_repair.py",
+  "created_utc": "2026-07-23T13:51:00.315369+00:00",
+  "operation": "schema-only migration; no membership, extinction, age, or mass re-analysis",
+  "authoritative_subgroup_source": "tables/wp2_subgroup_labels.parquet",
+  "canonical_subgroup_column": "subgroup",
+  "sidecar_rows": 1331,
+  "sidecar_label_counts": {
+    "CygOB2-A": 476,
+    "CygOB2-C": 429,
+    "CygOB2-B": 426
+  },
+  "before_sha256": {
+    "tables/wp2_subgroup_labels.parquet": "44a5ee7b9190703dae8dca9540c192757423db293c9ecc1ea123065849800887",
+    "data/processed/wp2_members.parquet": "5db938b116edd70e8c7af3d2d4bbc8c9273d4e4c9cde76309ffc84d8cdaf90be",
+    "data/processed/wp2_anchor_assignments.parquet": "22d7fc622dc0fc9957b140ddd7e7b93ebb9adba6f263ad8078745d6906e68db0",
+    "data/processed/wp3_member_photometry.parquet": "9c7747e6c518bf86e396e2ad68475b5bf843e5d485b442c3d6b8c83a84e3a07d",
+    "data/processed/wp3_extinction.parquet": "f83a612215e9e0e0dfb532eab10687bd83808787aa27a649a78b597b895ef0e1",
+    "data/processed/wp4_masses.parquet": "1ba4f7c9e499318b3dc09ad5b28078f24a90d9158b5026cd665760bfdb8a2f70",
+    "data/processed/wp4_anchor_hrd.parquet": "52052cefef76ae3a80ea0230b5586c58072290ae7faaeb5d5d52bb9ddbaed68c"
+  },
+  "outputs": {
+    "data/processed/wp2_members.parquet": {
+      "rows": 2112,
+      "label_counts": {
+        "unassigned": 781,
+        "CygOB2-A": 476,
+        "CygOB2-C": 429,
+        "CygOB2-B": 426
+      },
+      "sha256": "5db938b116edd70e8c7af3d2d4bbc8c9273d4e4c9cde76309ffc84d8cdaf90be"
+    },
+    "data/processed/wp2_anchor_assignments.parquet": {
+      "rows": 252,
+      "label_counts": {
+        "unassigned": 123,
+        "CygOB2-A": 64,
+        "CygOB2-C": 48,
+        "CygOB2-B": 17
+      },
+      "sha256": "22d7fc622dc0fc9957b140ddd7e7b93ebb9adba6f263ad8078745d6906e68db0"
+    },
+    "data/processed/wp3_member_photometry.parquet": {
+      "rows": 1392,
+      "label_counts": {
+        "CygOB2-A": 476,
+        "CygOB2-C": 429,
+        "CygOB2-B": 426,
+        "unassigned": 61
+      },
+      "sha256": "9c7747e6c518bf86e396e2ad68475b5bf843e5d485b442c3d6b8c83a84e3a07d"
+    },
+    "data/processed/wp3_extinction.parquet": {
+      "rows": 1392,
+      "label_counts": {
+        "CygOB2-A": 476,
+        "CygOB2-C": 429,
+        "CygOB2-B": 426,
+        "unassigned": 61
+      },
+      "sha256": "f83a612215e9e0e0dfb532eab10687bd83808787aa27a649a78b597b895ef0e1"
+    },
+    "data/processed/wp4_anchor_hrd.parquet": {
+      "rows": 156,
+      "label_counts": {
+        "CygOB2-A": 60,
+        "unassigned": 48,
+        "CygOB2-C": 43,
+        "CygOB2-B": 5
+      },
+      "sha256": "52052cefef76ae3a80ea0230b5586c58072290ae7faaeb5d5d52bb9ddbaed68c"
+    },
+    "data/processed/wp4_masses.parquet": {
+      "rows": 1392,
+      "mass_branch_columns": [
+        "mass_PARSEC_rv3.0",
+        "mass_PARSEC_rv3.1",
+        "mass_PARSEC_rv3.5",
+        "mass_MIST_rv3.0",
+        "mass_MIST_rv3.1",
+        "mass_MIST_rv3.5"
+      ],
+      "shared_null_source_ids": 55,
+      "mass_baseline_definition": "mass_PARSEC_rv3.1",
+      "label_counts": {
+        "CygOB2-A": 476,
+        "CygOB2-C": 429,
+        "CygOB2-B": 426,
+        "unassigned": 61
+      },
+      "sha256": "1ba4f7c9e499318b3dc09ad5b28078f24a90d9158b5026cd665760bfdb8a2f70"
+    }
+  },
+  "gate_member_anchor_exempt_unassigned": 61,
+  "gate_member_clean_automatic_unassigned": 0
+}

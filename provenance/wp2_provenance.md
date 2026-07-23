@@ -95,9 +95,14 @@
 - **HSC 630 contamination control: EXCLUDED.** 43 members are spatially coincident but **0** match its
   PM (μδ −2.90 vs −4.3) or parallax (0.726 vs ~0.615). The pipeline did not sweep in the control.
 - **Verdict: three seed-stable, physically-confirmed kinematic subgroups of one 1.62 kpc body.**
-  Labels written to the **sidecar** `tables/wp2_subgroup_labels.parquet` (`source_id → subgroup_label`);
-  `data/processed/wp2_members.parquet` is intentionally NOT modified so Task B can read it
-  concurrently (join on `source_id`). Figures: `figures/wp2/wp2_subgroups_{sky,vpd,extinction}.png`.
+  Labels are authoritative in the **sidecar** `tables/wp2_subgroup_labels.parquet`
+  (`source_id → subgroup`). The 2026-07-23 WP4 closure migration
+  (`scripts/wp4_schema_repair.py`) propagates this one canonical column into the
+  WP2/WP3 member products and replaces every missing sidecar match with the
+  explicit category `unassigned`. For the P>0.5 gate sample, those missing
+  matches are exactly the 61 spectroscopic `anchor_quality_exempt` stars; no
+  subgroup is imputed for them. Figures:
+  `figures/wp2/wp2_subgroups_{sky,vpd,extinction}.png`.
 - Hand-off to WP4/WP5: subgroups share a distance → use them as spatial/kinematic sub-populations
   with per-subgroup extinction (A<B<C) for completeness, **and still carry the SF-duration branch
   (0/1/2 Myr)** as the coeval age-spread systematic (subgroups are kinematically, not age, distinct).

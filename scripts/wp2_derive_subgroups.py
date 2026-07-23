@@ -25,7 +25,7 @@ Outputs:
   provenance/wp2_gmm_seed_stability.csv
   provenance/wp2_hdbscan_subgroup_scan.csv
   provenance/wp2_paiz_crossmatch.csv
-  tables/wp2_subgroup_labels.parquet   SIDECAR (source_id -> subgroup_label);
+  tables/wp2_subgroup_labels.parquet   SIDECAR (source_id -> subgroup);
                                         wp2_members.parquet is NOT modified so
                                         Task B can read it concurrently.
   figures/wp2/wp2_subgroups_{sky,vpd,extinction}.png
@@ -253,7 +253,7 @@ def make_figures(clean, name_by_comp, cons, anc_full):
     # extinction
     fig, ax = plt.subplots(figsize=(6, 4))
     for L in ["CygOB2-A", "CygOB2-B", "CygOB2-C"]:
-        av = anc_full[anc_full["subgroup_label"] == L]["extinction_av_mag"].dropna()
+        av = anc_full[anc_full["subgroup"] == L]["extinction_av_mag"].dropna()
         if len(av):
             ax.hist(av, bins=np.arange(3, 10, 0.5), alpha=0.5, color=colors[L],
                     label=f"{L} (n={len(av)}, med={av.median():.1f})")
@@ -338,17 +338,17 @@ def main():
         cons, stab = consensus_cache[kbest]
         name_by_comp = name_components(clean, cons)
         labels = np.array([name_by_comp[c] for c in cons])
-        clean["subgroup_label"] = labels
+        clean["subgroup"] = labels
 
         anc = anchors[anchors["membership_probability"] > 0.5][["source_id"]].copy()
         anc["source_id"] = anc["source_id"].astype("Int64")
-        lab_by_id = dict(zip(clean["source_id"].astype("Int64"), clean["subgroup_label"]))
+        lab_by_id = dict(zip(clean["source_id"].astype("Int64"), clean["subgroup"]))
         anc_full = anc.merge(recs, on="source_id", how="left")
-        anc_full["subgroup_label"] = anc_full["source_id"].map(lab_by_id)
+        anc_full["subgroup"] = anc_full["source_id"].map(lab_by_id)
 
         # extinction split test (independent confirmation)
         labset = sorted(set(labels))
-        avs = {L: anc_full.loc[anc_full["subgroup_label"] == L, "extinction_av_mag"].dropna().values
+        avs = {L: anc_full.loc[anc_full["subgroup"] == L, "extinction_av_mag"].dropna().values
                for L in labset}
         pairks = []
         big = [L for L in labset if len(avs[L]) >= 5]
@@ -375,10 +375,10 @@ def main():
         for i in range(len(labset)):
             for j in range(i + 1, len(labset)):
                 A, B = labset[i], labset[j]
-                xa = mp.loc[mp["subgroup_label"] == A, "bprp"].dropna()
-                xb = mp.loc[mp["subgroup_label"] == B, "bprp"].dropna()
-                ga = mp.loc[mp["subgroup_label"] == A, "phot_g_mean_mag"].dropna()
-                gb = mp.loc[mp["subgroup_label"] == B, "phot_g_mean_mag"].dropna()
+                xa = mp.loc[mp["subgroup"] == A, "bprp"].dropna()
+                xb = mp.loc[mp["subgroup"] == B, "bprp"].dropna()
+                ga = mp.loc[mp["subgroup"] == A, "phot_g_mean_mag"].dropna()
+                gb = mp.loc[mp["subgroup"] == B, "phot_g_mean_mag"].dropna()
                 ksc = stats.ks_2samp(xa, xb)
                 ksg = stats.ks_2samp(ga, gb)
                 eff = abs(xa.median() - xb.median()) / np.sqrt((xa.std() ** 2 + xb.std() ** 2) / 2)
@@ -409,11 +409,11 @@ def main():
         }
     else:
         labels = np.array(["CygOB2_single_body"] * len(clean))
-        clean["subgroup_label"] = labels
+        clean["subgroup"] = labels
         anc = anchors[anchors["membership_probability"] > 0.5][["source_id"]].copy()
         anc["source_id"] = anc["source_id"].astype("Int64")
         anc_full = anc.merge(recs, on="source_id", how="left")
-        anc_full["subgroup_label"] = "CygOB2_single_body"
+        anc_full["subgroup"] = "CygOB2_single_body"
         name_by_comp = None
         cons = np.zeros(len(clean), dtype=int)
         log["decision"] = {
@@ -427,7 +427,7 @@ def main():
     # ---- subgroup characterisation ----
     analog_map = {"CygOB2-A": "FSR 0238 (+ part of Bica 2)", "CygOB2-B": "OC-128",
                   "CygOB2-C": "HSC 625 (+ part of Bica 2)", "CygOB2_single_body": "whole association"}
-    log["subgroups"] = [characterise(clean[clean["subgroup_label"] == L], L, analog_map.get(L, ""))
+    log["subgroups"] = [characterise(clean[clean["subgroup"] == L], L, analog_map.get(L, ""))
                         for L in sorted(set(labels))]
 
     # anchor confirmation summary + spectral content
@@ -441,7 +441,7 @@ def main():
     anc_full["specclass"] = anc_full["spectral_type"].map(klass)
     conf = []
     for L in sorted(set(labels)):
-        sub = anc_full[anc_full["subgroup_label"] == L]
+        sub = anc_full[anc_full["subgroup"] == L]
         av = sub["extinction_av_mag"].dropna()
         conf.append({"label": L, "n_anchors": int(len(sub)), "n_with_Av": int(len(av)),
                      "Av_median": float(av.median()) if len(av) else None,
@@ -472,14 +472,14 @@ def main():
 
     # ---- sidecar labels ----
     TABLES.mkdir(exist_ok=True)
-    side = clean[["source_id", "subgroup_label"]].copy()
+    side = clean[["source_id", "subgroup"]].copy()
     side["method"] = "GMM k-stable on (l,b,pmra,pmdec); parallax excluded"
     side.to_parquet(TABLES / "wp2_subgroup_labels.parquet", index=False)
     log["sidecar"] = {
         "path": "tables/wp2_subgroup_labels.parquet", "n_rows": int(len(side)),
         "key": "source_id",
         "note": "SIDECAR only; wp2_members.parquet NOT modified (Task B reads concurrently).",
-        "label_counts": {k: int(v) for k, v in side["subgroup_label"].value_counts().items()}}
+        "label_counts": {k: int(v) for k, v in side["subgroup"].value_counts().items()}}
 
     with open(PROV / "wp2_subgroups_execution.json", "w") as f:
         json.dump(log, f, indent=2)

@@ -18,6 +18,7 @@ CANONICAL_ANCHORS = ROOT / "data" / "processed" / "wp1_spectroscopic_anchors.par
 EVIDENCE = ROOT / "data" / "processed" / "wp1_spectroscopic_anchor_records.parquet"
 GAIA = ROOT / "data" / "processed" / "wp1_gaia_narrow.parquet"
 ASSIGNMENTS = ROOT / "data" / "processed" / "wp2_anchor_assignments.parquet"
+SUBGROUPS = ROOT / "tables" / "wp2_subgroup_labels.parquet"
 AUDIT = ROOT / "provenance" / "wp2_berlanas_recovery_audit.csv"
 EXECUTION = ROOT / "provenance" / "wp2_final_audits_execution.json"
 MANIFEST = ROOT / "provenance" / "wp2_membership_manifest.json"
@@ -36,6 +37,7 @@ def main() -> None:
     canonical = pd.read_parquet(CANONICAL_ANCHORS)
     evidence = pd.read_parquet(EVIDENCE)
     gaia = pd.read_parquet(GAIA)
+    subgroups = pd.read_parquet(SUBGROUPS)
     for frame in [members, canonical, evidence, gaia]:
         frame["source_id"] = pd.to_numeric(frame["source_id"], errors="coerce").astype("Int64")
 
@@ -49,11 +51,10 @@ def main() -> None:
     ]].copy()
     assignments["membership_probability"] = assignments["source_id"].map(probabilities)
     assignments["membership_basis"] = assignments["source_id"].map(bases)
-    assignments["subgroup_label"] = np.where(
-        assignments["membership_probability"].gt(0.5),
-        "CygOB2_distance_structure_unresolved",
-        "unassigned",
-    )
+    if "subgroup" not in subgroups or "subgroup_label" in subgroups:
+        raise RuntimeError("subgroup sidecar must expose only the canonical 'subgroup' column")
+    subgroup_by_id = subgroups.set_index("source_id")["subgroup"]
+    assignments["subgroup"] = assignments["source_id"].map(subgroup_by_id).fillna("unassigned")
     assignments["assignment_reason"] = np.where(
         assignments["membership_probability"].gt(0.5),
         "astrometric cluster-field mixture or explicit spectroscopic quality exception",

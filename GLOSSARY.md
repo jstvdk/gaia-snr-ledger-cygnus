@@ -233,6 +233,7 @@ Every column present in `wp1_gaia_narrow.parquet`. `*_error` columns are the 1σ
 | `zero_point_boundary_flag` | True if the star fell outside the recipe's validated range (G, ν<sub>eff</sub> or pseudocolour) and had to be clipped — i.e. the correction is an extrapolation. |
 | `zero_point_reliable` | The negation of the above. |
 | `quality_pass` | Your combined quality flag. |
+| `subgroup` | Canonical WP2 kinematic subgroup (`CygOB2-A/B/C`) copied from the authoritative `tables/wp2_subgroup_labels.parquet` sidecar. Rows outside the 1,331 clean automatic-member fit, including the 61 spectroscopic quality exceptions, are explicitly `unassigned`; no second subgroup column name is valid. |
 
 ---
 
@@ -473,7 +474,7 @@ An **isochrone** (Greek: "same time") is a model curve showing where stars of a 
 | `probable` / `members` | Stars surviving the membership probability cut (P > 0.05). |
 | `membership_probability` | Fraction of Monte Carlo draws in which the star stayed within the accepted locus. |
 | `membership_status` | Categorical binning of the above: rejected / tentative / probable / high. |
-| `subgroup_label` | GMM component assignment: `parallax_pop_1`, `parallax_pop_2`, or `unassigned`. |
+| `subgroup` | Canonical GMM subgroup assignment: `CygOB2-A`, `CygOB2-B`, `CygOB2-C`, or `unassigned`. |
 | `N_MC`, `SEED` | Monte Carlo draw count (100) and random seed (20260722). |
 | `centre`, `scale` | Median and MAD of the candidate set, defining the acceptance locus. **Note:** derived from the same set they are then used to test — the circularity discussed in the WP2 review. |
 | `MAD` | Median Absolute Deviation — a robust alternative to standard deviation. |

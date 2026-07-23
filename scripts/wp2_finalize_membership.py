@@ -445,8 +445,6 @@ def main() -> None:
         manual_rows.append(record)
     members = pd.concat([members, pd.DataFrame(manual_rows)], ignore_index=True)
     members = members.sort_values("source_id").drop_duplicates("source_id", keep="last").reset_index(drop=True)
-    members["subgroup_label"] = "CygOB2_distance_structure_unresolved"
-
     selected_analysis = analysis_probability > 0.5
     metrics = spatial_metrics(analysis, selected_analysis)
     berlanas_quality_mask = analysis["source_id"].isin(berlanas_set).to_numpy()
@@ -511,11 +509,6 @@ def main() -> None:
     anchor_assignment = canonical_anchors[["anchor_uid", "source_catalog", "object_name", "source_id", "spectral_type"]].copy()
     probability_by_id = members.set_index("source_id")["membership_probability"]
     anchor_assignment["membership_probability"] = anchor_assignment["source_id"].map(probability_by_id)
-    anchor_assignment["subgroup_label"] = np.where(
-        anchor_assignment["membership_probability"].gt(0.5),
-        "CygOB2_distance_structure_unresolved",
-        "unassigned",
-    )
     anchor_assignment["assignment_reason"] = np.where(
         anchor_assignment["membership_probability"].gt(0.5),
         "astrometric mixture or documented Berlanas quality exception",

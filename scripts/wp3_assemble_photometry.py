@@ -18,6 +18,15 @@ def sha(path):
 def main():
     members = pd.read_parquet("data/processed/wp2_members.parquet")
     members = members[members.membership_probability > 0.5].copy()
+    members = members.drop(columns=["subgroup", "subgroup_label"], errors="ignore")
+    subgroups = pd.read_parquet("tables/wp2_subgroup_labels.parquet")
+    if "subgroup" not in subgroups or "subgroup_label" in subgroups:
+        raise RuntimeError("subgroup sidecar must expose only the canonical 'subgroup' column")
+    members = members.merge(
+        subgroups[["source_id", "subgroup"]],
+        on="source_id", how="left", validate="one_to_one",
+    )
+    members["subgroup"] = members["subgroup"].fillna("unassigned")
     n0 = len(members)
 
     narrow = pd.read_parquet("data/processed/wp1_gaia_narrow.parquet", columns=[
@@ -61,7 +70,7 @@ def main():
 
     keep = ["source_id", "ra", "dec", "l_deg", "b_deg",
             "parallax_corrected", "parallax_error", "ruwe",
-            "membership_probability", "anchor_quality_exempt", "subgroup_label",
+            "membership_probability", "anchor_quality_exempt", "subgroup",
             "G", "G_err", "BP", "BP_err", "RP", "RP_err",
             "J", "J_err", "H", "H_err", "Ks", "Ks_err",
             "phot_bp_rp_excess_factor", "ph_qual", "ph_qual_aaa",
