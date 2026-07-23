@@ -86,7 +86,8 @@
   (indistinguishable) → colour differences are reddening, not mass selection → confirms all three.
   (b) Anchor A_V: A 5.13 (n=59) vs C 6.24 (n=43), KS 0.482 p 9e-6 eff 1.27; B has only 4 A_V anchors.
   (c) All three carry O and WR anchors.
-- **External validation — Paíz et al. 2025 (IJAA 15, 171) Table 3** (treated as targets, not
+- **External validation — Paíz et al. 2025 (IJAA 15, 171) Table 3** (local paper:
+  `papers/Paiz_2025.pdf`; treated as targets, not
   ground truth). Match = within radius+0.05°, within 0.45 mas/yr of cluster mean PM, within 0.10 mas
   parallax. Frozen: `provenance/wp2_paiz_crossmatch.csv`. OC-128 → B (214/245), HSC 625 → C (81/88),
   FSR 0238 → A (16/17), Bica 2 straddles A/C (74/108). FSR 0224 and OC-123 fall **outside** the member
