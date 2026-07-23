@@ -1,0 +1,32 @@
+{
+  "script": "scripts/wp3_anchor_extinction.py",
+  "inputs": {
+    "wp2_anchor_assignments": "26290a7e543b0a0a434522460aa5ffd94ebef5473032125b18ad2c2e93b9fcf5",
+    "wp1_spectroscopic_anchors": "9bb30e91d98568b346616e5c712f4784d3ff23f90d6216af501597bf18c9b283",
+    "wp3_member_photometry": "911a672e85b6c343cb940d5840531452050beb04249132f3badf052c304f6db0",
+    "isochrones_parsec": "9e0444045acf3e9331bf609e44c5f065635b217558f2ff46deec68fb66c8c663",
+    "isochrones_mist": "3b1437d791e61a5dc9b7b2a2ed12e83bc0a1c64cb775c3862a2073731623135b"
+  },
+  "method": "fixed-Teff two-parameter (mu, A_V) WLS over available bands; R_V branches",
+  "n_anchors_P_gt_0.5": 190,
+  "n_intrinsic_color": 149,
+  "n_wr_flagged": 3,
+  "n_literature_fallback": 41,
+  "teff_from_spectral_type_count": 0,
+  "validation_vs_literature_av_rv3.1": {
+    "n": 145,
+    "median_residual": 0.11863310264288618,
+    "mad": 0.09146646500936217,
+    "rms": 0.33003502285979763
+  },
+  "av_rv3.1_summary": {
+    "median": 5.6519372922775535,
+    "p05": 4.329240786689235,
+    "p95": 7.522641850446009,
+    "n_negative": 0
+  },
+  "output": {
+    "data/processed/wp3_anchor_extinction.parquet": "edba316b884d7cb9e51729972e38cfa027d585dff43c1f42af2eb51ea603abf2",
+    "rows": 190
+  }
+}

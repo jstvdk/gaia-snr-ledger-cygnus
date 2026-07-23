@@ -1,0 +1,18 @@
+{
+  "executed_utc": "2026-07-22T10:19:43.411975+00:00",
+  "query_name": "wide_exact_count",
+  "tap_url": "https://gea.esac.esa.int/tap-server/tap",
+  "tap_job_url": "https://gea.esac.esa.int/tap-server/tap/async/dba37985-85b6-11f1-982e-bc97e148b76b-O",
+  "tap_phase": "COMPLETED",
+  "query_file": "queries/gaia_wide_exact_count.adql",
+  "query_sha256": "ff35eb4e7361861763a04db5329412c8a13821b61be55932ca8b67badeb63e85",
+  "row_count": 1,
+  "column_count": 1,
+  "columns": [
+    "row_count"
+  ],
+  "outputs": {
+    "data/raw/gaia/wp1_gaia_wide_exact_count.fits": "a21b2389e62ae755877f1ae54b460ab21bf27831c1671ac89df3645bf998f236",
+    "data/raw/gaia/wp1_gaia_wide_exact_count.parquet": "d62d43a77937d704224054cfca6cb3e762b533bb5c2e4c6ecb43e1335d96ffd5"
+  }
+}

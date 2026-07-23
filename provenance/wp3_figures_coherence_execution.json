@@ -1,0 +1,37 @@
+{
+  "script": "scripts/wp3_figures_and_coherence.py",
+  "inputs": {
+    "wp3_extinction": "278dce68647f831987326fd46a6b398abc390721d8cd7f05c9787a7a1392dc21",
+    "wp3_cube_comparison": "da7cb31095d116b6c82dcb60f5d92503f55d5c09329be30df36d797d272643b1"
+  },
+  "neighbour_coherence": {
+    "k": 8,
+    "n": 1337,
+    "spearman_rho": 0.6590660909131826,
+    "spearman_p": 2.1683802869845683e-167,
+    "perm_rho_mean": 0.00017024445797338085,
+    "perm_rho_std": 0.03601072860168722,
+    "z_over_permutation": 18.297209527283425
+  },
+  "wp5_truncation_edges_Glt19_at_1.62kpc": {
+    "2.0": {
+      "M_G0": 2.516,
+      "A_V_edge": 6.49361724350285
+    },
+    "3.0": {
+      "M_G0": 0.71,
+      "A_V_edge": 8.653213161242867
+    },
+    "5.0": {
+      "M_G0": -0.536,
+      "A_V_edge": 10.143166933947224
+    }
+  },
+  "kG_over_AV": 0.8362675559647974,
+  "figures": [
+    "figures/wp3/wp3_dereddened_cmd.png",
+    "figures/wp3/wp3_extinction_map.png",
+    "figures/wp3/wp3_av_distribution.png",
+    "figures/wp3/wp3_wp5_truncation.png"
+  ]
+}

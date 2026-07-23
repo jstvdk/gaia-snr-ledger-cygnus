@@ -1,0 +1,20 @@
+{
+  "script": "scripts/wp3_assemble_photometry.py",
+  "inputs": {
+    "data/processed/wp2_members.parquet": "61f756001738949b793b06f6a61f8266ffa2259351c8530dfbce928af8ba6e29",
+    "data/processed/wp1_gaia_narrow.parquet": "ae17f6180e11073b8cc781497a45d3245085569502147f07926d1c5e46e5587a",
+    "data/processed/wp1_2mass_join.parquet": "2be08c74dab31d09b914c3b2038aed39d03fa6595339bf40efd78f6e15c11c2e"
+  },
+  "member_selection": "membership_probability > 0.5",
+  "n_members": 1392,
+  "n_with_2mass_psc": 1336,
+  "n_without_2mass_flagged": 56,
+  "n_complete_jhk": 1261,
+  "n_ph_qual_aaa": 1239,
+  "n_without_gaia_photometry": 9,
+  "gaia_mag_error_model": "sigma_mag=1.0857*flux_err/flux via DR3 VEGAMAG ZP; 0.003 mag floor",
+  "output": {
+    "data/processed/wp3_member_photometry.parquet": "911a672e85b6c343cb940d5840531452050beb04249132f3badf052c304f6db0",
+    "rows": 1392
+  }
+}

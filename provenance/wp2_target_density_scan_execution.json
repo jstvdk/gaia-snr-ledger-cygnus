@@ -1,0 +1,87 @@
+{
+  "created_utc": "2026-07-22T14:05:20.046524+00:00",
+  "script": "scripts/wp2_membership_pipeline.py --stage target-scan",
+  "input": {
+    "data/processed/wp1_gaia_narrow.parquet": "ae17f6180e11073b8cc781497a45d3245085569502147f07926d1c5e46e5587a"
+  },
+  "preprocessing": {
+    "input_rows": 245843,
+    "analysis_rows": 199041,
+    "quality_fraction": 0.8096264689252897,
+    "quality_filter": "RUWE<1.4; visibility_periods_used>=8; BP/RP excess present; positive errors; finite 3D covariance; reliable zero point",
+    "zero_point_mas": {
+      "median": -0.031822,
+      "min": -0.078695,
+      "max": 0.000794
+    },
+    "features": [
+      "parallax_corrected",
+      "pmra",
+      "pmdec"
+    ],
+    "sky_used_in_clustering": false,
+    "robust_scaler_center": {
+      "parallax_corrected": 0.6699349069166743,
+      "pmra": -2.3645433040948047,
+      "pmdec": -4.536546112672322
+    },
+    "robust_scaler_scale": {
+      "parallax_corrected": 0.32486626158904364,
+      "pmra": 3.53705849286803,
+      "pmdec": 4.30154177591275
+    }
+  },
+  "target_field": {
+    "center_l_b_deg": [
+      80.22449980431047,
+      0.7840736986995647
+    ],
+    "radius_deg": 0.5641895835477563,
+    "area_deg2": 1.0,
+    "rows": 5371
+  },
+  "controls": {
+    "centers_l_b_deg": [
+      [
+        77.8,
+        0.7840736986995647
+      ],
+      [
+        82.2,
+        0.7840736986995647
+      ],
+      [
+        80.22449980431047,
+        -0.7
+      ]
+    ],
+    "radius_deg": 0.5641895835477563,
+    "rows": [
+      6994,
+      2875,
+      1793
+    ]
+  },
+  "k_distance": {
+    "k": 15,
+    "knee_eps": 0.5406018602824276,
+    "knee_rank_fraction": 0.9190094954384659,
+    "dense_regime_knee_eps": 0.06071411993298236,
+    "dense_regime_rank_fraction": 0.1517408303854031,
+    "dense_regime_cap_fraction": 0.2,
+    "knee_interpretation": "global knee is field-tail dominated; dense-regime knee brackets the association seed transition",
+    "quantiles": {
+      "0.5": 0.21105249706891682,
+      "0.75": 0.32112926958908605,
+      "0.9": 0.49707584965206175,
+      "0.95": 0.6693168104031917,
+      "0.975": 0.9269017226188101,
+      "0.99": 1.28356051541269
+    }
+  },
+  "outputs": {
+    "provenance/wp2_target_kdistance_min15.parquet": "a359da12b2fc1cf31e0320feff101ba462b085cbc9c7e97597bf3df15ac45dcd",
+    "provenance/wp2_target_dbscan_scan.csv": "d3bf56ccbd183895867fbd1341a10fea64529e784ce5687d6476ada7f7dd5056",
+    "figures/wp2/target_kdistance_min15.png": "7dae12189ef1db710fe2cb53584609b7d179b41986e5e23c8cf3814496d08382"
+  }
+}

@@ -1,0 +1,401 @@
+{
+  "created_utc": "2026-07-22T14:39:09.375901+00:00",
+  "status": "COMPLETE",
+  "script": "scripts/wp2_distance_population_test.py",
+  "seed": 20260722,
+  "method": {
+    "model": "latent Gaussian mixture in distance; nonlinear forward convolution into parallax",
+    "extreme_deconvolution": true,
+    "quadrature_nodes": 40,
+    "per_star_parallax_errors": true,
+    "raw_parallax_truncation_mas": [
+      0.35,
+      1.1
+    ],
+    "zero_point_shifted_selection_bounds_per_star": true,
+    "manual_anchor_exceptions_excluded": true
+  },
+  "inputs": {
+    "data/processed/wp2_members.parquet": "61f756001738949b793b06f6a61f8266ffa2259351c8530dfbce928af8ba6e29",
+    "data/processed/wp2_control_members.parquet": "4a8e04bfca4b36bb4ddaec3351f039d6a43894134f8523da0cf6b0cc14ab9aaa",
+    "data/processed/wp1_spectroscopic_anchors.parquet": "9bb30e91d98568b346616e5c712f4784d3ff23f90d6216af501597bf18c9b283"
+  },
+  "association": {
+    "dataset": "association",
+    "rows": 1331,
+    "one_component": {
+      "components": 1,
+      "means_kpc": [
+        1.6245269765107866
+      ],
+      "intrinsic_sigmas_kpc": [
+        0.045435283517080684
+      ],
+      "weights": [
+        1.0
+      ],
+      "log_likelihood": 2513.0150440079206,
+      "parameter_count": 2,
+      "bic": -5011.642716379051,
+      "optimizer_success": true,
+      "optimizer_message": "CONVERGENCE: RELATIVE REDUCTION OF F <= FACTR*EPSMCH",
+      "parameters": [
+        1.6245269765107866,
+        -3.0914663057952954
+      ]
+    },
+    "two_component": {
+      "components": 2,
+      "means_kpc": [
+        1.6081903633220649,
+        1.6396136226475737
+      ],
+      "intrinsic_sigmas_kpc": [
+        0.01603521390770307,
+        0.055773395154628834
+      ],
+      "weights": [
+        0.4797924428058028,
+        0.5202075571941972
+      ],
+      "log_likelihood": 2517.7224236799043,
+      "parameter_count": 5,
+      "bic": -4999.476418267833,
+      "optimizer_success": true,
+      "optimizer_message": "CONVERGENCE: RELATIVE REDUCTION OF F <= FACTR*EPSMCH",
+      "parameters": [
+        1.6396136226475737,
+        1.6081903633220649,
+        -4.132968105875914,
+        -2.8864583126386223,
+        0.08087428082312652
+      ]
+    },
+    "delta_bic_two_minus_one": 12.166298111218566,
+    "cross_validation_one": {
+      "folds": 3,
+      "total_log_predictive_density": 2508.8236005252247,
+      "per_star_log_predictive_density": 1.8849163039257886,
+      "fold_scores": [
+        811.3647979630077,
+        830.9664562911812,
+        866.4923462710358
+      ]
+    },
+    "cross_validation_two": {
+      "folds": 3,
+      "total_log_predictive_density": 2512.474209148366,
+      "per_star_log_predictive_density": 1.8876590602166534,
+      "fold_scores": [
+        813.7605188296008,
+        832.7952794670241,
+        865.918410851741
+      ]
+    },
+    "delta_cv_log_predictive_two_minus_one": 3.6506086231411246
+  },
+  "controls": [
+    {
+      "dataset": "control_1",
+      "rows": 80,
+      "one_component": {
+        "components": 1,
+        "means_kpc": [
+          1.6527278872546949
+        ],
+        "intrinsic_sigmas_kpc": [
+          0.06725286472129988
+        ],
+        "weights": [
+          1.0
+        ],
+        "log_likelihood": 134.4777391161026,
+        "parameter_count": 2,
+        "bic": -260.19142496285747,
+        "optimizer_success": true,
+        "optimizer_message": "CONVERGENCE: RELATIVE REDUCTION OF F <= FACTR*EPSMCH",
+        "parameters": [
+          1.6527278872546949,
+          -2.6992956633212177
+        ]
+      },
+      "two_component": {
+        "components": 2,
+        "means_kpc": [
+          1.6139902312259662,
+          1.7687689024245918
+        ],
+        "intrinsic_sigmas_kpc": [
+          0.026236999623234288,
+          0.010000000000000005
+        ],
+        "weights": [
+          0.7833735704546988,
+          0.2166264295453012
+        ],
+        "log_likelihood": 136.3258604717858,
+        "parameter_count": 5,
+        "bic": -250.7415877702022,
+        "optimizer_success": true,
+        "optimizer_message": "CONVERGENCE: RELATIVE REDUCTION OF F <= FACTR*EPSMCH",
+        "parameters": [
+          1.6139902312259662,
+          1.7687689024245918,
+          -3.6405846650707216,
+          -4.605170185988091,
+          1.2854353365043354
+        ]
+      },
+      "delta_bic_two_minus_one": 9.44983719265528,
+      "cross_validation_one": {
+        "folds": 3,
+        "total_log_predictive_density": 131.340531620114,
+        "per_star_log_predictive_density": 1.6417566452514252,
+        "fold_scores": [
+          47.38002920981381,
+          46.519895572050785,
+          37.440606838249394
+        ]
+      },
+      "cross_validation_two": {
+        "folds": 3,
+        "total_log_predictive_density": 128.93282536265832,
+        "per_star_log_predictive_density": 1.611660317033229,
+        "fold_scores": [
+          48.294601772094644,
+          43.130746300259425,
+          37.507477290304244
+        ]
+      },
+      "delta_cv_log_predictive_two_minus_one": -2.4077062574556862
+    },
+    {
+      "dataset": "control_2",
+      "rows": 45,
+      "one_component": {
+        "components": 1,
+        "means_kpc": [
+          1.6796353443877605
+        ],
+        "intrinsic_sigmas_kpc": [
+          0.0564833586278846
+        ],
+        "weights": [
+          1.0
+        ],
+        "log_likelihood": 71.63290994150054,
+        "parameter_count": 2,
+        "bic": -135.65249490346045,
+        "optimizer_success": true,
+        "optimizer_message": "CONVERGENCE: RELATIVE REDUCTION OF F <= FACTR*EPSMCH",
+        "parameters": [
+          1.6796353443877605,
+          -2.8738092217740125
+        ]
+      },
+      "two_component": {
+        "components": 2,
+        "means_kpc": [
+          1.6161253679791616,
+          1.7370567830311872
+        ],
+        "intrinsic_sigmas_kpc": [
+          0.010000000000000005,
+          0.02743645550261999
+        ],
+        "weights": [
+          0.49711810007459956,
+          0.5028818999254004
+        ],
+        "log_likelihood": 72.04525621707162,
+        "parameter_count": 5,
+        "bic": -125.05719998529165,
+        "optimizer_success": true,
+        "optimizer_message": "CONVERGENCE: RELATIVE REDUCTION OF F <= FACTR*EPSMCH",
+        "parameters": [
+          1.7370567830311872,
+          1.6161253679791616,
+          -4.605170185988091,
+          -3.5958826571130014,
+          0.011527727358436636
+        ]
+      },
+      "delta_bic_two_minus_one": 10.595294918168804,
+      "cross_validation_one": {
+        "folds": 3,
+        "total_log_predictive_density": 63.461035314374975,
+        "per_star_log_predictive_density": 1.4102452292083327,
+        "fold_scores": [
+          23.672437013672624,
+          16.93324416161808,
+          22.85535413908427
+        ]
+      },
+      "cross_validation_two": {
+        "folds": 3,
+        "total_log_predictive_density": 63.23237701389489,
+        "per_star_log_predictive_density": 1.4051639336421087,
+        "fold_scores": [
+          23.543878933028015,
+          16.93324332983451,
+          22.75525475103237
+        ]
+      },
+      "delta_cv_log_predictive_two_minus_one": -0.22865830048008462
+    },
+    {
+      "dataset": "control_3",
+      "rows": 21,
+      "one_component": {
+        "components": 1,
+        "means_kpc": [
+          1.5312780423115997
+        ],
+        "intrinsic_sigmas_kpc": [
+          0.0356872552174051
+        ],
+        "weights": [
+          1.0
+        ],
+        "log_likelihood": 37.788145737951936,
+        "parameter_count": 2,
+        "bic": -69.48724660045703,
+        "optimizer_success": true,
+        "optimizer_message": "CONVERGENCE: RELATIVE REDUCTION OF F <= FACTR*EPSMCH",
+        "parameters": [
+          1.5312780423115997,
+          -3.3329616506463813
+        ]
+      },
+      "two_component": {
+        "components": 2,
+        "means_kpc": [
+          1.511403442803124,
+          1.7279135536491934
+        ],
+        "intrinsic_sigmas_kpc": [
+          0.010000000000000005,
+          0.010000000000000005
+        ],
+        "weights": [
+          0.8883148190767022,
+          0.11168518092329782
+        ],
+        "log_likelihood": 38.5615628189112,
+        "parameter_count": 5,
+        "bic": -61.900513449205285,
+        "optimizer_success": true,
+        "optimizer_message": "CONVERGENCE: RELATIVE REDUCTION OF F <= FACTR*EPSMCH",
+        "parameters": [
+          1.511403442803124,
+          1.7279135536491934,
+          -4.605170185988091,
+          -4.605170185988091,
+          2.0736421774230758
+        ]
+      },
+      "delta_bic_two_minus_one": 7.586733151251742,
+      "cross_validation_one": {
+        "folds": 2,
+        "total_log_predictive_density": 33.56826279753075,
+        "per_star_log_predictive_density": 1.5984887046443215,
+        "fold_scores": [
+          20.02486994646213,
+          13.543392851068623
+        ]
+      },
+      "cross_validation_two": {
+        "folds": 2,
+        "total_log_predictive_density": 34.210452846800514,
+        "per_star_log_predictive_density": 1.629069183180977,
+        "fold_scores": [
+          20.652841297114954,
+          13.557611549685562
+        ]
+      },
+      "delta_cv_log_predictive_two_minus_one": 0.6421900492697645
+    }
+  ],
+  "independent_diagnostics": {
+    "component_rows": [
+      748,
+      583
+    ],
+    "variables": {
+      "l_deg": {
+        "available": 1331,
+        "component_means": [
+          80.00157841455376,
+          79.96876141115031
+        ],
+        "standardized_mean_difference": 0.09534008472671178,
+        "ks_statistic": 0.05778932499243265,
+        "ks_pvalue": 0.21321968315521844
+      },
+      "b_deg": {
+        "available": 1331,
+        "component_means": [
+          0.8226643718369958,
+          0.8663519190475747
+        ],
+        "standardized_mean_difference": 0.16751911410157933,
+        "ks_statistic": 0.11330844516194127,
+        "ks_pvalue": 0.0003982281309501845
+      },
+      "pmra": {
+        "available": 1331,
+        "component_means": [
+          -2.7118708272107606,
+          -2.7120559078013002
+        ],
+        "standardized_mean_difference": 0.0006414954530007883,
+        "ks_statistic": 0.03597013419432953,
+        "ks_pvalue": 0.7722737740604632
+      },
+      "pmdec": {
+        "available": 1331,
+        "component_means": [
+          -4.313089643615167,
+          -4.308388140656139
+        ],
+        "standardized_mean_difference": 0.015194005842334452,
+        "ks_statistic": 0.05796589647866007,
+        "ks_pvalue": 0.21036027738675503
+      },
+      "extinction_av_mag": {
+        "available": 106,
+        "component_means": [
+          5.510869575583416,
+          5.59783333937327
+        ],
+        "standardized_mean_difference": 0.08624554901976536,
+        "ks_statistic": 0.15,
+        "ks_pvalue": 0.5381910450393255
+      }
+    },
+    "independent_confirming_variables": [],
+    "confirmation_rule": "standardized mean difference >=0.30 and KS p<0.01 in at least one non-parallax variable",
+    "independently_confirmed": false
+  },
+  "decision": {
+    "association_bic_prefers_two": false,
+    "association_cv_prefers_two": true,
+    "control_fields_preferring_two": [],
+    "independently_confirmed": false,
+    "verdict": "NO_CONFIRMED_TWO_DISTANCE_POPULATION_CLAIM"
+  },
+  "outputs": {
+    "data/processed/wp2_distance_component_probabilities.parquet": {
+      "sha256": "51bd3380c5cebb2911a9ce8a013354a32f2e36fc0617957434e62c76e8e8551a",
+      "bytes": 49084
+    },
+    "figures/wp2/wp2_distance_population_test.png": {
+      "sha256": "e6f46e9994ad031e6abc2147d9e562da605b5ed400e38c0ad6bef38cf67e12e4",
+      "bytes": 59278
+    },
+    "wp2_subgroups.md": {
+      "sha256": "69962c5b0890a374f997ccdc8f16176ec9d9a676ec1a50baad6c16d62e84e775",
+      "bytes": 2214
+    }
+  }
+}

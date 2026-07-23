@@ -1,0 +1,89 @@
+{
+  "created_utc": "2026-07-22T11:03:42.166271+00:00",
+  "script": "scripts/wp1_combine_2mass_tiles.py",
+  "tap_phase": "COMPLETED",
+  "acquisition": "six non-overlapping Gaia-l tiles after the monolithic archive job aborted its transaction",
+  "selection": {
+    "l_deg": [
+      77.0,
+      83.0
+    ],
+    "b_deg": [
+      -1.5,
+      4.0
+    ],
+    "parallax_mas": [
+      0.35,
+      1.1
+    ],
+    "phot_g_mean_mag_lt": 19.0
+  },
+  "input_tiles": [
+    {
+      "query_name": "2mass_tile01",
+      "file": "data/raw/gaia/wp1_gaia_2mass_tile01.parquet",
+      "rows": 58873,
+      "sha256": "fdc7254932650a5dfafcbb68febb39662d79c74cd71f25a7f524ec7051977875",
+      "tap_job_url": "https://gea.esac.esa.int/tap-server/tap/async/79ec5827-85bb-11f1-982e-bc97e148b76b-O",
+      "query_sha256": "881d3518f558f8738bad54d9fec169fd519840eddf12198a05c19f7cd9915076"
+    },
+    {
+      "query_name": "2mass_tile02",
+      "file": "data/raw/gaia/wp1_gaia_2mass_tile02.parquet",
+      "rows": 36516,
+      "sha256": "bd7726735ef72cc4faaf72ac2a2bb7a5fb3206362aa72c2cc124dacc21a8ac44",
+      "tap_job_url": "https://gea.esac.esa.int/tap-server/tap/async/79dbdd63-85bb-11f1-982e-bc97e148b76b-O",
+      "query_sha256": "2fa7332c2ecb55379e67978c12d492b2633fdf71da1a714cbaef494deb9dcf94"
+    },
+    {
+      "query_name": "2mass_tile03",
+      "file": "data/raw/gaia/wp1_gaia_2mass_tile03.parquet",
+      "rows": 30400,
+      "sha256": "e96911eb47f206936f6c307b9e3625496e1c8622de359e98ab8018eb4b284731",
+      "tap_job_url": "https://gea.esac.esa.int/tap-server/tap/async/79e0bf64-85bb-11f1-982e-bc97e148b76b-O",
+      "query_sha256": "4e1b3f239d3ff813d462665fc1ebc0271877c029091f98426aae76c1521148aa"
+    },
+    {
+      "query_name": "2mass_tile04",
+      "file": "data/raw/gaia/wp1_gaia_2mass_tile04.parquet",
+      "rows": 35895,
+      "sha256": "c49f36d7702d143c2bf4e0912b9ccd8de399b9cbf7505c8cd539f7de35b9879e",
+      "tap_job_url": "https://gea.esac.esa.int/tap-server/tap/async/79eef038-85bb-11f1-982e-bc97e148b76b-O",
+      "query_sha256": "010e8aff56ac4eb2a8a2b4e9dc5f27b859b58b93db93a63e47d9bea39cd7a2db"
+    },
+    {
+      "query_name": "2mass_tile05",
+      "file": "data/raw/gaia/wp1_gaia_2mass_tile05.parquet",
+      "rows": 30252,
+      "sha256": "3c8de654655140bdb6b891bdf870e34aec0384ec92847842a619cad62f2f6f20",
+      "tap_job_url": "https://gea.esac.esa.int/tap-server/tap/async/79e68bc5-85bb-11f1-982e-bc97e148b76b-O",
+      "query_sha256": "c06c3c53328126ae7c66539c64e6f3c7c252f4f74d92f35e7d8d314f20efb46f"
+    },
+    {
+      "query_name": "2mass_tile06",
+      "file": "data/raw/gaia/wp1_gaia_2mass_tile06.parquet",
+      "rows": 36719,
+      "sha256": "13f1e6cb2b4d89bd365088ff8d11708bc2c6f24f15afde44083ac5df0f9b630b",
+      "tap_job_url": "https://gea.esac.esa.int/tap-server/tap/async/79e81266-85bb-11f1-982e-bc97e148b76b-O",
+      "query_sha256": "765a58701236e33a30f081102b12a11484f21e11cafd4a23f26cbb85d2c13f92"
+    }
+  ],
+  "row_count": 228655,
+  "duplicate_source_ids": 0,
+  "rows_outside_frozen_narrow": 1,
+  "source_ids_outside_frozen_narrow": [
+    2070682352787315200
+  ],
+  "boundary_note": "Gaia stored-l selection includes source 2070682352787315200, whose ICRS position transforms with Astropy to l=83.00000571998599 deg; the canonical processed join keys to frozen narrow source_ids and therefore excludes it.",
+  "outputs": {
+    "data/raw/gaia/wp1_gaia_2mass_join.parquet": {
+      "sha256": "7cbe5a6a35c425d0c0d7fce91bb20cda2f86171bc33a202414b06aa537babe1b",
+      "bytes": 14452135
+    }
+  },
+  "failed_monolithic_job": {
+    "tap_job_url": "https://gea.esac.esa.int/tap-server/tap/async/eba92310-85b5-11f1-982e-bc97e148b76b-O",
+    "phase": "ERROR",
+    "archive_error": "org.postgresql.util.PSQLException: ERROR: current transaction is aborted, commands ignored until end of transaction block"
+  }
+}

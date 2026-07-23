@@ -1,0 +1,25 @@
+{
+  "created_utc": "2026-07-22T14:37:50.871749+00:00",
+  "script": "scripts/wp2_finalize_audits.py",
+  "inputs": {
+    "data/processed/wp2_members.parquet": "61f756001738949b793b06f6a61f8266ffa2259351c8530dfbce928af8ba6e29",
+    "data/processed/wp1_spectroscopic_anchors.parquet": "9bb30e91d98568b346616e5c712f4784d3ff23f90d6216af501597bf18c9b283",
+    "data/processed/wp1_spectroscopic_anchor_records.parquet": "9e997d798e1ceda91ad38dc324998e6323a589f82709a1a3f65ae65c81fe75e1",
+    "data/processed/wp1_gaia_narrow.parquet": "ae17f6180e11073b8cc781497a45d3245085569502147f07926d1c5e46e5587a"
+  },
+  "canonical_anchor_assignments": {
+    "rows": 252,
+    "unique_source_ids": 252,
+    "duplicate_source_ids": 0
+  },
+  "berlanas_gate_audit": {
+    "denominator": 229,
+    "recovered": 189,
+    "missed": 40,
+    "every_row_has_reason": true
+  },
+  "outputs": {
+    "data/processed/wp2_anchor_assignments.parquet": "26290a7e543b0a0a434522460aa5ffd94ebef5473032125b18ad2c2e93b9fcf5",
+    "provenance/wp2_berlanas_recovery_audit.csv": "460df72981766dfedb7d7ec24f4b312eee8fdd17bacf0b7ebf8393fcdb3c7a3d"
+  }
+}

@@ -1,0 +1,64 @@
+{
+  "created_utc": "2026-07-22T14:03:04.032952+00:00",
+  "script": "scripts/wp2_membership_pipeline.py --stage hdbscan-leaf-scan",
+  "seed": 20260722,
+  "input": {
+    "data/processed/wp1_gaia_narrow.parquet": "ae17f6180e11073b8cc781497a45d3245085569502147f07926d1c5e46e5587a"
+  },
+  "preprocessing": {
+    "input_rows": 245843,
+    "analysis_rows": 199041,
+    "quality_fraction": 0.8096264689252897,
+    "quality_filter": "RUWE<1.4; visibility_periods_used>=8; BP/RP excess present; positive errors; finite 3D covariance; reliable zero point",
+    "zero_point_mas": {
+      "median": -0.031822,
+      "min": -0.078695,
+      "max": 0.000794
+    },
+    "features": [
+      "parallax_corrected",
+      "pmra",
+      "pmdec"
+    ],
+    "sky_used_in_clustering": false,
+    "robust_scaler_center": {
+      "parallax_corrected": 0.6699349069166743,
+      "pmra": -2.3645433040948047,
+      "pmdec": -4.536546112672322
+    },
+    "robust_scaler_scale": {
+      "parallax_corrected": 0.32486626158904364,
+      "pmra": 3.53705849286803,
+      "pmdec": 4.30154177591275
+    }
+  },
+  "feature_space": [
+    "parallax_corrected",
+    "pmra",
+    "pmdec"
+  ],
+  "parameter_grid": {
+    "min_samples": [
+      10,
+      15,
+      20
+    ],
+    "min_cluster_size": [
+      30,
+      60,
+      120,
+      240
+    ]
+  },
+  "association_component_rule": {
+    "target_field_rows_min": 10,
+    "target_fraction_min": 0.15151515151515152,
+    "control_to_target_ratio_max": 0.5,
+    "note": "fixed sky criterion selects which kinematic components correspond to the association; Berlanas labels are not used"
+  },
+  "output": {
+    "file": "provenance/wp2_hdbscan_leaf_scan.csv",
+    "sha256": "27627d8ed24ae5e678d6d625140894b3a999fd8eaec06353f43ff567db9f5a38",
+    "rows": 12
+  }
+}

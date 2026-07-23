@@ -1,0 +1,38 @@
+{
+  "created_utc": "2026-07-22T09:15:44.787587+00:00",
+  "notebook": "notebooks/wp2_membership_and_substructure.ipynb",
+  "input": "data/processed/wp1_gaia_narrow.parquet",
+  "zero_point_recipe": "Lindegren et al. Gaia DR3/EDR3 via gaiadr3-zeropoint 0.1.0",
+  "zero_point_summary_mas": {
+    "median": -0.031822,
+    "min": -0.078695,
+    "max": 0.000794
+  },
+  "quality_filter": "RUWE<1.4, visibility_periods_used>=8, BP/RP excess present",
+  "clustering": "DBSCAN eps=0.42 min_samples=15 RobustScaler",
+  "monte_carlo": {
+    "N": 100,
+    "seed": 20260722,
+    "errors": "diagonal approximation"
+  },
+  "counts": {
+    "input": 245843,
+    "analysis": 199041,
+    "candidate": 187235,
+    "members_p_gt_005": 159450,
+    "members_p_gt_05": 156414
+  },
+  "distance_test": [
+    {
+      "model": "one_component",
+      "bic": -74608.12647629464,
+      "delta_bic_vs_one": 0.0
+    },
+    {
+      "model": "two_component",
+      "bic": -99873.10306662468,
+      "delta_bic_vs_one": -25264.976590330043
+    }
+  ],
+  "output": "data/processed/wp2_members.parquet"
+}

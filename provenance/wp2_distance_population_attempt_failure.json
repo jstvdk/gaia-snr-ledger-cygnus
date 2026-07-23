@@ -1,0 +1,9 @@
+{
+  "created_utc": "2026-07-22T14:31:00Z",
+  "status": "FAILED_PRE_FIT",
+  "script": "scripts/wp2_distance_population_test.py",
+  "error": "pandas merge rejected int64 member source_id versus string anchor source_id",
+  "scientific_fit_started": false,
+  "canonical_artifacts_replaced": false,
+  "resolution": "Convert canonical anchor source_id values to validated int64 before the one-to-one merge."
+}

@@ -1,0 +1,275 @@
+{
+  "created_utc": "2026-07-22T14:30:27.519156+00:00",
+  "status": "WP2_COMPLETE_ALL_GATES_PASSED",
+  "script": "scripts/wp2_finalize_membership.py",
+  "seed": 20260722,
+  "input": {
+    "data/processed/wp1_gaia_narrow.parquet": "ae17f6180e11073b8cc781497a45d3245085569502147f07926d1c5e46e5587a"
+  },
+  "preprocessing": {
+    "input_rows": 245843,
+    "analysis_rows": 199041,
+    "quality_fraction": 0.8096264689252897,
+    "quality_filter": "RUWE<1.4; visibility_periods_used>=8; BP/RP excess present; positive errors; finite 3D covariance; reliable zero point",
+    "zero_point_mas": {
+      "median": -0.031822,
+      "min": -0.078695,
+      "max": 0.000794
+    },
+    "features": [
+      "parallax_corrected",
+      "pmra",
+      "pmdec"
+    ],
+    "sky_used_in_clustering": false,
+    "robust_scaler_center": {
+      "parallax_corrected": 0.6699349069166743,
+      "pmra": -2.3645433040948047,
+      "pmdec": -4.536546112672322
+    },
+    "robust_scaler_scale": {
+      "parallax_corrected": 0.32486626158904364,
+      "pmra": 3.53705849286803,
+      "pmdec": 4.30154177591275
+    }
+  },
+  "published_footprint": {
+    "source": "Berlanas et al. 2019 Section 2.1",
+    "center_l_b_deg": [
+      79.8,
+      0.8
+    ],
+    "radius_deg": 1.0,
+    "area_deg2": 3.141592653589793,
+    "control_centers_l_b_deg": [
+      [
+        78.0,
+        3.0
+      ],
+      [
+        82.0,
+        3.0
+      ],
+      [
+        82.0,
+        0.8
+      ]
+    ],
+    "quality_rows_target_controls": [
+      14636,
+      32879,
+      23908,
+      8112
+    ]
+  },
+  "density_scan": {
+    "eps_values": [
+      0.03,
+      0.04,
+      0.05,
+      0.06,
+      0.07,
+      0.08,
+      0.1
+    ],
+    "min_samples_values": [
+      10,
+      15,
+      20
+    ],
+    "k_distance": {
+      "k": 15,
+      "global_knee_eps": 0.45342860801356566,
+      "global_knee_rank_fraction": 0.9336567368133369,
+      "dense_regime_knee_eps": 0.06900946705726745,
+      "dense_regime_knee_rank_fraction": 0.14983602077070238,
+      "dense_regime_cap_fraction": 0.2
+    },
+    "selected": {
+      "eps": 0.05,
+      "min_samples": 15,
+      "target_rows": 14636,
+      "target_largest_rows": 1588,
+      "target_largest_fraction_analysis": 0.007978255736255345,
+      "control_largest_rows_json": "[4006, 111, 0]",
+      "mean_control_to_target_largest_ratio": 0.8641897565071368,
+      "berlanas_quality_target_denominator": 166,
+      "berlanas_seed_recovered": 125,
+      "berlanas_seed_recall": 0.7530120481927711
+    },
+    "role": "DBSCAN supplies a training seed only; labels are not published membership"
+  },
+  "mixture": {
+    "feature_space": [
+      "relative_l",
+      "relative_b",
+      "parallax_corrected",
+      "pmra",
+      "pmdec"
+    ],
+    "sky_role": "published 1-degree footprint and relative spatial density are used; the earlier 3D-only branch is retained as a rejected diagnostic",
+    "cluster_components_bic": [
+      {
+        "components": 1,
+        "bic": -7315.155515215546
+      },
+      {
+        "components": 2,
+        "bic": -7648.620627221358
+      },
+      {
+        "components": 3,
+        "bic": -7799.831891517574
+      },
+      {
+        "components": 4,
+        "bic": -7763.709728417794
+      },
+      {
+        "components": 5,
+        "bic": -7878.437693406328
+      },
+      {
+        "components": 6,
+        "bic": -7809.379022461593
+      }
+    ],
+    "cluster_components_selected": 5,
+    "field_components_bic": [
+      {
+        "components": 4,
+        "bic": 407695.40432132984
+      },
+      {
+        "components": 8,
+        "bic": 403806.4044564793
+      },
+      {
+        "components": 12,
+        "bic": 403379.4619406108
+      },
+      {
+        "components": 16,
+        "bic": 400736.55909717886
+      },
+      {
+        "components": 24,
+        "bic": 400243.4500430247
+      },
+      {
+        "components": 32,
+        "bic": 400362.7426004668
+      }
+    ],
+    "field_components_selected": 24,
+    "covariance_treatment": "empirical observed-population component covariances; per-star Gaia measurement covariance is propagated by 10,000 draws",
+    "cluster_prior_selected_by_max_control_leakage": 0.039999999999999994,
+    "posterior_definition": "prior*L_cluster/(prior*L_cluster + (1-prior)*L_field)"
+  },
+  "monte_carlo": {
+    "draws_per_evaluated_star": 10000,
+    "full_covariance_terms": [
+      "parallax_pmra_corr",
+      "parallax_pmdec_corr",
+      "pmra_pmdec_corr"
+    ],
+    "probability_definition": "fraction of draws with posterior odds cluster > field",
+    "maximum_binomial_sigma_at_p_0_5": 0.005,
+    "analytic_probability_prefilter": 0.001,
+    "evaluated_rows_target_controls": [
+      3473,
+      4956,
+      2602,
+      597
+    ],
+    "covariance_psd_repairs": 0
+  },
+  "manual_anchor_policy": {
+    "rule": "Berlanas 2019 spectroscopic members excluded from the quality-analysis sample are retained as manual quality exceptions, as required by WP2 step 1",
+    "count": 61,
+    "warning": "automatic and manual recall are reported separately so the literature benchmark is not presented as fully independent"
+  },
+  "distance_population_test": {
+    "execution": "provenance/wp2_distance_population_execution.json",
+    "sha256": "7a52b36fce192195262232b344c618ffe10d9fcdb71488a51d0946a732a726c8",
+    "clean_automatic_members": 1331,
+    "one_component_mean_kpc": 1.6245269765107866,
+    "delta_bic_two_minus_one": 12.166298111218566,
+    "delta_cv_log_predictive_two_minus_one": 3.6506086231411246,
+    "verdict": "NO_CONFIRMED_TWO_DISTANCE_POPULATION_CLAIM"
+  },
+  "gate": {
+    "berlanas_denominator_published": 229,
+    "berlanas_quality_analysis_denominator": 168,
+    "berlanas_automatic_recovered_p_gt_0_5": 128,
+    "berlanas_manual_quality_exceptions_recovered": 61,
+    "berlanas_total_recovered": 189,
+    "berlanas_total_recall": 0.8253275109170306,
+    "target_yield_p_gt_0_5": 1331,
+    "control_yields_p_gt_0_5": [
+      80,
+      45,
+      21
+    ],
+    "mean_control_to_target_ratio": 0.03656398697721012,
+    "total_unique_members_p_gt_0_5_including_manual": 1392,
+    "largest_density_seed_rows": 1588,
+    "largest_density_seed_fraction_analysis": 0.007978255736255345,
+    "l_central90_span_deg": 1.0702954839303942,
+    "b_central90_span_deg": 0.8886400520966201,
+    "convex_hull_area_deg2": 2.0815895741160353,
+    "criteria": {
+      "recall_ge_0_80": true,
+      "control_ratio_le_0_10": true,
+      "member_count_1e2_to_1e4": true,
+      "l_span_lt_4_8_deg": true,
+      "b_span_lt_4_4_deg": true,
+      "hull_area_lt_16_5_deg2": true,
+      "largest_seed_le_0_10_analysis": true,
+      "published_structure_comparison_documented": true
+    },
+    "passed": true
+  },
+  "outputs": {
+    "data/processed/wp2_members.parquet": {
+      "sha256": "61f756001738949b793b06f6a61f8266ffa2259351c8530dfbce928af8ba6e29",
+      "bytes": 315237
+    },
+    "data/processed/wp2_control_members.parquet": {
+      "sha256": "4a8e04bfca4b36bb4ddaec3351f039d6a43894134f8523da0cf6b0cc14ab9aaa",
+      "bytes": 209056
+    },
+    "data/processed/wp2_anchor_assignments.parquet": {
+      "sha256": "26290a7e543b0a0a434522460aa5ffd94ebef5473032125b18ad2c2e93b9fcf5",
+      "bytes": 24116
+    },
+    "provenance/wp2_literature_footprint_density_scan.csv": {
+      "sha256": "27c6f4280d8b607701ded3c2912f86da76ce76dd7e60e8e8ffad8a88745afadc",
+      "bytes": 2380
+    },
+    "provenance/wp2_mixture_prior_control_scan.csv": {
+      "sha256": "676a6b6464fbdf0f81b08a3b43242ab4cc28fa18d70c1b5ad0f4e9370e7be5fa",
+      "bytes": 948
+    },
+    "figures/wp2/wp2_membership_sky_pm.png": {
+      "sha256": "5b4f7f97c468881e01241e6f66dc98d68e9895d62607aaf5da788f1b3e8d3119",
+      "bytes": 506662
+    },
+    "data/processed/wp2_members_failed_20260722.parquet": {
+      "sha256": "cc78dd836dd202904b9ed66228b3ea1b5e381d8f33f533363388172adfde3b70",
+      "bytes": 16332425
+    },
+    "provenance/wp2_membership_manifest_failed_20260722.json": {
+      "sha256": "5e324af2d6d152aa976e8ced0d397a5e182336b71612adabd75165a1771f346b",
+      "bytes": 1063
+    },
+    "provenance/wp2_berlanas_recovery_audit.csv": {
+      "sha256": "460df72981766dfedb7d7ec24f4b312eee8fdd17bacf0b7ebf8393fcdb3c7a3d",
+      "bytes": 73792
+    }
+  },
+  "final_row_level_audits": {
+    "execution": "provenance/wp2_final_audits_execution.json",
+    "sha256": "b2520d9de39261ee597a77ebf4b4298dd8402557a1270532d6c0ec3dce0e158d"
+  }
+}

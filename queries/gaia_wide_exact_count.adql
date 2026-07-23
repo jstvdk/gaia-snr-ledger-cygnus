@@ -1,0 +1,7 @@
+-- Exact WP1 wide-box size check before bulk retrieval.
+SELECT COUNT(*) AS row_count
+FROM gaiadr3.gaia_source
+WHERE l BETWEEN 72.0 AND 88.0
+AND b BETWEEN -5.0 AND 8.0
+AND parallax BETWEEN 0.35 AND 1.10
+AND phot_g_mean_mag < 19.0

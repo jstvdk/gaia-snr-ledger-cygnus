@@ -1,0 +1,37 @@
+{
+  "executed_utc": "2026-07-22T10:56:17.241498+00:00",
+  "query_name": "2mass_tile03",
+  "tap_url": "https://gea.esac.esa.int/tap-server/tap",
+  "tap_job_url": "https://gea.esac.esa.int/tap-server/tap/async/79e0bf64-85bb-11f1-982e-bc97e148b76b-O",
+  "tap_phase": "COMPLETED",
+  "query_file": "queries/gaia_2mass_tile03.adql",
+  "query_sha256": "4e1b3f239d3ff813d462665fc1ebc0271877c029091f98426aae76c1521148aa",
+  "row_count": 30400,
+  "column_count": 20,
+  "columns": [
+    "source_id",
+    "tmass_original_ext_source_id",
+    "tmass_angular_distance",
+    "tmass_xm_flag",
+    "clean_tmass_psc_xsc_oid",
+    "tmass_number_of_neighbours",
+    "tmass_number_of_mates",
+    "original_psc_source_id",
+    "original_xsc_source_id",
+    "tmass_designation",
+    "tmass_ra",
+    "tmass_dec",
+    "j_m",
+    "j_msigcom",
+    "h_m",
+    "h_msigcom",
+    "ks_m",
+    "ks_msigcom",
+    "ph_qual",
+    "ext_key"
+  ],
+  "outputs": {
+    "data/raw/gaia/wp1_gaia_2mass_tile03.fits": "0d951740fd419403204c4bfe4e308691523c9e4cb36baf71fa0a27410b346efb",
+    "data/raw/gaia/wp1_gaia_2mass_tile03.parquet": "e96911eb47f206936f6c307b9e3625496e1c8622de359e98ab8018eb4b284731"
+  }
+}

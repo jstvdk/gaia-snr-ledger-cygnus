@@ -1,0 +1,35 @@
+-- WP1 official Gaia DR3 -> 2MASS PSC best-neighbour join, l=[79,80).
+SELECT
+    g.source_id,
+    x.original_ext_source_id AS tmass_original_ext_source_id,
+    x.angular_distance AS tmass_angular_distance,
+    x.xm_flag AS tmass_xm_flag,
+    x.clean_tmass_psc_xsc_oid,
+    x.number_of_neighbours AS tmass_number_of_neighbours,
+    x.number_of_mates AS tmass_number_of_mates,
+    j.original_psc_source_id,
+    j.original_xsc_source_id,
+    p.designation AS tmass_designation,
+    p.ra AS tmass_ra,
+    p.dec AS tmass_dec,
+    p.j_m,
+    p.j_msigcom,
+    p.h_m,
+    p.h_msigcom,
+    p.ks_m,
+    p.ks_msigcom,
+    p.ph_qual,
+    p.ext_key
+FROM gaiadr3.gaia_source AS g
+JOIN gaiadr3.tmass_psc_xsc_best_neighbour AS x
+    ON g.source_id = x.source_id
+JOIN gaiadr3.tmass_psc_xsc_join AS j
+    ON x.clean_tmass_psc_xsc_oid = j.clean_tmass_psc_xsc_oid
+    AND x.original_ext_source_id = j.original_psc_source_id
+JOIN gaiadr1.tmass_original_valid AS p
+    ON j.original_psc_source_id = p.designation
+WHERE g.l >= 79.0
+AND g.l < 80.0
+AND g.b BETWEEN -1.5 AND 4.0
+AND g.parallax BETWEEN 0.35 AND 1.10
+AND g.phot_g_mean_mag < 19.0

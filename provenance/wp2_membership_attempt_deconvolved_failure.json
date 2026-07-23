@@ -1,0 +1,16 @@
+{
+  "created_utc": "2026-07-22T14:22:53Z",
+  "status": "FAILED_REJECTED",
+  "script": "scripts/wp2_finalize_membership.py (superseded development state)",
+  "attempt": "subtract mean Gaia measurement covariance from the empirical cluster and field GMM components, then classify 10000 astrometric realizations against those intrinsic components",
+  "result": {
+    "recall_ge_0_80": false,
+    "control_ratio_le_0_10": true,
+    "member_count_1e2_to_1e4": false,
+    "spatial_gate": true,
+    "no_percolation_gate": true
+  },
+  "diagnosis": "The ratio of analytically convolved component likelihoods predicted 1568 target members, but fewer than 100 sources had a hard-draw classification frequency above 0.5. The attempted classifier mixed an intrinsic-population deconvolution with a repeated-observation hard-label definition. A 1000-draw reproduction returned zero P>0.5 sources and maximum P=0.301.",
+  "resolution": "Use the empirical observed-space cluster and field component covariances for membership classification and propagate each star's full Gaia covariance through 10000 draws. Reserve latent-distribution error deconvolution for the distance-population test, where it is required by the scientific question.",
+  "canonical_artifacts_replaced": false
+}

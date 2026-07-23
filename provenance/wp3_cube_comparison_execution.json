@@ -1,0 +1,31 @@
+{
+  "script": "scripts/wp3_cube_comparison.py",
+  "inputs": {
+    "wp3_extinction": "278dce68647f831987326fd46a6b398abc390721d8cd7f05c9787a7a1392dc21",
+    "vergely_cube": "e8212ac5730a5b318bdb4dd981b9e66c4e2af367a0c3a3a0a91938cfcb0d1ee3",
+    "dharma_cube": "47889275c1a713888b4102cf5187275430240f6213aba8537e13476bc34cebb5"
+  },
+  "distance_pc": 1624.5,
+  "vergely": {
+    "description": "line-of-sight integral of A0/pc to group distance",
+    "n": 1342,
+    "spearman_rho": 0.2948058190623715,
+    "spearman_p": 2.5667732239014016e-28,
+    "median_star_av": 5.854222636026732,
+    "median_cube": 3.653410921502248,
+    "median_ratio_star_over_cube": 1.600000078455543
+  },
+  "dharmawardena": {
+    "description": "cumulative extinction interpolated at (l,b,d)",
+    "n": 1337,
+    "spearman_rho": -0.1848567439112806,
+    "spearman_p": 9.641588317812479e-12,
+    "median_star_av": 5.853258524367319,
+    "median_cube": 1.3063302049488534,
+    "median_ratio_star_over_cube": 4.499637416941362
+  },
+  "interpretation": "Both cubes trace the same spatial pattern (positive Spearman rho) but sit below the per-star A_V because their 25 pc / 0.14 deg smoothing washes out the clumpy dust local to Cyg OB2. Cubes are a consistency cross-check, not a substitute for per-star extinction (plan WP3 caveat).",
+  "output": {
+    "data/processed/wp3_cube_comparison.parquet": "da7cb31095d116b6c82dcb60f5d92503f55d5c09329be30df36d797d272643b1"
+  }
+}

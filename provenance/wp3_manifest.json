@@ -1,0 +1,107 @@
+{
+  "work_package": "WP3 \u2014 per-star extinction & de-reddened CMDs",
+  "created_utc": "2026-07-23T08:13:13.266705+00:00",
+  "status": "WP3_COMPLETE_GATE_PASSED",
+  "distance_posterior_kpc": [
+    1.6245,
+    0.045
+  ],
+  "upstream_inputs": {
+    "wp2_members": "61f756001738949b793b06f6a61f8266ffa2259351c8530dfbce928af8ba6e29",
+    "wp1_gaia_narrow": "ae17f6180e11073b8cc781497a45d3245085569502147f07926d1c5e46e5587a",
+    "wp1_2mass_join": "2be08c74dab31d09b914c3b2038aed39d03fa6595339bf40efd78f6e15c11c2e",
+    "wp2_anchor_assignments": "26290a7e543b0a0a434522460aa5ffd94ebef5473032125b18ad2c2e93b9fcf5",
+    "wp1_spectroscopic_anchors": "9bb30e91d98568b346616e5c712f4784d3ff23f90d6216af501597bf18c9b283",
+    "vergely2022_cube": "e8212ac5730a5b318bdb4dd981b9e66c4e2af367a0c3a3a0a91938cfcb0d1ee3",
+    "dharmawardena2022_cube": "47889275c1a713888b4102cf5187275430240f6213aba8537e13476bc34cebb5"
+  },
+  "scripts": {
+    "scripts/wp3_anchor_extinction.py": "333fd42bf566bf63d994a4eddda5d6cd6470a7d2d3781b9ae311554c67567507",
+    "scripts/wp3_assemble_photometry.py": "14a786996e092a333269f5bd5d67dbabfad2a14c17b5e640bdd6d213e6116deb",
+    "scripts/wp3_broadband_extinction.py": "52e04659263d0bc54c64969c4de3cd7b7949c534729f88542d767ed59e2694e0",
+    "scripts/wp3_build_catalogue.py": "1373bfc23557860b545115c18f9ac6e5bd7729a121c31f7cd2ea0ec76b8c05f5",
+    "scripts/wp3_common.py": "57da7bb263feb49746ffbbffafe87c85fe138d7351c89674198c72a81b134859",
+    "scripts/wp3_cube_comparison.py": "962b667bd3da4296bc745164da9974b995514dcc75085493b954900a9179170d",
+    "scripts/wp3_extinction_law.py": "b15f77f4da0b4af5d509d6d2850d33dc3dc6cdf1b7d2088e6d6546dc7c77077b",
+    "scripts/wp3_fetch_mist.py": "789de579e9eda28b926ede5581cb2aa657e891937d302f3504d0c2c42cb24614",
+    "scripts/wp3_fetch_parsec.py": "9b80f61d4c8a493f2709f73f803abbdca1d737ece1d14abe12e181773d9a7fc4",
+    "scripts/wp3_figures_and_coherence.py": "e8782584f1d04a2caec618f49a0857096379740111ae32cc9c3e08998c6ee9b8"
+  },
+  "execution_logs": {
+    "provenance/wp3_anchor_extinction_execution.json": "da59d37c834471f748d5813f9cc6ebe41970ea22f492d0f2c93eee425f283ec3",
+    "provenance/wp3_assemble_photometry_execution.json": "913f4d481a9ace413ab34030767c232a4855ba00d25875adb0b4b0c3a2748cee",
+    "provenance/wp3_broadband_extinction_execution.json": "3c2d58c21abaf284d9f414d1e6a046ee0e460361c236a6d328379c1ae9d3e20e",
+    "provenance/wp3_build_catalogue_execution.json": "7d81b56f4e1e01643026cc076c800830b2712a074053a97f48f0e95436253a57",
+    "provenance/wp3_cube_comparison_execution.json": "aecb6126bc95fef5165b58a4f0dee43459d9e9298e05a32ee7a7688b82cfb055",
+    "provenance/wp3_figures_coherence_execution.json": "5e6d4943261a984822d2be61e12f653fbe559e5f038a3d92a9ed06e33a75cb6d",
+    "provenance/wp3_mist_fetch_execution.json": "2c3b19b72f90bfaaad701aad2dfd6e22219e19d75221c8fbde42c1cfd5edbac1",
+    "provenance/wp3_parsec_fetch_execution.json": "38422e05dbbcdf4667c866480ea19fe63e485232119c6c623d913e2b107f2c6e"
+  },
+  "outputs": {
+    "data/processed/wp3_isochrones_parsec.parquet": {
+      "sha256": "9e0444045acf3e9331bf609e44c5f065635b217558f2ff46deec68fb66c8c663",
+      "bytes": 376792
+    },
+    "data/processed/wp3_isochrones_mist.parquet": {
+      "sha256": "3b1437d791e61a5dc9b7b2a2ed12e83bc0a1c64cb775c3862a2073731623135b",
+      "bytes": 1212804
+    },
+    "data/processed/wp3_member_photometry.parquet": {
+      "sha256": "911a672e85b6c343cb940d5840531452050beb04249132f3badf052c304f6db0",
+      "bytes": 229323
+    },
+    "data/processed/wp3_anchor_extinction.parquet": {
+      "sha256": "edba316b884d7cb9e51729972e38cfa027d585dff43c1f42af2eb51ea603abf2",
+      "bytes": 30615
+    },
+    "data/processed/wp3_broadband_extinction.parquet": {
+      "sha256": "51214925e291051787daa84ee4d30f1b0e5b18f59dfe78dd65764b88f22c843f",
+      "bytes": 146722
+    },
+    "data/processed/wp3_extinction.parquet": {
+      "sha256": "278dce68647f831987326fd46a6b398abc390721d8cd7f05c9787a7a1392dc21",
+      "bytes": 671044
+    },
+    "data/processed/wp3_cube_comparison.parquet": {
+      "sha256": "da7cb31095d116b6c82dcb60f5d92503f55d5c09329be30df36d797d272643b1",
+      "bytes": 95899
+    },
+    "tables/wp3_extinction_rv30.cat": {
+      "sha256": "5ce609b010fc79a49563bd81e5d777311575408bc96039cca64c1f31b3adb60a",
+      "bytes": 467563
+    },
+    "tables/wp3_extinction_rv31.cat": {
+      "sha256": "55a26ab9ecd3e933688d27817b3fa9db6cc90102a3f5c33a0a93b06dee16733b",
+      "bytes": 467597
+    },
+    "tables/wp3_extinction_rv35.cat": {
+      "sha256": "21d83a6569f7640e8b1dbb9aa774cb26109068a696c07e7e4c79c2fbaefd7b9c",
+      "bytes": 467434
+    },
+    "figures/wp3/wp3_dereddened_cmd.png": {
+      "sha256": "4c1ef7b3d6ff65a0e18f682637a695c8e90a34e2376b53aee2de814e320a053a",
+      "bytes": 177546
+    },
+    "figures/wp3/wp3_extinction_map.png": {
+      "sha256": "f20a32600926d06c6a95499a5fd778cfe73eb30cb5e0932214389ac499bc5649",
+      "bytes": 219536
+    },
+    "figures/wp3/wp3_av_distribution.png": {
+      "sha256": "e7205af1e8f01136486767cef5d6cc077cfbe5e703dcbeb8f96e1b4ff0949906",
+      "bytes": 106694
+    },
+    "figures/wp3/wp3_wp5_truncation.png": {
+      "sha256": "97b3f746adc4138e9c778fb938abd536258ba4c690d38e5c03d6a209539b6026",
+      "bytes": 37333
+    }
+  },
+  "shared_with_WP4": [
+    "data/processed/wp3_isochrones_parsec.parquet",
+    "data/processed/wp3_isochrones_mist.parquet"
+  ],
+  "reports": [
+    "wp3_completion_report.md",
+    "provenance/wp3_provenance.md",
+    "provenance/wp3_isochrones_README.md"
+  ]
+}

@@ -11,16 +11,25 @@ import time
 from datetime import datetime, timezone
 from pathlib import Path
 
+import numpy as np
 import pyvo
 import requests
+from astropy.table import MaskedColumn
 from pyvo.dal import AsyncTAPJob
 from pyvo.dal.exceptions import DALServiceError
+from urllib3.exceptions import HTTPError as Urllib3HTTPError
 
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 TAP_URL = "https://gea.esac.esa.int/tap-server/tap"
 TERMINAL_PHASES = {"COMPLETED", "ERROR", "ABORTED"}
-RETRYABLE = (DALServiceError, requests.RequestException, TimeoutError, OSError)
+RETRYABLE = (
+    DALServiceError,
+    requests.RequestException,
+    Urllib3HTTPError,
+    TimeoutError,
+    OSError,
+)
 
 
 def sha256(path: Path) -> str:
@@ -35,6 +44,32 @@ def write_json(path: Path, payload: dict) -> None:
     temporary = path.with_suffix(path.suffix + ".tmp")
     temporary.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
     temporary.replace(path)
+
+
+def fits_compatible_table(table):
+    """Return a copy whose variable-length object strings are FITS-safe."""
+    safe = table.copy()
+    for name in safe.colnames:
+        column = safe[name]
+        if column.dtype.kind != "O":
+            continue
+        mask = np.ma.getmaskarray(column)
+        values = np.asarray(
+            ["" if is_masked else str(value) for value, is_masked in zip(column, mask)],
+            dtype=str,
+        )
+        safe.replace_column(
+            name,
+            MaskedColumn(
+                values,
+                mask=mask,
+                name=name,
+                unit=getattr(column, "unit", None),
+                description=getattr(column, "description", None),
+                meta=getattr(column, "meta", None),
+            ),
+        )
+    return safe
 
 
 def retry_call(label: str, function, deadline: float, *, max_delay: int = 180):
@@ -134,8 +169,9 @@ def run_query(name: str, timeout: int, new_job: bool, poll_interval: int) -> Non
 
         results = retry_call("fetch TAP result", job.fetch_result, deadline)
         table = results.to_table()
-        table.write(fits_path, format="fits", overwrite=True)
-        table.write(parquet_path, format="parquet", overwrite=True)
+        export_table = fits_compatible_table(table)
+        export_table.write(fits_path, format="fits", overwrite=True)
+        export_table.write(parquet_path, format="parquet", overwrite=True)
 
         state.update({
             "status": "COMPLETED",

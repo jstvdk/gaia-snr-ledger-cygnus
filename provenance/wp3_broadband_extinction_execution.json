@@ -1,0 +1,30 @@
+{
+  "script": "scripts/wp3_broadband_extinction.py",
+  "inputs": {
+    "wp3_member_photometry": "911a672e85b6c343cb940d5840531452050beb04249132f3badf052c304f6db0",
+    "wp3_anchor_extinction": "edba316b884d7cb9e51729972e38cfa027d585dff43c1f42af2eb51ea603abf2",
+    "isochrones_parsec": "9e0444045acf3e9331bf609e44c5f065635b217558f2ff46deec68fb66c8c663",
+    "isochrones_mist": "3b1437d791e61a5dc9b7b2a2ed12e83bc0a1c64cb775c3862a2073731623135b"
+  },
+  "model": "m_X = M_X0(template) + mu + k_X A_V; per-template WLS A_V; chi2 posterior over PARSEC+MIST templates",
+  "distance_modulus_used": 11.053598578405008,
+  "n_templates": 17233,
+  "no2mass_error_inflation": 1.8,
+  "n_members": 1392,
+  "n_non_anchor": 1202,
+  "n_non_anchor_no2mass": 46,
+  "av_rv3.1_non_anchor_summary": {
+    "median": 5.880215722753562,
+    "mean": 5.635099438287792,
+    "p05": 2.094945342576908,
+    "p95": 8.585590219927845,
+    "min": -0.22344521875466122,
+    "max": 10.64299255461977,
+    "n_negative": 2,
+    "n_negative_beyond_2sigma": 0
+  },
+  "output": {
+    "data/processed/wp3_broadband_extinction.parquet": "51214925e291051787daa84ee4d30f1b0e5b18f59dfe78dd65764b88f22c843f",
+    "rows": 1392
+  }
+}

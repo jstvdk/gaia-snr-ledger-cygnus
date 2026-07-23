@@ -1,0 +1,107 @@
+{
+  "created_utc": "2026-07-22T13:59:41.094275+00:00",
+  "script": "scripts/wp2_membership_pipeline.py --stage scan",
+  "seed": 20260722,
+  "input": {
+    "data/processed/wp1_gaia_narrow.parquet": "ae17f6180e11073b8cc781497a45d3245085569502147f07926d1c5e46e5587a"
+  },
+  "anchor_records": {
+    "data/processed/wp1_spectroscopic_anchor_records.parquet": "9e997d798e1ceda91ad38dc324998e6323a589f82709a1a3f65ae65c81fe75e1"
+  },
+  "preprocessing": {
+    "input_rows": 245843,
+    "analysis_rows": 199041,
+    "quality_fraction": 0.8096264689252897,
+    "quality_filter": "RUWE<1.4; visibility_periods_used>=8; BP/RP excess present; positive errors; finite 3D covariance; reliable zero point",
+    "zero_point_mas": {
+      "median": -0.031822,
+      "min": -0.078695,
+      "max": 0.000794
+    },
+    "features": [
+      "parallax_corrected",
+      "pmra",
+      "pmdec"
+    ],
+    "sky_used_in_clustering": false,
+    "robust_scaler_center": {
+      "parallax_corrected": 0.6699349069166743,
+      "pmra": -2.3645433040948047,
+      "pmdec": -4.536546112672322
+    },
+    "robust_scaler_scale": {
+      "parallax_corrected": 0.32486626158904364,
+      "pmra": 3.53705849286803,
+      "pmdec": 4.30154177591275
+    }
+  },
+  "k_distance": {
+    "k": 15,
+    "knee_index": 186598,
+    "knee_rank_fraction": 0.9374852417341151,
+    "knee_eps": 0.19158618580699532,
+    "quantiles": {
+      "0.5": 0.06685900457346837,
+      "0.75": 0.09874525927072447,
+      "0.9": 0.1552356405794994,
+      "0.95": 0.21149754469880294,
+      "0.975": 0.2875364344301224,
+      "0.99": 0.4269385364094974,
+      "0.995": 0.5948265645384592,
+      "0.999": 1.2638861235610872
+    },
+    "detection": "maximum distance below normalized endpoint chord over ranks 1%-99.9%"
+  },
+  "scan": {
+    "eps_values": [
+      0.02,
+      0.03,
+      0.04,
+      0.05,
+      0.07,
+      0.09579,
+      0.1,
+      0.14369,
+      0.19159
+    ],
+    "min_samples_values": [
+      10,
+      15,
+      20
+    ],
+    "feature_space": [
+      "parallax_corrected",
+      "pmra",
+      "pmdec"
+    ],
+    "sky_position_role": "excluded from clustering; used only to identify and validate the association overdensity",
+    "association_selection": "density cluster maximizing target/control spatial overdensity with >=20 target-field stars"
+  },
+  "control_fields": {
+    "target_center_l_b_deg": [
+      80.22449980431047,
+      0.7840736986995647
+    ],
+    "control_centers_l_b_deg": [
+      [
+        77.8,
+        0.7840736986995647
+      ],
+      [
+        82.2,
+        0.7840736986995647
+      ],
+      [
+        80.22449980431047,
+        -0.7
+      ]
+    ],
+    "radius_deg": 0.5641895835477563,
+    "area_deg2_each": 1.0
+  },
+  "outputs": {
+    "provenance/wp2_kdistance_min15.parquet": "df814e3f2c0ad2c86fed0033aa0416bcdb3120142d306944214dc57e3a67be05",
+    "provenance/wp2_dbscan_scan.csv": "fa94c8b822e7e6014e519b7d9eb412918bcf0f46cb8f5d05a63bc036db8586df",
+    "figures/wp2/kdistance_min15.png": "ae463a1b9cbf4601c7bf8a816ef7bcac9c76f2b19c5477e4034b16d6425de18b"
+  }
+}

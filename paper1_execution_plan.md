@@ -82,7 +82,15 @@ Both are publishable; never promise the sharp one externally before WP9.
 6. Assign each spectroscopic-anchor star to a subgroup (or "unassigned" with reason).
 
 **Outputs:** `wp2_members.cat` (source_id, membership P, subgroup label, corrected parallax), `wp2_subgroups.md` (per-subgroup: N, distance posterior, sky footprint), diagnostic plots (sky, PM plane, parallax histograms).
-**Gate (blocking):** recover ≥80% of Berlanas+19 spectroscopic members with P > 0.5; every missed one individually explained (bad RUWE, saturation, disputed membership...). Compare subgroup structure qualitatively with Berlanas+19 and Wright+15 maps.
+**Gate (blocking; all criteria are conjunctive):**
+1. **Recall:** recover ≥80% of Berlanas+19 spectroscopic members with P > 0.5; every missed one individually explained (bad RUWE, saturation, disputed membership...).
+2. **Control-field precision:** apply the identical selection, clustering, mixture-membership model, and probability threshold to at least three equal-area or area-normalized off-association/control fields. Their mean P > 0.5 yield must be ≤10% of the association-field yield (≤5% is the target). Record each field separately; averaging must not hide a failed field.
+3. **Population sanity:** the total P > 0.5 member count must lie in the range 10²–10⁴, not 10⁵.
+4. **Spatial compactness:** the member distribution must be strictly smaller than the input selection box in both Galactic coordinates. Operationally, the central 90% member span must occupy <80% of both the l and b box widths, and the member convex-hull area must be <50% of the selection-box area. Sky position must remain available as an independent diagnostic if clustering is performed only in proper motion + parallax.
+5. **No percolation:** the largest density-based cluster must contain ≤10% of the quality-filtered analysis sample and must not connect opposite sides of the selection box.
+6. **Published-structure comparison:** compare the recovered subgroup structure qualitatively with the Berlanas+19 and Wright+15 maps.
+
+Failure of any one criterion blocks WP2. This gate explicitly rejects the 2026-07-22 failed run: it returned 159,450 P > 0.05 candidates and 156,414 P > 0.5 members from 199,041 analysis stars, with a largest cluster spanning the full box.
 **Caveats/weaknesses:** Cygnus sits along a spiral arm — contamination by unrelated young stars at similar distance and PM is the dominant risk; quantify it via the PM-offset control fields (run the same pipeline on 2–3 nearby control boxes at same |b| — the "cluster" yield there estimates false-positive rate). The association is loose: expect fragmentation; do not force one blob. Strength: this is the best-validated step — two independent published lists to check against.
 
 ---

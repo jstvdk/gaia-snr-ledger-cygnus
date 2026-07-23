@@ -1,0 +1,40 @@
+{
+  "source": "https://mist.science/output/MIST_iso_6a61c3d6d87d2.zip (zip:MIST_iso_6a61c3d6d87d2.iso.UBVRIplus)",
+  "fields": {
+    "version": "MIST1",
+    "v_div_vcrit": "vvcrit0.4",
+    "age_scale": "log10",
+    "age_type": "range",
+    "age_range_low": "6.0",
+    "age_range_high": "7.005",
+    "age_range_delta": "0.05",
+    "age_value": "",
+    "age_list": "",
+    "FeH_value": "0",
+    "alpha_value": "p0",
+    "output_option": "photometry",
+    "output": "UBVRIplus",
+    "Av_value": "0"
+  },
+  "rows": 11213,
+  "n_ages": 21,
+  "columns_renamed": {
+    "log10_isochrone_age_yr": "logAge",
+    "initial_mass": "Mini",
+    "star_mass": "Mass",
+    "log_Teff": "logTe",
+    "log_g": "logg",
+    "log_L": "logL",
+    "phase": "phase",
+    "Gaia_G_EDR3": "G0",
+    "Gaia_BP_EDR3": "BP0",
+    "Gaia_RP_EDR3": "RP0",
+    "2MASS_J": "J0",
+    "2MASS_H": "H0",
+    "2MASS_Ks": "Ks0"
+  },
+  "mass_range": [
+    0.1,
+    295.3600420558754
+  ]
+}

@@ -1,0 +1,112 @@
+{
+  "created_utc": "2026-07-22T12:35:59.907877+00:00",
+  "script": "scripts/wp1_finalize_wide.py",
+  "selection": {
+    "l_deg": [
+      72.0,
+      88.0
+    ],
+    "b_deg": [
+      -5.0,
+      8.0
+    ],
+    "parallax_mas": [
+      0.35,
+      1.1
+    ],
+    "phot_g_mean_mag_lt": 19.0
+  },
+  "input_tiles": [
+    {
+      "file": "data/raw/gaia/wp1_gaia_wide_tile01.parquet",
+      "rows": 1001200,
+      "sha256": "54f56b2d4ee5842ae827361fed2a8a68d51049838181d9923097e1c53f88c88d",
+      "tap_job_url": "https://gea.esac.esa.int/tap-server/tap/async/73c67930-85b7-11f1-982e-bc97e148b76b-O",
+      "query_sha256": "55e1c21d82710f1d9be14dc44233b215f21d1716a1f79ed738ab48128ea828fa"
+    },
+    {
+      "file": "data/raw/gaia/wp1_gaia_wide_tile02.parquet",
+      "rows": 691996,
+      "sha256": "38ed02acae19d2634ee1d7f76f5dd0f4dd32b64771c637a9c2d5602321febe41",
+      "tap_job_url": "https://gea.esac.esa.int/tap-server/tap/async/73bf4d3e-85b7-11f1-982e-bc97e148b76b-O",
+      "query_sha256": "efbb8295ebe9b65ffff192b9f370e4e5d4ad9a502b0802e091d574d6674ca0ea"
+    },
+    {
+      "file": "data/raw/gaia/wp1_gaia_wide_tile03.parquet",
+      "rows": 563495,
+      "sha256": "5a28c387c90466c18e855f76da7eb6e9e76463f676ab0e0cc86d84acaa5085c6",
+      "tap_job_url": "https://gea.esac.esa.int/tap-server/tap/async/73c8c321-85b7-11f1-982e-bc97e148b76b-O",
+      "query_sha256": "c84d14c12d4ddb564312e1e5e5ba43cd8e8775cb73c0ce5ce09f417c75bb48d2"
+    },
+    {
+      "file": "data/raw/gaia/wp1_gaia_wide_tile04.parquet",
+      "rows": 876635,
+      "sha256": "aeec3099cf3ddac22617c005fc58eed069013df86e917795f3ad4725cfef541b",
+      "tap_job_url": "https://gea.esac.esa.int/tap-server/tap/async/73bf4d3f-85b7-11f1-982e-bc97e148b76b-O",
+      "query_sha256": "37c99b729d485e926989e55325d99f91079c30fa40527beb5520489c8384566f"
+    }
+  ],
+  "counts": {
+    "exact_count_query": 3133326,
+    "combined_rows": 3133326,
+    "unique_source_ids": 3133326,
+    "duplicate_source_ids": 0
+  },
+  "output": {
+    "file": "data/processed/wp1_gaia_wide.parquet",
+    "sha256": "afb54bb3e88c52c0c76546fe151a9abed107ed230516b36aa7ca046e6a4be7c6",
+    "bytes": 473879643,
+    "columns": [
+      "source_id",
+      "ra",
+      "dec",
+      "ra_error",
+      "dec_error",
+      "parallax",
+      "parallax_error",
+      "pmra",
+      "pmra_error",
+      "pmdec",
+      "pmdec_error",
+      "ra_dec_corr",
+      "ra_parallax_corr",
+      "ra_pmra_corr",
+      "ra_pmdec_corr",
+      "dec_parallax_corr",
+      "dec_pmra_corr",
+      "dec_pmdec_corr",
+      "parallax_pmra_corr",
+      "parallax_pmdec_corr",
+      "pmra_pmdec_corr",
+      "phot_g_mean_mag",
+      "phot_g_mean_flux_error",
+      "phot_bp_mean_mag",
+      "phot_bp_mean_mag.mask",
+      "phot_bp_mean_flux_error",
+      "phot_bp_mean_flux_error.mask",
+      "phot_rp_mean_mag",
+      "phot_rp_mean_mag.mask",
+      "phot_rp_mean_flux_error",
+      "phot_rp_mean_flux_error.mask",
+      "phot_bp_rp_excess_factor",
+      "phot_bp_rp_excess_factor.mask",
+      "ruwe",
+      "visibility_periods_used",
+      "astrometric_params_solved",
+      "astrometric_excess_noise",
+      "astrometric_excess_noise_sig",
+      "astrometric_n_good_obs_al",
+      "astrometric_n_bad_obs_al",
+      "radial_velocity",
+      "radial_velocity.mask",
+      "radial_velocity_error",
+      "radial_velocity_error.mask",
+      "ref_epoch",
+      "nu_eff_used_in_astrometry",
+      "nu_eff_used_in_astrometry.mask",
+      "pseudocolour",
+      "pseudocolour.mask",
+      "tile_id"
+    ]
+  }
+}

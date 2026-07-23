@@ -1,0 +1,205 @@
+{
+  "created_utc": "2026-07-22T13:54:33.752887+00:00",
+  "script": "scripts/wp1_refreeze_anchor_uniqueness.py",
+  "selection": {
+    "l_deg": [
+      77.0,
+      83.0
+    ],
+    "b_deg": [
+      -1.5,
+      4.0
+    ]
+  },
+  "catalog_inputs": [
+    {
+      "catalog": "J/MNRAS/449/741",
+      "table": "J/MNRAS/449/741/census",
+      "rows": 167,
+      "file": "data/raw/literature/wright2015_census.ecsv",
+      "sha256": "349eafdf879fa855d09cae1ad598f8805ddee60c797c0d028eacea73860191d5"
+    },
+    {
+      "catalog": "J/MNRAS/449/741",
+      "table": "J/MNRAS/449/741/refs",
+      "rows": 19,
+      "file": "data/raw/literature/wright2015_refs.ecsv",
+      "sha256": "20a3b8e0050fdd04485248f1223c9c2a34284b1340325311f1ce889797bbd136"
+    },
+    {
+      "catalog": "J/MNRAS/484/1838",
+      "table": "J/MNRAS/484/1838/tablea1",
+      "rows": 29,
+      "file": "data/raw/literature/berlanas2019_tablea1.ecsv",
+      "sha256": "44d68dff7440fb8ce6d2c187edea9d00da1d628eec5c0437ff7afa26f67bcb33"
+    },
+    {
+      "catalog": "J/MNRAS/484/1838",
+      "table": "J/MNRAS/484/1838/tablea2",
+      "rows": 200,
+      "file": "data/raw/literature/berlanas2019_tablea2.ecsv",
+      "sha256": "173ddfecc3145ba96d0dcbf567c6faf1c75a676d56255fa695038a0c770c90a4"
+    },
+    {
+      "catalog": "J/A+A/642/A168",
+      "table": "J/A+A/642/A168/tablea1",
+      "rows": 78,
+      "file": "data/raw/literature/berlanas2020_tablea1.ecsv",
+      "sha256": "fa6df0ca8d9be9ce3553937cd8f723aec257422b1176c182bf10068daddb2503"
+    },
+    {
+      "catalog": "J/A+A/642/A168",
+      "table": "J/A+A/642/A168/tablea2",
+      "rows": 78,
+      "file": "data/raw/literature/berlanas2020_tablea2.ecsv",
+      "sha256": "e43dfd47f65d737cfa1dca99af425473908665ee99bd4ee1cc3ec424376a3aa0"
+    },
+    {
+      "catalog": "J/A+A/642/A168",
+      "table": "J/A+A/642/A168/tablea3",
+      "rows": 63,
+      "file": "data/raw/literature/berlanas2020_tablea3.ecsv",
+      "sha256": "dd0c455cb62b3962bbc28e6d76466908baf95d94d31059c7c8f667d7e9f52ec9"
+    },
+    {
+      "catalog": "J/A+A/642/A168",
+      "table": "J/A+A/642/A168/tablea4",
+      "rows": 52,
+      "file": "data/raw/literature/berlanas2020_tablea4.ecsv",
+      "sha256": "63d1d95aaf7f1983583158c040c45bf9dab18941c5bec1a2e4748fcf43ee42de"
+    },
+    {
+      "catalog": "GOSC v3 / GOSSS-DR2.2",
+      "table": "main catalogue field query",
+      "rows": 56,
+      "file": "data/raw/literature/gosc_v3_field_query.html",
+      "sha256": "342173c903424a78fea2533333e13b434d29880cf8446e0c2c03346bd5d397b3",
+      "tls_verification": false,
+      "tls_note": "Site certificate chain is not trusted by the conda CA bundle; response frozen and hashed."
+    },
+    {
+      "catalog": "GOSC v3 / GOSSS-DR2.2",
+      "table": "parsed field rows",
+      "rows": 56,
+      "file": "data/raw/literature/gosc_v3_field_query.csv",
+      "sha256": "757b669c16b9e1eae0f5148be34083b10eacf6250b8174d74474672794faf48c"
+    },
+    {
+      "catalog": "Galactic Wolf Rayet Catalogue v1.33 (Gaia DR3), Aug 2025",
+      "table": "full HTML snapshot",
+      "rows": 705,
+      "file": "data/raw/literature/galactic_wr_catalog_v1.33.html",
+      "sha256": "71972a26756cb151e2c578178c31f1c9bd6884be116f3522ffae7a0ffd609dd6",
+      "tls_verification": false,
+      "tls_note": "Site certificate chain is not trusted by the conda CA bundle; response frozen and hashed."
+    },
+    {
+      "catalog": "Galactic Wolf Rayet Catalogue v1.33 (Gaia DR3), Aug 2025",
+      "table": "parsed field rows",
+      "rows": 10,
+      "file": "data/raw/literature/galactic_wr_catalog_v1.33_field.csv",
+      "sha256": "ba1d61d0da040aab07181869def1f1581d8369a76488619258b56a7cb4fc1f7d"
+    },
+    {
+      "catalog": "Gaia DR3 dr2_neighbourhood",
+      "table": "Berlanas DR2 identifiers",
+      "rows": 243,
+      "file": "data/raw/literature/berlanas_dr2_to_dr3_neighbourhood.ecsv",
+      "sha256": "6982d2d9e82317467e7417fcee3bac191eec6f60ac4299b88601f6cf15328b35"
+    }
+  ],
+  "wright_gate": {
+    "paper_abstract_primary_ob_stars": 169,
+    "paper_section_2_1_stars": 167,
+    "vizier_census_rows": 167,
+    "census_rows": 165,
+    "denominator_definition": "unique physical stars represented in frozen VizieR census after Gaia identity resolution",
+    "matched_to_gaia_dr3": 165,
+    "match_fraction": 1.0,
+    "coverage_relative_to_paper_abstract": 0.9763313609467456,
+    "present_in_wp1_gaia_narrow": 158,
+    "duplicate_catalog_rows_flagged": 2,
+    "duplicate_nonnull_source_ids": 0,
+    "pass_at_least_90_percent": true
+  },
+  "anchor_counts": {
+    "rows": 252,
+    "canonical_unique_source_rows": 252,
+    "rows_with_gaia_source_id": 252,
+    "unique_gaia_source_ids": 252,
+    "duplicate_nonnull_source_ids": 0,
+    "evidence_rows": 540,
+    "evidence_rows_without_gaia_source_id": 4,
+    "by_catalog_evidence_rows": {
+      "Berlanas et al. 2019": 229,
+      "Berlanas et al. 2020": 78,
+      "Galactic O-Star Catalog": 56,
+      "Galactic Wolf Rayet Catalogue": 10,
+      "Wright et al. 2015": 167
+    },
+    "rows_with_spectral_type": 207,
+    "rows_with_teff": 183,
+    "rows_with_logg": 61,
+    "wp6_countable_rows": 252
+  },
+  "outputs": {
+    "data/processed/wp1_spectroscopic_anchors.parquet": "9bb30e91d98568b346616e5c712f4784d3ff23f90d6216af501597bf18c9b283",
+    "data/processed/wp1_spectroscopic_anchors.ecsv": "aa19275203d632d35da03771e561f3ff30659d98a3a371a036158b9636ae7903",
+    "data/processed/wp1_spectroscopic_anchor_records.parquet": "9e997d798e1ceda91ad38dc324998e6323a589f82709a1a3f65ae65c81fe75e1",
+    "data/processed/wp1_spectroscopic_anchor_records.ecsv": "4f2d816ebc55808802c48617ba1e7a6ae13d736b15051214eab450db580d0429",
+    "data/processed/wp1_wright15_gaia_crossmatch.parquet": "cfb5c93ef94414fada8ecdceeb591bc308004cd34e9983b5eff1dd7571abaafb",
+    "wp1_wright15_crossmatch.md": "8e98c51ccbc4fa1e5840e5be684bd801aacb672f6e16bd25fe779b384b58c015"
+  },
+  "refreeze": {
+    "reason": "remove duplicate physical stars from countable Wright and WP6 anchor artifacts",
+    "upstream_wright_sha256": "271ffa0853e2a1e82d6ce763d07ec773e782ac773c7f496da052bd7caa7d8d83",
+    "upstream_anchor_evidence_sha256": "48b0f17a375a9e764925c04542eb33d32071158ba52d23344f56ab67d0114174",
+    "canonical_rule": "one non-null Gaia DR3 source_id per countable row; all source records preserved separately",
+    "duplicate_collisions": [
+      {
+        "source_id": "2067768195993175936",
+        "canonical_wright_recno": 69,
+        "canonical_object_name": "2MASS J20323949+4052475",
+        "all_wright_recnos": [
+          69,
+          81
+        ],
+        "all_object_names": [
+          "2MASS J20323949+4052475",
+          "[CPR2002] A31"
+        ],
+        "rejected_records": [
+          {
+            "wright_recno": 81,
+            "object_name": "[CPR2002] A31",
+            "status": "duplicate_alias",
+            "separation_arcsec": 0.38197976891051505,
+            "reason": "separate Wright catalogue alias resolves to the same Gaia source"
+          }
+        ]
+      },
+      {
+        "source_id": "2067782936320586240",
+        "canonical_wright_recno": 57,
+        "canonical_object_name": "Schulte 41",
+        "all_wright_recnos": [
+          46,
+          57
+        ],
+        "all_object_names": [
+          "Schulte 41",
+          "Schulte 41"
+        ],
+        "rejected_records": [
+          {
+            "wright_recno": 46,
+            "object_name": "Schulte 41",
+            "status": "duplicate_bad_coordinate",
+            "separation_arcsec": 951.685444166271,
+            "reason": "SIMBAD name resolution assigned the canonical Gaia source, but the published coordinate is 951.685 arcsec away"
+          }
+        ]
+      }
+    ]
+  }
+}

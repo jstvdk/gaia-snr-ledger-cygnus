@@ -1,0 +1,69 @@
+{
+  "created_utc": "2026-07-22T07:30:27.538426+00:00",
+  "notebook": "notebooks/wp1_step1_build_narrow_catalogue.ipynb",
+  "selection": {
+    "l_deg": [
+      77.0,
+      83.0
+    ],
+    "b_deg": [
+      -1.5,
+      4.0
+    ],
+    "parallax_mas": [
+      0.35,
+      1.1
+    ],
+    "phot_g_mean_mag_lt": 19.0
+  },
+  "input_tiles": [
+    {
+      "file": "data/raw/gaia/wp1_gaia_narrow_tile01.parquet",
+      "rows": 178721,
+      "sha256": "bb18e9ab92c6502b8147fe0727e465ddf08a5c77ac26426cd32ccefdb30e12f5"
+    },
+    {
+      "file": "data/raw/gaia/wp1_gaia_narrow_tile02.parquet",
+      "rows": 212956,
+      "sha256": "6aa8d0ef6dce81cbb8e810bc34b90d17aa0ec3c00c26f8c70e957f3baad4da50"
+    },
+    {
+      "file": "data/raw/gaia/wp1_gaia_narrow_tile03.parquet",
+      "rows": 158843,
+      "sha256": "1390da62206d4e045b9d8479032f8f03b6deb85519454a4aa262257eb9bb841e"
+    },
+    {
+      "file": "data/raw/gaia/wp1_gaia_narrow_tile04.parquet",
+      "rows": 185994,
+      "sha256": "94b32a80bf427ac5cbdbd18d4d02ee0f99dac17e3277f05ccdb12f854e3f4c62"
+    },
+    {
+      "file": "data/raw/gaia/wp1_gaia_narrow_tile05.parquet",
+      "rows": 113020,
+      "sha256": "8a45d7122030ba5b03dea4b78161cdf2afb361eae90921dcc657d8b328ace395"
+    }
+  ],
+  "counts": {
+    "input_rows": 849534,
+    "output_rows": 245843,
+    "rejected_by_local_galactic_cut": 603691
+  },
+  "validation": {
+    "rows": 245843,
+    "unique_source_ids": 245843,
+    "duplicate_source_ids": 0,
+    "rows_with_ruwe": 245843,
+    "rows_with_radial_velocity": 18242,
+    "rows_with_complete_bp_rp": 242724
+  },
+  "outputs": {
+    "data/processed/wp1_gaia_narrow.parquet": {
+      "sha256": "ae17f6180e11073b8cc781497a45d3245085569502147f07926d1c5e46e5587a",
+      "bytes": 56451506
+    },
+    "data/processed/wp1_gaia_narrow.fits": {
+      "sha256": "1e1dc14294a085bada3119ea9583f57dcea1be2119d79f600ad9c971b4c554e3",
+      "bytes": 56560320
+    }
+  }
+}

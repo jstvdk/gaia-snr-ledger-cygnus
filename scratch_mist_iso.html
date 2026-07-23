@@ -1,0 +1,202 @@
+<!DOCTYPE HTML>
+<!--
+    Verti by HTML5 UP
+    html5up.net | @n33co
+    Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+  -->
+<html>
+  <head>
+    <title>MIST</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+    <link rel="stylesheet" href="assets/css/main.css" />
+    <!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
+  </head>
+  <body class="no-sidebar">
+    <div id="page-wrapper">
+
+      <!-- Header -->
+      <div id="header-wrapper">
+	<header id="header" class="container">
+
+	  <!-- Logo -->
+	  <a href="#" class="image logo"><img src="images/mistlogo.jpg" alt="" /></a>	
+	  
+	  <!-- Nav -->
+	  <nav id="nav">
+	    <ul>
+	      <li><a href="index.html">Home</a></li>
+	      <li><a href="model_grids.html">Packaged Model Grids</a></li>
+	      <li class="current">
+		<a href="#">Web Interpolator</a>
+		<ul>
+		  <li><a href="interp_tracks.html">Evolutionary Tracks</a></li>
+		  <li><a href="interp_isos.html">Isochrones</a></li>
+		</ul>
+	      </li>
+	      <li><a href="resources.html">Resources</a></li>
+	      <li><a href="references.html">References</a></li>
+	      <!--<li><a href="contact.html">Contact</a></li>-->
+	    </ul>
+	  </nav>
+
+	</header>
+      </div>
+      
+      <!-- Main -->
+      <div id="main-wrapper">
+	<div class="container">
+	  <div id="content">
+
+	    <!-- Content -->
+	    <article>
+
+	      
+	      <div style="width: 800px; text-align: left">
+		<form class="form-basic" action="iso_form.php" method="POST">
+		  
+		  <h2>Isochrone Interpolation</h2>
+                  
+		  <span style="display:block; height: 20px;"></span>
+
+		  <h4>MIST Version</h4>
+		  <select name="version" style="line-height:100%; vertical-align: middle; width: 10%; height: 35px">
+		    <option value="MIST1" >1.2</option>
+		    <option value="MIST2" selected>2.5</option>
+		  </select>
+
+		  <span style="display:block; height: 30px;"></span>
+
+
+		  <h4>Rotation</h4>
+		  <select name="v_div_vcrit" style="line-height:100%; vertical-align: middle; width: 25%; height: 35px">
+		    <option value="vvcrit0.4" selected="selected">Initial v/v_crit = 0.4</option>
+		    <option value="vvcrit0.0">Initial v/v_crit = 0.0</option>
+		  </select>
+
+		  <span style="display:block; height: 30px;"></span>
+
+		  <fieldset>
+		    <legend color="Red"><h4>Age</h4></legend>
+		    <input type="radio" name="age_scale" value="linear" checked="yes"> Linear Scale
+		    <span style="display:inline-block; width: 40px"></span>
+		    <input type="radio" name="age_scale" value="log10" checked="no"> Log10 Scale
+		    <span style="display:block; height: 20px;"></span>
+		    Age unit is years; available range is 5 &le; log(Age[yr]) &le; 10.3 <br>
+		    <input type="radio" name="age_type" value="single"> Single age <input type="number" name="age_value" step="any" style="margin-left: 1%; padding-left: 0.5em; line-height:100%; vertical-align: middle; width: 10%; height: 35px; display: inline; border-radius: 8px; border: solid 2px #eee;"> <br>
+		    <input type="radio" name="age_type" value="range"> Range of ages from <input type="number" name="age_range_low" step="any" style="margin-left: 1%; margin-right: 1%; padding-left: 0.5em; line-height:100%; vertical-align: middle; width: 10%; height: 35px; display: inline; border-radius: 8px; border: solid 2px #eee;"> to <input type="number" name="age_range_high" step="any" style="margin-left: 1%; margin-right: 1%; padding-left: 0.5em; line-height:100%; vertical-align: middle; width: 10%; height: 35px; display: inline; border-radius: 8px; border: solid 2px #eee;"> in steps of <input type="number" name="age_range_delta" min="0" step="any" style="margin-left: 1%; margin-right: 1%; padding-left: 0.5em; line-height:100%; vertical-align: middle; width: 80px; height: 35px; display: inline; border-radius: 8px; border: solid 2px #eee;"> <br> 
+		    <input type="radio" name="age_type" value="list"> List of ages <input type="text" name="age_list" style="margin-left: 1%; margin-right: 1%; padding-left: 0.5em; line-height:100%; vertical-align: middle; width: 50%; height: 35px; display: inline; border-radius: 8px; border: solid 2px #eee;"> (space separated) <br>
+		    <input type="radio" name="age_type" value="standard" checked="yes">MIST standard age grid (107 ages for 5 &le; logAge &le; 10.3 in 0.05 dex steps)
+		  </fieldset>
+
+		  <span style="display:block; height: 30px;"></span>
+
+		  <fieldset>
+		    <legend><h4>Composition</h4></legend>
+		    <i><font size="3">NOTE: v1.2 models have solar-scaled abundances ([&alpha;/Fe]=0). The [&alpha;/Fe] field only has relevance for v2.5.</font></i><br>
+		    [Fe/H] = <input type="number" name="FeH_value" maxlength="5" min="-4" max="0.5" value="0" step="any" style="margin-left: 1%; margin-right: 1%; padding-left: 0.5em; line-height:100%; vertical-align: middle; width: 10%; height: 35px; display: inline; border-radius: 8px; border: solid 2px #eee;"> (-4 &le; [Fe/H] &le; +0.5) <br>
+
+		    <span style="display:block; height: 10px;"></span>
+		    
+		    <p style="display: flex;">[&alpha;/Fe] = &nbsp;
+		      <select name="alpha_value" style="line-height:100%; vertical-align: middle; width: 10%; height: 35px">
+			<option value="m2"> -0.2 </option>
+			<option value="p0" selected> +0.0 </option>
+			<option value="p2"> +0.2 </option>
+			<option value="p4"> +0.4 </option>
+			<option value="p6"> +0.6 </option>
+		      </select> &nbsp; &nbsp; (only relevant for v2.5) </p>
+		  </fieldset>
+
+		  <span style="display:block; height: 30px;"></span>
+		  
+		  <fieldset>
+		    <legend><h4>Output Options</h4></legend>
+
+		    <input type="radio" name="output_option" value="theory" checked="yes"> Theoretical <br>
+		    
+		    <input type="radio" name="output_option" value="photometry">
+		    Synthetic Photometry
+		    <select name="output" style="line-height:130%; vertical-align: middle; display: inline; width: 60%; height: 35px; margin-left: 1%; margin-right: 1%; ">
+		      <option value="CFHTugriz"> CFHT/MegaCam
+		      <option value="DECam"> DECam
+		      <option value="HST_ACS_HRC"> HST ACS/HRC
+		      <option value="HST_ACS_SBC"> HST ACS/SBC
+		      <option value="HST_ACS_WFC"> HST ACS/WFC
+		      <option value="HST_WFC3"> HST WFC3/UVIS+IR
+		      <option value="HST_WFPC2"> HST WFPC2
+		      <option value="IPHAS"> INT / IPHAS
+		      <option value="GALEX"> GALEX
+		      <option value="JWST"> JWST NIRCAM
+		      <option value="NIRISS"> JWST NIRISS
+		      <option value="PanSTARRS"> PanSTARRS
+		      <option value="Roman"> Roman (formerly WFIRST)			
+		      <option value="LSST"> Rubin / LSST
+		      <option value="SDSSugriz"> SDSS
+		      <option value="SkyMapper"> SkyMapper
+		      <option value="SPITZER"> Spitzer IRAC
+		      <option value="SPLUS"> S-PLUS
+		      <option value="HSC"> Subaru Hyper Suprime-Cam
+		      <option value="Swift"> Swift
+		      <option value="UBVRIplus" selected> UBV(RI)c + 2MASS + Kepler + Hipparcos + Gaia + Tess
+		      <option value="UKIDSS"> UKIDSS
+		      <option value="UVIT"> UVIT
+		      <option value="VISTA"> VISTA
+		      <option value="WashDDOuvby"> Washington + Str&ouml;mgren + DDO51
+		      <option value="WISE"> WISE
+		    </select>
+		    
+		    <div>
+		      &nbsp; &nbsp; Extinction based on <a href="https://ui.adsabs.harvard.edu/abs/2007ApJ...663..320F/abstract" target="_blank">Fitzpatrick &amp; Massa (2007)</a> with Rv=3.1.<br>
+
+		      &nbsp; &nbsp; Extinction Av = <input type="number" name="Av_value" min="0" max="6" value="0" step="any" style="margin-left: 1%; margin-right: 1%; padding-left: 0.5em; line-height:100%; vertical-align: middle; width: 10%; height: 35px; display: inline; border-radius: 8px; border: solid 2px #eee;">  (0 &le; Av &le; 6) <br>
+		    </div>
+		  </fieldset>
+
+		  <span style="display:block; height: 60px;"></span>
+		  
+		  <button type="submit" style="font-size: 2em; font-weight: bold; padding: 0.65em 0.5em; border: 0;">Generate Isochrones</button>
+		  
+		</form>
+	      </div>
+
+	    </article>
+
+	  </div>
+	</div>
+      </div>
+
+      <!-- Footer -->
+      <div id="footer-wrapper">
+        <footer id="footer" class="container">
+          <!-- Contact -->
+          <h3>Contact Us</h3><br>
+          <ul class="feature-icons">
+                  <li class="fa-wrench"> Questions or comments? Use this <a href="https://docs.google.com/forms/d/e/1FAIpQLSch1Nobn0OYdOGvyo1r-xcmyxodRGu2Gu70EFGPc0agtcJFnQ/viewform?usp=header">form.</a></li>
+          </ul>
+          <div class="row">
+            <div class="12u">
+              <div id="copyright">
+                <ul class="menu">
+                  <li>&copy; MIST. All rights reserved</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </footer>
+      </div>
+
+    </div>
+
+    <!-- Scripts -->
+
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/jquery.dropotron.min.js"></script>
+    <script src="assets/js/skel.min.js"></script>
+    <script src="assets/js/util.js"></script>
+    <!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+    <script src="assets/js/main.js"></script>
+
+  </body>
+</html>

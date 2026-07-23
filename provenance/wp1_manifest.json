@@ -1,0 +1,228 @@
+{
+  "created_utc": "2026-07-22T14:35:59.795464+00:00",
+  "script": "scripts/wp1_validate.py",
+  "wp3_inputs_ready": true,
+  "wp1_complete": true,
+  "checks": {
+    "narrow_rows_sane": true,
+    "narrow_unique_source_ids": true,
+    "2mass_tap_completed": true,
+    "2mass_one_row_per_narrow_source": true,
+    "2mass_no_duplicate_source_ids": true,
+    "wright_match_gate_at_least_90_percent": true,
+    "wright_unmatched_individually_accounted": true,
+    "anchors_have_spectral_types": true,
+    "anchors_have_teff_logg": true,
+    "two_local_extinction_maps_frozen": true,
+    "pulsar_anchor_frozen": true,
+    "gamma_cygni_census_frozen": true,
+    "wide_exact_count_recovered": true,
+    "wide_unique_source_ids": true
+  },
+  "summary": {
+    "gaia_narrow_rows": 245843,
+    "2mass_psc_matches": 228654,
+    "2mass_complete_jhk": 203646,
+    "wright_matched": 165,
+    "wright_census_rows": 165,
+    "spectroscopic_anchor_rows": 252,
+    "spectroscopic_anchor_evidence_rows": 540,
+    "gaia_wide_rows": 3133326,
+    "atnf_wide_rows": 80,
+    "green_snr_wide_rows": 9
+  },
+  "verified_files": [
+    {
+      "file": "data/processed/wp1_gaia_narrow.parquet",
+      "sha256": "ae17f6180e11073b8cc781497a45d3245085569502147f07926d1c5e46e5587a",
+      "bytes": 56451506,
+      "record": "gaia_narrow"
+    },
+    {
+      "file": "data/processed/wp1_gaia_narrow.fits",
+      "sha256": "1e1dc14294a085bada3119ea9583f57dcea1be2119d79f600ad9c971b4c554e3",
+      "bytes": 56560320,
+      "record": "gaia_narrow"
+    },
+    {
+      "file": "data/raw/gaia/wp1_gaia_2mass_join.parquet",
+      "sha256": "7cbe5a6a35c425d0c0d7fce91bb20cda2f86171bc33a202414b06aa537babe1b",
+      "bytes": 14452135,
+      "record": "gaia_2mass_tap"
+    },
+    {
+      "file": "data/processed/wp1_2mass_join.parquet",
+      "sha256": "2be08c74dab31d09b914c3b2038aed39d03fa6595339bf40efd78f6e15c11c2e",
+      "bytes": 18670503,
+      "record": "2mass_join"
+    },
+    {
+      "file": "data/processed/wp1_2mass_join.fits",
+      "sha256": "98f37db1d4abe274c87f65a669b367f829f96d4e2cd7dbf30f5e1c30852410f7",
+      "bytes": 47456640,
+      "record": "2mass_join"
+    },
+    {
+      "file": "data/processed/wp1_spectroscopic_anchors.parquet",
+      "sha256": "9bb30e91d98568b346616e5c712f4784d3ff23f90d6216af501597bf18c9b283",
+      "bytes": 55933,
+      "record": "spectroscopic_anchors"
+    },
+    {
+      "file": "data/processed/wp1_spectroscopic_anchors.ecsv",
+      "sha256": "aa19275203d632d35da03771e561f3ff30659d98a3a371a036158b9636ae7903",
+      "bytes": 202913,
+      "record": "spectroscopic_anchors"
+    },
+    {
+      "file": "data/processed/wp1_spectroscopic_anchor_records.parquet",
+      "sha256": "9e997d798e1ceda91ad38dc324998e6323a589f82709a1a3f65ae65c81fe75e1",
+      "bytes": 49345,
+      "record": "spectroscopic_anchors"
+    },
+    {
+      "file": "data/processed/wp1_spectroscopic_anchor_records.ecsv",
+      "sha256": "4f2d816ebc55808802c48617ba1e7a6ae13d736b15051214eab450db580d0429",
+      "bytes": 188092,
+      "record": "spectroscopic_anchors"
+    },
+    {
+      "file": "data/processed/wp1_wright15_gaia_crossmatch.parquet",
+      "sha256": "cfb5c93ef94414fada8ecdceeb591bc308004cd34e9983b5eff1dd7571abaafb",
+      "bytes": 38035,
+      "record": "spectroscopic_anchors"
+    },
+    {
+      "file": "wp1_wright15_crossmatch.md",
+      "sha256": "8e98c51ccbc4fa1e5840e5be684bd801aacb672f6e16bd25fe779b384b58c015",
+      "bytes": 2584,
+      "record": "spectroscopic_anchors"
+    },
+    {
+      "file": "wp1_extinction_refs.md",
+      "sha256": "2b4c897ee6359ee8a8d446bfefbf506a5beeee821b972d71b3cb54275296d689",
+      "bytes": 3205,
+      "record": "extinction_refs"
+    },
+    {
+      "file": "data/raw/extinction/wp1_bayestar19_coverage_grid.parquet",
+      "sha256": "56dec005ff2021e1d7be21dab9fce1287904c8bd77a646cb32b7b8fde08e945d",
+      "bytes": 4938,
+      "record": "extinction_refs"
+    },
+    {
+      "file": "data/raw/extinction/vergely2022_extinction_cube_list.ecsv",
+      "sha256": "b214571aa711b8c77d59f5b3f9450fa36efaebabf10492cea4a857b14c1d21c4",
+      "bytes": 2037,
+      "record": "extinction_refs"
+    },
+    {
+      "file": "data/raw/extinction/explore_cube_density_values_025pc_v2.fits",
+      "sha256": "e8212ac5730a5b318bdb4dd981b9e66c4e2af367a0c3a3a0a91938cfcb0d1ee3",
+      "bytes": 117034560,
+      "record": "extinction_refs"
+    },
+    {
+      "file": "data/raw/extinction/dharmawardena2022_cygnus_gpy_dens_median.out",
+      "sha256": "2c435fa118dcbf7b5558b2d87c6a0c2eedba88b84699140cfa4dbfaf1ff38eef",
+      "bytes": 4200761,
+      "record": "extinction_refs"
+    },
+    {
+      "file": "data/raw/extinction/dharmawardena2022_cygnus_ext_med_cube.pkl.npy",
+      "sha256": "47889275c1a713888b4102cf5187275430240f6213aba8537e13476bc34cebb5",
+      "bytes": 8480128,
+      "record": "extinction_refs"
+    },
+    {
+      "file": "data/raw/extinction/dharmawardena2022_cygnus_l_bounds_pred.pkl.npy",
+      "sha256": "26e57e40dc5a7a6bc98d4d9124c358caf5dc77196a594a6c64b79736e91ee8ff",
+      "bytes": 936,
+      "record": "extinction_refs"
+    },
+    {
+      "file": "data/raw/extinction/dharmawardena2022_cygnus_b_bounds_pred.pkl.npy",
+      "sha256": "23d90961c54379e2982c8fa072deb67bc7a9b259b128a0536047b8b6fb6ffdc0",
+      "bytes": 936,
+      "record": "extinction_refs"
+    },
+    {
+      "file": "data/raw/extinction/dharmawardena2022_cygnus_d_bounds_pred.pkl.npy",
+      "sha256": "dbada21a3602bba9c39286318b2e90c50255926b795d8ccca0fc59adf88a2fa6",
+      "bytes": 976,
+      "record": "extinction_refs"
+    },
+    {
+      "file": "data/raw/markers/psrcat_pkg.v2.8.1.tar.gz",
+      "sha256": "fbc3e7e86b5b39fb9c1701f59f64a00d0e3ae6f97e8102544f3d6c49d9066ae8",
+      "bytes": 1427033,
+      "record": "sn_markers"
+    },
+    {
+      "file": "data/raw/markers/psrcat.v2.8.1.db",
+      "sha256": "29e423e5878d8b97e397425b6a1fe1529396a7b25909e3c1d56924641db6c63b",
+      "bytes": 10432859,
+      "record": "sn_markers"
+    },
+    {
+      "file": "data/processed/wp1_atnf_pulsars_wide.parquet",
+      "sha256": "0fb74705c684b115d0e4bef45ffe8698d9f9f7bb51c9acffa63790e119a5bc3c",
+      "bytes": 44082,
+      "record": "sn_markers"
+    },
+    {
+      "file": "data/raw/markers/green2024_vii_297_snrs.ecsv",
+      "sha256": "c165c4ecf8be442a0ac80935d5bdc2cf24d34ccbbaf410656d2f45c7781cb31d",
+      "bytes": 27316,
+      "record": "sn_markers"
+    },
+    {
+      "file": "data/processed/wp1_green_snrs_wide.parquet",
+      "sha256": "109a985328b84d5bfca12fccee815acd186f999ef4e8b867c82cdfd45a1b8c4d",
+      "bytes": 9796,
+      "record": "sn_markers"
+    },
+    {
+      "file": "data/raw/markers/chandra_snrcat_galactic.html",
+      "sha256": "dd155035c974db75b0a9533c4b1651f121d964ca972bc1f6f4ada88474fde8b1",
+      "bytes": 55210,
+      "record": "sn_markers"
+    },
+    {
+      "file": "data/processed/wp1_chandra_snrcat_wide.parquet",
+      "sha256": "e5f1d496f8f5415873b1a85e565acb1df50bf473cf8900e2f20529f29d734c74",
+      "bytes": 7540,
+      "record": "sn_markers"
+    },
+    {
+      "file": "data/raw/markers/manitoba_snrcat_access_snapshot.html",
+      "sha256": "19f890fb98ebebf01f3e8cb66de5d9ee03320041f00a687d07da19f73bb1473c",
+      "bytes": 384,
+      "record": "sn_markers"
+    },
+    {
+      "file": "data/raw/markers/martin2009_integral_cygnus_arxiv1001.1521.pdf",
+      "sha256": "bd9de80b7bf350046365e02079bc074474447e843ed1c80476f7b673a6df149e",
+      "bytes": 364064,
+      "record": "sn_markers"
+    },
+    {
+      "file": "data/raw/markers/martin2010_population_synthesis_arxiv1001.1522.pdf",
+      "sha256": "d6411f4d2ead1a6bfa209f1825aa5e34f6fb57aafce6a0dc98de871ae35781bb",
+      "bytes": 799166,
+      "record": "sn_markers"
+    },
+    {
+      "file": "wp1_sn_markers.md",
+      "sha256": "1a2160626e2e6251648f131cb8f076f0d44e33aa9bb3966e23093c27164c9bb1",
+      "bytes": 2509,
+      "record": "sn_markers"
+    },
+    {
+      "file": "data/processed/wp1_gaia_wide.parquet",
+      "sha256": "afb54bb3e88c52c0c76546fe151a9abed107ed230516b36aa7ca046e6a4be7c6",
+      "bytes": 473879643,
+      "record": "gaia_wide"
+    }
+  ]
+}

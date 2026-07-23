@@ -1,0 +1,44 @@
+{
+  "created_utc": "2026-07-22T10:18:37.348940+00:00",
+  "script": "scripts/wp1_freeze_extinction_refs.py",
+  "dustmaps_version": "unknown",
+  "baseline": {
+    "name": "Vergely et al. 2022 Gaia-2MASS map",
+    "vizier_catalog": "J/A+A/664/A174",
+    "cube_list_rows": 5,
+    "selected_resolution_pc": 25,
+    "selected_sampling_pc": 10,
+    "selected_extent_kpc": 3,
+    "cube_file": "data/raw/extinction/explore_cube_density_values_025pc_v2.fits",
+    "cube_sha256": "e8212ac5730a5b318bdb4dd981b9e66c4e2af367a0c3a3a0a91938cfcb0d1ee3"
+  },
+  "check": {
+    "name": "Dharmawardena et al. 2022 Cygnus X map",
+    "vizier_catalog": "J/A+A/658/A166/Cygnus",
+    "files": {
+      "data/raw/extinction/dharmawardena2022_cygnus_gpy_dens_median.out": "2c435fa118dcbf7b5558b2d87c6a0c2eedba88b84699140cfa4dbfaf1ff38eef",
+      "data/raw/extinction/dharmawardena2022_cygnus_ext_med_cube.pkl.npy": "47889275c1a713888b4102cf5187275430240f6213aba8537e13476bc34cebb5",
+      "data/raw/extinction/dharmawardena2022_cygnus_l_bounds_pred.pkl.npy": "26e57e40dc5a7a6bc98d4d9124c358caf5dc77196a594a6c64b79736e91ee8ff",
+      "data/raw/extinction/dharmawardena2022_cygnus_b_bounds_pred.pkl.npy": "23d90961c54379e2982c8fa072deb67bc7a9b259b128a0536047b8b6fb6ffdc0",
+      "data/raw/extinction/dharmawardena2022_cygnus_d_bounds_pred.pkl.npy": "dbada21a3602bba9c39286318b2e90c50255926b795d8ccca0fc59adf88a2fa6"
+    }
+  },
+  "optional_bayestar19": {
+    "query_status": "failed",
+    "error": "HTTPError: 500 Server Error: INTERNAL SERVER ERROR for url: http://argonaut.skymaps.info/api/v2/bayestar2019/query",
+    "coverage_grid_rows": 36,
+    "converged": 0,
+    "reliable_dist": 0
+  },
+  "outputs": {
+    "wp1_extinction_refs.md": "2b4c897ee6359ee8a8d446bfefbf506a5beeee821b972d71b3cb54275296d689",
+    "data/raw/extinction/wp1_bayestar19_coverage_grid.parquet": "56dec005ff2021e1d7be21dab9fce1287904c8bd77a646cb32b7b8fde08e945d",
+    "data/raw/extinction/vergely2022_extinction_cube_list.ecsv": "b214571aa711b8c77d59f5b3f9450fa36efaebabf10492cea4a857b14c1d21c4",
+    "data/raw/extinction/explore_cube_density_values_025pc_v2.fits": "e8212ac5730a5b318bdb4dd981b9e66c4e2af367a0c3a3a0a91938cfcb0d1ee3",
+    "data/raw/extinction/dharmawardena2022_cygnus_gpy_dens_median.out": "2c435fa118dcbf7b5558b2d87c6a0c2eedba88b84699140cfa4dbfaf1ff38eef",
+    "data/raw/extinction/dharmawardena2022_cygnus_ext_med_cube.pkl.npy": "47889275c1a713888b4102cf5187275430240f6213aba8537e13476bc34cebb5",
+    "data/raw/extinction/dharmawardena2022_cygnus_l_bounds_pred.pkl.npy": "26e57e40dc5a7a6bc98d4d9124c358caf5dc77196a594a6c64b79736e91ee8ff",
+    "data/raw/extinction/dharmawardena2022_cygnus_b_bounds_pred.pkl.npy": "23d90961c54379e2982c8fa072deb67bc7a9b259b128a0536047b8b6fb6ffdc0",
+    "data/raw/extinction/dharmawardena2022_cygnus_d_bounds_pred.pkl.npy": "dbada21a3602bba9c39286318b2e90c50255926b795d8ccca0fc59adf88a2fa6"
+  }
+}

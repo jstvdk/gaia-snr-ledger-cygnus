@@ -1,0 +1,13 @@
+algorithm,min_samples,min_cluster_size,clusters,noise_rows,largest_cluster_rows,largest_cluster_fraction_analysis,association_component_labels_json,association_component_records_json,association_seed_rows,association_target_yield,association_control_yields_json,association_control_ratio,berlanas_in_analysis,berlanas_recovered_in_seed,berlanas_seed_recall,l_central90_span_deg,b_central90_span_deg,convex_hull_area_deg2,touches_opposite_box_sides
+HDBSCAN,10,30,7,27700,171140,0.8598228505684758,[],[],0,0,"[0, 0, 0]",inf,168,0,0.0,,,,False
+HDBSCAN,10,60,6,89653,109062,0.5479373596394712,[],[],0,0,"[0, 0, 0]",inf,168,0,0.0,,,,False
+HDBSCAN,10,120,4,128090,70031,0.3518420827869635,[],[],0,0,"[0, 0, 0]",inf,168,0,0.0,,,,False
+HDBSCAN,10,240,3,128303,70031,0.3518420827869635,[],[],0,0,"[0, 0, 0]",inf,168,0,0.0,,,,False
+HDBSCAN,15,30,2,46077,152929,0.7683291382177542,[],[],0,0,"[0, 0, 0]",inf,168,0,0.0,,,,False
+HDBSCAN,15,60,2,81010,117965,0.5926668374857441,[],[],0,0,"[0, 0, 0]",inf,168,0,0.0,,,,False
+HDBSCAN,15,120,4,123225,74875,0.3761787772368507,[],[],0,0,"[0, 0, 0]",inf,168,0,0.0,,,,False
+HDBSCAN,15,240,3,123407,74875,0.3761787772368507,[],[],0,0,"[0, 0, 0]",inf,168,0,0.0,,,,False
+HDBSCAN,20,30,2,42644,156367,0.7856019614049367,[],[],0,0,"[0, 0, 0]",inf,168,0,0.0,,,,False
+HDBSCAN,20,60,2,81221,117745,0.591561537572661,[],[],0,0,"[0, 0, 0]",inf,168,0,0.0,,,,False
+HDBSCAN,20,120,4,128727,69462,0.34898337528448914,[],[],0,0,"[0, 0, 0]",inf,168,0,0.0,,,,False
+HDBSCAN,20,240,3,128864,69462,0.34898337528448914,[],[],0,0,"[0, 0, 0]",inf,168,0,0.0,,,,False
