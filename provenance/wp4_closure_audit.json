@@ -1,0 +1,189 @@
+{
+  "script": "scripts/wp4_closure_audit.py",
+  "created_utc": "2026-07-23T14:04:51.415401+00:00",
+  "operation": "read-only closure audit plus WP6 candidate export; no member removed",
+  "wp2_gate": {
+    "soft_rows": 2112,
+    "p_gt_0_5_rows": 1392,
+    "clean_automatic_rows": 1331,
+    "anchor_quality_exempt_rows": 61,
+    "berlanas_recovered": 189,
+    "berlanas_denominator": 229
+  },
+  "subgroup_schema": {
+    "tables/wp2_subgroup_labels.parquet": {
+      "rows": 1331,
+      "subgroup_columns": [
+        "subgroup"
+      ],
+      "counts": {
+        "CygOB2-A": 476,
+        "CygOB2-C": 429,
+        "CygOB2-B": 426
+      }
+    },
+    "data/processed/wp2_members.parquet": {
+      "rows": 2112,
+      "subgroup_columns": [
+        "subgroup"
+      ],
+      "counts": {
+        "unassigned": 781,
+        "CygOB2-A": 476,
+        "CygOB2-C": 429,
+        "CygOB2-B": 426
+      }
+    },
+    "data/processed/wp2_anchor_assignments.parquet": {
+      "rows": 252,
+      "subgroup_columns": [
+        "subgroup"
+      ],
+      "counts": {
+        "unassigned": 123,
+        "CygOB2-A": 64,
+        "CygOB2-C": 48,
+        "CygOB2-B": 17
+      }
+    },
+    "data/processed/wp3_member_photometry.parquet": {
+      "rows": 1392,
+      "subgroup_columns": [
+        "subgroup"
+      ],
+      "counts": {
+        "CygOB2-A": 476,
+        "CygOB2-C": 429,
+        "CygOB2-B": 426,
+        "unassigned": 61
+      }
+    },
+    "data/processed/wp3_extinction.parquet": {
+      "rows": 1392,
+      "subgroup_columns": [
+        "subgroup"
+      ],
+      "counts": {
+        "CygOB2-A": 476,
+        "CygOB2-C": 429,
+        "CygOB2-B": 426,
+        "unassigned": 61
+      }
+    },
+    "data/processed/wp4_masses.parquet": {
+      "rows": 1392,
+      "subgroup_columns": [
+        "subgroup"
+      ],
+      "counts": {
+        "CygOB2-A": 476,
+        "CygOB2-C": 429,
+        "CygOB2-B": 426,
+        "unassigned": 61
+      }
+    },
+    "data/processed/wp4_anchor_hrd.parquet": {
+      "rows": 156,
+      "subgroup_columns": [
+        "subgroup"
+      ],
+      "counts": {
+        "CygOB2-A": 60,
+        "unassigned": 48,
+        "CygOB2-C": 43,
+        "CygOB2-B": 5
+      }
+    },
+    "data/processed/wp4_age_posteriors.parquet": {
+      "rows": 132,
+      "subgroup_columns": [
+        "subgroup"
+      ],
+      "counts": {
+        "CygOB2-A": 44,
+        "CygOB2-B": 44,
+        "CygOB2-C": 44
+      }
+    }
+  },
+  "astrometry_less_gate_members": {
+    "count": 9,
+    "source_ids": [
+      2067742877164542080,
+      2067755379810392320,
+      2067778538274037504,
+      2067785070923660416,
+      2067848219824399616,
+      2067867358199590400,
+      2067878357612771200,
+      2067889696326278272,
+      2067950096449560320
+    ],
+    "mechanism": "explicit Berlanas et al. 2019 spectroscopic membership manual quality exceptions; absent from the frozen narrow Gaia query, therefore P=1 by literature basis and no astrometric posterior"
+  },
+  "high_ruwe_gate_members": {
+    "count": 52,
+    "all_anchor_quality_exempt": true,
+    "maximum_ruwe": 24.026885986328125
+  },
+  "proper_motion_candidates": {
+    "threshold_sigma": 5.0,
+    "reference": {
+      "pmra": {
+        "mean_mas_per_yr": -2.7119518955686006,
+        "std_mas_per_yr": 0.2893070205153012
+      },
+      "pmdec": {
+        "mean_mas_per_yr": -4.311030307608319,
+        "std_mas_per_yr": 0.3091478044589602
+      }
+    },
+    "count": 7,
+    "source_ids": [
+      2067783112420028160,
+      2067852416012277760,
+      2068155125305302144,
+      2067775823854708096,
+      2067425461902141056,
+      2067769265443613568,
+      2067787746683936640
+    ],
+    "output": "provenance/wp4_pm_outliers.csv",
+    "sha256": "6acf51e120aa0a2a000aff01c8ee2203342ee6f51b31a6dbc068bb74b41ad852",
+    "membership_action": "none; hand off to WP6 runaway analysis"
+  },
+  "mass_schema": {
+    "branches": [
+      "mass_PARSEC_rv3.0",
+      "mass_PARSEC_rv3.1",
+      "mass_PARSEC_rv3.5",
+      "mass_MIST_rv3.0",
+      "mass_MIST_rv3.1",
+      "mass_MIST_rv3.5"
+    ],
+    "all_six_null_sets_identical": true,
+    "shared_massless_source_ids": 55,
+    "mass_baseline_definition": "mass_PARSEC_rv3.1; reporting only"
+  },
+  "age_measurability": {
+    "rows": 132,
+    "measurable": 104,
+    "excluded": 28,
+    "grid_railed": 9,
+    "measurable_and_grid_railed": 0,
+    "exclusion_reason_counts": {
+      "n_stars_below_15": 19,
+      "n_stars_below_15;grid_railed": 9
+    },
+    "retained_map_envelope_myr": [
+      2.2477603184951818,
+      5.672179944867402
+    ]
+  },
+  "anchor_counts": {
+    "CygOB2-A": 60,
+    "unassigned": 48,
+    "CygOB2-C": 43,
+    "CygOB2-B": 5
+  }
+}

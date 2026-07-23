@@ -113,6 +113,23 @@ def run():
     df["mass_baseline"] = df["mass_PARSEC_rv3.1"]
     df["mass_parsec_mist_spread"] = (df["mass_PARSEC_rv3.1"] - df["mass_MIST_rv3.1"]).abs()
 
+    mass_columns = [
+        f"mass_{family}_rv{rv:.1f}"
+        for family, rv in branches
+    ]
+    null_sets = [
+        set(df.loc[df[column].isna(), "source_id"].astype("int64"))
+        for column in mass_columns
+    ]
+    if not all(values == null_sets[0] for values in null_sets[1:]):
+        raise RuntimeError("mass-branch null source_id sets differ")
+    massless_ids = null_sets[0]
+    massless_input = m[m["source_id"].isin(massless_ids)]
+    massless_no_gaia = int(massless_input["G"].isna().sum())
+    massless_no_wp3_av = int(
+        (massless_input["G"].notna() & massless_input["av_rv3.1"].isna()).sum()
+    )
+
     df.to_parquet(w.PROC / "wp4_masses.parquet", index=False)
 
     n_spec = int((df.mass_method == "spectroscopic_hrd").sum())
@@ -125,6 +142,9 @@ def run():
         print(f"  {c}: median={v.median():.2f}  range [{v.min():.2f},{v.max():.2f}] Msun")
     print(f"  median |PARSEC-MIST| mass spread (rv3.1): "
           f"{df['mass_parsec_mist_spread'].median():.2f} Msun")
+    print(f"  common massless set: {len(massless_ids)} "
+          f"({massless_no_gaia} no Gaia photometry; "
+          f"{massless_no_wp3_av} Gaia optical rows without WP3 A_V)")
     # calibration-window (2-8 Msun) count preview for WP5
     inwin = df["mass_baseline"].between(2, 8)
     print(f"  members with 2-8 Msun (baseline): {int(inwin.sum())} "
@@ -147,6 +167,15 @@ def run():
         "sig_col": SIG_COL, "sig_mg": SIG_MG,
         "n_members": len(df), "n_spectroscopic": n_spec, "n_photometric": n_phot,
         "median_parsec_mist_mass_spread_rv31": float(df["mass_parsec_mist_spread"].median()),
+        "mass_baseline_definition": (
+            "mass_PARSEC_rv3.1; reporting convenience only, no downstream authority"
+        ),
+        "mass_branch_null_consistency": {
+            "all_six_source_id_sets_identical": True,
+            "n_shared_null_source_ids": int(len(massless_ids)),
+            "n_without_gaia_photometry": massless_no_gaia,
+            "n_with_gaia_optical_but_without_wp3_av": massless_no_wp3_av,
+        },
         "output": {"data/processed/wp4_masses.parquet":
                    sha256(w.PROC / "wp4_masses.parquet")},
     }

@@ -1,0 +1,46 @@
+{
+  "script": "scripts/wp4_fit_ages.py",
+  "created_utc": "2026-07-23T13:55:08.924511+00:00",
+  "inputs": {
+    "wp3_extinction": "f83a612215e9e0e0dfb532eab10687bd83808787aa27a649a78b597b895ef0e1",
+    "wp2_subgroup_labels": "44a5ee7b9190703dae8dca9540c192757423db293c9ecc1ea123065849800887",
+    "isochrones_parsec": "9e0444045acf3e9331bf609e44c5f065635b217558f2ff46deec68fb66c8c663",
+    "isochrones_mist": "3b1437d791e61a5dc9b7b2a2ed12e83bc0a1c64cb775c3862a2073731623135b"
+  },
+  "method": "forward-model CMD likelihood; per-age synthetic population (IMF-weighted single + unresolved-binary q~U[0.1,1]); membership-P-weighted total loglike; posterior with uniform prior in log-age over 1-10 Myr grid",
+  "config": {
+    "IMF_SLOPE": 2.3,
+    "F_BIN_BRANCHES": [
+      0.3,
+      0.4,
+      0.5
+    ],
+    "Q_MIN": 0.1,
+    "SIGMA_INT": 0.03,
+    "MAG_FLOOR": 0.02,
+    "UMS_FAINT_EDGE": 1.5,
+    "PMS_BRIGHT_EDGE": 2.5,
+    "N_MIN_INDICATOR": 15,
+    "R_V_BRANCHES": [
+      3.0,
+      3.1,
+      3.5
+    ],
+    "distance_kpc": 1.6245,
+    "distance_kpc_err": 0.045,
+    "dist_modulus": 11.053598578405008,
+    "dist_modulus_err": 0.06015159029130911
+  },
+  "n_branch_rows": 132,
+  "n_measurable_rows": 104,
+  "n_excluded_rows": 28,
+  "n_grid_railed_rows": 9,
+  "exclusion_reason_counts": {
+    "n_stars_below_15": 19,
+    "n_stars_below_15;grid_railed": 9
+  },
+  "outputs": {
+    "data/processed/wp4_age_posteriors.parquet": "ca7b50099717d76def831fbf5245b90895cc15d13186796b614022d5f8e4e3f9",
+    "data/processed/wp4_posterior_curves.npz": "6761dd44cb5f54810bbe0d59c37f0a88f5d0c2e82e2369f8b2517383e661ce83"
+  }
+}

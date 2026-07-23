@@ -34,6 +34,31 @@ BASE_RV = 3.1
 BASE_FBIN = 0.4
 
 
+def grid_railed(age_map, ages):
+    """True when the MAP lies within one native log-age step of either edge."""
+    if not np.isfinite(age_map) or len(ages) < 2:
+        return False
+    log_ages = np.log10(np.asarray(ages, dtype=float))
+    edge_step = float(np.median(np.diff(log_ages)))
+    log_map = float(np.log10(age_map))
+    tolerance = 1e-3
+    return bool(
+        log_map <= log_ages[0] + edge_step + tolerance
+        or log_map >= log_ages[-1] - edge_step - tolerance
+    )
+
+
+def exclusion_reason(n_stars, age_map, railed):
+    reasons = []
+    if n_stars < w.N_MIN_INDICATOR:
+        reasons.append(f"n_stars_below_{w.N_MIN_INDICATOR}")
+    if railed:
+        reasons.append("grid_railed")
+    if not np.isfinite(age_map):
+        reasons.append("invalid_posterior")
+    return ";".join(reasons)
+
+
 def sha256(path):
     h = hashlib.sha256()
     with open(path, "rb") as f:
@@ -65,11 +90,15 @@ def run():
                             ages, ll, n = w.fit_age_grid(
                                 fsub, isodf, family, f_bin, ind, dmu=dmu)
                             post = w.posterior_from_loglike(ages, ll)
-                            measurable = (n >= w.N_MIN_INDICATOR) and np.isfinite(post["map"])
+                            railed = grid_railed(post["map"], ages)
+                            reason = exclusion_reason(n, post["map"], railed)
+                            measurable = reason == ""
                             rows.append(dict(
                                 subgroup=sub, family=family, R_V=rv, f_bin=f_bin,
                                 indicator=ind, dmu=round(dmu, 4), n_stars=n,
                                 measurable=bool(measurable),
+                                grid_railed=bool(railed),
+                                exclusion_reason=reason,
                                 age_map=post["map"], age_lo68=post["lo68"],
                                 age_hi68=post["hi68"], age_lo90=post["lo90"],
                                 age_hi90=post["hi90"], age_mean=post["mean"],
@@ -123,6 +152,15 @@ def run():
             "dist_modulus": w.DIST_MODULUS, "dist_modulus_err": w.DIST_MODULUS_ERR,
         },
         "n_branch_rows": len(df),
+        "n_measurable_rows": int(df["measurable"].sum()),
+        "n_excluded_rows": int((~df["measurable"]).sum()),
+        "n_grid_railed_rows": int(df["grid_railed"].sum()),
+        "exclusion_reason_counts": {
+            str(key): int(value)
+            for key, value in df.loc[
+                ~df["measurable"], "exclusion_reason"
+            ].value_counts().items()
+        },
         "outputs": {
             "data/processed/wp4_age_posteriors.parquet": None,   # filled below
             "data/processed/wp4_posterior_curves.npz": None,

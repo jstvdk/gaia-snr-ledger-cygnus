@@ -1,0 +1,54 @@
+{
+  "script": "scripts/wp4_anchors_hrd.py",
+  "created_utc": "2026-07-23T13:55:10.243917+00:00",
+  "inputs": {
+    "wp1_spectroscopic_anchors": "9bb30e91d98568b346616e5c712f4784d3ff23f90d6216af501597bf18c9b283",
+    "wp3_extinction": "f83a612215e9e0e0dfb532eab10687bd83808787aa27a649a78b597b895ef0e1",
+    "wp2_subgroup_labels": "44a5ee7b9190703dae8dca9540c192757423db293c9ecc1ea123065849800887",
+    "wp4_age_posteriors": "ca7b50099717d76def831fbf5245b90895cc15d13186796b614022d5f8e4e3f9",
+    "isochrones_parsec": "9e0444045acf3e9331bf609e44c5f065635b217558f2ff46deec68fb66c8c663",
+    "isochrones_mist": "3b1437d791e61a5dc9b7b2a2ed12e83bc0a1c64cb775c3862a2073731623135b"
+  },
+  "method": "place anchors at (logTe_spec, M_G0_obs); mass = Mass of the nearest isochrone point in the (logTe, M_G0) plane under a chi metric (SIG_LOGTE=0.03 dex, SIG_MG0=0.40 mag) on the subgroup's fitted-age isochrone, per family; gate = chi<=2.5 for either family. Branch-robust where Teff folds at turnoff.",
+  "family_age_treatment": "symmetric: each family uses its own independently fitted upper-MS MAP for each subgroup; all three baseline MIST fits happen to select the same 3.548-Myr native grid point, so MIST age_used is constant as a fit result rather than a fixed-age assumption",
+  "logTe_max_trust": 4.7160033436347994,
+  "sig_logte": 0.03,
+  "sig_mg0": 0.4,
+  "chi_tol": 2.5,
+  "n_anchors_with_teff": 156,
+  "n_extreme_hot_excluded": 2,
+  "n_gate_tested": 150,
+  "n_gate_consistent": 131,
+  "frac_consistent": 0.8733333333333333,
+  "gate_by_subgroup": {
+    "CygOB2-A": {
+      "n_anchors": 60,
+      "n_tested": 59,
+      "n_consistent": 51,
+      "frac_consistent": 0.864406779661017
+    },
+    "CygOB2-B": {
+      "n_anchors": 5,
+      "n_tested": 5,
+      "n_consistent": 5,
+      "frac_consistent": 1.0
+    },
+    "CygOB2-C": {
+      "n_anchors": 43,
+      "n_tested": 43,
+      "n_consistent": 39,
+      "frac_consistent": 0.9069767441860465
+    },
+    "unassigned": {
+      "n_anchors": 48,
+      "n_tested": 43,
+      "n_consistent": 36,
+      "frac_consistent": 0.8372093023255814
+    }
+  },
+  "outliers_all_overluminous": true,
+  "outlier_note": "all 19 gate outliers are brighter than the isochrone (median -1.16 mag) - the unresolved-binary signature, consistent with the binary component of the CMD fit",
+  "output": {
+    "data/processed/wp4_anchor_hrd.parquet": "26aa7bca7bb37b456f6fe981ed7748dc47f9a67900920352aa5b444ccf4887c4"
+  }
+}

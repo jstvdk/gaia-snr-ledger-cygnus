@@ -141,6 +141,18 @@ def run():
     n_test = int(len(both))
     n_cons = int(cons.sum())
     frac = n_cons / n_test if n_test else float("nan")
+    gate_by_subgroup = {}
+    for subgroup, group in out.groupby("subgroup", dropna=False):
+        tested = group[(group["extreme_hot"] == False) & group["MG0_obs"].notna()]
+        consistent = int(tested["hrd_consistent"].sum())
+        gate_by_subgroup[str(subgroup)] = {
+            "n_anchors": int(len(group)),
+            "n_tested": int(len(tested)),
+            "n_consistent": consistent,
+            "frac_consistent": (
+                consistent / len(tested) if len(tested) else None
+            ),
+        }
 
     out.to_parquet(w.PROC / "wp4_anchor_hrd.parquet", index=False)
 
@@ -171,6 +183,12 @@ def run():
                    "chi metric (SIG_LOGTE=0.03 dex, SIG_MG0=0.40 mag) on the "
                    "subgroup's fitted-age isochrone, per family; gate = chi<=2.5 "
                    "for either family. Branch-robust where Teff folds at turnoff."),
+        "family_age_treatment": (
+            "symmetric: each family uses its own independently fitted upper-MS "
+            "MAP for each subgroup; all three baseline MIST fits happen to select "
+            "the same 3.548-Myr native grid point, so MIST age_used is constant "
+            "as a fit result rather than a fixed-age assumption"
+        ),
         "logTe_max_trust": LOGTE_MAX_TRUST,
         "sig_logte": SIG_LOGTE, "sig_mg0": SIG_MG0, "chi_tol": 2.5,
         "n_anchors_with_teff": len(out),
@@ -178,6 +196,7 @@ def run():
         "n_gate_tested": n_test,
         "n_gate_consistent": n_cons,
         "frac_consistent": frac,
+        "gate_by_subgroup": gate_by_subgroup,
         "outliers_all_overluminous": True,
         "outlier_note": ("all 19 gate outliers are brighter than the isochrone "
                          "(median -1.16 mag) - the unresolved-binary signature, "

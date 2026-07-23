@@ -107,6 +107,24 @@
   with per-subgroup extinction (A<B<C) for completeness, **and still carry the SF-duration branch
   (0/1/2 Myr)** as the coeval age-spread systematic (subgroups are kinematically, not age, distinct).
 
+## WP4 closure audit additions — 2026-07-23
+
+- Nine P>0.5 rows have null `ra`, `dec`, parallax, proper motion and RUWE. They
+  are not astrometric classifications: each is a Berlanas et al. 2019
+  spectroscopic member absent from the frozen narrow Gaia query and retained as
+  an explicit manual quality exception. Accordingly,
+  `membership_probability=1`,
+  `membership_probability_astrometric=NaN`,
+  `anchor_quality_exempt=True`, and `subgroup=unassigned`. Their source_ids are
+  frozen in `provenance/wp4_closure_audit.json`; membership counts and the
+  189/229 Berlanas gate recall are unchanged.
+- All 52 P>0.5 rows with RUWE>1.4 are explicit
+  `anchor_quality_exempt=True` objects (maximum RUWE 24.03). No clean automatic
+  member bypasses the RUWE criterion.
+- Seven >5σ proper-motion candidates are exported to
+  `provenance/wp4_pm_outliers.csv` with P, subgroup, anchor status and RUWE.
+  They are WP6 runaway candidates; **none was removed** from WP2.
+
 ## Execution environment and commands
 
 - Host: macOS 15.6.1 arm64; repository HEAD before these uncommitted changes: `d95f814f295bbc512e283b13133a4c1752d0b4eb`; Conda environment: `cygob2-gaia`; Python 3.11.15.

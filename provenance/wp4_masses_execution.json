@@ -1,0 +1,29 @@
+{
+  "script": "scripts/wp4_masses.py",
+  "created_utc": "2026-07-23T13:55:27.425304+00:00",
+  "inputs": {
+    "wp3_extinction": "f83a612215e9e0e0dfb532eab10687bd83808787aa27a649a78b597b895ef0e1",
+    "wp2_subgroup_labels": "44a5ee7b9190703dae8dca9540c192757423db293c9ecc1ea123065849800887",
+    "wp4_age_posteriors": "ca7b50099717d76def831fbf5245b90895cc15d13186796b614022d5f8e4e3f9",
+    "wp4_anchor_hrd": "26aa7bca7bb37b456f6fe981ed7748dc47f9a67900920352aa5b444ccf4887c4",
+    "isochrones_parsec": "9e0444045acf3e9331bf609e44c5f065635b217558f2ff46deec68fb66c8c663",
+    "isochrones_mist": "3b1437d791e61a5dc9b7b2a2ed12e83bc0a1c64cb775c3862a2073731623135b"
+  },
+  "method": "nearest-point mass in (colour, M_G0) on subgroup fitted-age isochrone per (family, R_V); spectroscopic-HRD override for anchors; 6 branch mass columns per star + provenance flag",
+  "sig_col": 0.1,
+  "sig_mg": 0.3,
+  "n_members": 1392,
+  "n_spectroscopic": 150,
+  "n_photometric": 1242,
+  "median_parsec_mist_mass_spread_rv31": 0.10649180757233845,
+  "mass_baseline_definition": "mass_PARSEC_rv3.1; reporting convenience only, no downstream authority",
+  "mass_branch_null_consistency": {
+    "all_six_source_id_sets_identical": true,
+    "n_shared_null_source_ids": 55,
+    "n_without_gaia_photometry": 9,
+    "n_with_gaia_optical_but_without_wp3_av": 46
+  },
+  "output": {
+    "data/processed/wp4_masses.parquet": "d1d1048970928610593237332aa9f6996fd27c5964af09aa5fae65c10aa5e614"
+  }
+}

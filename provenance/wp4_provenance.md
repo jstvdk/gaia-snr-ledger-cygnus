@@ -20,12 +20,15 @@ register (`§9`, `§10`).
 | 4 | `scripts/wp4_clump.py` | high-A_V clump classification + age-robustness test | `wp4_clump_execution.json` |
 | 5 | `scripts/wp4_masses.py` | per-star masses (6 branches) + spectroscopic override | `wp4_masses_execution.json` |
 | 6 | `scripts/wp4_figures.py` | CMD / HRD / posterior / money-plot figures | (deterministic) |
-| 7 | `scripts/wp4_report.py` | tables, `wp4_masses.cat`, manifest | (deterministic) |
+| 7 | `scripts/wp4_closure_audit.py` | schema/count gates + WP6 PM-candidate export | `wp4_closure_audit.json` |
+| 8 | `scripts/wp4_report.py` | tables, `wp4_masses.cat`, manifest, regenerated report blocks | (deterministic) |
 
 Reproduce end-to-end from `scripts/`:
 ```
-python3 wp4_fit_ages.py && python3 wp4_anchors_hrd.py && python3 wp4_clump.py \
-  && python3 wp4_masses.py && python3 wp4_figures.py && python3 wp4_report.py
+conda run -n cygob2-gaia --no-capture-output env PYTHONPATH=scripts \
+  python scripts/wp4_fit_ages.py
+# Then run anchors_hrd, clump, masses, figures, closure_audit and report with
+# the same Conda/PYTHONPATH prefix, in that order.
 ```
 All steps are deterministic (no RNG; the synthetic population is a deterministic
 IMF-weighted mass grid × mass-ratio grid). Total runtime ≈ 35 s.
@@ -34,11 +37,11 @@ IMF-weighted mass grid × mass-ratio grid). Total runtime ≈ 35 s.
 
 | Input | SHA-256 (first 16) |
 |---|---|
-| `data/processed/wp3_extinction.parquet` | `278dce68647f8319` |
+| `data/processed/wp3_extinction.parquet` | `f83a612215e9e0e0` |
 | `data/processed/wp3_isochrones_parsec.parquet` | `9e0444045acf3e93` |
 | `data/processed/wp3_isochrones_mist.parquet` | `3b1437d791e61a5d` |
-| `tables/wp2_subgroup_labels.parquet` | `4cccab14878c1f87` |
-| `data/processed/wp2_anchor_assignments.parquet` | `26290a7e543b0a0a` |
+| `tables/wp2_subgroup_labels.parquet` | `44a5ee7b9190703d` |
+| `data/processed/wp2_anchor_assignments.parquet` | `22d7fc622dc0fc99` |
 | `data/processed/wp1_spectroscopic_anchors.parquet` | `9bb30e91d98568b3` |
 
 The two isochrone grids are **byte-identical to the WP3 files** (digests match
@@ -63,7 +66,7 @@ as a string; it is coerced to int64 before joining to the int64 member keys.
 | Mag floor | 0.02 mag | **D** | photometric systematic floor | — | negligible |
 | ums window | M_G0 ≤ +1.5 | **C/D** | bright, well-populated regime | — | defines indicator |
 | pms window | M_G0 ≥ +2.5 | **C/D** | faint contracting regime; data-limited | — | measurable only for A, B |
-| N_min per indicator | 15 stars | **D** | measurability floor | — | flags C-pms as starved |
+| N_min per indicator | 15 stars | **B** | population-level measurability convention; registered in CUTS §5.4 | 10/20/30 | full retained MAP span is 2.25–5.67 at 10/15 and 2.25–4.50 at 20/30 |
 | anchor χ tolerance | 2.5 | **B** | ~2.5σ HRD match incl. binary brightening | — | gate pass/fail |
 | logTe_max_trust | log(52000) | **B** | above this = WR/stripped, off normal isochrones | — | 2 anchors excluded |
 | clump box | see below | **C** | reproduces the WP3 flag | — | age shift 0.00 Myr when removed |
@@ -75,6 +78,13 @@ single-star MS.
 convenience only and has no downstream authority; WP5 must carry all six mass
 branches separately.
 
+The HRD age lookup is algorithmically symmetric between families: for each
+subgroup, PARSEC and MIST each use their own independently fitted upper-MS MAP.
+All three baseline MIST fits select the same 3.571-Myr native grid point, so the
+constant `age_used_MIST` is a fit result, not a fixed-age input. Consequently,
+χ_PARSEC versus χ_MIST compares each family's best-age morphology, not two
+families evaluated at one common numerical age.
+
 ## 4. Sensitivity register (downstream-relevant, per `§9`)
 
 - **Age vs isochrone family:** MIST 0.4–0.9 Myr younger than PARSEC at fixed data. **Dominant systematic.** Carried as a branch into WP5/WP7.
@@ -82,15 +92,27 @@ branches separately.
 - **Age vs R_V:** ≤ one grid step (~0.4 Myr).
 - **Age vs f_bin:** negligible on the upper MS (< 0.05 Myr); binaries are captured by the explicit binary component, not by clipping.
 - **Age vs clump removal:** 0.00 Myr in every subgroup/family — the high-A_V clump does not drive the age.
-- **Upper-MS vs PMS turn-on:** agree for B; A's upper-MS is ~1.5 Myr older than its PMS (extended-SF signature, documented); C's PMS is starved (n=3, not measurable).
+- **Upper-MS vs PMS turn-on:** B agrees at baseline, but its retained R_V=3.5
+  MIST PMS branch reaches 5.67 Myr with N=19; A's upper-MS/PMS offset is
+  documented; C's PMS is starved and excluded.
+- **Age-row exclusions:** 104/132 retained; 28 excluded. Nineteen fail only
+  N≥15, and nine fail N≥15 and are grid-railed. No measurable row is railed.
 
 ## 5. Gate
 
-Three criteria, all passed — see `wp4_ages.md §10`. Headline: A/B/C **consistent
-with coeval at ~3.5–4.5 Myr**; the coeval result is stated explicitly rather than
-forced into a spread. Anchor HRD 87% consistent (median χ < 1); all outliers are
-over-luminous binaries. The **star-formation-duration branch (0/1/2 Myr) is carried
-into WP7** regardless of the coeval finding.
+The gate is satisfied with explicit limitations — see `wp4_ages.md §10`.
+A/B/C remain consistent with a coeval upper MS (retained MAPs 3.16–4.50 Myr),
+while the honest two-indicator span is 2.25–5.67 Myr. The association-wide HRD
+gate passes at 131/150 (87%), but subgroup B has only five anchors and is marked
+limited. The indicator gate is satisfied by **documented disagreement**, not a
+blanket agreement claim. The star-formation-duration branch (0/1/2 Myr) remains
+mandatory for WP7.
+
+<!-- BEGIN GENERATED:REPORT_REGENERATION -->
+Final deterministic report regeneration: `2026-07-23T14:05:25.562369+00:00` UTC, after all WP4 Parquet, NPZ, figure, table, audit and manifest products.
+
+Diff against the pre-closure reports: headline values changed from an unqualified 3.5–4.5 Myr statement to a 3.16–4.50 Myr upper-MS envelope plus the honest 2.25–5.67 Myr two-indicator envelope; the indicator gate changed from PASS to documented disagreement; subgroup-B anchor coverage (N=5), the MIST equal-age fit result, 28 age-row exclusions, the 55 common massless rows, nine astrometry-less exceptions and seven WP6 PM candidates were added. Membership counts, Berlanas recall, anchor-HRD aggregate 131/150, baseline mass summaries and the coeval upper-MS verdict did not move.
+<!-- END GENERATED:REPORT_REGENERATION -->
 
 ## 6. Known limitations (carried forward honestly)
 
@@ -110,3 +132,17 @@ into WP7** regardless of the coeval finding.
   coordinate; nine manual Berlanas quality exceptions are absent from the
   frozen narrow Gaia query and have no absolute G. Their missing masses are
   input-driven and not branch-specific.
+- Anchor HRD coverage is lopsided: A/B/C/unassigned = **60/5/43/48**. B's five
+  anchors are all consistent, but N=5 is not an independently strong subgroup
+  validation; 48 informative anchors are unassigned because the subgroup fit
+  deliberately excluded all quality exceptions.
+- Nine P>0.5 members have no Gaia astrometry or photometry because they are
+  explicit Berlanas+19 spectroscopic manual quality exceptions absent from the
+  frozen narrow query. Their `membership_probability=1` is literature-based;
+  `membership_probability_astrometric` remains null. Counts and Berlanas recall
+  are unchanged.
+- All 52 P>0.5 members with RUWE>1.4 are explicit
+  `anchor_quality_exempt=True` rows (maximum RUWE 24.03), consistent with the
+  documented binary-bias exception.
+- Seven >5σ proper-motion candidates are frozen in
+  `provenance/wp4_pm_outliers.csv` for WP6. None is cut from membership.

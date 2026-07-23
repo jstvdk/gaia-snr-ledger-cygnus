@@ -1,0 +1,65 @@
+{
+  "script": "scripts/wp4_clump.py",
+  "created_utc": "2026-07-23T13:55:14.644572+00:00",
+  "inputs": {
+    "wp3_extinction": "f83a612215e9e0e0dfb532eab10687bd83808787aa27a649a78b597b895ef0e1",
+    "wp2_subgroup_labels": "44a5ee7b9190703dae8dca9540c192757423db293c9ecc1ea123065849800887",
+    "isochrones_parsec": "9e0444045acf3e9331bf609e44c5f065635b217558f2ff46deec68fb66c8c663",
+    "isochrones_mist": "3b1437d791e61a5dc9b7b2a2ed12e83bc0a1c64cb775c3862a2073731623135b"
+  },
+  "selection": {
+    "col": [
+      -0.4,
+      0.5
+    ],
+    "mg": [
+      -1.0,
+      2.5
+    ],
+    "above_mag": 0.5
+  },
+  "n_clump": 31,
+  "classification_counts": {
+    "unresolved_binary": 17,
+    "genuine_or_binary": 8,
+    "extinction_degeneracy": 6
+  },
+  "corr_deltamg_av": -0.18373087634273932,
+  "age_shift_ums_when_removed": {
+    "CygOB2-A|PARSEC": {
+      "with_clump": 4.467,
+      "no_clump": 4.467,
+      "shift": 0.0
+    },
+    "CygOB2-A|MIST": {
+      "with_clump": 3.571,
+      "no_clump": 3.571,
+      "shift": 0.0
+    },
+    "CygOB2-B|PARSEC": {
+      "with_clump": 3.981,
+      "no_clump": 3.981,
+      "shift": 0.0
+    },
+    "CygOB2-B|MIST": {
+      "with_clump": 3.571,
+      "no_clump": 3.571,
+      "shift": 0.0
+    },
+    "CygOB2-C|PARSEC": {
+      "with_clump": 3.981,
+      "no_clump": 3.981,
+      "shift": 0.0
+    },
+    "CygOB2-C|MIST": {
+      "with_clump": 3.571,
+      "no_clump": 3.571,
+      "shift": 0.0
+    }
+  },
+  "max_abs_age_shift_Myr": 0.0,
+  "verdict": "clump is a mixture; extinction-degeneracy + binaries dominate; it does not drive the age (see age_shift). Handled in-fit by the binary component + A_V-error term.",
+  "output": {
+    "data/processed/wp4_clump.parquet": "1d040cadc961ab8223cd3959161233f2162679872c8e01b14444280a07ed7f8a"
+  }
+}

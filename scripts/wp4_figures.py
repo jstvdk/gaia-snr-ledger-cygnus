@@ -182,7 +182,7 @@ def fig_age_summary(post):
     ax.axhspan(4, 5, color="0.6", alpha=0.2, label="Wright+15 rotating (4-5)")
     ax.set_xticks([0, 1, 2]); ax.set_xticklabels(w.SUBGROUPS)
     ax.set_ylabel("age (Myr)"); ax.set_ylim(1, 7)
-    ax.set_title("WP4 subgroup ages - filled=measurable, open=starved; "
+    ax.set_title("WP4 subgroup ages - filled=measurable, open=excluded; "
                  "thick faint bar = R_V x f_bin envelope")
     ax.grid(alpha=0.15, axis="y")
     ax.legend(fontsize=8, ncol=2, loc="upper right")

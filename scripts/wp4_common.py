@@ -58,10 +58,11 @@ MAG_FLOOR = 0.02         # Class D - photometric floor added in quadrature (mag)
 # see wp4 provenance; the faint edge of the *observable* sample sits near
 # M_G0 ~ +3 at this distance+extinction, so the PMS window is intrinsically
 # starved and an indicator is only reported where it holds >= N_MIN_INDICATOR
-# stars).
+# stars).  The minimum is a Class-B reporting convention registered in
+# CUTS_AND_THRESHOLDS.md; it is not tuned against the recovered ages.
 UMS_FAINT_EDGE = 1.5     # upper-MS window: M_G0 <= 1.5
 PMS_BRIGHT_EDGE = 2.5    # PMS/lower window: M_G0 >= 2.5
-N_MIN_INDICATOR = 15     # minimum weighted-ish star count for an indicator to be "measurable"
+N_MIN_INDICATOR = 15     # Class B: minimum star count for a measurable age indicator
 
 # CMD colour used for the fit: (BP-RP)0.  Fit plane is (colour, M_G0).
 COLOUR_LO, COLOUR_HI = -1.6, 2.6   # global CMD colour box for model normalisation

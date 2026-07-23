@@ -1,0 +1,133 @@
+{
+  "work_package": "WP4 - subgroup ages & per-star masses",
+  "created_utc": "2026-07-23T14:05:25.556011+00:00",
+  "status": "WP4_COMPLETE_GATE_SATISFIED_WITH_DOCUMENTED_LIMITATIONS",
+  "distance_posterior_kpc": [
+    1.6245,
+    0.045
+  ],
+  "dist_modulus": 11.053598578405008,
+  "dist_modulus_err": 0.06015159029130911,
+  "branches_carried": {
+    "isochrone_family": [
+      "PARSEC",
+      "MIST"
+    ],
+    "R_V": [
+      3.0,
+      3.1,
+      3.5
+    ],
+    "f_bin": [
+      0.3,
+      0.4,
+      0.5
+    ],
+    "age_indicator": [
+      "upper_main_sequence",
+      "pms_turn_on"
+    ],
+    "distance_shift_mag": [
+      0.0,
+      0.0602,
+      -0.0602
+    ],
+    "star_formation_duration_Myr_carried_to_WP7": [
+      0,
+      1,
+      2
+    ]
+  },
+  "upstream_inputs": {
+    "wp3_extinction": "f83a612215e9e0e0dfb532eab10687bd83808787aa27a649a78b597b895ef0e1",
+    "wp3_isochrones_parsec": "9e0444045acf3e9331bf609e44c5f065635b217558f2ff46deec68fb66c8c663",
+    "wp3_isochrones_mist": "3b1437d791e61a5dc9b7b2a2ed12e83bc0a1c64cb775c3862a2073731623135b",
+    "wp2_subgroup_labels": "44a5ee7b9190703dae8dca9540c192757423db293c9ecc1ea123065849800887",
+    "wp2_anchor_assignments": "22d7fc622dc0fc9957b140ddd7e7b93ebb9adba6f263ad8078745d6906e68db0",
+    "wp1_spectroscopic_anchors": "9bb30e91d98568b346616e5c712f4784d3ff23f90d6216af501597bf18c9b283"
+  },
+  "scripts": {
+    "scripts/wp4_common.py": "0c5d018da64be66d7b3617172755772d0616bc711793c3b861567e834cd88f21",
+    "scripts/wp4_fit_ages.py": "265d19b5528cf3cbdcf541af2723cc1eabce5ead4b9c4d145213960a92c806c4",
+    "scripts/wp4_anchors_hrd.py": "f39bce7f206a2d05d846a0440e55016bd54869b22111c535d05bfd7ecb264821",
+    "scripts/wp4_clump.py": "210b8e5be0f071cc29fedba03a61937f0da4a3dc2d0391c1883e4f96af152402",
+    "scripts/wp4_masses.py": "80a40e34a0784e354c5fa4162f51f8ccf12648b46d3a7bc8c63ce35cb8aa0fbc",
+    "scripts/wp4_figures.py": "affd45a0492bf7c829aaaa51acfa33df4a96cc8e5daf9ee4791a21c7f2857cf2",
+    "scripts/wp4_schema_repair.py": "143db4d770500802d08a5537c4db8fbb036fd0ac789389583f2fa78b89902ad6",
+    "scripts/wp4_closure_audit.py": "999f5920f50a19706e5011ccc1241bbde3b05875f431099e6ecf60ccb48f9737",
+    "scripts/wp4_report.py": "05b430cd0966a1d8083622888bfbdf2a0679f2f3795f3dc70731ea2e7d6f473e"
+  },
+  "execution_logs": {
+    "provenance/wp4_fit_ages_execution.json": "65baf56439f970c141382b55149412f38a5dac8d1650dc3c3787ac461fdbeaa5",
+    "provenance/wp4_anchors_hrd_execution.json": "1fa241e30e67fb99fef6e1190449c6fae1dedd5856401a1f707526bd117788d2",
+    "provenance/wp4_clump_execution.json": "a4e60512c4ae0640e859536f01def759969bc9d040fcf14d6d2eb331787e0a1d",
+    "provenance/wp4_masses_execution.json": "bbf4ad8466f8fb9a226e511036a2ead04ce1a27582e634d8565995b52e285361",
+    "provenance/wp4_schema_repair_execution.json": "2511cc2843e3cdb3bffabbb983b2359d81465dee258abe263631e4640ecd819f",
+    "provenance/wp4_closure_audit.json": "4b7a446cb25485446b91fca6ade3de9ac74ab487ce12341f5b045160adc868cf"
+  },
+  "outputs": {
+    "data/processed/wp4_age_posteriors.parquet": {
+      "sha256": "ca7b50099717d76def831fbf5245b90895cc15d13186796b614022d5f8e4e3f9",
+      "bytes": 15977
+    },
+    "data/processed/wp4_posterior_curves.npz": {
+      "sha256": "6761dd44cb5f54810bbe0d59c37f0a88f5d0c2e82e2369f8b2517383e661ce83",
+      "bytes": 322171
+    },
+    "data/processed/wp4_anchor_hrd.parquet": {
+      "sha256": "26aa7bca7bb37b456f6fe981ed7748dc47f9a67900920352aa5b444ccf4887c4",
+      "bytes": 21439
+    },
+    "data/processed/wp4_clump.parquet": {
+      "sha256": "1d040cadc961ab8223cd3959161233f2162679872c8e01b14444280a07ed7f8a",
+      "bytes": 10927
+    },
+    "data/processed/wp4_masses.parquet": {
+      "sha256": "d1d1048970928610593237332aa9f6996fd27c5964af09aa5fae65c10aa5e614",
+      "bytes": 132121
+    },
+    "tables/wp4_ages_summary.csv": {
+      "sha256": "eb4261e582335f3ac8485c1b02bb0648be9481d986d46e44a2ec443fcc9cc715",
+      "bytes": 19014
+    },
+    "tables/wp4_ages_table.md": {
+      "sha256": "29b54a6a01c2de298cd68aa406455e8d0b1685cd16f20dc93980f2abec8b58c6",
+      "bytes": 874
+    },
+    "tables/wp4_ages_envelope.md": {
+      "sha256": "cec7e4d1cb69584d2b4226833a5bdb5a0b7bceaf55adf02d5acf37ec0fc6c271",
+      "bytes": 755
+    },
+    "tables/wp4_masses.cat": {
+      "sha256": "bdcc7cfc2f5559649c932249dc06796c072a21e9fec2c93fbbd0e60460c5a84f",
+      "bytes": 167003
+    },
+    "provenance/wp4_pm_outliers.csv": {
+      "sha256": "6acf51e120aa0a2a000aff01c8ee2203342ee6f51b31a6dbc068bb74b41ad852",
+      "bytes": 2018
+    },
+    "figures/wp4/wp4_cmd_subgroups.png": {
+      "sha256": "87fff7c0b9b9fc8c5db11e9e6589aa62a979cd456e758e5a57b36d4fe5dc7add",
+      "bytes": 189529
+    },
+    "figures/wp4/wp4_hrd_anchors.png": {
+      "sha256": "5514af56960892f3ef616a233674d3af7f4fa1db5c1e42632f6c2c09676872e4",
+      "bytes": 96247
+    },
+    "figures/wp4/wp4_age_posteriors.png": {
+      "sha256": "1608f7f4c328874cbac2c67970ff3b3f64f7cd8e8461f76b3e846e7098823ddd",
+      "bytes": 92005
+    },
+    "figures/wp4/wp4_age_summary.png": {
+      "sha256": "a4113efac01c2eda44be59469f8e2ae43deb33db63344132972722ee656ac209",
+      "bytes": 44187
+    }
+  },
+  "shared_isochrones_with_WP3": true,
+  "reports_regenerated_after_products": true,
+  "reports": [
+    "wp4_ages.md",
+    "wp4_completion_report.md",
+    "provenance/wp4_provenance.md"
+  ]
+}

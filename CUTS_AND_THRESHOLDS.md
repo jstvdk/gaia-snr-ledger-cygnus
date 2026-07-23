@@ -58,6 +58,7 @@ Your plan already handles Class E well — the mandatory branches in §1.4 are e
 | 30 | WP1 gate | ≥ 90% Wright+15 | B | fine | keep |
 | 31 | WP2 gate | ≥ 80% Berlanas | B | **recall-only** | see §8 |
 | 32 | Mass sanity | factor ~2 | B | fine | keep |
+| 33 | WP4 age-indicator minimum | ≥ 15 stars | B | registered at closure | exclude smaller samples; report 10/20/30-star sensitivity |
 
 ---
 
@@ -173,6 +174,19 @@ This matters more here than in most fields: Cygnus is crowded and nebulous, whic
 ### 5.3 The ones that are fine
 
 `visibility_periods_used ≥ 8`, R<sub>V</sub> = 3.1 baseline, the 8 M<sub>☉</sub> SN threshold, ≥95% completeness floor, ≥50 stars per subgroup, the factor-2 mass sanity check. Cite, test cheaply where free, move on. Do not spend effort here.
+
+### 5.4 WP4 age-indicator measurability: N ≥ 15
+
+An age branch is reported as measurable only when its CMD indicator window
+contains at least **15 stars**. This is a Class-B reporting convention: below
+that count, an apparent MAP can be set by one or a few stars rather than a
+population sequence. It is a measurability flag, not a membership cut; no star
+is removed from any catalogue.
+
+The closure sensitivity check repeats the envelope selection at floors of
+10/20/30 stars. The 15-star baseline retains 104/132 branch rows; the excluded
+rows are enumerated in `tables/wp4_ages_summary.csv`. Boundary-pinned MAPs are
+excluded independently, even if they meet the count floor.
 
 ---
 

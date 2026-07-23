@@ -141,8 +141,9 @@ anchor A_V for A/C), and they align with Paíz's independently-catalogued OC-128
 FSR 0238; the HSC 630 control is cleanly excluded.
 
 - **Labels** are written to the sidecar `tables/wp2_subgroup_labels.parquet`
-  (`source_id → subgroup_label`), **not** into `wp2_members.parquet` (Task B reads that
-  concurrently — join on `source_id`).
+  (`source_id → subgroup`). The WP4 closure migration propagates this canonical
+  column into WP2/WP3 member products, with non-sidecar rows explicitly
+  `unassigned`; downstream joins remain keyed on `source_id`.
 - **For WP4/WP5:** the subgroups share a distance, so treat them as spatial/kinematic
   sub-populations for per-subgroup completeness (extinction differs: A < B < C), **and still
   carry the star-formation-duration branch (0/1/2 Myr)** as the coeval-age-spread
