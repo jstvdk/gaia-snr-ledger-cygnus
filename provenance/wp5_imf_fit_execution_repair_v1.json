@@ -1,0 +1,111 @@
+{
+  "created_utc": "2026-07-24T09:36:13.576142+00:00",
+  "script": "scripts/wp5_fit_imf.py",
+  "repair_version": "repair_v1",
+  "status": "WP5_BLOCKED_RESIDUAL_OR_MASS_GATE",
+  "seed": 20260723,
+  "environment": {
+    "python": "3.11.15 | packaged by conda-forge | (main, Jun 11 2026, 03:29:05) [Clang 19.1.7 ]",
+    "platform": "macOS-15.6.1-arm64-arm-64bit",
+    "numpy": "2.4.6",
+    "pandas": "3.0.3",
+    "scipy": "1.17.1"
+  },
+  "inputs": {
+    "data/processed/wp4_mass_posteriors_repair_v1.parquet": "30e1604ec1dc2ac15dcafd198fc97a69eb4d75ad10e8e8bed11cfe70d2dce9d1",
+    "data/processed/wp5_completeness_curves_repair_v1.parquet": "c0896a49a00877bc42e17775d681fc6e548efad8d365153ee40abe88bcf1db60",
+    "data/processed/wp5_injection_response_repair_v1.parquet": "ba88398181cd92ea77029efb27ec4a54fbf9d6ea8143915a1b028b26541d1ad3"
+  },
+  "model": {
+    "imf": "dN_primary_system/dm = k m^-alpha above 0.5 Msun",
+    "slopes": [
+      2.0,
+      2.3,
+      2.6
+    ],
+    "subgroups": [
+      "CygOB2-A",
+      "CygOB2-B",
+      "CygOB2-C"
+    ],
+    "families": [
+      "PARSEC",
+      "MIST"
+    ],
+    "R_V": [
+      3.0,
+      3.1,
+      3.5
+    ],
+    "nominal_window_Msun": [
+      2.0,
+      8.0
+    ],
+    "bins": 6,
+    "count": "sum of WP2 membership probabilities",
+    "mass_posterior_counting": "soft bin probabilities for repair versions; posterior medians for the frozen unversioned path",
+    "likelihood": "independent Poisson observed-mass bins with lambda_i=k integral R_i(m_true)m_true^-alpha dm_true; R includes selection and WP4 recovered-mass migration",
+    "k_prior": "Jeffreys p(k) proportional to k^-1/2",
+    "posterior_draws": 10000,
+    "response_uncertainty": "Jeffreys-multinomial Dirichlet draws over six observed-mass bins plus lost/outside, at every injected true mass",
+    "total_mass_imf": "Kroupa-like slope 1.3 from 0.08--0.5 Msun, branch alpha from 0.5--120 Msun, continuous at 0.5",
+    "multiplicity": "primary-system k plus companions with f_bin=0.4, q~U[0.1,1]"
+  },
+  "calibration_window_result": {
+    "absolute_target": 0.95,
+    "absolute_edge_found_count": 0,
+    "branch_subgroup_fit_count": 54,
+    "fallback": "full 2--8 Msun corrected likelihood; explicitly not labelled 95% complete",
+    "reason": "magnitude-independent WP2 quality and membership losses keep the bright plateau below 95%",
+    "relative_plateau_edges_are_diagnostic_only": true
+  },
+  "unassigned_policy": {
+    "excluded_from_subgroup_normalizations": true,
+    "reason": "no frozen subgroup footprint/completeness curve",
+    "raw_2_8_baseline_sources": 0,
+    "membership_weighted_2_8_baseline_sources": 0.0
+  },
+  "gate": {
+    "absolute_95_edge_exists_all_branches": false,
+    "minimum_50_sources_per_subgroup_branch": true,
+    "baseline_all_subgroups_residual_gate": false,
+    "all_branch_subgroups_residual_gate": false,
+    "baseline_mass_within_factor_two": true,
+    "all_branch_masses_within_factor_two": false
+  },
+  "baseline": {
+    "family": "PARSEC",
+    "R_V": 3.1,
+    "alpha": 2.3,
+    "k_total_median": 5649.260654132176,
+    "k_total_lo68": 5438.886234750083,
+    "k_total_hi68": 5867.381889553048,
+    "primary_system_mass_median_Msun": 25886.20623405779,
+    "primary_system_mass_lo68_Msun": 24922.22245991353,
+    "primary_system_mass_hi68_Msun": 26885.687693636424,
+    "multiplicity_adjusted_mass_median_Msun": 31293.342406341864,
+    "multiplicity_adjusted_mass_lo68_Msun": 30128.000755050944,
+    "multiplicity_adjusted_mass_hi68_Msun": 32501.596534450986,
+    "companion_mass_fraction": 0.17278870700587964,
+    "literature_mass_Msun": 16500.0,
+    "within_factor_two_literature": true
+  },
+  "outputs": {
+    "data/processed/wp5_imf_normalization_repair_v1.parquet": {
+      "sha256": "243c3f22dd32c2bfedf1ae6eca0b0a10155aeb4778c02bc44f788442b1370496",
+      "bytes": 23616
+    },
+    "data/processed/wp5_mass_function_bins_repair_v1.parquet": {
+      "sha256": "aca92e02ea306578fb4a21f21edca05b49cee9b0fadb5fa775dc1a91fbf13e74",
+      "bytes": 19389
+    },
+    "data/processed/wp5_association_mass_repair_v1.parquet": {
+      "sha256": "97635c27ead1222ea7499ee8ff7bba88d2a0c8a581e51bdf1cb4132e327b81bb",
+      "bytes": 12056
+    },
+    "data/processed/wp5_imf_posterior_draws_repair_v1.npz": {
+      "sha256": "d4a732648ca3f83a7f774904e2825833e9556454926300d63a65f727d75631b2",
+      "bytes": 5308455
+    }
+  }
+}

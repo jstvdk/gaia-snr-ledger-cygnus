@@ -1,0 +1,158 @@
+{
+  "repair_version": "repair_v1",
+  "created_utc": "2026-07-24T09:35:22.608506+00:00",
+  "script": "scripts/wp5_injections_repair.py",
+  "status": "SUCCESS",
+  "execution_scope": "baseline_PARSEC_RV3.1_replacement",
+  "seed": 20260723,
+  "environment": {
+    "python": "3.11.15 | packaged by conda-forge | (main, Jun 11 2026, 03:29:05) [Clang 19.1.7 ]",
+    "platform": "macOS-15.6.1-arm64-arm-64bit",
+    "numpy": "2.4.6",
+    "pandas": "3.0.3",
+    "scipy": "1.17.1",
+    "sklearn": "1.9.0"
+  },
+  "preserved_configuration": {
+    "mass_grid": [
+      0.5,
+      0.75,
+      1.0,
+      1.25,
+      1.5,
+      1.75,
+      2.0,
+      2.25,
+      2.5,
+      2.75,
+      3.0,
+      3.25,
+      3.5,
+      3.75,
+      4.0,
+      4.25,
+      4.5,
+      4.75,
+      5.0,
+      5.25,
+      5.5,
+      5.75,
+      6.0,
+      6.25,
+      6.5,
+      6.75,
+      7.0,
+      7.25,
+      7.5,
+      7.75,
+      8.0
+    ],
+    "injections_per_mass_branch": 400,
+    "membership_qmc_points": 128,
+    "membership_threshold": 0.5,
+    "binary_fraction": 0.4,
+    "minimum_mass_ratio": 0.1
+  },
+  "repair_change": "synthetic six-band photometry passes through actual repair_v1 WP3/F2; baseline PARSEC R_V=3.1 uses 64 posterior mass draws after convergence check; inherited nonbaseline sensitivity branches use 16",
+  "qmc_validation": {
+    "rows": 760,
+    "covariance_repairs": 0,
+    "decision_agreement": 0.9894736842105263,
+    "false_negative_count": 7,
+    "false_positive_count": 1,
+    "median_abs_probability_difference": 0.0068187499999999845,
+    "p95_abs_probability_difference": 0.02272812500000001
+  },
+  "inputs": {
+    "data/processed/wp1_gaia_narrow.parquet": "ae17f6180e11073b8cc781497a45d3245085569502147f07926d1c5e46e5587a",
+    "data/processed/wp1_2mass_join.parquet": "2be08c74dab31d09b914c3b2038aed39d03fa6595339bf40efd78f6e15c11c2e",
+    "data/processed/wp2_members.parquet": "5db938b116edd70e8c7af3d2d4bbc8c9273d4e4c9cde76309ffc84d8cdaf90be",
+    "tables/wp2_subgroup_labels.parquet": "44a5ee7b9190703dae8dca9540c192757423db293c9ecc1ea123065849800887",
+    "data/processed/wp3_extinction_repair_v1.parquet": "9a2a323b2b4ae420059c4c11e3a902c276b5175d3ebc051837adb209a231fd80",
+    "data/processed/wp3_extinction_posterior_repair_v1.npz": "e8a5cc27b7e2db3e89a58d462d28f12e408d6fa88f8c094413f3907c87ecac45",
+    "data/processed/wp4_mass_posteriors_repair_v1.parquet": "30e1604ec1dc2ac15dcafd198fc97a69eb4d75ad10e8e8bed11cfe70d2dce9d1",
+    "data/processed/wp4_age_posteriors_repair_v1.parquet": "e8169cbaf754a2efdc3952c44e5825cd91f9b622923c186d8cb2268f732118ea",
+    "provenance/wp2_membership_manifest.json": "984c8a4638267033abe278d9ca454610e12eb53d647ad6c9329071e83be769fe",
+    "provenance/wp3_repair_execution.json": "c9588865c1408490fd773a8fc75379efc9f782824c2b7d5f7ad6216009877533"
+  },
+  "branches": [
+    {
+      "subgroup": "CygOB2-A",
+      "family": "PARSEC",
+      "R_V": 3.1,
+      "age_fit_Myr": 3.9810717055349722,
+      "age_isochrone_Myr": 3.9810717055349696,
+      "injected": 12400,
+      "member_donors": 476,
+      "observational_donors_used": 2674,
+      "covariance_repairs": 0,
+      "binary_fraction_realized": 0.4044354838709677,
+      "av_draw_median": 5.533683356347078,
+      "g_mag_range": [
+        11.671517131275134,
+        24.693910643510677
+      ],
+      "membership_pass": 7953,
+      "mass_recovered": 7953,
+      "inverse_mass_draws": 64
+    },
+    {
+      "subgroup": "CygOB2-B",
+      "family": "PARSEC",
+      "R_V": 3.1,
+      "age_fit_Myr": 2.8183829312644537,
+      "age_isochrone_Myr": 2.818382931264455,
+      "injected": 12400,
+      "member_donors": 426,
+      "observational_donors_used": 3498,
+      "covariance_repairs": 0,
+      "binary_fraction_realized": 0.40225806451612905,
+      "av_draw_median": 6.529867024110905,
+      "g_mag_range": [
+        12.155251040295937,
+        24.96032322707632
+      ],
+      "membership_pass": 6918,
+      "mass_recovered": 6918,
+      "inverse_mass_draws": 64
+    },
+    {
+      "subgroup": "CygOB2-C",
+      "family": "PARSEC",
+      "R_V": 3.1,
+      "age_fit_Myr": 2.51188643150958,
+      "age_isochrone_Myr": 2.5118864315095824,
+      "injected": 12400,
+      "member_donors": 429,
+      "observational_donors_used": 2704,
+      "covariance_repairs": 0,
+      "binary_fraction_realized": 0.39653225806451614,
+      "av_draw_median": 6.403640679857951,
+      "g_mag_range": [
+        12.086454831080788,
+        24.6179122653918
+      ],
+      "membership_pass": 6941,
+      "mass_recovered": 6941,
+      "inverse_mass_draws": 64
+    }
+  ],
+  "outputs": {
+    "data/processed/wp5_completeness_curves_repair_v1.parquet": {
+      "sha256": "c0896a49a00877bc42e17775d681fc6e548efad8d365153ee40abe88bcf1db60",
+      "bytes": 29306,
+      "rows": 558
+    },
+    "data/processed/wp5_injection_response_repair_v1.parquet": {
+      "sha256": "ba88398181cd92ea77029efb27ec4a54fbf9d6ea8143915a1b028b26541d1ad3",
+      "bytes": 44436166,
+      "rows": 223200
+    }
+  },
+  "frozen_wp5_outputs_overwritten": false,
+  "response_resolution": {
+    "baseline_PARSEC_RV3.1_mass_draws_per_injection": 64,
+    "nonbaseline_sensitivity_mass_draws_per_injection": 16,
+    "real_star_mass_draws_per_branch": 256
+  }
+}

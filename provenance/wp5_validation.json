@@ -1,0 +1,37 @@
+{
+  "created_utc": "2026-07-23T14:44:36.504086+00:00",
+  "status": "VALIDATION_EXECUTED_EXPECTED_SCIENCE_GATE_FAILURE_PRESERVED",
+  "expected_rows": {
+    "completeness_rows": 558,
+    "response_rows": 223200,
+    "normalization_rows": 54,
+    "mass_bin_rows": 324,
+    "association_rows": 18
+  },
+  "actual_rows": {
+    "completeness_rows": 558,
+    "response_rows": 223200,
+    "normalization_rows": 54,
+    "mass_bin_rows": 324,
+    "association_rows": 18
+  },
+  "checks": {
+    "row_counts_exact": true,
+    "branch_grid_complete": true,
+    "minimum_50_calibrators": true,
+    "no_absolute_95_edge_preserved": true,
+    "all_residual_failures_preserved": true,
+    "baseline_mass_factor_two": true,
+    "notebook_all_code_cells_executed": true,
+    "notebook_has_no_error_outputs": true,
+    "upstream_wp4_mass_hash_unchanged": true
+  },
+  "science_gate": {
+    "accepted": false,
+    "blocking_reasons": [
+      "no absolute 95% completeness edge in any branch/subgroup",
+      "0/54 response-aware Poisson IMF fits pass residual gate"
+    ],
+    "downstream_authority": false
+  }
+}

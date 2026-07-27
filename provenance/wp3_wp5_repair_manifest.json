@@ -1,0 +1,28 @@
+{
+  "repair_version": "repair_v1",
+  "created_utc": "2026-07-24T09:42:24.784600+00:00",
+  "status": "BLOCKED_WP5_BASELINE_RESIDUAL",
+  "accepted": false,
+  "downstream_wp6_authorized": false,
+  "component_gates": {
+    "wp3_extinction_mass_invariant": true,
+    "wp4_mass_posterior_quality": true,
+    "wp5_baseline_residual": false,
+    "association_mass_factor_two": true
+  },
+  "response_resolution": {
+    "baseline_PARSEC_RV3.1_mass_draws_per_injection": 64,
+    "nonbaseline_sensitivity_mass_draws_per_injection": 16,
+    "real_star_mass_draws_per_branch": 256
+  },
+  "artifacts": {
+    "tables/wp3_extinction_mass_invariant_repair_v1.csv": "afa4ad1b74cac90b9f37e462da33081ef3017f510e7efd7479edb3ddae17b382",
+    "tables/wp5_completeness_baseline_repair_v1.csv": "16110477fd7e130a1f63c5a49cc7fc012e138a21d868c18a17dea8725b2a26c0",
+    "tables/wp5_baseline_residuals_repair_v1.csv": "0b0c9a773edc6552d36e13c67efdab41df897a54c8316cb28543a8e9e2d5cad2",
+    "figures/wp3_repair/wp3_wp5_repair_gates_repair_v1.png": "1b20c19d904dd70afb282d349151dbd448b4af634e72ef1c7b5be69b33394068",
+    "reports/WP3_WP5_REPAIR_REPORT_repair_v1.md": "ef9db06792361fb1543a914b0efdf9eb7d2286fffce1860362b241966269b791",
+    "notebooks/wp3_extinction_repair_and_wp5_regate.ipynb": "8adc32e96f158390dc276922790f58d10b1fb989bee5c6b9b5a1b98689c50fb9",
+    "CUTS_AND_THRESHOLDS.md": "ab4872f80858a7fabd29ee28abe7afbd77a6426578124e109a49a96be55690bc",
+    "provenance/wp3_repair_gate.json": "158c0c74da8c2f1113bfef06013ca7ac31177e6b5b4782000ba33ef7d92d9cca"
+  }
+}

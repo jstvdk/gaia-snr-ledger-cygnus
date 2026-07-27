@@ -1,0 +1,109 @@
+{
+  "created_utc": "2026-07-23T14:37:29.848501+00:00",
+  "script": "scripts/wp5_fit_imf.py",
+  "status": "WP5_BLOCKED_RESIDUAL_AND_ABSOLUTE_95_COMPLETENESS_GATES",
+  "seed": 20260723,
+  "environment": {
+    "python": "3.11.15 | packaged by conda-forge | (main, Jun 11 2026, 03:29:05) [Clang 19.1.7 ]",
+    "platform": "macOS-15.6.1-arm64-arm-64bit",
+    "numpy": "2.4.6",
+    "pandas": "3.0.3",
+    "scipy": "1.17.1"
+  },
+  "inputs": {
+    "data/processed/wp4_masses.parquet": "d1d1048970928610593237332aa9f6996fd27c5964af09aa5fae65c10aa5e614",
+    "data/processed/wp5_completeness_curves.parquet": "11a7506219dc4ece36c217a10233399a443830ef821db7b5d9107093366905a3",
+    "data/processed/wp5_injection_response.parquet": "3e300a3cf00abd08f8aff904d22ce81ad59f371696a6cb790b7568c4098be794"
+  },
+  "model": {
+    "imf": "dN_primary_system/dm = k m^-alpha above 0.5 Msun",
+    "slopes": [
+      2.0,
+      2.3,
+      2.6
+    ],
+    "subgroups": [
+      "CygOB2-A",
+      "CygOB2-B",
+      "CygOB2-C"
+    ],
+    "families": [
+      "PARSEC",
+      "MIST"
+    ],
+    "R_V": [
+      3.0,
+      3.1,
+      3.5
+    ],
+    "nominal_window_Msun": [
+      2.0,
+      8.0
+    ],
+    "bins": 6,
+    "count": "sum of WP2 membership probabilities",
+    "likelihood": "independent Poisson observed-mass bins with lambda_i=k integral R_i(m_true)m_true^-alpha dm_true; R includes selection and WP4 recovered-mass migration",
+    "k_prior": "Jeffreys p(k) proportional to k^-1/2",
+    "posterior_draws": 10000,
+    "response_uncertainty": "Jeffreys-multinomial Dirichlet draws over six observed-mass bins plus lost/outside, at every injected true mass",
+    "total_mass_imf": "Kroupa-like slope 1.3 from 0.08--0.5 Msun, branch alpha from 0.5--120 Msun, continuous at 0.5",
+    "multiplicity": "primary-system k plus companions with f_bin=0.4, q~U[0.1,1]"
+  },
+  "calibration_window_result": {
+    "absolute_target": 0.95,
+    "absolute_edge_found_count": 0,
+    "branch_subgroup_fit_count": 54,
+    "fallback": "full 2--8 Msun corrected likelihood; explicitly not labelled 95% complete",
+    "reason": "magnitude-independent WP2 quality and membership losses keep the bright plateau below 95%",
+    "relative_plateau_edges_are_diagnostic_only": true
+  },
+  "unassigned_policy": {
+    "excluded_from_subgroup_normalizations": true,
+    "reason": "no frozen subgroup footprint/completeness curve",
+    "raw_2_8_baseline_sources": 3,
+    "membership_weighted_2_8_baseline_sources": 3.0
+  },
+  "gate": {
+    "absolute_95_edge_exists_all_branches": false,
+    "minimum_50_sources_per_subgroup_branch": true,
+    "baseline_all_subgroups_residual_gate": false,
+    "all_branch_subgroups_residual_gate": false,
+    "baseline_mass_within_factor_two": true,
+    "all_branch_masses_within_factor_two": false
+  },
+  "baseline": {
+    "family": "PARSEC",
+    "R_V": 3.1,
+    "alpha": 2.3,
+    "k_total_median": 4522.007275879085,
+    "k_total_lo68": 4351.872666179473,
+    "k_total_hi68": 4698.617407183061,
+    "primary_system_mass_median_Msun": 20720.873066760265,
+    "primary_system_mass_lo68_Msun": 19941.277317179538,
+    "primary_system_mass_hi68_Msun": 21530.141139497304,
+    "multiplicity_adjusted_mass_median_Msun": 25049.06937592732,
+    "multiplicity_adjusted_mass_lo68_Msun": 24106.630900796074,
+    "multiplicity_adjusted_mass_hi68_Msun": 26027.378158206957,
+    "companion_mass_fraction": 0.17278870700587964,
+    "literature_mass_Msun": 16500.0,
+    "within_factor_two_literature": true
+  },
+  "outputs": {
+    "data/processed/wp5_imf_normalization.parquet": {
+      "sha256": "538c987f3c5e408335238dbfa43fce96e7146c98b05ce0485e77adddbbc25f87",
+      "bytes": 22696
+    },
+    "data/processed/wp5_mass_function_bins.parquet": {
+      "sha256": "f438210f2be7a692a206498b63be7645fb091ba2c59a61d8c2e300ff834c5849",
+      "bytes": 19369
+    },
+    "data/processed/wp5_association_mass.parquet": {
+      "sha256": "ee975e3be3ffa63ab370bd7a9db0a399c79d709125e0755797e4478732c0e984",
+      "bytes": 12056
+    },
+    "data/processed/wp5_imf_posterior_draws.npz": {
+      "sha256": "b28c177d48f4fcd0839b124257c4f97df95bf68b3d110e40d0f00d9824ceb3df",
+      "bytes": 5312443
+    }
+  }
+}

@@ -1,0 +1,52 @@
+{
+  "created_utc": "2026-07-23T14:43:27.459723+00:00",
+  "script": "scripts/wp5_report.py",
+  "status": "SUCCESS_REPORTING_BLOCKED_GATE",
+  "inputs": {
+    "data/processed/wp5_completeness_curves.parquet": "11a7506219dc4ece36c217a10233399a443830ef821db7b5d9107093366905a3",
+    "data/processed/wp5_injection_response.parquet": "3e300a3cf00abd08f8aff904d22ce81ad59f371696a6cb790b7568c4098be794",
+    "data/processed/wp5_imf_normalization.parquet": "538c987f3c5e408335238dbfa43fce96e7146c98b05ce0485e77adddbbc25f87",
+    "data/processed/wp5_mass_function_bins.parquet": "f438210f2be7a692a206498b63be7645fb091ba2c59a61d8c2e300ff834c5849",
+    "data/processed/wp5_association_mass.parquet": "ee975e3be3ffa63ab370bd7a9db0a399c79d709125e0755797e4478732c0e984",
+    "provenance/wp5_injections_execution.json": "f0a15f1f1a381dcc895d0a4b22bcb16f89ca7cca1e3ce92647a555407760f611",
+    "provenance/wp5_imf_fit_execution.json": "84149efa7c0058774dcf7ceb8ea4321a6b7b5be118dd89e768a34fc78fdfaf39"
+  },
+  "outputs": {
+    "figures/wp5/wp5_completeness_curves.png": {
+      "sha256": "d4b2a13d5ca643cf10295b48136be1f1e724b002780005aa113b9cbfa9baa187",
+      "bytes": 186836
+    },
+    "figures/wp5/wp5_mass_function.png": {
+      "sha256": "251c9d3fd80f13fccf9c80381a6cc6c11d5d71d12f956297592bd3f3ec1d7e08",
+      "bytes": 177793
+    },
+    "figures/wp5/wp5_association_mass.png": {
+      "sha256": "7b3bac08778e97ae1f3a7946b6335cfc09b86eeece815341ce166b58038937dd",
+      "bytes": 73151
+    },
+    "tables/wp5_imf_norm.csv": {
+      "sha256": "131ffbcff556e1f7c5369ef0de164579982e6264f03aec4679da056cb0c8c749",
+      "bytes": 17336
+    },
+    "tables/wp5_imf_norm.md": {
+      "sha256": "a3ecd5016f975516cf6c35d2118a27d981c87f1e42ee8462de5204c056a87257",
+      "bytes": 4641
+    },
+    "tables/wp5_association_mass.csv": {
+      "sha256": "0acb5b3b33c7fe516acd785d599a78bde63c5aee75b9c11626df8903a41d59d2",
+      "bytes": 4171
+    },
+    "wp5_imf_norm.md": {
+      "sha256": "6d321ee8fff61c3c7f28a25f97c75592ee24763a437c4aeacd4ba2f9e13a18ef",
+      "bytes": 7308
+    },
+    "wp5_completion_report.md": {
+      "sha256": "2cbc6fb0ae003670bfcc407f8367c0fc2f54f69c1c473450c501d483b28affd3",
+      "bytes": 862
+    },
+    "provenance/wp5_provenance.md": {
+      "sha256": "c25a6087a345c8300bb9494222d2748465698151857380b4ab021de51b1500ba",
+      "bytes": 3694
+    }
+  }
+}

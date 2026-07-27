@@ -22,6 +22,7 @@ Outputs:
 """
 from __future__ import annotations
 
+import argparse
 import json
 import hashlib
 import datetime as dt
@@ -67,8 +68,21 @@ def sha256(path):
     return h.hexdigest()
 
 
-def run():
-    m = w.load_members()
+def run(repair_version=None):
+    if repair_version:
+        ext = pd.read_parquet(
+            w.PROC / f"wp3_extinction_{repair_version}.parquet"
+        ).drop(columns=["subgroup", "subgroup_label"], errors="ignore")
+        labels = pd.read_parquet(w.TABLES / "wp2_subgroup_labels.parquet")
+        m = ext.merge(
+            labels[["source_id", "subgroup"]],
+            on="source_id",
+            how="left",
+            validate="one_to_one",
+        )
+        m["subgroup"] = m["subgroup"].fillna("unassigned")
+    else:
+        m = w.load_members()
     iso = w.load_isochrones()
 
     rows = []
@@ -113,10 +127,11 @@ def run():
                                 curves[key + "|grid_ll"] = ll
 
     df = pd.DataFrame(rows)
-    out_parquet = w.PROC / "wp4_age_posteriors.parquet"
+    suffix = f"_{repair_version}" if repair_version else ""
+    out_parquet = w.PROC / f"wp4_age_posteriors{suffix}.parquet"
     df.to_parquet(out_parquet, index=False)
 
-    out_npz = w.PROC / "wp4_posterior_curves.npz"
+    out_npz = w.PROC / f"wp4_posterior_curves{suffix}.npz"
     np.savez_compressed(out_npz, **curves)
 
     # ---- console summary of the baseline (R_V=3.1, f_bin=0.4, dmu=0) ----
@@ -131,9 +146,17 @@ def run():
     # ---- provenance execution log ----
     exec_log = {
         "script": "scripts/wp4_fit_ages.py",
+        "repair_version": repair_version,
         "created_utc": dt.datetime.now(dt.timezone.utc).isoformat(),
         "inputs": {
-            "wp3_extinction": sha256(w.PROC / "wp3_extinction.parquet"),
+            "wp3_extinction": sha256(
+                w.PROC
+                / (
+                    f"wp3_extinction_{repair_version}.parquet"
+                    if repair_version
+                    else "wp3_extinction.parquet"
+                )
+            ),
             "wp2_subgroup_labels": sha256(w.TABLES / "wp2_subgroup_labels.parquet"),
             "isochrones_parsec": sha256(w.PROC / "wp3_isochrones_parsec.parquet"),
             "isochrones_mist": sha256(w.PROC / "wp3_isochrones_mist.parquet"),
@@ -162,17 +185,24 @@ def run():
             ].value_counts().items()
         },
         "outputs": {
-            "data/processed/wp4_age_posteriors.parquet": None,   # filled below
-            "data/processed/wp4_posterior_curves.npz": None,
+            str(out_parquet.relative_to(w.ROOT)): None,
+            str(out_npz.relative_to(w.ROOT)): None,
         },
     }
-    exec_log["outputs"]["data/processed/wp4_age_posteriors.parquet"] = sha256(out_parquet)
-    exec_log["outputs"]["data/processed/wp4_posterior_curves.npz"] = sha256(out_npz)
-    with open(w.ROOT / "provenance" / "wp4_fit_ages_execution.json", "w") as f:
+    exec_log["outputs"][str(out_parquet.relative_to(w.ROOT))] = sha256(out_parquet)
+    exec_log["outputs"][str(out_npz.relative_to(w.ROOT))] = sha256(out_npz)
+    provenance_name = (
+        f"wp4_fit_ages_execution_{repair_version}.json"
+        if repair_version
+        else "wp4_fit_ages_execution.json"
+    )
+    with open(w.ROOT / "provenance" / provenance_name, "w") as f:
         json.dump(exec_log, f, indent=2)
     print(f"\nWrote {out_parquet.name} ({len(df)} rows), {out_npz.name}, execution log.")
     return df
 
 
 if __name__ == "__main__":
-    run()
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--repair-version", default=None)
+    run(parser.parse_args().repair_version)

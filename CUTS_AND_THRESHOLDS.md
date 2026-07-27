@@ -346,3 +346,30 @@ Given where the project stands:
 6. **§6.3 MC draws** — trivial fix, N = 10,000.
 7. **§7.1 calibration window** — needs the injection machinery; comes with WP5.
 8. **§4.2 wide-box statement** — one honest sentence in the manuscript; no code required.
+
+---
+
+## 12. Versioned WP3 extinction / WP4 mass repair (`repair_v1`, 2026-07-24)
+
+These settings apply only to the versioned repair products. The frozen WP3,
+WP4, and blocking WP5 artifacts remain unchanged.
+
+| Quantity | Adopted value | Class | Justification and effect |
+|---|---:|---|---|
+| Per-band calibration/model floor in the WP3 likelihood | 0.03 mag in G/BP/RP/J/H/Ks | D | Added in quadrature to prevent millimag Gaia errors from suppressing 2MASS. The 0.02–0.03-mag range was specified before the repair; the conservative endpoint is used. |
+| Spatial extinction neighbours | 8 spectroscopic anchors | B/C | Fixed by the repair brief and evaluated on the same angular scale as the smoking-gun diagnostic. Median eighth-neighbour separation is 0.071°. |
+| Spatial-prior width | 0.452, 0.453, 0.475 mag at R_V=3.0, 3.1, 3.5 | C | Measured as the robust leave-one-out scatter of each anchor around the median of its eight nearest other anchors. This preserves real differential extinction rather than replacing it with a smooth map. |
+| Template-branch uncertainty | 1.71, 1.67, 1.70 mag at R_V=3.0, 3.1, 3.5 | C | Calibrated on all 149 spectroscopic anchors as the larger asymmetric central-68% endpoint of broadband-minus-spectroscopic A_V. This exposes the hidden PMS/ZAMS branch ambiguity instead of reporting a 0.05-mag local-curvature error. |
+| Template quadrature resolution | at most 64 log-mass representatives per family/age cell | D | Computational quadrature for applying the identical estimator to 223,200 injections. PARSEC/MIST and age cells receive equal total weight; rows within a cell carry d(log M) quadrature weight. |
+| Real-star mass posterior draws | 256 per family/R_V branch | D | Stratified propagation of the full A_V grid, all available six-band errors, subgroup age posterior, and unresolved-binary branch. |
+| Mass-posterior measure | log-uniform in initial mass | B | Scale-invariant inference measure; no IMF slope is imposed before WP5 tests α=2.0/2.3/2.6. |
+| Six-band mass-model width | 0.38 mag per band | C/D | Median robust G/BP/RP/J/H/Ks residual scale from 107 non-extreme spectroscopic-HRD anchors (individual band scales 0.35–0.39 mag). The binary tail is marginalized explicitly. |
+| Injection mass-posterior draws | 64 for baseline PARSEC R_V=3.1; 16 for nonbaseline sensitivity branches | D | The baseline was increased from 16 to 64 as a response-convergence check. The remaining CygOB2-C gate failure persisted, so it is not a Monte Carlo-resolution artefact. |
+| Permanent WP3 F4 bins | [2,2.52), [2.52,3.17), [3.17,5.04), [5.04,6.35), [6.35,8), [8,12) M_sun | B | Frozen before final evaluation and aligned with the original smoking-gun/mass-function boundaries. |
+| Permanent WP3 F4 amplitude | max absolute bin-median ΔA_V < 0.30 mag | B | Predeclared in the repair brief. `repair_v1` gives 0.083 mag. |
+| Permanent WP3 F4 rank test | Spearman test on the six bin medians, p >= 0.05 | B | Tests a monotonic mass trend without letting N≈10^3 make negligible individual-star correlations formally significant. `repair_v1` gives p=0.329. |
+
+The WP5 Poisson-residual gate is **unchanged**: chi-square p ≥ 0.01,
+residual-trend p ≥ 0.05, and max absolute Pearson residual ≤ 3 in every
+subgroup. The converged baseline repair still fails only the last condition for
+CygOB2-C (3.257), so WP6 remains unauthorized.

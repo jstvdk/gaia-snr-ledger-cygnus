@@ -1,0 +1,93 @@
+{
+  "repair_version": "repair_v1",
+  "created_utc": "2026-07-24T09:42:24.784600+00:00",
+  "script": "scripts/wp3_wp5_repair_finalize.py",
+  "f4": {
+    "mass_bins_Msun": [
+      2.0,
+      2.52,
+      3.17,
+      5.04,
+      6.35,
+      8.0,
+      12.0
+    ],
+    "max_abs_median_delta_av_mag": 0.06630994062701578,
+    "limit_mag": 0.3,
+    "binned_spearman_rho": -0.2571428571428572,
+    "binned_spearman_p": 0.6227871720116619,
+    "pvalue_limit": 0.05,
+    "pass": true
+  },
+  "wp4": {
+    "largest_exact_baseline_mass_fraction": 0.007953723788864787,
+    "limit": 0.02,
+    "n_mass_2p5_3p2": 276,
+    "median_mass_n_gt8": 302,
+    "posterior_expected_n_gt8": 310.90625,
+    "pass": true
+  },
+  "wp5": {
+    "baseline_definition": "PARSEC, R_V=3.1, alpha=2.3",
+    "subgroups": [
+      {
+        "subgroup": "CygOB2-A",
+        "poisson_chi_square_p": 0.09017633768351256,
+        "residual_trend_p": 0.8717434402332361,
+        "max_abs_pearson_residual": 2.6261214166622318,
+        "residual_gate_pass": true
+      },
+      {
+        "subgroup": "CygOB2-B",
+        "poisson_chi_square_p": 0.03725098039393433,
+        "residual_trend_p": 0.1561749271137024,
+        "max_abs_pearson_residual": 2.746390708790029,
+        "residual_gate_pass": true
+      },
+      {
+        "subgroup": "CygOB2-C",
+        "poisson_chi_square_p": 0.03970009919167857,
+        "residual_trend_p": 0.6227871720116619,
+        "max_abs_pearson_residual": 3.2569828867786406,
+        "residual_gate_pass": false
+      }
+    ],
+    "all_subgroups_pass": false,
+    "absolute_95_edge_found": false,
+    "association_mass_median_Msun": 31293.342406341864,
+    "association_mass_lo68_Msun": 30128.000755050944,
+    "association_mass_hi68_Msun": 32501.596534450986,
+    "within_factor_two_literature": true
+  },
+  "accepted": false,
+  "downstream_wp6_authorized": false,
+  "blocking_reason": "CygOB2-C baseline WP5 max absolute Pearson residual exceeds 3",
+  "preserved_history": {
+    "frozen_wp3_wp4_overwritten": false,
+    "frozen_wp5_blocking_manifest": "provenance/wp5_manifest.json",
+    "frozen_wp5_blocking_manifest_sha256": "06631d63d1be2e66b511c9f353e41e19479e66adaa01161e1acdf8c71f69419c"
+  },
+  "inputs": {
+    "data/processed/wp3_extinction.parquet": "f83a612215e9e0e0dfb532eab10687bd83808787aa27a649a78b597b895ef0e1",
+    "data/processed/wp4_masses.parquet": "d1d1048970928610593237332aa9f6996fd27c5964af09aa5fae65c10aa5e614",
+    "data/processed/wp3_extinction_repair_v1.parquet": "9a2a323b2b4ae420059c4c11e3a902c276b5175d3ebc051837adb209a231fd80",
+    "data/processed/wp3_extinction_posterior_repair_v1.npz": "e8a5cc27b7e2db3e89a58d462d28f12e408d6fa88f8c094413f3907c87ecac45",
+    "data/processed/wp4_age_posteriors_repair_v1.parquet": "e8169cbaf754a2efdc3952c44e5825cd91f9b622923c186d8cb2268f732118ea",
+    "data/processed/wp4_mass_posteriors_repair_v1.parquet": "30e1604ec1dc2ac15dcafd198fc97a69eb4d75ad10e8e8bed11cfe70d2dce9d1",
+    "data/processed/wp4_mass_posterior_samples_repair_v1.npz": "8598ce038564d492bde55b0838827a948ab45a3dcf4ea811cbaaac92f9de7908",
+    "data/processed/wp5_completeness_curves_repair_v1.parquet": "c0896a49a00877bc42e17775d681fc6e548efad8d365153ee40abe88bcf1db60",
+    "data/processed/wp5_injection_response_repair_v1.parquet": "ba88398181cd92ea77029efb27ec4a54fbf9d6ea8143915a1b028b26541d1ad3",
+    "data/processed/wp5_imf_normalization_repair_v1.parquet": "243c3f22dd32c2bfedf1ae6eca0b0a10155aeb4778c02bc44f788442b1370496",
+    "data/processed/wp5_association_mass_repair_v1.parquet": "97635c27ead1222ea7499ee8ff7bba88d2a0c8a581e51bdf1cb4132e327b81bb",
+    "provenance/wp5_manifest.json": "06631d63d1be2e66b511c9f353e41e19479e66adaa01161e1acdf8c71f69419c"
+  },
+  "outputs": {
+    "tables/wp3_extinction_mass_invariant_repair_v1.csv": "afa4ad1b74cac90b9f37e462da33081ef3017f510e7efd7479edb3ddae17b382",
+    "tables/wp5_completeness_baseline_repair_v1.csv": "16110477fd7e130a1f63c5a49cc7fc012e138a21d868c18a17dea8725b2a26c0",
+    "tables/wp5_baseline_residuals_repair_v1.csv": "0b0c9a773edc6552d36e13c67efdab41df897a54c8316cb28543a8e9e2d5cad2",
+    "figures/wp3_repair/wp3_wp5_repair_gates_repair_v1.png": "1b20c19d904dd70afb282d349151dbd448b4af634e72ef1c7b5be69b33394068",
+    "reports/WP3_WP5_REPAIR_REPORT_repair_v1.md": "ef9db06792361fb1543a914b0efdf9eb7d2286fffce1860362b241966269b791",
+    "notebooks/wp3_extinction_repair_and_wp5_regate.ipynb": "8adc32e96f158390dc276922790f58d10b1fb989bee5c6b9b5a1b98689c50fb9",
+    "CUTS_AND_THRESHOLDS.md": "ab4872f80858a7fabd29ee28abe7afbd77a6426578124e109a49a96be55690bc"
+  }
+}

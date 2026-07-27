@@ -1,0 +1,120 @@
+{
+  "repair_version": "repair_v1",
+  "created_utc": "2026-07-24T08:53:06.495068+00:00",
+  "trigger": {
+    "brief": "tasks/wp3_extinction_repair_brief.md",
+    "preserved_blocking_manifest": "provenance/wp5_manifest.json",
+    "reason": "frozen WP3 optical-dominated extinction degeneracy caused WP4 mass migration"
+  },
+  "script": "scripts/wp3_extinction_repair.py",
+  "environment": {
+    "python": "3.11.15 | packaged by conda-forge | (main, Jun 11 2026, 03:29:05) [Clang 19.1.7 ]",
+    "platform": "macOS-15.6.1-arm64-arm-64bit",
+    "numpy": "2.4.6",
+    "pandas": "3.0.3",
+    "scipy": "1.17.1",
+    "scikit_learn": "1.9.0"
+  },
+  "inputs": {
+    "data/processed/wp3_extinction.parquet": "f83a612215e9e0e0dfb532eab10687bd83808787aa27a649a78b597b895ef0e1",
+    "data/processed/wp3_member_photometry.parquet": "9c7747e6c518bf86e396e2ad68475b5bf843e5d485b442c3d6b8c83a84e3a07d",
+    "data/processed/wp3_isochrones_parsec.parquet": "9e0444045acf3e9331bf609e44c5f065635b217558f2ff46deec68fb66c8c663",
+    "data/processed/wp3_isochrones_mist.parquet": "3b1437d791e61a5dc9b7b2a2ed12e83bc0a1c64cb775c3862a2073731623135b",
+    "tasks/wp3_extinction_repair_brief.md": "1732b81253dcd3baa1852687905d1fa06a72f73c688daf06d55bb99d8078a513"
+  },
+  "configuration": {
+    "all_band_error_floor_mag": 0.03,
+    "anchor_neighbours": 8,
+    "anchor_prior_width_method": "leave-one-out robust sigma against median of 8 nearest other anchors",
+    "anchor_variogram": {
+      "rv3.0": {
+        "n_anchors": 149,
+        "n_neighbours": 8,
+        "median_eighth_neighbour_separation_deg": 0.07052698469661996,
+        "leave_one_out_residual_median_mag": 0.0520162655421732,
+        "leave_one_out_robust_sigma_mag": 0.45229304681872573,
+        "leave_one_out_rms_mag": 0.6690753251210787,
+        "adopted_prior_sigma_mag": 0.45229304681872573
+      },
+      "rv3.1": {
+        "n_anchors": 149,
+        "n_neighbours": 8,
+        "median_eighth_neighbour_separation_deg": 0.07052698469661996,
+        "leave_one_out_residual_median_mag": 0.05412239026575261,
+        "leave_one_out_robust_sigma_mag": 0.45281428018337194,
+        "leave_one_out_rms_mag": 0.6678010681382244,
+        "adopted_prior_sigma_mag": 0.45281428018337194
+      },
+      "rv3.5": {
+        "n_anchors": 149,
+        "n_neighbours": 8,
+        "median_eighth_neighbour_separation_deg": 0.07052698469661996,
+        "leave_one_out_residual_median_mag": 0.058865537803376,
+        "leave_one_out_robust_sigma_mag": 0.47468941330286424,
+        "leave_one_out_rms_mag": 0.664647158836669,
+        "adopted_prior_sigma_mag": 0.47468941330286424
+      }
+    },
+    "template_branch_uncertainty_calibration": {
+      "rv3.0": {
+        "n_anchors": 149,
+        "broadband_minus_spectroscopic_median_mag": 0.020357188205857746,
+        "rms_about_median_mag": 0.9473464900149495,
+        "p16_mag": -1.6927710711168673,
+        "p84_mag": 0.1933362701873942,
+        "asymmetric_central68_extent_mag": 1.713128259322725,
+        "adopted_template_branch_sigma_mag": 1.713128259322725,
+        "adoption_rule": "max(RMS about median, larger asymmetric central-68 endpoint); prevents a minority branch from being hidden by the MAD/RMS summary"
+      },
+      "rv3.1": {
+        "n_anchors": 149,
+        "broadband_minus_spectroscopic_median_mag": -0.026160274619298818,
+        "rms_about_median_mag": 0.937911200997119,
+        "p16_mag": -1.69997327937358,
+        "p84_mag": 0.15483840632918958,
+        "asymmetric_central68_extent_mag": 1.6738130047542812,
+        "adopted_template_branch_sigma_mag": 1.6738130047542812,
+        "adoption_rule": "max(RMS about median, larger asymmetric central-68 endpoint); prevents a minority branch from being hidden by the MAD/RMS summary"
+      },
+      "rv3.5": {
+        "n_anchors": 149,
+        "broadband_minus_spectroscopic_median_mag": -0.1836518369976572,
+        "rms_about_median_mag": 0.881740634537281,
+        "p16_mag": -1.8808317556483003,
+        "p84_mag": 0.022291080608908893,
+        "asymmetric_central68_extent_mag": 1.697179918650643,
+        "adopted_template_branch_sigma_mag": 1.697179918650643,
+        "adoption_rule": "max(RMS about median, larger asymmetric central-68 endpoint); prevents a minority branch from being hidden by the MAD/RMS summary"
+      }
+    },
+    "av_grid_mag": {
+      "minimum": 0.0,
+      "maximum": 15.0,
+      "step": 0.05
+    },
+    "template_prior": "equal PARSEC/MIST and age cells; d(log initial mass) quadrature within cell"
+  },
+  "counts": {
+    "members": 1392,
+    "spectroscopic_anchors": 149,
+    "broadband_rows": 1238,
+    "broadband_rows_with_repaired_rv31": 1234,
+    "broadband_multimodal_rv31": 0,
+    "templates": 2688
+  },
+  "outputs": {
+    "data/processed/wp3_extinction_posterior_summary_repair_v1.parquet": {
+      "sha256": "b9aacf6da214057265bbeb4fd4d9a6aa8293b48ce6653b891195198df6f4d976",
+      "bytes": 476106
+    },
+    "data/processed/wp3_extinction_posterior_repair_v1.npz": {
+      "sha256": "e8a5cc27b7e2db3e89a58d462d28f12e408d6fa88f8c094413f3907c87ecac45",
+      "bytes": 3536796
+    },
+    "data/processed/wp3_extinction_repair_v1.parquet": {
+      "sha256": "9a2a323b2b4ae420059c4c11e3a902c276b5175d3ebc051837adb209a231fd80",
+      "bytes": 680122
+    }
+  },
+  "frozen_outputs_overwritten": false
+}

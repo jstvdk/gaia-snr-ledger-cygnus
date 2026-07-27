@@ -1,18 +1,18 @@
 AUDIT of /Users/vdk/science/gaia_snr_history_cygnus
-generated 2026-07-23T16:03:58
+generated 2026-07-23T16:10:40
 python 3.11.15
 
 ==============================================================================
 GIT PROVENANCE
 ==============================================================================
 HEAD:
-dbdf88546e23e30f66ce13bca98c36dc3b524613
+2893a40d7f7d9a25af90e94589e005def0cc0076
   author: Vadym Voitsekhovskyi
   date:   2026-07-23 16:03:46 +0200
   msg:    Close WP4 with repaired provenance and gates
 
 last 25 commits:
-dbdf885 2026-07-23 16:03:46 +0200 Close WP4 with repaired provenance and gates
+2893a40 2026-07-23 16:03:46 +0200 Close WP4 with repaired provenance and gates
 4e991c2 2026-07-23 15:51:25 +0200 Repair subgroup and WP4 mass schemas
 caa8b9a 2026-07-23 15:46:59 +0200 Rename paper library and repair references
 c0cf2af 2026-07-23 11:39:23 +0200 WP2 - WP3
@@ -254,13 +254,13 @@ FILE INVENTORY (mtime | size | sha256-16 | path)
 2026-07-23 09:43:07         1,827  38422e05dbbcdf46  provenance/wp3_parsec_fetch_execution.json
 2026-07-23 10:07:23         8,761  3edae58262c3a8c9  provenance/wp3_provenance.md
 2026-07-23 15:55:10         2,446  1fa241e30e67fb99  provenance/wp4_anchors_hrd_execution.json
-2026-07-23 15:59:23         4,636  392b8c95f40b7988  provenance/wp4_closure_audit.json
+2026-07-23 16:04:51         4,636  4b7a446cb2548544  provenance/wp4_closure_audit.json
 2026-07-23 15:55:14         1,773  a4e60512c4ae0640  provenance/wp4_clump_execution.json
 2026-07-23 15:55:08         1,616  65baf56439f970c1  provenance/wp4_fit_ages_execution.json
-2026-07-23 15:59:24         5,337  4e9424c88c6f0109  provenance/wp4_manifest.json
+2026-07-23 16:05:25         5,337  cb49a9cdcc383a62  provenance/wp4_manifest.json
 2026-07-23 15:55:27         1,464  bbf4ad8466f8fb9a  provenance/wp4_masses_execution.json
-2026-07-23 15:59:23         2,018  6acf51e120aa0a2a  provenance/wp4_pm_outliers.csv
-2026-07-23 15:59:24        10,014  be96d0efed4b5c29  provenance/wp4_provenance.md
+2026-07-23 16:04:51         2,018  6acf51e120aa0a2a  provenance/wp4_pm_outliers.csv
+2026-07-23 16:05:25        10,014  a97467953bed5bbb  provenance/wp4_provenance.md
 2026-07-23 15:51:00         3,400  2511cc2843e3cdb3  provenance/wp4_schema_repair_execution.json
 2026-07-22 12:12:54         1,559                 -  queries/gaia_2mass_join.adql
 2026-07-22 12:52:30         1,119                 -  queries/gaia_2mass_tile01.adql
@@ -334,10 +334,10 @@ FILE INVENTORY (mtime | size | sha256-16 | path)
 2026-07-23 09:53:45       467,563                 -  tables/wp3_extinction_rv30.cat
 2026-07-23 09:53:45       467,597                 -  tables/wp3_extinction_rv31.cat
 2026-07-23 09:53:45       467,434                 -  tables/wp3_extinction_rv35.cat
-2026-07-23 15:59:24           755  cec7e4d1cb69584d  tables/wp4_ages_envelope.md
-2026-07-23 15:59:24        19,014  eb4261e582335f3a  tables/wp4_ages_summary.csv
-2026-07-23 15:59:24           874  29b54a6a01c2de29  tables/wp4_ages_table.md
-2026-07-23 15:59:24       167,003                 -  tables/wp4_masses.cat
+2026-07-23 16:05:25           755  cec7e4d1cb69584d  tables/wp4_ages_envelope.md
+2026-07-23 16:05:25        19,014  eb4261e582335f3a  tables/wp4_ages_summary.csv
+2026-07-23 16:05:25           874  29b54a6a01c2de29  tables/wp4_ages_table.md
+2026-07-23 16:05:25       167,003                 -  tables/wp4_masses.cat
 2026-07-23 15:40:08        15,978  6c178dec0721a750  tasks/task_B_wp4_closure_1.md
 2026-07-20 15:56:07         7,963  4e47c6385042f522  wp0_dedup_report.md
 2026-07-20 15:56:08        10,378  ea41e021808fecb1  wp0_prior_art_summary.md
@@ -348,8 +348,8 @@ FILE INVENTORY (mtime | size | sha256-16 | path)
 2026-07-22 15:54:34         2,584  8e98c51ccbc4fa1e  wp1_wright15_crossmatch.md
 2026-07-23 16:01:28         9,541  ef73721df67f180d  wp2_subgroups.md
 2026-07-23 10:07:49         3,078  65bd4bd12da95490  wp3_completion_report.md
-2026-07-23 15:59:24        19,019  56d273c86bc7f861  wp4_ages.md
-2026-07-23 15:59:24         6,288  e6ac4c8241fedc77  wp4_completion_report.md
+2026-07-23 16:05:25        19,019  56d273c86bc7f861  wp4_ages.md
+2026-07-23 16:05:25         6,288  e6ac4c8241fedc77  wp4_completion_report.md
 
 total files: 324
 
@@ -360,19 +360,19 @@ Files sorted newest-first. A WP-N product that predates a WP-(N-1)
 product means the downstream stage was not re-run after the upstream
 changed. Check the WP ordering here by eye.
 
+2026-07-23 16:05:25  provenance/wp4_provenance.md
+2026-07-23 16:05:25  wp4_completion_report.md
+2026-07-23 16:05:25  wp4_ages.md
+2026-07-23 16:05:25  provenance/wp4_manifest.json
+2026-07-23 16:05:25  tables/wp4_masses.cat
+2026-07-23 16:05:25  tables/wp4_ages_envelope.md
+2026-07-23 16:05:25  tables/wp4_ages_table.md
+2026-07-23 16:05:25  tables/wp4_ages_summary.csv
+2026-07-23 16:04:51  provenance/wp4_closure_audit.json
+2026-07-23 16:04:51  provenance/wp4_pm_outliers.csv
 2026-07-23 16:03:00  audit.py
 2026-07-23 16:01:28  wp2_subgroups.md
 2026-07-23 16:01:28  notebooks/wp2_membership_and_substructure.ipynb
-2026-07-23 15:59:24  provenance/wp4_provenance.md
-2026-07-23 15:59:24  wp4_completion_report.md
-2026-07-23 15:59:24  wp4_ages.md
-2026-07-23 15:59:24  provenance/wp4_manifest.json
-2026-07-23 15:59:24  tables/wp4_masses.cat
-2026-07-23 15:59:24  tables/wp4_ages_envelope.md
-2026-07-23 15:59:24  tables/wp4_ages_table.md
-2026-07-23 15:59:24  tables/wp4_ages_summary.csv
-2026-07-23 15:59:23  provenance/wp4_closure_audit.json
-2026-07-23 15:59:23  provenance/wp4_pm_outliers.csv
 2026-07-23 15:59:22  figures/wp4/wp4_age_summary.png
 2026-07-23 15:59:22  figures/wp4/wp4_age_posteriors.png
 2026-07-23 15:59:22  figures/wp4/wp4_hrd_anchors.png
@@ -2770,7 +2770,7 @@ MARKDOWN DOCUMENTS: headings only
   ## Cut/threshold register (WP3 additions to CUTS_AND_THRESHOLDS.md)
   ## Gate assessment — PASSED
 
---- provenance/wp4_provenance.md  (modified 2026-07-23 15:59:24) ---
+--- provenance/wp4_provenance.md  (modified 2026-07-23 16:05:25) ---
   # WP4 provenance — subgroup ages & per-star masses
   > **Status:** WP4_COMPLETE_GATE_PASSED.
   ## 1. Pipeline (scripts, in execution order)
@@ -2810,9 +2810,9 @@ MARKDOWN DOCUMENTS: headings only
   > | Wright+15   | matched to Gaia DR3       | 167 (100.0\%)       | gate $\geq$90\%           |
   > | Berlanas+19 | total recall              | 189 / 229 = 82.5\%  | gate $\geq$80\%           |
 
---- tables/wp4_ages_envelope.md  (modified 2026-07-23 15:59:24) ---
+--- tables/wp4_ages_envelope.md  (modified 2026-07-23 16:05:25) ---
 
---- tables/wp4_ages_table.md  (modified 2026-07-23 15:59:24) ---
+--- tables/wp4_ages_table.md  (modified 2026-07-23 16:05:25) ---
 
 --- tasks/task_B_wp4_closure_1.md  (modified 2026-07-23 15:40:08) ---
   # Task B — WP4 closure, schema repair and provenance commit
@@ -2939,7 +2939,7 @@ MARKDOWN DOCUMENTS: headings only
   > | Spatial coherence demonstrated | **PASS** — nearest-neighbour A_V Spearman ρ=0.66 (18.3σ over permutation) |
   ## WP5 warning carried forward (do not rediscover as a completeness bug)
 
---- wp4_ages.md  (modified 2026-07-23 15:59:24) ---
+--- wp4_ages.md  (modified 2026-07-23 16:05:25) ---
   # WP4 — Subgroup ages and per-star masses
   > **Status:** WP4_COMPLETE — gate satisfied with documented indicator disagreement and subgroup-B anchor limitat
   ## 1. Method (forward-model CMD likelihood)
@@ -2967,7 +2967,7 @@ MARKDOWN DOCUMENTS: headings only
   > | Anchored-star spectroscopic HRD consistent with isochrones within PARSEC–MIST model differences | **PASS ass
   ## 11. Outputs & provenance
 
---- wp4_completion_report.md  (modified 2026-07-23 15:59:24) ---
+--- wp4_completion_report.md  (modified 2026-07-23 16:05:25) ---
   # WP4 completion report — subgroup ages & per-star masses
   > - **WP5/WP7 input gate: READY WITH CONSTRAINTS** · **WP4 validation gate:
   > SATISFIED** (one association-wide PASS with a subgroup-B limitation; one

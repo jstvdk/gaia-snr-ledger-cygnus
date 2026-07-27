@@ -1,0 +1,141 @@
+{
+  "work_package": "WP5 - IMF normalization and completeness",
+  "created_utc": "2026-07-23T14:44:36.504249+00:00",
+  "status": "WP5_BLOCKED_RESIDUAL_AND_ABSOLUTE_95_COMPLETENESS_GATES",
+  "accepted": false,
+  "downstream_authority": false,
+  "seed": 20260723,
+  "branches": {
+    "subgroups": [
+      "CygOB2-A",
+      "CygOB2-B",
+      "CygOB2-C"
+    ],
+    "isochrone_family": [
+      "PARSEC",
+      "MIST"
+    ],
+    "R_V": [
+      3.0,
+      3.1,
+      3.5
+    ],
+    "imf_slope_alpha": [
+      2.0,
+      2.3,
+      2.6
+    ]
+  },
+  "upstream_inputs": {
+    "data/processed/wp1_gaia_narrow.parquet": "ae17f6180e11073b8cc781497a45d3245085569502147f07926d1c5e46e5587a",
+    "data/processed/wp1_2mass_join.parquet": "2be08c74dab31d09b914c3b2038aed39d03fa6595339bf40efd78f6e15c11c2e",
+    "data/processed/wp2_members.parquet": "5db938b116edd70e8c7af3d2d4bbc8c9273d4e4c9cde76309ffc84d8cdaf90be",
+    "tables/wp2_subgroup_labels.parquet": "44a5ee7b9190703dae8dca9540c192757423db293c9ecc1ea123065849800887",
+    "data/processed/wp3_extinction.parquet": "f83a612215e9e0e0dfb532eab10687bd83808787aa27a649a78b597b895ef0e1",
+    "data/processed/wp3_isochrones_parsec.parquet": "9e0444045acf3e9331bf609e44c5f065635b217558f2ff46deec68fb66c8c663",
+    "data/processed/wp3_isochrones_mist.parquet": "3b1437d791e61a5dc9b7b2a2ed12e83bc0a1c64cb775c3862a2073731623135b",
+    "data/processed/wp4_age_posteriors.parquet": "ca7b50099717d76def831fbf5245b90895cc15d13186796b614022d5f8e4e3f9",
+    "data/processed/wp4_masses.parquet": "d1d1048970928610593237332aa9f6996fd27c5964af09aa5fae65c10aa5e614"
+  },
+  "scripts": {
+    "scripts/wp5_common.py": "4895ae5ae68a3960726e831020e041b33958e3aa357841769e490a789ae7d07e",
+    "scripts/wp5_injections.py": "3da0349313610ab80a8c5b71bed8a522e844dfde86d27e666a466f86b75944ea",
+    "scripts/wp5_fit_imf.py": "3b2184e744fce383a7383ccc2fbf8617fecc48d3747012199a8a17c8e4926676",
+    "scripts/wp5_report.py": "4ccaa5dd323f25e75ea1204badd78e734c7af3db55bc679c5d5d71cc1c0d32f0",
+    "scripts/wp5_make_notebook.py": "34aff7f37bfc64415b7beaec21bb9f2892ef3fbcfac107a95392c65241adc411",
+    "scripts/wp5_finalize.py": "0dcab1bb89564dca2589dff4042e42c092abe1bbb67dc5f751cf81ff27cc8dbc"
+  },
+  "execution_logs": {
+    "provenance/wp5_injections_execution.json": "f0a15f1f1a381dcc895d0a4b22bcb16f89ca7cca1e3ce92647a555407760f611",
+    "provenance/wp5_imf_fit_execution.json": "84149efa7c0058774dcf7ceb8ea4321a6b7b5be118dd89e768a34fc78fdfaf39",
+    "provenance/wp5_report_execution.json": "5288fd12dcc196f0ccfa0c26cfcb4da86528e66a9f80e73a7fc4bbc0e5974db5",
+    "provenance/wp5_notebook_execution.json": "60fdfdf89fcc11a74d9cf6bb8e2748c7b20244482abf52a8084c1fe7e3bfe3f5",
+    "provenance/wp5_validation.json": "37e45db196e03cf0c47d1731e4f192fe17596145175bbec5405485aa9ad8bb66"
+  },
+  "outputs": {
+    "data/processed/wp5_completeness_curves.parquet": {
+      "sha256": "11a7506219dc4ece36c217a10233399a443830ef821db7b5d9107093366905a3",
+      "bytes": 31926
+    },
+    "data/processed/wp5_injection_response.parquet": {
+      "sha256": "3e300a3cf00abd08f8aff904d22ce81ad59f371696a6cb790b7568c4098be794",
+      "bytes": 9628736
+    },
+    "data/processed/wp5_imf_normalization.parquet": {
+      "sha256": "538c987f3c5e408335238dbfa43fce96e7146c98b05ce0485e77adddbbc25f87",
+      "bytes": 22696
+    },
+    "data/processed/wp5_mass_function_bins.parquet": {
+      "sha256": "f438210f2be7a692a206498b63be7645fb091ba2c59a61d8c2e300ff834c5849",
+      "bytes": 19369
+    },
+    "data/processed/wp5_association_mass.parquet": {
+      "sha256": "ee975e3be3ffa63ab370bd7a9db0a399c79d709125e0755797e4478732c0e984",
+      "bytes": 12056
+    },
+    "data/processed/wp5_imf_posterior_draws.npz": {
+      "sha256": "b28c177d48f4fcd0839b124257c4f97df95bf68b3d110e40d0f00d9824ceb3df",
+      "bytes": 5312443
+    },
+    "tables/wp5_imf_norm.csv": {
+      "sha256": "131ffbcff556e1f7c5369ef0de164579982e6264f03aec4679da056cb0c8c749",
+      "bytes": 17336
+    },
+    "tables/wp5_imf_norm.md": {
+      "sha256": "a3ecd5016f975516cf6c35d2118a27d981c87f1e42ee8462de5204c056a87257",
+      "bytes": 4641
+    },
+    "tables/wp5_association_mass.csv": {
+      "sha256": "0acb5b3b33c7fe516acd785d599a78bde63c5aee75b9c11626df8903a41d59d2",
+      "bytes": 4171
+    },
+    "figures/wp5/wp5_completeness_curves.png": {
+      "sha256": "d4b2a13d5ca643cf10295b48136be1f1e724b002780005aa113b9cbfa9baa187",
+      "bytes": 186836
+    },
+    "figures/wp5/wp5_mass_function.png": {
+      "sha256": "251c9d3fd80f13fccf9c80381a6cc6c11d5d71d12f956297592bd3f3ec1d7e08",
+      "bytes": 177793
+    },
+    "figures/wp5/wp5_association_mass.png": {
+      "sha256": "7b3bac08778e97ae1f3a7946b6335cfc09b86eeece815341ce166b58038937dd",
+      "bytes": 73151
+    },
+    "notebooks/wp5_imf_normalization_and_completeness.ipynb": {
+      "sha256": "290110fa68c66caab4bf86b841c69ed8de19c607b72536b9f181ed6a4a29a5f2",
+      "bytes": 623101
+    },
+    "wp5_imf_norm.md": {
+      "sha256": "6d321ee8fff61c3c7f28a25f97c75592ee24763a437c4aeacd4ba2f9e13a18ef",
+      "bytes": 7308
+    },
+    "wp5_completion_report.md": {
+      "sha256": "2cbc6fb0ae003670bfcc407f8367c0fc2f54f69c1c473450c501d483b28affd3",
+      "bytes": 862
+    },
+    "provenance/wp5_provenance.md": {
+      "sha256": "c25a6087a345c8300bb9494222d2748465698151857380b4ab021de51b1500ba",
+      "bytes": 3694
+    }
+  },
+  "gate": {
+    "accepted": false,
+    "blocking_reasons": [
+      "no absolute 95% completeness edge in any branch/subgroup",
+      "0/54 response-aware Poisson IMF fits pass residual gate"
+    ],
+    "downstream_authority": false
+  },
+  "checks": {
+    "row_counts_exact": true,
+    "branch_grid_complete": true,
+    "minimum_50_calibrators": true,
+    "no_absolute_95_edge_preserved": true,
+    "all_residual_failures_preserved": true,
+    "baseline_mass_factor_two": true,
+    "notebook_all_code_cells_executed": true,
+    "notebook_has_no_error_outputs": true,
+    "upstream_wp4_mass_hash_unchanged": true
+  },
+  "required_remediation": "revise WP4 2--5 Msun mass inference to posterior/direct-CMD form, then rerun the preserved WP5 response and untuned residual gate"
+}
