@@ -1,0 +1,113 @@
+{
+  "created_utc": "2026-07-28T21:16:34.925050+00:00",
+  "script": "scripts/wp6_multiplicity_closure.py",
+  "status": "SUCCESS",
+  "work_package": "WP6 issue #15 \u2014 scoring",
+  "prereg": "provenance/wp6_multiplicity_prereg.json",
+  "prereg_created_utc": "2026-07-28T17:44:27.462459+00:00",
+  "estimator": "imported unchanged from scripts/wp6_closure_test.py, including the issue #17 integration floor.  k, the observed count, the node weights and the turnoff caps are held at their accepted values; only R differs between the arms.",
+  "sub_8_segment_is_spliced": "the paired arms were injected on M >= 8 only, while the corrected integral starts at 4 Msun.  The sub-8 segment is taken from the accepted repair_v6 node response and spliced into BOTH arms.  This is exact rather than approximate: f_bin(M) = 0.40 for M <= 8, so the arms have identical truth physics there, and using one common segment leaves the DIFFERENCE between arms exactly the multiplicity effect.  Only each arm's absolute level carries the spliced segment's own realization.",
+  "scope_limit_exposed_by_issue_17": "issue #15 was scoped to M >= 8 deliberately, to avoid perturbing the accepted WP5 calibration.  Issue #17 makes clear that this is the range where the hypothesised mechanism has the LEAST room to act: a star already above 8 Msun cannot be scattered INTO the census by being made brighter.  The up-scatter channel from 4-8 Msun, where unresolved companions would matter most, is held at f_bin = 0.40 in both arms and is therefore NOT measured here.  Any null result must be read as 'multiplicity above 8 Msun does not explain the excess', not as 'multiplicity does not explain the excess'.",
+  "environment": {
+    "python": "3.11.15 | packaged by conda-forge | (main, Jun 11 2026, 03:29:05) [Clang 19.1.7 ]",
+    "platform": "macOS-15.6.1-arm64-arm-64bit",
+    "numpy": "2.4.6",
+    "pandas": "3.0.3"
+  },
+  "grid_medians_alpha_2.3": {
+    "published_base_plus_extension": 1.105,
+    "control_arm": 1.103,
+    "treatment_arm": 1.099,
+    "realization_noise_published_vs_control": -0.002,
+    "multiplicity_effect_control_vs_treatment": 0.004
+  },
+  "baseline_PARSEC_rv3.1_alpha2.3": {
+    "CygOB2-A": {
+      "closure_ratio_ctl": 0.901,
+      "closure_ratio_trt": 0.9,
+      "reduction": 0.001,
+      "excess_absorbed_fraction": NaN,
+      "turnoff_Msun": 59.7
+    },
+    "CygOB2-B": {
+      "closure_ratio_ctl": 1.106,
+      "closure_ratio_trt": 1.101,
+      "reduction": 0.005,
+      "excess_absorbed_fraction": 0.044,
+      "turnoff_Msun": 71.1
+    },
+    "CygOB2-C": {
+      "closure_ratio_ctl": 1.416,
+      "closure_ratio_trt": 1.413,
+      "reduction": 0.004,
+      "excess_absorbed_fraction": 0.009,
+      "turnoff_Msun": 120.0
+    }
+  },
+  "predictions": {
+    "M1": {
+      "statement": "The multiplicity model raises the predicted observable count above 8 Msun, lowering the closure ratio in every subgroup.",
+      "pass": true,
+      "all_54_cells_fell": false,
+      "evidence": {
+        "CygOB2-A": 0.001,
+        "CygOB2-B": 0.005,
+        "CygOB2-C": 0.004
+      }
+    },
+    "M2": {
+      "statement": "The effect is mass-dependent, so it shrinks the excess MORE in the subgroups with the higher turnoff: the reduction should be largest for CygOB2-C and smallest for CygOB2-A.",
+      "pass": false,
+      "turnoff_ordering": [
+        "CygOB2-A",
+        "CygOB2-B",
+        "CygOB2-C"
+      ],
+      "reductions_in_that_order": [
+        0.001,
+        0.005,
+        0.004
+      ],
+      "if_falsified": "the excess and the multiplicity effect have different mass dependences, so multiplicity cannot be the whole story even if it lowers the ratio"
+    },
+    "M3": {
+      "statement": "Quantitative, and the decisive one: the multiplicity model absorbs at least HALF of the baseline excess, i.e. the grid-median closure ratio at alpha = 2.3 falls from 1.444 to below 1.222.",
+      "threshold": 1.222,
+      "declared_against_reference": 1.444,
+      "treatment_grid_median": 1.099,
+      "pass": true,
+      "pass_literal": true,
+      "pass_relative_form": false,
+      "fraction_of_control_excess_absorbed": 0.0373,
+      "relative_threshold": 0.5,
+      "baseline_withdrawn_by_issue_17": "1.222 was derived arithmetically from a grid median of 1.444 that issue #17 has since withdrawn.  The prereg is not amended; both readings are reported.",
+      "reading_as_preregistered": "treatment median 1.099 vs threshold 1.222: BELOW",
+      "reading_paired": "control 1.103 -> treatment 1.099, absorbing 4% of the control arm's excess",
+      "which_binds": "the as-preregistered reading.  The paired reading is reported so the size of the realization noise is visible; the two are never averaged."
+    }
+  },
+  "adjudication": {
+    "governing_reading": "relative",
+    "why": "M3's literal threshold of 1.222 was derived arithmetically from a grid median of 1.444 that issue #17 has since WITHDRAWN.  The corrected control arm already sits at 1.103 \u2014 below 1.222 BEFORE the treatment arm changes anything.  The literal reading therefore passes for a reason that has nothing to do with multiplicity, and applying the decision rule to it would conclude 'the shallow-IMF signal is a multiplicity artefact' when the measurement shows multiplicity moved the grid median by 0.004 and absorbed only 3.7% of the excess.  The relative form is what M3's own sentence states and is invariant to the baseline correction.",
+    "outcome": "M3 FAILS on the governing reading",
+    "decision_rule_branch_applied": "the 'if M3 fails' branch: the IMF reading is reported with the measured multiplicity correction applied and the remainder carried as a systematic.  No repair_v7 is triggered by issue #15.  The disfavouring of alpha = 2.6 stands, as it does under either branch.",
+    "measured_correction_to_carry": {
+      "grid_median_shift": 0.0038,
+      "fraction_of_excess_absorbed": 0.0373,
+      "direction": "lowers the closure ratio"
+    },
+    "paired_control_validates_the_design": "the control arm reproduces the published grid median to 0.002 (1.103 vs 1.105) despite a different RNG realization and a spliced sub-8 segment.  Realization noise is therefore about half the size of the multiplicity effect it is being used to measure, which is what makes the 0.004 shift interpretable at all.",
+    "scope_limit_restated": "this measures multiplicity ABOVE 8 Msun only.  A star already above 8 Msun cannot be scattered INTO the census by being made brighter, so this is the range where the mechanism has least room to act.  The 4-8 Msun up-scatter channel is held at f_bin = 0.40 in both arms and is NOT tested here.  The correct reading is 'multiplicity above 8 Msun does not explain the excess', NOT 'multiplicity does not explain the excess'."
+  },
+  "decision_rule_applied": "If M3 holds, WP6's shallower-than-Salpeter signal is NOT reported as an IMF measurement; the closure test is reported as consistent with Salpeter once multiplicity is modelled, and a repair_v7 full chain re-run is scheduled.  If M3 fails, the IMF reading is reported with the measured multiplicity correction applied and the remainder carried as a systematic.  In BOTH cases the disfavouring of alpha = 2.6 stands, because it is far larger than the multiplicity effect can plausibly be.",
+  "inputs": {
+    "data/processed/wp5_imf_normalization_repair_v6.parquet": "a3111ca512e5838f5e0c86359721921870285b80af3d37033eb3e26d66c7abf8",
+    "tables/wp6_massive_census.csv": "db572c6a5b4432112d22d993996a9df12e5800fde37a2986c9515f744557fdd3",
+    "tables/wp6_closure.csv": "53b0ef88652b83b812ad08a583b60bc605b0f618bd7b68dbb882f40e2b051e0b",
+    "provenance/wp6_multiplicity_prereg.json": "854dbb2cbc39cf72db17419043677c200141f94cf3d9df08507cf1d717d0de32"
+  },
+  "outputs": {
+    "tables/wp6_multiplicity_closure.csv": "6fe97716dd19a15dc96a577ce98246063b4a7b2953fe2c63fb67c472f28ce3d1"
+  },
+  "scope_limit": "a diagnostic on the closure window only.  Adopting a mass-dependent f_bin in production would also perturb the WP5 response below 8 Msun through down-scatter, which requires a full repair_v7 chain re-run."
+}

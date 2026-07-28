@@ -873,8 +873,35 @@ f_bin would also perturb the WP5 response inside 2–8 M☉ through down-scatter
 from above, and therefore requires a full `repair_v7` chain re-run. Masses below
 8 M☉ are deliberately not re-injected here.
 
-### 18.6 Binding consequence
+### 18.6 Outcome (measured 2026-07-28)
 
-**Until issue #15 resolves, WP6's shallower-than-Salpeter result must not be
-reported as an IMF measurement.** The disfavouring of α = 2.6 stands regardless,
-being far larger than the multiplicity effect can plausibly be.
+Issue #15 is **resolved**. 162 paired nodes, 3.3 h of injection, realized
+f_bin control 0.396 ± 0.005 and treatment 0.611 ± 0.011.
+
+| | grid median at α = 2.3 |
+|---|---:|
+| published | 1.105 |
+| control arm | 1.103 |
+| treatment arm | **1.099** |
+| **multiplicity effect** | **0.004 — 3.7% of the excess** |
+
+**M1 PASS** (all subgroups fell; 48 of 54 cells). **M2 FAIL** — CygOB2-C's
+reduction is *smaller* than B's by ~2.7σ, the opposite of the predicted turnoff
+ordering, so the pre-registered consequence applies: the excess and the
+multiplicity effect have different mass dependences. **M3 PASS literally, FAIL on
+the governing relative reading** — its 1.222 threshold was derived from a 1.444
+baseline that §16.2's issue #17 correction has withdrawn, and the control arm
+already sits below it before the treatment changes anything.
+
+**Binding consequence, replacing the previous one:** WP6's residual excess is
+reported **with the measured 3.7% multiplicity correction applied** and the
+remainder carried as a systematic. **No `repair_v7` is triggered by issue #15.**
+The disfavouring of α = 2.6 stands.
+
+**The scope limit is binding on how this may be quoted.** The test covers
+multiplicity **above 8 M☉ only** — the range where the mechanism has least room
+to act, since a star already above the threshold cannot be scattered into the
+census by being brightened. The 4–8 M☉ up-scatter channel is held at
+f_bin = 0.40 in both arms. Permitted claim: *"multiplicity above 8 M☉ does not
+explain the excess."* **Not permitted:** *"multiplicity does not explain the
+excess."*

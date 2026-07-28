@@ -354,6 +354,55 @@ def main() -> None:
                 ),
             },
         },
+        "adjudication": {
+            "governing_reading": "relative",
+            "why": (
+                "M3's literal threshold of 1.222 was derived arithmetically "
+                "from a grid median of 1.444 that issue #17 has since "
+                "WITHDRAWN.  The corrected control arm already sits at "
+                f"{median_ctl:.3f} — below 1.222 BEFORE the treatment arm "
+                "changes anything.  The literal reading therefore passes for a "
+                "reason that has nothing to do with multiplicity, and applying "
+                "the decision rule to it would conclude 'the shallow-IMF "
+                "signal is a multiplicity artefact' when the measurement shows "
+                "multiplicity moved the grid median by "
+                f"{median_ctl - median_trt:.3f} and absorbed only "
+                f"{(median_ctl - median_trt) / (median_ctl - 1.0) * 100:.1f}% "
+                "of the excess.  The relative form is what M3's own sentence "
+                "states and is invariant to the baseline correction."
+            ),
+            "outcome": "M3 FAILS on the governing reading",
+            "decision_rule_branch_applied": (
+                "the 'if M3 fails' branch: the IMF reading is reported with the "
+                "measured multiplicity correction applied and the remainder "
+                "carried as a systematic.  No repair_v7 is triggered by issue "
+                "#15.  The disfavouring of alpha = 2.6 stands, as it does under "
+                "either branch."
+            ),
+            "measured_correction_to_carry": {
+                "grid_median_shift": round(median_ctl - median_trt, 4),
+                "fraction_of_excess_absorbed": round(float(absorbed), 4),
+                "direction": "lowers the closure ratio",
+            },
+            "paired_control_validates_the_design": (
+                f"the control arm reproduces the published grid median to "
+                f"{abs(median_ctl - median_published):.3f} "
+                f"({median_ctl:.3f} vs {median_published:.3f}) despite a "
+                "different RNG realization and a spliced sub-8 segment.  "
+                "Realization noise is therefore about half the size of the "
+                "multiplicity effect it is being used to measure, which is what "
+                "makes the 0.004 shift interpretable at all."
+            ),
+            "scope_limit_restated": (
+                "this measures multiplicity ABOVE 8 Msun only.  A star already "
+                "above 8 Msun cannot be scattered INTO the census by being made "
+                "brighter, so this is the range where the mechanism has least "
+                "room to act.  The 4-8 Msun up-scatter channel is held at "
+                "f_bin = 0.40 in both arms and is NOT tested here.  The correct "
+                "reading is 'multiplicity above 8 Msun does not explain the "
+                "excess', NOT 'multiplicity does not explain the excess'."
+            ),
+        },
         "decision_rule_applied": prereg["decision_rule"],
         "inputs": {
             str(path.relative_to(w.ROOT)): w.sha256(path)

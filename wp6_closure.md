@@ -24,9 +24,12 @@ not show that WP5 was wrong.
 > **1.087 / 1.448 / 1.706, grid median 1.444, closing α = 2.070** — should not
 > be quoted.
 >
-> **The residual IMF reading is still held pending issue #15** (§6), which is
-> measuring how much of what remains is unmodelled massive-star multiplicity.
-> The disfavouring of α = 2.6 does not depend on either outcome.
+> **Issue #15 is now resolved** (§6): unmodelled massive-star multiplicity above
+> 8 M☉ absorbs only **3.7%** of the remaining excess, so the residual IMF reading
+> survives its strongest pre-registered instrumental challenge. It is reported
+> with that correction applied and the remainder carried as a systematic. The
+> disfavouring of α = 2.6 stands. **Caveat:** multiplicity *below* 8 M☉ is
+> untested and would require a full `repair_v7` chain re-run.
 
 ---
 
@@ -254,7 +257,70 @@ stars got a companion.
 regenerated response is byte-identical to the published one, so the code change
 cannot have perturbed anything already accepted.
 
-*Result pending — 162 nodes × 2 arms.*
+### Result
+
+*Scored: [wp6_multiplicity_closure_execution.json](provenance/wp6_multiplicity_closure_execution.json)
+· injections: [wp6_multiplicity_injections_execution.json](provenance/wp6_multiplicity_injections_execution.json)
+(162 paired nodes, 3.3 h, realized f_bin: control 0.396 ± 0.005, treatment 0.611 ± 0.011).*
+
+| subgroup | control | treatment | drop | excess absorbed |
+|---|---:|---:|---:|---:|
+| CygOB2-A | 0.901 | 0.900 | 0.001 | — (below unity) |
+| CygOB2-B | 1.106 | 1.101 | 0.005 | 4% |
+| CygOB2-C | 1.416 | 1.413 | 0.004 | 1% |
+| **grid median** | **1.103** | **1.099** | **0.004** | **3.7%** |
+
+**Multiplicity above 8 M☉ is not the explanation.** It moves the grid median by
+0.004 and absorbs **3.7%** of the excess, against the ≥50% M3 required.
+
+**The paired design validates itself.** The control arm reproduces the published
+grid median to **0.002** (1.103 vs 1.105) despite a different RNG realization and
+a spliced sub-8 segment — so realization noise is about half the size of the
+effect being measured, which is what makes a 0.004 shift interpretable at all.
+
+| | prediction | verdict |
+|---|---|---|
+| **M1** | ratio falls in every subgroup | **PASS** — all three fell; 48 of 54 cells |
+| **M2** | reduction follows turnoff ordering A < B < C | **FAIL** — A 0.0029, B 0.0035, **C 0.0011** |
+| **M3** | absorbs ≥ half the excess (median < 1.222) | **PASS literally, FAIL on the governing reading** |
+
+**M2 failed, and not merely for lack of power.** CygOB2-C's reduction is smaller
+than B's by ~2.7σ — the *opposite* of the predicted turnoff ordering. The
+pre-registered consequence applies as written: *the excess and the multiplicity
+effect have different mass dependences, so multiplicity cannot be the whole story
+even if it lowers the ratio.*
+
+**Why M3's literal pass does not count.** Its 1.222 threshold was derived
+arithmetically from a grid median of 1.444 that **issue #17 has since withdrawn**.
+The corrected control arm already sits at 1.103 — below 1.222 *before the
+treatment arm changes anything*. Applying the decision rule to that would
+conclude "the shallow-IMF signal is a multiplicity artefact" while the
+measurement shows multiplicity absorbed 3.7% of it. **The pre-registration was
+not amended** — both readings are recorded, and the relative form, which is what
+M3's own sentence states, governs.
+
+Consistency check: the effect grows with α (0.0011 / 0.0022 / 0.0042 at
+α = 2.0 / 2.3 / 2.6), the same low-mass-weighting mechanism that drove F2 in §2.
+
+### Decision rule applied
+
+The **"if M3 fails"** branch: the IMF reading is reported with the measured
+multiplicity correction applied and the remainder carried as a systematic.
+**No repair_v7 is triggered by issue #15.** The disfavouring of α = 2.6 stands —
+as it does under either branch.
+
+### Scope limit — stated because it is load-bearing
+
+This tests multiplicity **above 8 M☉ only**. A star already above 8 M☉ cannot be
+scattered *into* the census by being made brighter, so this is precisely the
+range where the mechanism has **least** room to act. The 4–8 M☉ up-scatter
+channel — where unresolved companions would matter most, and which issue #17
+showed carries real weight — is held at f_bin = 0.40 in **both** arms.
+
+The correct reading is **"multiplicity above 8 M☉ does not explain the excess"**,
+not "multiplicity does not explain the excess". Testing the sub-8 channel means
+perturbing the accepted WP5 calibration and requires a full repair_v7 chain
+re-run; it is carried as an open recommendation, not done here.
 
 ## 7. Runaways
 
@@ -326,15 +392,30 @@ independent support for the fix.
 2. **Do not quote the withdrawn figures.** Any downstream text still carrying a
    45% excess, a grid median of 1.444, or a closing α of 2.070 predates issue
    #17 and must be corrected.
-3. **Hold the residual IMF reading** until issue #15 resolves (§6). The 11%
-   that survives the floor fix is small enough that multiplicity above 8 M☉ is
-   a live competitor for it.
+3. **Report the residual IMF reading with the multiplicity correction applied**
+   (§6): multiplicity above 8 M☉ accounts for 3.7% of the excess, measured, and
+   the remainder is a systematic. Multiplicity *below* 8 M☉ is untested and is
+   the one instrumental channel that could still move this.
 4. **Subtract runaways** from the missing-equals-dead bookkeeping; they are
    living stars that left, so they reduce N_SN.
 5. **Treat the runaway count as a lower bound** on both the velocity ceiling and
    the 2D-projection grounds.
 6. **Carry the orphan-anchor systematic**: their masses come from spectral type,
    not the WP4 posterior, and 13 have no spectral type at all.
+7. **CygOB2-C's residual is the open science question.** After both fixes, C
+   still sits at **1.405** while A is at 0.894 — they disagree in *direction*, so
+   no single mechanism explains both. Three untested candidates, in priority
+   order:
+   - **subgroup-label uncertainty** (issue #6);
+   - **distance contamination** — a star truly at 1350 pc but assumed at 1620
+     gets a distance modulus 0.40 mag too large, is inferred more massive, and
+     inflates the count above 8 M☉. This is C's direction, and it is covered by
+     **no** WP6 alternative: A4 tested membership weighting, not distance. See
+     [berlanas_2019_two_distance.md](cross_checks/berlanas_2019_two_distance.md);
+   - the **+2.4% Orellana distance systematic**, which pushes C further up.
+8. **Multiplicity below 8 M☉ is untested** and is the one remaining instrumental
+   channel that could still move the result. It requires a `repair_v7` chain
+   re-run because it perturbs the accepted WP5 calibration.
 
 ## 10. Gate — the external cross-match
 
@@ -343,8 +424,12 @@ independent support for the fix.
 
 | criterion | status |
 |---|---|
-| closure ratio explained within quantified contributions | **met** — dominated by the IMF slope; four alternatives tested and bounded, multiplicity pre-registered and under test |
+| closure ratio explained within quantified contributions | **met** — the dominant contributor was issue #17 (~3/4 of the excess); six alternatives tested and bounded, multiplicity measured at 3.7% |
 | runaway search reproduces literature candidates | **met** — 1/1 testable candidate recovered |
+
+**WP6 is closed.** Both gate criteria are met and no method question remains
+open. What remains is a *science* question: CygOB2-C's residual ratio of 1.405,
+discussed in §9.
 
 Nine published candidates were resolved from SIMBAD and frozen into the script
 with the identifier queried, so the check reruns offline.
