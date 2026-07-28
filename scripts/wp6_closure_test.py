@@ -1,0 +1,341 @@
+#!/usr/bin/env python3
+"""WP6 steps 1-2: the massive-star census closure test.
+
+The load-bearing computation of the paper.  N_SN is essentially the IMF
+integral above the isochrone turnoff; this test is what licenses extrapolating
+the WP5 normalization into that range.  If the observed count of LIVING massive
+stars matches the IMF prediction between 8 Msun and the turnoff, the
+extrapolation above the turnoff is credible.  If it does not, the shortfall has
+to be attributed before any supernova count means anything.
+
+    predicted observed = k * integral[8, M_turnoff] dM M^-alpha R(obs | M)
+    observed           = sum over members of p_membership * P(M > 8)
+    ratio              = observed / predicted observed
+
+R comes from the WP5 injection response, extended above 18 Msun by
+scripts/wp6_massive_injections.py (decision:
+provenance/wp6_mass_extension_decision.json), and is applied PER SUBGROUP --
+CygOB2-B's effective completeness differs from A's and C's by ~0.12 and a
+single association-wide value would bias B's closure (CUTS section 16.4).
+
+The upper limit is the turnoff, not infinity: stars above it are dead, and
+counting them as expected-but-missing would double-count the very quantity WP7
+is trying to infer.
+
+Both sides are forward quantities.  Nothing is divided by a scalar
+completeness, per CUTS section 16.2.
+
+Outputs:
+  tables/wp6_closure.csv
+  provenance/wp6_closure_test_execution.json
+
+Run:
+  WP_REPAIR_VERSION=repair_v5 WP3_ANCHOR_PRIOR_MODE=kriging \
+  PYTHONPATH=scripts python3 scripts/wp6_closure_test.py
+"""
+from __future__ import annotations
+
+import argparse
+import platform
+import sys
+from datetime import datetime, timezone
+
+import numpy as np
+import pandas as pd
+
+import wp5_common as w
+import wp5_joint_age_fit as J
+from wp6_mass_extension_decision import IMF_UPPER_LIMIT, turnoff_mass
+from wp6_massive_injections import response_path as extension_path
+
+WP5_VERSION = "repair_v6"
+UPSTREAM = "repair_v5"
+SN_THRESHOLD_MSUN = 8.0
+
+# Issue #17.  The integral's lower bound is NOT the supernova threshold.  The
+# observed side counts every member's P(M > 8) whatever that member's true mass
+# is, so the predicted side has to integrate over every true mass the response
+# can push above 8 -- otherwise the two sides are not the same quantity.  This
+# is CUTS section 16.2's own form, which carries no lower limit and justifies
+# itself by the response scattering estimates ACROSS the threshold.
+#
+# 4.0 Msun is where the integral converges: it moves 0.4% between a 4.0 and a
+# 3.0 floor, and R(estimated > 8 | true 4 Msun) is 0.004.  Chosen on
+# convergence, not on its effect (provenance/wp6_closure_floor_prereg.json).
+INTEGRATION_FLOOR_MSUN = 4.0
+
+
+def observed_response(
+    response: pd.DataFrame, threshold: float, draw_columns: list[str]
+) -> tuple[np.ndarray, np.ndarray]:
+    """R(recovered and estimated above threshold | true mass)."""
+    masses = np.sort(response["true_primary_mass"].unique())
+    above = np.zeros(len(masses))
+    for index, value in enumerate(masses):
+        rows = response[response["true_primary_mass"].eq(value)]
+        active = [c for c in draw_columns if rows[c].notna().any()]
+        if not active or not len(rows):
+            continue
+        draws = rows[active].to_numpy(float)
+        finite = np.isfinite(draws)
+        above[index] = np.sum(finite & (draws >= threshold)) / (
+            len(active) * len(rows)
+        )
+    return masses, above
+
+
+def trapezoid_weights(masses: np.ndarray) -> np.ndarray:
+    weight = np.empty(len(masses))
+    weight[0] = 0.5 * (masses[1] - masses[0])
+    weight[-1] = 0.5 * (masses[-1] - masses[-2])
+    weight[1:-1] = 0.5 * (masses[2:] - masses[:-2])
+    return weight
+
+
+def main() -> None:
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--wp5-version", default=WP5_VERSION)
+    parser.add_argument(
+        "--integration-floor", type=float, default=INTEGRATION_FLOOR_MSUN,
+        help=(
+            "lower bound of the forward integral in Msun (issue #17).  Pass 8.0 "
+            "to reproduce the withdrawn pre-fix numbers."
+        ),
+    )
+    args = parser.parse_args()
+    version = args.wp5_version
+    floor = float(args.integration_floor)
+
+    normalization = pd.read_parquet(
+        w.PROC / f"wp5_imf_normalization_{version}.parquet"
+    )
+    census = pd.read_csv(w.TABLES / "wp6_massive_census.csv")
+    age_posterior = pd.read_parquet(
+        w.PROC / f"wp4_age_posteriors_{UPSTREAM}.parquet"
+    )
+    native = {family: J.native_isochrone_ages(family) for family in w.FAMILIES}
+
+    rows = []
+    for family in w.FAMILIES:
+        for rv in w.R_V_BRANCHES:
+            for subgroup in w.SUBGROUPS:
+                prior = J.truth_age_nodes(
+                    age_posterior, subgroup, family, rv, native[family],
+                    snap=not J.uses_age_interpolation(version),
+                )
+                # Node-weighted response over the closure window.  Each node has
+                # its own turnoff, so the window edge is marginalized over the
+                # WP4 age posterior exactly as the WP5 fit marginalizes the
+                # truth age -- the age uncertainty enters the closure test
+                # through the same door.
+                node_masses, node_above, node_weights, node_turnoffs = [], [], [], []
+                for age, weight in prior.items():
+                    base = J.node_response_path(subgroup, family, rv, age, version)
+                    extension = extension_path(subgroup, family, rv, age)
+                    if not base.exists() or not extension.exists():
+                        raise RuntimeError(
+                            f"missing response for {subgroup}/{family}/R_V={rv} "
+                            f"at {age:.3f} Myr — run wp6_massive_injections.py"
+                        )
+                    frames = [pd.read_parquet(base), pd.read_parquet(extension)]
+                    combined = pd.concat(frames, ignore_index=True)
+                    draw_columns = sorted(
+                        c for c in combined.columns
+                        if c.startswith("recovered_mass_draw_")
+                    )
+                    masses, above = observed_response(
+                        combined, SN_THRESHOLD_MSUN, draw_columns
+                    )
+                    cap = min(turnoff_mass(family, age), IMF_UPPER_LIMIT)
+                    window = (masses >= floor) & (masses <= cap)
+                    node_masses.append(masses[window])
+                    node_above.append(above[window])
+                    node_weights.append(weight)
+                    node_turnoffs.append(cap)
+
+                cell = normalization[
+                    normalization.subgroup.eq(subgroup)
+                    & normalization.family.eq(family)
+                    & normalization.R_V.eq(rv)
+                ]
+                observed_row = census[
+                    census.subgroup.eq(subgroup) & census.family.eq(family)
+                    & census.R_V.eq(rv)
+                ]
+                observed = float(
+                    observed_row["observed_above_8_probabilistic"].iloc[0]
+                )
+
+                for alpha in w.IMF_SLOPES:
+                    branch = cell[cell.alpha.eq(alpha)]
+                    if len(branch) != 1:
+                        continue
+                    k = float(branch["k_median"].iloc[0])
+                    k_lo = float(branch["k_lo68"].iloc[0])
+                    k_hi = float(branch["k_hi68"].iloc[0])
+
+                    # The two integrals have deliberately different lower
+                    # bounds.  `predicted_true` is a count of stars physically
+                    # above 8 Msun, so it starts at 8.  `predicted_obs` is a
+                    # count of stars ESTIMATED above 8, which the response can
+                    # produce from any true mass, so it starts at the
+                    # convergence floor (issue #17).  Their ratio is therefore
+                    # an effective completeness that may exceed 1 where
+                    # up-scatter dominates -- exactly as CUTS section 16.2
+                    # already reports for 6 of 54 cells.
+                    predicted_obs = predicted_true = 0.0
+                    for masses, above, weight in zip(
+                        node_masses, node_above, node_weights
+                    ):
+                        imf = trapezoid_weights(masses) * masses ** (-alpha)
+                        predicted_obs += weight * float(np.sum(imf * above))
+                        physical = masses[masses >= SN_THRESHOLD_MSUN]
+                        predicted_true += weight * float(
+                            np.sum(
+                                trapezoid_weights(physical) * physical ** (-alpha)
+                            )
+                        )
+                    predicted_obs *= k
+                    predicted_true *= k
+                    rows.append(
+                        {
+                            "subgroup": subgroup, "family": family,
+                            "R_V": float(rv), "alpha": float(alpha),
+                            "k_median": k,
+                            "turnoff_prior_mean_Msun": float(
+                                np.sum(np.array(node_turnoffs) * np.array(node_weights))
+                            ),
+                            "predicted_true_living": predicted_true,
+                            "predicted_observed_living": predicted_obs,
+                            "effective_completeness": (
+                                predicted_obs / predicted_true
+                                if predicted_true > 0 else np.nan
+                            ),
+                            "observed_living": observed,
+                            "closure_ratio": (
+                                observed / predicted_obs if predicted_obs > 0 else np.nan
+                            ),
+                            "closure_ratio_lo68": (
+                                observed / (predicted_obs * k_hi / k)
+                                if predicted_obs > 0 else np.nan
+                            ),
+                            "closure_ratio_hi68": (
+                                observed / (predicted_obs * k_lo / k)
+                                if predicted_obs > 0 else np.nan
+                            ),
+                            "shortfall": predicted_obs - observed,
+                        }
+                    )
+                print(f"  {subgroup} {family} R_V={rv} done", flush=True)
+
+    table = pd.DataFrame(rows)
+    out_csv = w.TABLES / "wp6_closure.csv"
+    table.to_csv(out_csv, index=False)
+
+    baseline = table[
+        table.family.eq("PARSEC") & table.R_V.eq(3.1) & table.alpha.eq(2.3)
+    ]
+    record = {
+        "created_utc": datetime.now(timezone.utc).isoformat(),
+        "script": "scripts/wp6_closure_test.py",
+        "status": "SUCCESS",
+        "work_package": "WP6 steps 1-2",
+        "wp5_version": version,
+        "integration_floor_Msun": floor,
+        "estimator": (
+            f"predicted observed = k * integral[{floor:g}, M_turnoff] dM "
+            "M^-alpha R(observed above 8 | M), per subgroup, with R from the "
+            "WP5 injection response extended above 18 Msun.  Nothing is divided "
+            "by a scalar completeness (CUTS section 16.2)."
+        ),
+        "issue_17_lower_bound": (
+            "the lower bound is an INTEGRATION bound, not the supernova "
+            "threshold.  The observed side counts every member's P(M > 8) "
+            "whatever that member's true mass is, so the predicted side must "
+            "integrate over every true mass the response can push above 8.  "
+            "Truncating at 8 omitted that up-scatter entirely and made the two "
+            "sides different quantities.  Floor chosen on convergence of the "
+            "integral (provenance/wp6_closure_floor_prereg.json)."
+        ),
+        "predicted_true_vs_observed_bounds": (
+            "predicted_true_living integrates from 8 Msun because it counts "
+            "stars PHYSICALLY above 8; predicted_observed_living integrates "
+            "from the floor because it counts stars ESTIMATED above 8.  Their "
+            "ratio can therefore exceed 1 where up-scatter dominates."
+        ),
+        "upper_limit": (
+            "the isochrone turnoff at each truth-age node, marginalized over "
+            "the WP4 age posterior with the node weights.  Stars above the "
+            "turnoff are dead; counting them as expected-but-missing would "
+            "double-count the quantity WP7 infers."
+        ),
+        "observed_side": (
+            "sum over members of p_membership * P(M > 8), from "
+            "tables/wp6_massive_census.csv.  Orphan anchors are NOT added here "
+            "-- they are the independent check on R, not a correction to it."
+        ),
+        "environment": {
+            "python": sys.version, "platform": platform.platform(),
+            "numpy": np.__version__, "pandas": pd.__version__,
+        },
+        "inputs": {
+            str(path.relative_to(w.ROOT)): w.sha256(path)
+            for path in [
+                w.PROC / f"wp5_imf_normalization_{version}.parquet",
+                w.TABLES / "wp6_massive_census.csv",
+                w.PROC / f"wp4_age_posteriors_{UPSTREAM}.parquet",
+            ]
+        },
+        "baseline_PARSEC_rv3.1_alpha2.3": [
+            {
+                "subgroup": row.subgroup,
+                "turnoff_prior_mean_Msun": round(row.turnoff_prior_mean_Msun, 1),
+                "predicted_true_living": round(row.predicted_true_living, 1),
+                "predicted_observed_living": round(row.predicted_observed_living, 1),
+                "effective_completeness": round(row.effective_completeness, 3),
+                "observed_living": round(row.observed_living, 1),
+                "closure_ratio": round(row.closure_ratio, 3),
+                "closure_ratio_68": [
+                    round(row.closure_ratio_lo68, 3),
+                    round(row.closure_ratio_hi68, 3),
+                ],
+                "shortfall": round(row.shortfall, 1),
+            }
+            for row in baseline.itertuples()
+        ],
+        "grid_summary": {
+            "cells": int(len(table)),
+            "closure_ratio_min": round(float(table.closure_ratio.min()), 3),
+            "closure_ratio_median": round(float(table.closure_ratio.median()), 3),
+            "closure_ratio_max": round(float(table.closure_ratio.max()), 3),
+            "cells_consistent_with_unity_68": int(
+                (
+                    (table.closure_ratio_lo68 <= 1.0)
+                    & (table.closure_ratio_hi68 >= 1.0)
+                ).sum()
+            ),
+        },
+        "outputs": {str(out_csv.relative_to(w.ROOT)): w.sha256(out_csv)},
+    }
+    w.write_json(w.PROVENANCE / "wp6_closure_test_execution.json", record)
+
+    print("\nWP6 closure test — baseline PARSEC R_V=3.1 alpha=2.3\n")
+    print(f"  {'subgroup':12s} {'turnoff':>8s} {'pred_true':>10s} {'pred_obs':>9s} "
+          f"{'observed':>9s} {'ratio':>7s} {'68% interval':>16s}")
+    for entry in record["baseline_PARSEC_rv3.1_alpha2.3"]:
+        print(f"  {entry['subgroup']:12s} {entry['turnoff_prior_mean_Msun']:8.1f} "
+              f"{entry['predicted_true_living']:10.1f} "
+              f"{entry['predicted_observed_living']:9.1f} "
+              f"{entry['observed_living']:9.1f} {entry['closure_ratio']:7.3f} "
+              f"  [{entry['closure_ratio_68'][0]:.3f}, {entry['closure_ratio_68'][1]:.3f}]")
+    summary = record["grid_summary"]
+    print(f"\n  across all {summary['cells']} cells: closure ratio "
+          f"{summary['closure_ratio_min']:.3f}-{summary['closure_ratio_max']:.3f}, "
+          f"median {summary['closure_ratio_median']:.3f}")
+    print(f"  cells consistent with unity at 68%: "
+          f"{summary['cells_consistent_with_unity_68']}/{summary['cells']}")
+    print("\nwrote provenance/wp6_closure_test_execution.json")
+
+
+if __name__ == "__main__":
+    main()

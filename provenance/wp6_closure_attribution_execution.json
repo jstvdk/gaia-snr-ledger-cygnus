@@ -1,0 +1,108 @@
+{
+  "created_utc": "2026-07-28T18:18:32.692195+00:00",
+  "script": "scripts/wp6_closure_attribution.py",
+  "status": "SUCCESS",
+  "work_package": "WP6 step 2",
+  "finding": "The closure ratio is ABOVE unity at the Salpeter branch -- more living massive stars are observed than the WP5 normalization predicts -- and the discrepancy is dominated by the IMF slope, not by completeness, mass scale or turnoff.",
+  "sign_argument": "Of the three channels the plan lists, extinction-hidden stars and escaped runaways can ONLY remove stars from view and therefore push the ratio DOWN.  Neither can explain an excess.  The attribution is therefore between a genuine IMF deviation and a mis-specification the plan did not anticipate, because it assumed the other sign.",
+  "environment": {
+    "python": "3.11.15 | packaged by conda-forge | (main, Jun 11 2026, 03:29:05) [Clang 19.1.7 ]",
+    "platform": "macOS-15.6.1-arm64-arm-64bit",
+    "numpy": "2.4.6",
+    "pandas": "3.0.3"
+  },
+  "inputs": {
+    "tables/wp6_closure.csv": "53b0ef88652b83b812ad08a583b60bc605b0f618bd7b68dbb882f40e2b051e0b",
+    "tables/wp6_massive_census.csv": "db572c6a5b4432112d22d993996a9df12e5800fde37a2986c9515f744557fdd3"
+  },
+  "alpha_dependence": {
+    "grid_median_ratio": {
+      "2.0": 0.722,
+      "2.3": 1.105,
+      "2.6": 1.677
+    },
+    "interpretation": "k is refitted per alpha inside 2-8 Msun, so a steeper slope predicts proportionally fewer stars above 8 Msun for the same calibration counts.  The closure test is therefore a direct constraint on the high-mass slope, and it is the constraint the branch grid was carried in order to receive.",
+    "not_circular": "k is fitted from 2-8 Msun counts alone; the >8 Msun census never enters the WP5 likelihood, so testing it against the extrapolation is an out-of-sample test."
+  },
+  "closing_alpha": {
+    "by_subgroup": {
+      "CygOB2-A": {
+        "median": 2.314,
+        "min": 2.248,
+        "max": 2.379
+      },
+      "CygOB2-B": {
+        "median": 2.23,
+        "min": 2.198,
+        "max": 2.239
+      },
+      "CygOB2-C": {
+        "median": 2.031,
+        "min": 2.0,
+        "max": 2.073
+      }
+    },
+    "grid_median": 2.23,
+    "inside_branch_grid": 17,
+    "cells": 18,
+    "caveat": "values below 2.0 are extrapolations beyond the carried branch grid (2.0 / 2.3 / 2.6) and are reported as a direction, not as a measured slope.  The project has not run a branch there."
+  },
+  "closure_ratio_at_salpeter": {
+    "CygOB2-A": 0.983,
+    "CygOB2-B": 1.105,
+    "CygOB2-C": 1.44
+  },
+  "alternatives_tested": {
+    "A1_mass_scale": {
+      "verdict": "not supported",
+      "evidence": "injected stars are recovered without bias at the top of the range (true 27.0 -> median recovered 25.9; 100.0 -> 100.2; 115.0 -> 107.2), so a systematic over-estimate of real massive-star masses is not indicated"
+    },
+    "A2_response_shape": {
+      "verdict": "measured, and it works against the excess",
+      "evidence": "recovery is NOT flat above 18 Msun: it falls from ~0.80 at 8-20 Msun to ~0.57 near 48 Msun before recovering to ~0.75 at 115 Msun.  Assuming flatness would have LOWERED the predicted observable count further and made the excess larger.  This vindicates the decision to extend the injections rather than extrapolate (provenance/wp6_mass_extension_decision.json)."
+    },
+    "A3_turnoff": {
+      "verdict": "a real lever, reported not hidden",
+      "evidence": "the ratio rises with the turnoff across subgroups (A 59.7, B 71.1, C 120.0 Msun at the baseline), so a turnoff set too low would inflate it.  Issue #14 removed a step-function error here; what remains is the genuine isochrone-family difference, carried as a branch.",
+      "turnoff_by_subgroup_Msun": {
+        "CygOB2-A": 58.3,
+        "CygOB2-B": 70.1,
+        "CygOB2-C": 120.0
+      }
+    },
+    "A4_contamination": {
+      "verdict": "bounded, and too small to explain the excess",
+      "evidence": "membership-weighted and hard-cut counts differ by only a few percent, so field contamination of the massive sample cannot account for a 45% excess",
+      "by_subgroup": [
+        {
+          "subgroup": "CygOB2-A",
+          "probabilistic": 65.0,
+          "thresholded": 62.5,
+          "fractional_difference": -0.0388
+        },
+        {
+          "subgroup": "CygOB2-B",
+          "probabilistic": 79.0,
+          "thresholded": 75.0,
+          "fractional_difference": -0.0505
+        },
+        {
+          "subgroup": "CygOB2-C",
+          "probabilistic": 105.9,
+          "thresholded": 108.0,
+          "fractional_difference": 0.0198
+        }
+      ]
+    }
+  },
+  "runaway_channel": {
+    "raw_recovered": 119,
+    "false_positive_corrected": 54.9,
+    "effect_on_closure": "runaways are stars that LEFT, so returning them to the census increases the observed count and makes the excess larger, not smaller.  They cannot resolve a ratio above unity and are carried into WP7 as living stars, which reduces N_SN."
+  },
+  "conclusion": "The census does not close at the Salpeter branch.  It closes near alpha ~ 2.0 and is strongly inconsistent with alpha = 2.6.  Because alpha is a Class E branch carried in parallel and never averaged, the correct statement is that WP6 DISCRIMINATES between the branches rather than that WP5 was wrong: the alpha = 2.6 branch should be reported as disfavoured by the massive-star census, and N_SN quoted per branch with that noted.  This is an out-of-sample test and it should not be quietly converted into a preferred slope without a dedicated branch run.",
+  "what_this_does_not_license": "It does not license refitting alpha to make the census close.  That would convert an independent test into a fitted parameter and destroy the only out-of-sample check the analysis has.",
+  "outputs": {
+    "tables/wp6_closure_attribution.csv": "44930091cca49270cd0b2da9be9ff89d55dc68fd861dd9c1eaa1ddb259a4da44"
+  }
+}

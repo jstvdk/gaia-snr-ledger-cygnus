@@ -45,7 +45,7 @@ Your plan already handles Class E well — the mandatory branches in §1.4 are e
 | 17 | R<sub>V</sub> | 3.1 base; 3.0/3.5 | B+E | correct | keep |
 | 18 | Isochrone families | PARSEC, MIST | E | correct | keep |
 | 19 | Isochrone age grid | 1–10 Myr log | A | fine | keep |
-| 20 | Binary fraction | 0.3–0.5 | E | correct | keep |
+| 20 | Binary fraction | 0.3–0.5 | E | ~~correct~~ **range too narrow above ~10 M<sub>☉</sub>** | see §18 — measured O-star value is 0.70, outside the carried range |
 | 21 | Calibration window | 2–8 M<sub>☉</sub> | **C** | **must be measured** | see §7.1 — likely needs raising |
 | 22 | Completeness floor | ≥ 95% | B | fine | keep |
 | 23 | Min stars/subgroup | ≥ 50 | B | fine | keep |
@@ -664,11 +664,28 @@ With `k` the WP5 normalization, α the IMF slope, and `R(observed above
 threshold | M)` the injection response:
 
     expected observed count above threshold
-        = k · ∫ dM M^(−α) · R(observed above threshold | M)
+        = k · ∫[M_floor, M_turnoff] dM M^(−α) · R(observed above threshold | M)
 
 This is the construction WP5 already uses inside 2–8 M☉, extended to one
 open-ended bin. The deficit is `observed − expected_observed`, and **only that
 difference** is attributable to stars that have left the main sequence.
+
+> **The lower bound is an integration bound, not the supernova threshold**
+> (issue #17, added 2026-07-28 after the original implementation set them
+> equal). The observed side counts every member's `P(M > 8)` *whatever that
+> member's true mass is*, so the predicted side must integrate over every true
+> mass the response can push above 8 M☉. Setting `M_floor = 8` omits that
+> up-scatter entirely and makes the two sides different quantities — it is the
+> same error this section forbids one paragraph below, committed at the other
+> end of the integral. **`M_floor` is driven to convergence, never chosen for
+> its effect**: the adopted 4.0 M☉ leaves the integral changing by ~1.4% per
+> further 1 M☉ of extension, and the residual is carried as a systematic.
+> Measured up-scatter: R(estimated > 8 | true M) = 0.23 at 7 M☉, 0.09 at 6,
+> 0.03 at 5, 0.004 at 4.
+>
+> `predicted_true_living` keeps its lower bound at 8 M☉, because it counts stars
+> *physically* above 8. The two bounds differ on purpose, and their ratio is an
+> effective completeness that may exceed 1.
 
 **Dividing the observed count by a scalar completeness is forbidden**, and not
 merely as a matter of style. The response also scatters mass estimates across
@@ -717,3 +734,147 @@ specification is insensitive to which of the two is used. Should any later WP5
 version supersede `repair_v6`, `scripts/wp6_bright_completeness.py --version
 <accepted>` must be re-run and its output re-read into WP6 before the closure
 test is executed.
+
+---
+
+## 17. Runaway traceback — peculiar motion is binding (issue #16, 2026-07-28)
+
+### 17.1 The rule
+
+**A traceback must run on peculiar proper motions, with the association's
+systemic motion subtracted.** Absolute Gaia proper motions are dominated by the
+association's own bulk motion plus Galactic rotation. For Cyg OB2 the systemic
+motion is **(−2.707, −4.317) mas/yr**, which is *larger than a typical ejection
+signature* — so an absolute-PM traceback measures the common drift and not the
+ejection.
+
+The subtraction is rotated into galactic coordinates **at each star's own
+position**, not applied as a constant offset in (l, b): over an ±8° box the
+rotation between equatorial and galactic axes varies enough to matter.
+
+**Control fields receive identical treatment.** If controls were traced back on
+absolute motions while candidates used peculiar ones, the measured
+false-positive rate would not describe the candidate sample.
+
+### 17.2 The false-positive rate is measured per separation bin
+
+Chance recovery falls steeply with angular separation from the centroid — 20.7%
+at 1–1.5°, 0.4% beyond 8°. A pooled control rate is therefore meaningless: the
+control and candidate samples do not share a separation distribution. **Applying
+a pooled rate produced a negative corrected count.** The rate must be measured in
+bins of separation (edges 1, 1.5, 2, 3, 4, 5, 6, 8, 12°) and applied to each
+candidate at its own separation.
+
+Purity per bin is `(n_selected − expected_chance) / n_selected`, with the
+expected chance count summed over **all** candidates in the bin, not the selected
+ones. Bins are clipped at zero, so the binned total can exceed the unclipped
+aggregate; **both must be reported** and WP7 carries the difference as a
+systematic.
+
+### 17.3 The external gate is not optional
+
+The runaway result is gated on recovering published candidates
+(`scripts/wp6_runaway_crossmatch.py`). This is what caught issue #16: every
+internal diagnostic passed while BD+43 3654 scored exactly 0.000.
+
+Two rules follow.
+
+1. **Positions are frozen into the script** with the identifier queried and the
+   query date, so the check reruns offline and reproducibly.
+2. **In-footprint literature candidates cannot pass or fail the gate.** Most
+   published "runaway candidates" are stars still inside the association with
+   anomalous proper motions; an escaped-star search excludes them by
+   construction. Counting them as gate failures would be wrong, and counting
+   them as passes would be worse.
+
+---
+
+## 18. Massive-star multiplicity in the injection truth model (issue #15, pre-declared 2026-07-28)
+
+Full pre-registration, with the M1/M2/M3 predictions and the decision rule:
+`provenance/wp6_multiplicity_prereg.json`, written **before** any multiplicity
+injection was generated.
+
+### 18.0 A correction to master-table row 20
+
+Row 20 of §2 carries the binary fraction as a Class E branch spanning **0.3–0.5**
+and marks it "correct — keep". Issue #15 shows that verdict is wrong at the top
+end, in two separate ways.
+
+1. **The range does not span the measured value.** Sana+2012 give f_b ≈ 0.70 for
+   15–60 M☉ and Caballero-Nieves+2020 find 48 of 74 Cyg OB2 O/early-B stars
+   multiple. **0.70 lies outside 0.3–0.5 entirely**, so no branch in the carried
+   grid represents the massive-star regime. The range was specified from
+   field/low-mass literature and then applied to the whole mass axis.
+2. **WP5 does not carry the branch at all.** WP4 genuinely fits ages at
+   f_bin ∈ {0.3, 0.4, 0.5}, but the WP5 injections select `f_bin == F_BINARY`
+   and inject a **single constant 0.40 at every mass**. On the response side the
+   Class E branch is not carried; it is fixed.
+
+Neither point affects WP5's accepted result, whose calibration window stops at
+8 M☉ where 0.40 is defensible. Both bear directly on WP6, whose closure window
+starts exactly where the specification stops being right.
+
+**Consequence for row 20**: the correct reading is *Class E, and the carried
+range is under-specified above ~10 M☉*. §18 below specifies the replacement.
+
+### 18.1 The truth-side model
+
+| mass | truth f_bin |
+|---|---:|
+| ≤ 8 M☉ | 0.400 |
+| 10 M☉ | 0.497 |
+| 12 M☉ | 0.575 |
+| ≥ 16 M☉ | 0.700 |
+
+Linear in log mass between the anchors, flat outside. **Both anchors are
+measured values** — 0.40 is the frozen WP5 value where the 2–8 M☉ calibration
+lives, 0.70 is Sana+2012 for 15–60 M☉ — so no free parameter is tuned to make
+the closure ratio move.
+
+`q ~ Uniform(0.1, 1)` is **unchanged**: Sana+2012's mass-ratio exponent
+κ = −0.1 ± 0.6 already supports it.
+
+### 18.2 Only the truth side changes
+
+The recovery side keeps assuming f_bin = 0.40. This is deliberate and is the
+whole point: nature makes binaries at the true rate while the estimator assumes
+0.40, and **that mismatch is the bias under test**. Changing both sides would
+measure nothing.
+
+### 18.3 The comparison must be paired
+
+The published M ≥ 8 response is assembled from two files generated on different
+mass grids, so a grid-restricted re-run draws a different RNG stream even at the
+same seed. **Comparing a treatment run directly against the published ratio
+would mix the multiplicity change with a change of Monte Carlo realization.**
+
+Each node is therefore injected twice on the identical grid, control and
+treatment, from a fresh `default_rng(SEED)`. The per-star binary threshold
+consumes the same single `rng.random(n_injected)` draw as the constant version,
+so donor, extinction, photometric and QMC realizations are bit-identical between
+the arms.
+
+Both readings are reported and **never averaged**: the pre-registered absolute
+threshold binds; the paired reading is reported alongside so the size of the
+realization noise is visible rather than hidden.
+
+### 18.4 Bit-preservation is verified, not asserted (V4)
+
+`truth_binary_fraction=None` must leave `inject_curve` byte-identical. This is
+checked by regenerating a published WP6 extension node with the current code and
+comparing sha256 against the stored artifact. **If V4 fails, nothing else runs.**
+
+### 18.5 Scope — this is a diagnostic, not a new version
+
+The test measures the size of the multiplicity effect on the WP6 closure window
+while holding accepted WP5 `repair_v6` fixed. **Adopting** a mass-dependent
+f_bin would also perturb the WP5 response inside 2–8 M☉ through down-scatter
+from above, and therefore requires a full `repair_v7` chain re-run. Masses below
+8 M☉ are deliberately not re-injected here.
+
+### 18.6 Binding consequence
+
+**Until issue #15 resolves, WP6's shallower-than-Salpeter result must not be
+reported as an IMF measurement.** The disfavouring of α = 2.6 stands regardless,
+being far larger than the multiplicity effect can plausibly be.

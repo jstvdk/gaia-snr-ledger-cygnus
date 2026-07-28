@@ -1,0 +1,11 @@
+check,alpha,ours,units,literature,agrees
+harer_rate,2.0,1.92,events/100kyr,0.25-2.0 (Fig. 2 range); 'several per Myr',True
+harer_rate,2.3,0.782,events/100kyr,0.25-2.0 (Fig. 2 range); 'several per Myr',True
+harer_rate,2.6,0.311,events/100kyr,0.25-2.0 (Fig. 2 range); 'several per Myr',True
+harer_mass,2.0,19940.0,Msun,16500.0,True
+harer_mass,2.3,17381.5,Msun,16500.0,True
+harer_mass,2.6,17938.4,Msun,16500.0,True
+orellana_pmra,,-2.7067,mas/yr,-2.71,True
+orellana_pmdec,,-4.3168,mas/yr,-4.24,True
+orellana_distance,,1615.5,pc,1669.0,True
+berlanas_foreground,,0.0,fraction,19 stars at ~1350 pc,False

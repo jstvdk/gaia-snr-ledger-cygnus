@@ -1,0 +1,111 @@
+{
+  "created_utc": "2026-07-28T17:44:27.462459+00:00",
+  "script": "scripts/wp6_multiplicity_prereg.py",
+  "status": "PREREGISTERED",
+  "issue": "#15 \u2014 mass-dependent multiplicity in the injection truth model",
+  "question": "How much of WP6's 45% closure excess is produced by the truth model's constant binary fraction of 0.40, rather than by the IMF?",
+  "why_it_matters": "If multiplicity explains most of the excess, then WP6's shallower-than-Salpeter signal is an artefact and must not be reported as an IMF measurement.  If it explains little, the IMF reading survives its strongest instrumental challenge.",
+  "environment": {
+    "python": "3.11.15 | packaged by conda-forge | (main, Jun 11 2026, 03:29:05) [Clang 19.1.7 ]",
+    "platform": "macOS-15.6.1-arm64-arm-64bit",
+    "numpy": "2.4.6",
+    "pandas": "3.0.3"
+  },
+  "literature_basis": [
+    {
+      "source": "Sana et al. 2012",
+      "value": "close-binary fraction f_b = 0.70 for 15-60 Msun",
+      "use": "the high-mass anchor"
+    },
+    {
+      "source": "Sana et al. 2012",
+      "value": "mass-ratio exponent kappa = -0.1 +- 0.6",
+      "use": "consistent with the Uniform(0.1, 1) q distribution already in the code, so q is NOT changed"
+    },
+    {
+      "source": "Duchene & Kraus 2013",
+      "value": "multiplicity >90% O type, ~50% solar type",
+      "use": "confirms the direction and steepness of the mass trend"
+    },
+    {
+      "source": "Caballero-Nieves et al. 2020",
+      "value": "Cyg OB2 itself: 47% of 74 O/early-B stars have a resolved companion at 0.08-10 arcsec; 48 of 74 multiple including spectroscopic binaries",
+      "use": "association-specific confirmation that 0.40 is too low at the top; the 0.08-0.6 arcsec companions are unresolved by Gaia and blend photometrically"
+    }
+  ],
+  "model": {
+    "changed": "truth-side binary fraction only",
+    "unchanged": [
+      "the mass-ratio distribution, Uniform(0.1, 1), which the measured kappa already supports",
+      "the recovery/estimator side, which keeps f_bin = 0.40 \u2014 this is deliberate and is the point: nature makes binaries at the true rate while the estimator assumes 0.40, and that mismatch IS the bias under test",
+      "every RNG draw count, so donors, extinction and QMC realizations are shared with the repair_v6 nodes"
+    ],
+    "f_bin_anchors": {
+      "8_Msun": 0.4,
+      "16_Msun": 0.7,
+      "interpolation": "linear in log mass, flat outside the anchors"
+    },
+    "f_bin_grid": {
+      "2": 0.4,
+      "4": 0.4,
+      "8": 0.4,
+      "10": 0.497,
+      "12": 0.575,
+      "16": 0.7,
+      "20": 0.7,
+      "40": 0.7,
+      "80": 0.7
+    },
+    "no_new_free_parameter": "both anchors are measured values; nothing is tuned to make the closure ratio move"
+  },
+  "scope": {
+    "this_is_a_diagnostic_not_a_new_version": "the test measures the SIZE of the multiplicity effect on the WP6 closure ratio while holding the accepted WP5 repair_v6 fixed.  A mass-dependent f_bin would also perturb the WP5 response inside 2-8 Msun through down-scatter from above, so ADOPTING it requires a full chain re-run (repair_v7).  That is deliberately not done here: first measure whether the effect is large enough to matter.",
+    "masses_injected": "only M >= 8 Msun, the closure-test window, since the observed side and the 2-8 Msun calibration are held fixed"
+  },
+  "predictions": [
+    {
+      "id": "M1",
+      "statement": "The multiplicity model raises the predicted observable count above 8 Msun, lowering the closure ratio in every subgroup.",
+      "falsifies_if": "any subgroup's closure ratio rises or is unchanged",
+      "if_falsified": "the mechanism as reasoned is wrong; the excess is not multiplicity and the IMF reading strengthens"
+    },
+    {
+      "id": "M2",
+      "statement": "The effect is mass-dependent, so it shrinks the excess MORE in the subgroups with the higher turnoff: the reduction should be largest for CygOB2-C and smallest for CygOB2-A.",
+      "falsifies_if": "the ordering of the reduction does not follow the turnoff ordering A < B < C",
+      "if_falsified": "the excess and the multiplicity effect have different mass dependences, so multiplicity cannot be the whole story even if it lowers the ratio"
+    },
+    {
+      "id": "M3",
+      "statement": "Quantitative, and the decisive one: the multiplicity model absorbs at least HALF of the baseline excess, i.e. the grid-median closure ratio at alpha = 2.3 falls from 1.444 to below 1.222.",
+      "falsifies_if": "the grid-median ratio stays at or above 1.222",
+      "if_falsified": "multiplicity is a real but secondary effect.  The IMF reading then survives its strongest instrumental challenge and the closing slope should be reported, with the residual multiplicity correction carried as a systematic.",
+      "note": "this threshold is set BEFORE the run and is not a target: either outcome is publishable and both are written down here with their consequences"
+    }
+  ],
+  "decision_rule": "If M3 holds, WP6's shallower-than-Salpeter signal is NOT reported as an IMF measurement; the closure test is reported as consistent with Salpeter once multiplicity is modelled, and a repair_v7 full chain re-run is scheduled.  If M3 fails, the IMF reading is reported with the measured multiplicity correction applied and the remainder carried as a systematic.  In BOTH cases the disfavouring of alpha = 2.6 stands, because it is far larger than the multiplicity effect can plausibly be.",
+  "reference_state": {
+    "closure_ratio_baseline_alpha2.3": [
+      {
+        "subgroup": "CygOB2-A",
+        "closure_ratio": 1.087,
+        "turnoff_Msun": 59.7
+      },
+      {
+        "subgroup": "CygOB2-B",
+        "closure_ratio": 1.448,
+        "turnoff_Msun": 71.1
+      },
+      {
+        "subgroup": "CygOB2-C",
+        "closure_ratio": 1.706,
+        "turnoff_Msun": 120.0
+      }
+    ],
+    "grid_median_ratio_alpha2.3": 1.444
+  },
+  "inputs": {
+    "tables/wp6_closure.csv": "2067360f678d269a2ee1c279add46a37873b77cb853171e7329612e8e8949294",
+    "scripts/wp5_injections_repair.py": "f4df2475fc41bd13bd2fb38d3c4a2a16f493d289d450f2d224a194fb6b15d443"
+  }
+}

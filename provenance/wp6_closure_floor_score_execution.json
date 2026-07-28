@@ -1,0 +1,152 @@
+{
+  "created_utc": "2026-07-28T18:18:24.731423+00:00",
+  "script": "scripts/wp6_closure_floor_score.py",
+  "status": "SUCCESS",
+  "work_package": "WP6 issue #17 \u2014 scoring",
+  "prereg": "provenance/wp6_closure_floor_prereg.json",
+  "prereg_created_utc": "2026-07-28T18:09:17.095048+00:00",
+  "environment": {
+    "python": "3.11.15 | packaged by conda-forge | (main, Jun 11 2026, 03:29:05) [Clang 19.1.7 ]",
+    "platform": "macOS-15.6.1-arm64-arm-64bit",
+    "numpy": "2.4.6",
+    "pandas": "3.0.3"
+  },
+  "regression_check": "running the refactored estimator at floor 8.0 reproduces the published closure ratios exactly (1.087 / 1.448 / 1.706, grid median 1.444), so the change of bound is the only change of behaviour",
+  "convergence_scan": [
+    {
+      "floor_Msun": 8.0,
+      "post_hoc": false,
+      "grid_median_ratio_alpha2.3": 1.4438,
+      "baseline_predicted_observed": 54.6731
+    },
+    {
+      "floor_Msun": 7.0,
+      "post_hoc": false,
+      "grid_median_ratio_alpha2.3": 1.3042,
+      "baseline_predicted_observed": 59.9798
+    },
+    {
+      "floor_Msun": 6.0,
+      "post_hoc": false,
+      "grid_median_ratio_alpha2.3": 1.2032,
+      "baseline_predicted_observed": 63.6219
+    },
+    {
+      "floor_Msun": 5.0,
+      "post_hoc": false,
+      "grid_median_ratio_alpha2.3": 1.1399,
+      "baseline_predicted_observed": 65.7367
+    },
+    {
+      "floor_Msun": 4.0,
+      "post_hoc": false,
+      "grid_median_ratio_alpha2.3": 1.1046,
+      "baseline_predicted_observed": 66.4812
+    },
+    {
+      "floor_Msun": 3.0,
+      "post_hoc": false,
+      "grid_median_ratio_alpha2.3": 1.0893,
+      "baseline_predicted_observed": 66.7181
+    },
+    {
+      "floor_Msun": 2.5,
+      "post_hoc": true,
+      "grid_median_ratio_alpha2.3": 1.0806,
+      "baseline_predicted_observed": 66.7603
+    },
+    {
+      "floor_Msun": 2.0,
+      "post_hoc": true,
+      "grid_median_ratio_alpha2.3": 1.0786,
+      "baseline_predicted_observed": 66.7717
+    }
+  ],
+  "convergence_at_grid_level": "the prereg justified the 4.0 floor on a single probe node, where the integral moved 0.4% between 4.0 and 3.0.  Across the full grid the median moves 1.4% over that step and a further 1.0% down to 2.0, so convergence is real but slower than the probe suggested.  The floor is NOT moved in response \u2014 it was pre-declared on convergence, and changing it after seeing the closure ratios is exactly what the pre-registration exists to prevent.  The residual ~2.4% between the adopted 4.0 and an asymptotic floor is carried as a systematic instead.",
+  "adopted_floor_Msun": 4.0,
+  "baseline_PARSEC_rv3.1_alpha2.3": {
+    "CygOB2-A": {
+      "closure_ratio_withdrawn": 1.087,
+      "closure_ratio_corrected": 0.894,
+      "corrected_68": [
+        0.842,
+        0.947
+      ],
+      "change_fraction": -0.1776
+    },
+    "CygOB2-B": {
+      "closure_ratio_withdrawn": 1.448,
+      "closure_ratio_corrected": 1.106,
+      "corrected_68": [
+        1.031,
+        1.185
+      ],
+      "change_fraction": -0.2363
+    },
+    "CygOB2-C": {
+      "closure_ratio_withdrawn": 1.706,
+      "closure_ratio_corrected": 1.405,
+      "corrected_68": [
+        1.312,
+        1.508
+      ],
+      "change_fraction": -0.1763
+    }
+  },
+  "grid_summary": {
+    "median_alpha2.3_withdrawn": 1.444,
+    "median_alpha2.3_corrected": 1.105,
+    "cells_consistent_with_unity_68_withdrawn": 2,
+    "cells_consistent_with_unity_68_corrected": 6
+  },
+  "predictions": {
+    "F1": {
+      "statement": "The corrected closure ratio falls in ALL 54 cells, because up-scatter can only add to the predicted observable count.",
+      "pass": true,
+      "cells_that_fell": 54,
+      "cells_total": 54
+    },
+    "F2": {
+      "statement": "The reduction is LARGER at steeper alpha, because a steeper IMF puts more weight at the low-mass end where the previously-omitted up-scatter lives.  Ordering: effect at alpha 2.6 > 2.3 > 2.0.",
+      "pass": true,
+      "mean_fractional_change_by_alpha": {
+        "2.0": -0.1607,
+        "2.3": -0.2014,
+        "2.6": -0.2453
+      },
+      "note": "more negative means a larger reduction"
+    },
+    "F3": {
+      "statement": "The effect is approximately subgroup-INDEPENDENT.  It is a threshold effect at 8 Msun, so it should NOT follow the turnoff ordering A < B < C that governs the upper limit.  Quantitatively: the spread in fractional reduction across the three subgroups at the baseline branch is under 5 percentage points.",
+      "pass": false,
+      "fractional_change_by_subgroup": {
+        "CygOB2-A": -0.1776,
+        "CygOB2-B": -0.2363,
+        "CygOB2-C": -0.1763
+      },
+      "spread": 0.06,
+      "limit": 0.05,
+      "verdict_as_written": "FAILED \u2014 the spread is 6.0 percentage points against a pre-declared 5.0 limit",
+      "what_the_data_actually_show": "the substantive claim F3 was built to test \u2014 that the floor effect does NOT follow the turnoff ordering \u2014 is strongly supported.  Across all 54 cells the mean reduction is A -18.3%, B -24.0%, C -18.5%: A and C are within 0.2 points of each other despite turnoffs of 59.7 and 120.0 Msun, so the effect is flatly uncorrelated with the turnoff.  The spread comes entirely from B being an outlier in BOTH directions from its neighbours, which is not a turnoff pattern at all.",
+      "why_B_is_the_outlier": "CUTS section 16.4 already documents CygOB2-B's effective completeness differing from A's and C's by about 0.12, which is why the response is applied per subgroup in the first place.  B's up-scatter across 8 Msun differs for the same reason.  This is a known per-subgroup response difference, not a new entanglement.",
+      "consequence": "F3 is recorded as FAILED, not reinterpreted into a pass.  Its stated consequence \u2014 redo the section 4 attribution \u2014 is carried out: the attribution is rewritten around the corrected ratios, and the numeric threshold is noted as having been set too tight for a quantity whose per-subgroup response spread was already documented at 0.12.",
+      "contrast_with_issue_15_M2": "M2 requires the MULTIPLICITY effect to follow the turnoff ordering A < B < C.  F3 requires the FLOOR effect not to.  The two mechanisms are separable precisely because they predict different subgroup patterns."
+    },
+    "F4": {
+      "statement": "Decisive for the interpretation: the grid-median closure ratio at alpha = 2.3 falls from 1.444 to below 1.25, and the grid-median closing alpha rises from 2.070 toward Salpeter.",
+      "pass": true,
+      "grid_median_corrected": 1.105,
+      "threshold": 1.25
+    }
+  },
+  "adopted": true,
+  "decision_rule_applied": "The lower-limit fix is a BUG FIX, not a branch: if F1 holds the corrected estimator replaces the incumbent unconditionally, because the incumbent computes a quantity that does not match its own observed side.  It is adopted even if it makes the closure ratio worse.  F2/F3/F4 test whether the mechanism is understood, not whether to adopt it.  The published closure ratios (1.087/1.448/1.706, closing alpha 2.070) are WITHDRAWN on adoption and every downstream document must be updated.",
+  "withdrawn_numbers": "the published closure ratios 1.087 / 1.448 / 1.706 and grid median 1.444, and the closing alpha 2.070, are WITHDRAWN.  Every downstream document must quote the corrected values.",
+  "inputs": {
+    "provenance/wp6_closure_floor_prereg.json": "4306eac2500a07b8fea831e6d7501b5dcb4bdbdfce0c0b498cdb0c02587f95c2",
+    "tables/wp6_massive_census.csv": "db572c6a5b4432112d22d993996a9df12e5800fde37a2986c9515f744557fdd3"
+  },
+  "outputs": {
+    "tables/wp6_closure_floor_comparison.csv": "f238f579d7961669b2906ad3ef5e7ab2c36e8372139e4011de4d45415af1d0c8"
+  }
+}

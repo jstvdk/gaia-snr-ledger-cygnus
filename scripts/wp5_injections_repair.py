@@ -212,6 +212,8 @@ def inject_curve(
     age_posterior: pd.DataFrame,
     truth_age_override: float | None = None,
     interpolate_truth_age: bool = False,
+    mass_grid: np.ndarray | None = None,
+    truth_binary_fraction=None,
 ) -> tuple[pd.DataFrame, pd.DataFrame, dict]:
     """Inject one branch.
 
@@ -226,7 +228,23 @@ def inject_curve(
     between native ages instead of snapping to the nearest one (issue #13),
     which is what the recovery side already does.  It changes no RNG draw, so
     the default False likewise reproduces repair_v1..v5 exactly.
+
+    ``mass_grid`` replaces ``wp5_common.MASS_GRID`` as the set of true primary
+    masses to inject.  WP6 uses it to extend the response above the frozen
+    18 Msun ceiling (see provenance/wp6_mass_extension_decision.json) without
+    touching MASS_GRID itself, which the accepted repair_v6 fit filters on.
+    The default None is the frozen grid.
+
+    ``truth_binary_fraction`` is a callable f(mass) -> probability replacing the
+    constant ``wp5_common.F_BINARY`` on the TRUTH side only (issue #15).  The
+    recovery side is deliberately left alone: the bias under test is exactly
+    the mismatch between the rate nature makes binaries at and the 0.40 the
+    estimator assumes.  The per-star threshold consumes the same single
+    ``rng.random(n_injected)`` draw as the constant version, so donor,
+    extinction and QMC realizations are bit-identical to the parent node.  The
+    default None reproduces the frozen behaviour exactly.
     """
+
     age_row = age_posterior[
         age_posterior["subgroup"].eq(subgroup)
         & age_posterior["family"].eq(family)
@@ -250,13 +268,23 @@ def inject_curve(
     p_weights = member_donors["membership_probability"].to_numpy(float, copy=True)
     p_weights /= p_weights.sum()
 
-    primary_mass = np.repeat(w.MASS_GRID, w.N_INJECT_PER_MASS)
+    grid = w.MASS_GRID if mass_grid is None else np.asarray(mass_grid, dtype=float)
+    primary_mass = np.repeat(grid, w.N_INJECT_PER_MASS)
     n_injected = len(primary_mass)
     donor_index = rng.choice(
         len(member_donors), size=n_injected, replace=True, p=p_weights
     )
     member = member_donors.iloc[donor_index].reset_index(drop=True)
-    binary = rng.random(n_injected) < w.F_BINARY
+    binary_threshold = (
+        np.full(n_injected, float(w.F_BINARY))
+        if truth_binary_fraction is None
+        else np.asarray(truth_binary_fraction(primary_mass), dtype=float)
+    )
+    if binary_threshold.shape != (n_injected,):
+        raise RuntimeError(
+            "truth_binary_fraction must return one probability per injected star"
+        )
+    binary = rng.random(n_injected) < binary_threshold
     q = rng.uniform(w.Q_MIN, 1.0, n_injected)
     secondary_mass = np.where(binary, q * primary_mass, 0.0)
     absolute = w.interpolate_photometry(iso, primary_mass, secondary_mass)
@@ -391,7 +419,7 @@ def inject_curve(
     recovered_mass[~recovered] = np.nan
 
     rows = []
-    for mass in w.MASS_GRID:
+    for mass in grid:
         select = primary_mass == mass
         n = int(select.sum())
         stages = {
@@ -471,6 +499,17 @@ def inject_curve(
         "observational_donors_used": int(len(np.unique(observational_index))),
         "covariance_repairs": int(covariance_repairs),
         "binary_fraction_realized": float(binary.mean()),
+        "binary_fraction_truth_model": (
+            "constant F_BINARY"
+            if truth_binary_fraction is None
+            else "mass-dependent (issue #15)"
+        ),
+        "binary_fraction_truth_by_mass": {
+            f"{mass:g}": round(
+                float(binary_threshold[primary_mass == mass][0]), 4
+            )
+            for mass in grid
+        },
         "av_draw_median": float(np.median(av_true)),
         "g_mag_range": [float(np.min(apparent["G"])), float(np.max(apparent["G"]))],
         "membership_pass": int(recovered.sum()),

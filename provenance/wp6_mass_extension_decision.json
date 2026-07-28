@@ -1,0 +1,3313 @@
+{
+  "created_utc": "2026-07-28T14:40:36.020375+00:00",
+  "script": "scripts/wp6_mass_extension_decision.py",
+  "status": "DECISION_RECORDED",
+  "work_package": "WP6 step 0a",
+  "decision": "Extend the injection response above 18 Msun by direct injection rather than assume the recovery fraction stays flat.",
+  "decided_by": "project owner, 2026-07-28",
+  "alternative_rejected": "Assert flatness above 18 Msun.  The response does plateau by ~5 Msun and is flat 8-18 Msun, and the loss is the WP2 quality filter rather than a magnitude limit, so flatness is plausible.  It was rejected because the closure ratio is the quantity N_SN rests on, and replacing a measurement with a plausible assumption at exactly the load-bearing step is the wrong trade.",
+  "environment": {
+    "python": "3.11.15 | packaged by conda-forge | (main, Jun 11 2026, 03:29:05) [Clang 19.1.7 ]",
+    "platform": "macOS-15.6.1-arm64-arm-64bit",
+    "numpy": "2.4.6",
+    "pandas": "3.0.3"
+  },
+  "design": {
+    "frozen_and_not_touched": [
+      "wp5_common.MASS_GRID",
+      "wp5_common.PARENT_MASS_HI",
+      "every repair_v1..v6 artifact"
+    ],
+    "why_frozen": "the accepted repair_v6 fit filters its response to MASS_GRID's range in wp5_joint_age_fit._category_counts, so widening the grid globally would silently change an accepted result the next time the fit is re-run.  WP5's acceptance must not be a function of WP6's needs.",
+    "extension_grid_Msun": [
+      20.0,
+      23.0,
+      27.0,
+      31.0,
+      36.0,
+      42.0,
+      48.0,
+      56.0,
+      65.0,
+      75.0,
+      87.0,
+      100.0,
+      115.0
+    ],
+    "imf_upper_limit_Msun": 120.0,
+    "per_node_cap": "each node's extension is truncated at the isochrone turnoff at that node's truth age.  Above the turnoff the PMS/MS locus does not exist, so the injector would clamp and place a very massive star at the turnoff star's magnitude.  The cap is also physically right: stars above the turnoff are dead, and the closure test's living-star integral stops there.",
+    "outputs_separate": "data/processed/wp6_massext_*_response.parquet, consumed only by WP6; no WP5 script globs that prefix",
+    "seed_recipe": "fresh default_rng(SEED) per node, matching the repair_v6 node recipe, so the extension shares donor, binary and extinction realizations with its parent node"
+  },
+  "cost": {
+    "nodes": 162,
+    "total_injected_stars": 628400,
+    "extension_masses_per_node_min": 6,
+    "extension_masses_per_node_max": 13,
+    "comparison": "repair_v6 injected 2,916,000 stars over 45 masses per node; the extension adds 628,400"
+  },
+  "turnoff_by_subgroup": {
+    "CygOB2-A": {
+      "min_turnoff_Msun": 53.6,
+      "median_turnoff_Msun": 58.5,
+      "max_turnoff_Msun": 71.0
+    },
+    "CygOB2-B": {
+      "min_turnoff_Msun": 45.4,
+      "median_turnoff_Msun": 69.0,
+      "max_turnoff_Msun": 120.0
+    },
+    "CygOB2-C": {
+      "min_turnoff_Msun": 69.0,
+      "median_turnoff_Msun": 120.0,
+      "max_turnoff_Msun": 120.0
+    }
+  },
+  "defect_found_and_fixed_while_designing_this": {
+    "issue": "#14 \u2014 the isochrone turnoff was a step function of age",
+    "found": "The obvious way to read the turnoff \u2014 load_isochrone_between_ages(family, age)['Mini'].max() \u2014 is wrong.  That loader takes the INTERSECTION of the two bracketing native tables' mass ranges, so its ceiling is always the older bracket's turnoff and is constant across each native interval.",
+    "measured": {
+      "PARSEC_4.00_Myr_stepped": 48.0,
+      "PARSEC_4.20_Myr_stepped": 48.0,
+      "MIST_3.00_Myr_stepped": 69.0,
+      "MIST_3.50_Myr_stepped": 69.0,
+      "PARSEC_4.00_Myr_interpolated": 57.9,
+      "MIST_4.00_Myr_interpolated": 58.7
+    },
+    "why_it_matters": "N_SN is essentially the IMF integral above the turnoff, so a stepped turnoff makes N_SN a step function of age \u2014 the same defect class as issue #13, in the quantity the paper is about. It also manufactured a spurious 22% PARSEC/MIST disagreement at 4 Myr (48.0 vs 58.6) that vanishes once interpolated (57.9 vs 58.7).",
+    "fix": "turnoff_mass interpolates log-log between the native tables' own maxima, using only tabulated values.",
+    "monotonicity_correction": "both grids have one unphysical inversion from table sampling at the top of the locus (PARSEC 331.4 -> 336.0 Msun between 1.995 and 2.239 Myr; MIST 69.0 -> 74.9 between 3.181 and 3.571).  A running minimum is applied because a turnoff cannot rise with age.",
+    "table_ceiling_caveat": "below 3.16 Myr (PARSEC) and 2.52 Myr (MIST) the tabulated maximum is the table's own mass ceiling (300.0 and 210.2 Msun) rather than an evolutionary turnoff.  Both are far above the 120 Msun IMF limit, so the value is capped and never used; CygOB2-C lives entirely in this regime, which is another way of saying C has lost no stars yet.",
+    "wp5_unaffected": "WP5 injects nothing above 18 Msun, far below every turnoff, so no accepted result depends on this"
+  },
+  "predicted_downstream_effects": [
+    {
+      "id": "D1",
+      "target": "WP5 (repair_v6) \u2014 the accepted normalization",
+      "effect": "NONE, by construction",
+      "why": "MASS_GRID is unchanged and the extension is written to a separate file prefix, so no WP5 input changes.  This is checkable and will be checked: the repair_v6 gate record and mass-function bins must hash identically after the extension run."
+    },
+    {
+      "id": "D2",
+      "target": "WP6 closure ratio",
+      "effect": "the reason for the work; direction unknown",
+      "why": "the predicted-living integral currently truncates at 18 Msun while the observed count reaches 61 Msun, so the two sides are not comparable.  Extending makes them comparable. Whether the ratio then lands above or below 1 is NOT predicted here, and no target value is written down."
+    },
+    {
+      "id": "D3",
+      "target": "N_SN (WP7)",
+      "effect": "potentially large, and this is the point",
+      "why": "N_SN is essentially the IMF integral above the turnoff.  The closure test is what licenses extrapolating the WP5 normalization into that range.  If the measured response above 18 Msun differs from the flat assumption, the licence changes with it."
+    },
+    {
+      "id": "D4",
+      "target": "CygOB2-C specifically",
+      "effect": "largest extension, smallest expected consequence",
+      "why": "C's turnoff sits far above the IMF limit at its 2.5 Myr age, so C gets the full 13-point extension while A and B are capped near 64-72 Msun.  But C has lost essentially no stars yet, so its closure test is the cleanest test of the method and the weakest constraint on N_SN."
+    },
+    {
+      "id": "D5",
+      "target": "runtime and reproducibility",
+      "effect": "one extra chain step, permanently",
+      "why": "any future WP5 version that WP6 consumes must re-run the extension too, because the extension inherits that version's extinction and age posteriors.  Recorded here so it is not forgotten."
+    }
+  ],
+  "verification_obligations": [
+    "V1 \u2014 repair_v6 mass-function bins and gate record must hash identically after the extension run (D1 is checkable, so check it)",
+    "V2 \u2014 report the measured recovery fraction above 18 Msun against the flat-extrapolation assumption that was rejected, so the cost of the alternative is on the record either way",
+    "V3 \u2014 no extension mass may exceed its node's turnoff"
+  ],
+  "node_plan": [
+    {
+      "subgroup": "CygOB2-A",
+      "family": "PARSEC",
+      "R_V": 3.0,
+      "truth_age_Myr": 3.7724,
+      "turnoff_Msun": 65.1,
+      "extension_masses": [
+        20.0,
+        23.0,
+        27.0,
+        31.0,
+        36.0,
+        42.0,
+        48.0,
+        56.0,
+        65.0
+      ],
+      "n_extension_masses": 9
+    },
+    {
+      "subgroup": "CygOB2-A",
+      "family": "PARSEC",
+      "R_V": 3.0,
+      "truth_age_Myr": 3.8544,
+      "turnoff_Msun": 62.3,
+      "extension_masses": [
+        20.0,
+        23.0,
+        27.0,
+        31.0,
+        36.0,
+        42.0,
+        48.0,
+        56.0
+      ],
+      "n_extension_masses": 8
+    },
+    {
+      "subgroup": "CygOB2-A",
+      "family": "PARSEC",
+      "R_V": 3.0,
+      "truth_age_Myr": 3.9039,
+      "turnoff_Msun": 60.7,
+      "extension_masses": [
+        20.0,
+        23.0,
+        27.0,
+        31.0,
+        36.0,
+        42.0,
+        48.0,
+        56.0
+      ],
+      "n_extension_masses": 8
+    },
+    {
+      "subgroup": "CygOB2-A",
+      "family": "PARSEC",
+      "R_V": 3.0,
+      "truth_age_Myr": 3.9441,
+      "turnoff_Msun": 59.5,
+      "extension_masses": [
+        20.0,
+        23.0,
+        27.0,
+        31.0,
+        36.0,
+        42.0,
+        48.0,
+        56.0
+      ],
+      "n_extension_masses": 8
+    },
+    {
+      "subgroup": "CygOB2-A",
+      "family": "PARSEC",
+      "R_V": 3.0,
+      "truth_age_Myr": 3.9811,
+      "turnoff_Msun": 58.3,
+      "extension_masses": [
+        20.0,
+        23.0,
+        27.0,
+        31.0,
+        36.0,
+        42.0,
+        48.0,
+        56.0
+      ],
+      "n_extension_masses": 8
+    },
+    {
+      "subgroup": "CygOB2-A",
+      "family": "PARSEC",
+      "R_V": 3.0,
+      "truth_age_Myr": 4.0075,
+      "turnoff_Msun": 57.7,
+      "extension_masses": [
+        20.0,
+        23.0,
+        27.0,
+        31.0,
+        36.0,
+        42.0,
+        48.0,
+        56.0
+      ],
+      "n_extension_masses": 8
+    },
+    {
+      "subgroup": "CygOB2-A",
+      "family": "PARSEC",
+      "R_V": 3.0,
+      "truth_age_Myr": 4.0362,
+      "turnoff_Msun": 57.0,
+      "extension_masses": [
+        20.0,
+        23.0,
+        27.0,
+        31.0,
+        36.0,
+        42.0,
+        48.0,
+        56.0
+      ],
+      "n_extension_masses": 8
+    },
+    {
+      "subgroup": "CygOB2-A",
+      "family": "PARSEC",
+      "R_V": 3.0,
+      "truth_age_Myr": 4.0716,
+      "turnoff_Msun": 56.2,
+      "extension_masses": [
+        20.0,
+        23.0,
+        27.0,
+        31.0,
+        36.0,
+        42.0,
+        48.0,
+        56.0
+      ],
+      "n_extension_masses": 8
+    },
+    {
+      "subgroup": "CygOB2-A",
+      "family": "PARSEC",
+      "R_V": 3.0,
+      "truth_age_Myr": 4.1302,
+      "turnoff_Msun": 54.8,
+      "extension_masses": [
+        20.0,
+        23.0,
+        27.0,
+        31.0,
+        36.0,
+        42.0,
+        48.0
+      ],
+      "n_extension_masses": 7
+    },
+    {
+      "subgroup": "CygOB2-B",
+      "family": "PARSEC",
+      "R_V": 3.0,
+      "truth_age_Myr": 3.1302,
+      "turnoff_Msun": 99.8,
+      "extension_masses": [
+        20.0,
+        23.0,
+        27.0,
+        31.0,
+        36.0,
+        42.0,
+        48.0,
+        56.0,
+        65.0,
+        75.0,
+        87.0
+      ],
+      "n_extension_masses": 11
+    },
+    {
+      "subgroup": "CygOB2-B",
+      "family": "PARSEC",
+      "R_V": 3.0,
+      "truth_age_Myr": 3.1428,
+      "turnoff_Msun": 98.3,
+      "extension_masses": [
+        20.0,
+        23.0,
+        27.0,
+        31.0,
+        36.0,
+        42.0,
+        48.0,
+        56.0,
+        65.0,
+        75.0,
+        87.0
+      ],
+      "n_extension_masses": 11
+    },
+    {
+      "subgroup": "CygOB2-B",
+      "family": "PARSEC",
+      "R_V": 3.0,
+      "truth_age_Myr": 3.1504,
+      "turnoff_Msun": 97.4,
+      "extension_masses": [
+        20.0,
+        23.0,
+        27.0,
+        31.0,
+        36.0,
+        42.0,
+        48.0,
+        56.0,
+        65.0,
+        75.0,
+        87.0
+      ],
+      "n_extension_masses": 11
+    },
+    {
+      "subgroup": "CygOB2-B",
+      "family": "PARSEC",
+      "R_V": 3.0,
+      "truth_age_Myr": 3.1566,
+      "turnoff_Msun": 96.6,
+      "extension_masses": [
+        20.0,
+        23.0,
+        27.0,
+        31.0,
+        36.0,
+        42.0,
+        48.0,
+        56.0,
+        65.0,
+        75.0,
+        87.0
+      ],
+      "n_extension_masses": 11
+    },
+    {
+      "subgroup": "CygOB2-B",
+      "family": "PARSEC",
+      "R_V": 3.0,
+      "truth_age_Myr": 3.1623,
+      "turnoff_Msun": 96.0,
+      "extension_masses": [
+        20.0,
+        23.0,
+        27.0,
+        31.0,
+        36.0,
+        42.0,
+        48.0,
+        56.0,
+        65.0,
+        75.0,
+        87.0
+      ],
+      "n_extension_masses": 11
+    },
+    {
+      "subgroup": "CygOB2-B",
+      "family": "PARSEC",
+      "R_V": 3.0,
+      "truth_age_Myr": 3.4203,
+      "turnoff_Msun": 80.2,
+      "extension_masses": [
+        20.0,
+        23.0,
+        27.0,
+        31.0,
+        36.0,
+        42.0,
+        48.0,
+        56.0,
+        65.0,
+        75.0
+      ],
+      "n_extension_masses": 10
+    },
+    {
+      "subgroup": "CygOB2-B",
+      "family": "PARSEC",
+      "R_V": 3.0,
+      "truth_age_Myr": 3.7011,
+      "turnoff_Msun": 67.6,
+      "extension_masses": [
+        20.0,
+        23.0,
+        27.0,
+        31.0,
+        36.0,
+        42.0,
+        48.0,
+        56.0,
+        65.0
+      ],
+      "n_extension_masses": 9
+    },
+    {
+      "subgroup": "CygOB2-B",
+      "family": "PARSEC",
+      "R_V": 3.0,
+      "truth_age_Myr": 4.0467,
+      "turnoff_Msun": 56.8,
+      "extension_masses": [
+        20.0,
+        23.0,
+        27.0,
+        31.0,
+        36.0,
+        42.0,
+        48.0,
+        56.0
+      ],
+      "n_extension_masses": 8
+    },
+    {
+      "subgroup": "CygOB2-B",
+      "family": "PARSEC",
+      "R_V": 3.0,
+      "truth_age_Myr": 4.6188,
+      "turnoff_Msun": 45.4,
+      "extension_masses": [
+        20.0,
+        23.0,
+        27.0,
+        31.0,
+        36.0,
+        42.0
+      ],
+      "n_extension_masses": 6
+    },
+    {
+      "subgroup": "CygOB2-C",
+      "family": "PARSEC",
+      "R_V": 3.0,
+      "truth_age_Myr": 2.4562,
+      "turnoff_Msun": 120.0,
+      "extension_masses": [
+        20.0,
+        23.0,
+        27.0,
+        31.0,
+        36.0,
+        42.0,
+        48.0,
+        56.0,
+        65.0,
+        75.0,
+        87.0,
+        100.0,
+        115.0
+      ],
+      "n_extension_masses": 13
+    },
+    {
+      "subgroup": "CygOB2-C",
+      "family": "PARSEC",
+      "R_V": 3.0,
+      "truth_age_Myr": 2.4781,
+      "turnoff_Msun": 120.0,
+      "extension_masses": [
+        20.0,
+        23.0,
+        27.0,
+        31.0,
+        36.0,
+        42.0,
+        48.0,
+        56.0,
+        65.0,
+        75.0,
+        87.0,
+        100.0,
+        115.0
+      ],
+      "n_extension_masses": 13
+    },
+    {
+      "subgroup": "CygOB2-C",
+      "family": "PARSEC",
+      "R_V": 3.0,
+      "truth_age_Myr": 2.4913,
+      "turnoff_Msun": 120.0,
+      "extension_masses": [
+        20.0,
+        23.0,
+        27.0,
+        31.0,
+        36.0,
+        42.0,
+        48.0,
+        56.0,
+        65.0,
+        75.0,
+        87.0,
+        100.0,
+        115.0
+      ],
+      "n_extension_masses": 13
+    },
+    {
+      "subgroup": "CygOB2-C",
+      "family": "PARSEC",
+      "R_V": 3.0,
+      "truth_age_Myr": 2.502,
+      "turnoff_Msun": 120.0,
+      "extension_masses": [
+        20.0,
+        23.0,
+        27.0,
+        31.0,
+        36.0,
+        42.0,
+        48.0,
+        56.0,
+        65.0,
+        75.0,
+        87.0,
+        100.0,
+        115.0
+      ],
+      "n_extension_masses": 13
+    },
+    {
+      "subgroup": "CygOB2-C",
+      "family": "PARSEC",
+      "R_V": 3.0,
+      "truth_age_Myr": 2.5119,
+      "turnoff_Msun": 120.0,
+      "extension_masses": [
+        20.0,
+        23.0,
+        27.0,
+        31.0,
+        36.0,
+        42.0,
+        48.0,
+        56.0,
+        65.0,
+        75.0,
+        87.0,
+        100.0,
+        115.0
+      ],
+      "n_extension_masses": 13
+    },
+    {
+      "subgroup": "CygOB2-C",
+      "family": "PARSEC",
+      "R_V": 3.0,
+      "truth_age_Myr": 2.528,
+      "turnoff_Msun": 120.0,
+      "extension_masses": [
+        20.0,
+        23.0,
+        27.0,
+        31.0,
+        36.0,
+        42.0,
+        48.0,
+        56.0,
+        65.0,
+        75.0,
+        87.0,
+        100.0,
+        115.0
+      ],
+      "n_extension_masses": 13
+    },
+    {
+      "subgroup": "CygOB2-C",
+      "family": "PARSEC",
+      "R_V": 3.0,
+      "truth_age_Myr": 2.5455,
+      "turnoff_Msun": 120.0,
+      "extension_masses": [
+        20.0,
+        23.0,
+        27.0,
+        31.0,
+        36.0,
+        42.0,
+        48.0,
+        56.0,
+        65.0,
+        75.0,
+        87.0,
+        100.0,
+        115.0
+      ],
+      "n_extension_masses": 13
+    },
+    {
+      "subgroup": "CygOB2-C",
+      "family": "PARSEC",
+      "R_V": 3.0,
+      "truth_age_Myr": 2.567,
+      "turnoff_Msun": 120.0,
+      "extension_masses": [
+        20.0,
+        23.0,
+        27.0,
+        31.0,
+        36.0,
+        42.0,
+        48.0,
+        56.0,
+        65.0,
+        75.0,
+        87.0,
+        100.0,
+        115.0
+      ],
+      "n_extension_masses": 13
+    },
+    {
+      "subgroup": "CygOB2-C",
+      "family": "PARSEC",
+      "R_V": 3.0,
+      "truth_age_Myr": 2.6026,
+      "turnoff_Msun": 120.0,
+      "extension_masses": [
+        20.0,
+        23.0,
+        27.0,
+        31.0,
+        36.0,
+        42.0,
+        48.0,
+        56.0,
+        65.0,
+        75.0,
+        87.0,
+        100.0,
+        115.0
+      ],
+      "n_extension_masses": 13
+    },
+    {
+      "subgroup": "CygOB2-A",
+      "family": "PARSEC",
+      "R_V": 3.1,
+      "truth_age_Myr": 3.7132,
+      "turnoff_Msun": 67.2,
+      "extension_masses": [
+        20.0,
+        23.0,
+        27.0,
+        31.0,
+        36.0,
+        42.0,
+        48.0,
+        56.0,
+        65.0
+      ],
+      "n_extension_masses": 9
+    },
+    {
+      "subgroup": "CygOB2-A",
+      "family": "PARSEC",
+      "R_V": 3.1,
+      "truth_age_Myr": 3.8184,
+      "turnoff_Msun": 63.5,
+      "extension_masses": [
+        20.0,
+        23.0,
+        27.0,
+        31.0,
+        36.0,
+        42.0,
+        48.0,
+        56.0
+      ],
+      "n_extension_masses": 8
+    },
+    {
+      "subgroup": "CygOB2-A",
+      "family": "PARSEC",
+      "R_V": 3.1,
+      "truth_age_Myr": 3.882,
+      "turnoff_Msun": 61.4,
+      "extension_masses": [
+        20.0,
+        23.0,
+        27.0,
+        31.0,
+        36.0,
+        42.0,
+        48.0,
+        56.0
+      ],
+      "n_extension_masses": 8
+    },
+    {
+      "subgroup": "CygOB2-A",
+      "family": "PARSEC",
+      "R_V": 3.1,
+      "truth_age_Myr": 3.9336,
+      "turnoff_Msun": 59.8,
+      "extension_masses": [
+        20.0,
+        23.0,
+        27.0,
+        31.0,
+        36.0,
+        42.0,
+        48.0,
+        56.0
+      ],
+      "n_extension_masses": 8
+    },
+    {
+      "subgroup": "CygOB2-A",
+      "family": "PARSEC",
+      "R_V": 3.1,
+      "truth_age_Myr": 3.9811,
+      "turnoff_Msun": 58.3,
+      "extension_masses": [
+        20.0,
+        23.0,
+        27.0,
+        31.0,
+        36.0,
+        42.0,
+        48.0,
+        56.0
+      ],
+      "n_extension_masses": 8
+    },
+    {
+      "subgroup": "CygOB2-A",
+      "family": "PARSEC",
+      "R_V": 3.1,
+      "truth_age_Myr": 4.0024,
+      "turnoff_Msun": 57.8,
+      "extension_masses": [
+        20.0,
+        23.0,
+        27.0,
+        31.0,
+        36.0,
+        42.0,
+        48.0,
+        56.0
+      ],
+      "n_extension_masses": 8
+    },
+    {
+      "subgroup": "CygOB2-A",
+      "family": "PARSEC",
+      "R_V": 3.1,
+      "truth_age_Myr": 4.0257,
+      "turnoff_Msun": 57.3,
+      "extension_masses": [
+        20.0,
+        23.0,
+        27.0,
+        31.0,
+        36.0,
+        42.0,
+        48.0,
+        56.0
+      ],
+      "n_extension_masses": 8
+    },
+    {
+      "subgroup": "CygOB2-A",
+      "family": "PARSEC",
+      "R_V": 3.1,
+      "truth_age_Myr": 4.0543,
+      "turnoff_Msun": 56.6,
+      "extension_masses": [
+        20.0,
+        23.0,
+        27.0,
+        31.0,
+        36.0,
+        42.0,
+        48.0,
+        56.0
+      ],
+      "n_extension_masses": 8
+    },
+    {
+      "subgroup": "CygOB2-A",
+      "family": "PARSEC",
+      "R_V": 3.1,
+      "truth_age_Myr": 4.1017,
+      "turnoff_Msun": 55.5,
+      "extension_masses": [
+        20.0,
+        23.0,
+        27.0,
+        31.0,
+        36.0,
+        42.0,
+        48.0
+      ],
+      "n_extension_masses": 7
+    },
+    {
+      "subgroup": "CygOB2-B",
+      "family": "PARSEC",
+      "R_V": 3.1,
+      "truth_age_Myr": 3.2928,
+      "turnoff_Msun": 87.5,
+      "extension_masses": [
+        20.0,
+        23.0,
+        27.0,
+        31.0,
+        36.0,
+        42.0,
+        48.0,
+        56.0,
+        65.0,
+        75.0,
+        87.0
+      ],
+      "n_extension_masses": 11
+    },
+    {
+      "subgroup": "CygOB2-B",
+      "family": "PARSEC",
+      "R_V": 3.1,
+      "truth_age_Myr": 3.3931,
+      "turnoff_Msun": 81.6,
+      "extension_masses": [
+        20.0,
+        23.0,
+        27.0,
+        31.0,
+        36.0,
+        42.0,
+        48.0,
+        56.0,
+        65.0,
+        75.0
+      ],
+      "n_extension_masses": 10
+    },
+    {
+      "subgroup": "CygOB2-B",
+      "family": "PARSEC",
+      "R_V": 3.1,
+      "truth_age_Myr": 3.4536,
+      "turnoff_Msun": 78.4,
+      "extension_masses": [
+        20.0,
+        23.0,
+        27.0,
+        31.0,
+        36.0,
+        42.0,
+        48.0,
+        56.0,
+        65.0,
+        75.0
+      ],
+      "n_extension_masses": 10
+    },
+    {
+      "subgroup": "CygOB2-B",
+      "family": "PARSEC",
+      "R_V": 3.1,
+      "truth_age_Myr": 3.5029,
+      "turnoff_Msun": 75.9,
+      "extension_masses": [
+        20.0,
+        23.0,
+        27.0,
+        31.0,
+        36.0,
+        42.0,
+        48.0,
+        56.0,
+        65.0,
+        75.0
+      ],
+      "n_extension_masses": 10
+    },
+    {
+      "subgroup": "CygOB2-B",
+      "family": "PARSEC",
+      "R_V": 3.1,
+      "truth_age_Myr": 3.5481,
+      "turnoff_Msun": 73.7,
+      "extension_masses": [
+        20.0,
+        23.0,
+        27.0,
+        31.0,
+        36.0,
+        42.0,
+        48.0,
+        56.0,
+        65.0
+      ],
+      "n_extension_masses": 9
+    },
+    {
+      "subgroup": "CygOB2-B",
+      "family": "PARSEC",
+      "R_V": 3.1,
+      "truth_age_Myr": 3.6739,
+      "turnoff_Msun": 68.7,
+      "extension_masses": [
+        20.0,
+        23.0,
+        27.0,
+        31.0,
+        36.0,
+        42.0,
+        48.0,
+        56.0,
+        65.0
+      ],
+      "n_extension_masses": 9
+    },
+    {
+      "subgroup": "CygOB2-B",
+      "family": "PARSEC",
+      "R_V": 3.1,
+      "truth_age_Myr": 3.8108,
+      "turnoff_Msun": 63.7,
+      "extension_masses": [
+        20.0,
+        23.0,
+        27.0,
+        31.0,
+        36.0,
+        42.0,
+        48.0,
+        56.0
+      ],
+      "n_extension_masses": 8
+    },
+    {
+      "subgroup": "CygOB2-B",
+      "family": "PARSEC",
+      "R_V": 3.1,
+      "truth_age_Myr": 3.9793,
+      "turnoff_Msun": 58.4,
+      "extension_masses": [
+        20.0,
+        23.0,
+        27.0,
+        31.0,
+        36.0,
+        42.0,
+        48.0,
+        56.0
+      ],
+      "n_extension_masses": 8
+    },
+    {
+      "subgroup": "CygOB2-B",
+      "family": "PARSEC",
+      "R_V": 3.1,
+      "truth_age_Myr": 4.2582,
+      "turnoff_Msun": 52.1,
+      "extension_masses": [
+        20.0,
+        23.0,
+        27.0,
+        31.0,
+        36.0,
+        42.0,
+        48.0
+      ],
+      "n_extension_masses": 7
+    },
+    {
+      "subgroup": "CygOB2-C",
+      "family": "PARSEC",
+      "R_V": 3.1,
+      "truth_age_Myr": 2.4455,
+      "turnoff_Msun": 120.0,
+      "extension_masses": [
+        20.0,
+        23.0,
+        27.0,
+        31.0,
+        36.0,
+        42.0,
+        48.0,
+        56.0,
+        65.0,
+        75.0,
+        87.0,
+        100.0,
+        115.0
+      ],
+      "n_extension_masses": 13
+    },
+    {
+      "subgroup": "CygOB2-C",
+      "family": "PARSEC",
+      "R_V": 3.1,
+      "truth_age_Myr": 2.4715,
+      "turnoff_Msun": 120.0,
+      "extension_masses": [
+        20.0,
+        23.0,
+        27.0,
+        31.0,
+        36.0,
+        42.0,
+        48.0,
+        56.0,
+        65.0,
+        75.0,
+        87.0,
+        100.0,
+        115.0
+      ],
+      "n_extension_masses": 13
+    },
+    {
+      "subgroup": "CygOB2-C",
+      "family": "PARSEC",
+      "R_V": 3.1,
+      "truth_age_Myr": 2.4873,
+      "turnoff_Msun": 120.0,
+      "extension_masses": [
+        20.0,
+        23.0,
+        27.0,
+        31.0,
+        36.0,
+        42.0,
+        48.0,
+        56.0,
+        65.0,
+        75.0,
+        87.0,
+        100.0,
+        115.0
+      ],
+      "n_extension_masses": 13
+    },
+    {
+      "subgroup": "CygOB2-C",
+      "family": "PARSEC",
+      "R_V": 3.1,
+      "truth_age_Myr": 2.5001,
+      "turnoff_Msun": 120.0,
+      "extension_masses": [
+        20.0,
+        23.0,
+        27.0,
+        31.0,
+        36.0,
+        42.0,
+        48.0,
+        56.0,
+        65.0,
+        75.0,
+        87.0,
+        100.0,
+        115.0
+      ],
+      "n_extension_masses": 13
+    },
+    {
+      "subgroup": "CygOB2-C",
+      "family": "PARSEC",
+      "R_V": 3.1,
+      "truth_age_Myr": 2.5119,
+      "turnoff_Msun": 120.0,
+      "extension_masses": [
+        20.0,
+        23.0,
+        27.0,
+        31.0,
+        36.0,
+        42.0,
+        48.0,
+        56.0,
+        65.0,
+        75.0,
+        87.0,
+        100.0,
+        115.0
+      ],
+      "n_extension_masses": 13
+    },
+    {
+      "subgroup": "CygOB2-C",
+      "family": "PARSEC",
+      "R_V": 3.1,
+      "truth_age_Myr": 2.5257,
+      "turnoff_Msun": 120.0,
+      "extension_masses": [
+        20.0,
+        23.0,
+        27.0,
+        31.0,
+        36.0,
+        42.0,
+        48.0,
+        56.0,
+        65.0,
+        75.0,
+        87.0,
+        100.0,
+        115.0
+      ],
+      "n_extension_masses": 13
+    },
+    {
+      "subgroup": "CygOB2-C",
+      "family": "PARSEC",
+      "R_V": 3.1,
+      "truth_age_Myr": 2.5407,
+      "turnoff_Msun": 120.0,
+      "extension_masses": [
+        20.0,
+        23.0,
+        27.0,
+        31.0,
+        36.0,
+        42.0,
+        48.0,
+        56.0,
+        65.0,
+        75.0,
+        87.0,
+        100.0,
+        115.0
+      ],
+      "n_extension_masses": 13
+    },
+    {
+      "subgroup": "CygOB2-C",
+      "family": "PARSEC",
+      "R_V": 3.1,
+      "truth_age_Myr": 2.5591,
+      "turnoff_Msun": 120.0,
+      "extension_masses": [
+        20.0,
+        23.0,
+        27.0,
+        31.0,
+        36.0,
+        42.0,
+        48.0,
+        56.0,
+        65.0,
+        75.0,
+        87.0,
+        100.0,
+        115.0
+      ],
+      "n_extension_masses": 13
+    },
+    {
+      "subgroup": "CygOB2-C",
+      "family": "PARSEC",
+      "R_V": 3.1,
+      "truth_age_Myr": 2.5897,
+      "turnoff_Msun": 120.0,
+      "extension_masses": [
+        20.0,
+        23.0,
+        27.0,
+        31.0,
+        36.0,
+        42.0,
+        48.0,
+        56.0,
+        65.0,
+        75.0,
+        87.0,
+        100.0,
+        115.0
+      ],
+      "n_extension_masses": 13
+    },
+    {
+      "subgroup": "CygOB2-A",
+      "family": "PARSEC",
+      "R_V": 3.5,
+      "truth_age_Myr": 3.613,
+      "turnoff_Msun": 71.0,
+      "extension_masses": [
+        20.0,
+        23.0,
+        27.0,
+        31.0,
+        36.0,
+        42.0,
+        48.0,
+        56.0,
+        65.0
+      ],
+      "n_extension_masses": 9
+    },
+    {
+      "subgroup": "CygOB2-A",
+      "family": "PARSEC",
+      "R_V": 3.5,
+      "truth_age_Myr": 3.7576,
+      "turnoff_Msun": 65.6,
+      "extension_masses": [
+        20.0,
+        23.0,
+        27.0,
+        31.0,
+        36.0,
+        42.0,
+        48.0,
+        56.0,
+        65.0
+      ],
+      "n_extension_masses": 9
+    },
+    {
+      "subgroup": "CygOB2-A",
+      "family": "PARSEC",
+      "R_V": 3.5,
+      "truth_age_Myr": 3.8449,
+      "turnoff_Msun": 62.6,
+      "extension_masses": [
+        20.0,
+        23.0,
+        27.0,
+        31.0,
+        36.0,
+        42.0,
+        48.0,
+        56.0
+      ],
+      "n_extension_masses": 8
+    },
+    {
+      "subgroup": "CygOB2-A",
+      "family": "PARSEC",
+      "R_V": 3.5,
+      "truth_age_Myr": 3.9159,
+      "turnoff_Msun": 60.3,
+      "extension_masses": [
+        20.0,
+        23.0,
+        27.0,
+        31.0,
+        36.0,
+        42.0,
+        48.0,
+        56.0
+      ],
+      "n_extension_masses": 8
+    },
+    {
+      "subgroup": "CygOB2-A",
+      "family": "PARSEC",
+      "R_V": 3.5,
+      "truth_age_Myr": 3.9811,
+      "turnoff_Msun": 58.3,
+      "extension_masses": [
+        20.0,
+        23.0,
+        27.0,
+        31.0,
+        36.0,
+        42.0,
+        48.0,
+        56.0
+      ],
+      "n_extension_masses": 8
+    },
+    {
+      "subgroup": "CygOB2-A",
+      "family": "PARSEC",
+      "R_V": 3.5,
+      "truth_age_Myr": 3.9941,
+      "turnoff_Msun": 58.0,
+      "extension_masses": [
+        20.0,
+        23.0,
+        27.0,
+        31.0,
+        36.0,
+        42.0,
+        48.0,
+        56.0
+      ],
+      "n_extension_masses": 8
+    },
+    {
+      "subgroup": "CygOB2-A",
+      "family": "PARSEC",
+      "R_V": 3.5,
+      "truth_age_Myr": 4.0084,
+      "turnoff_Msun": 57.7,
+      "extension_masses": [
+        20.0,
+        23.0,
+        27.0,
+        31.0,
+        36.0,
+        42.0,
+        48.0,
+        56.0
+      ],
+      "n_extension_masses": 8
+    },
+    {
+      "subgroup": "CygOB2-A",
+      "family": "PARSEC",
+      "R_V": 3.5,
+      "truth_age_Myr": 4.0259,
+      "turnoff_Msun": 57.3,
+      "extension_masses": [
+        20.0,
+        23.0,
+        27.0,
+        31.0,
+        36.0,
+        42.0,
+        48.0,
+        56.0
+      ],
+      "n_extension_masses": 8
+    },
+    {
+      "subgroup": "CygOB2-A",
+      "family": "PARSEC",
+      "R_V": 3.5,
+      "truth_age_Myr": 4.0549,
+      "turnoff_Msun": 56.6,
+      "extension_masses": [
+        20.0,
+        23.0,
+        27.0,
+        31.0,
+        36.0,
+        42.0,
+        48.0,
+        56.0
+      ],
+      "n_extension_masses": 8
+    },
+    {
+      "subgroup": "CygOB2-B",
+      "family": "PARSEC",
+      "R_V": 3.5,
+      "truth_age_Myr": 2.7863,
+      "turnoff_Msun": 120.0,
+      "extension_masses": [
+        20.0,
+        23.0,
+        27.0,
+        31.0,
+        36.0,
+        42.0,
+        48.0,
+        56.0,
+        65.0,
+        75.0,
+        87.0,
+        100.0,
+        115.0
+      ],
+      "n_extension_masses": 13
+    },
+    {
+      "subgroup": "CygOB2-B",
+      "family": "PARSEC",
+      "R_V": 3.5,
+      "truth_age_Myr": 2.7989,
+      "turnoff_Msun": 120.0,
+      "extension_masses": [
+        20.0,
+        23.0,
+        27.0,
+        31.0,
+        36.0,
+        42.0,
+        48.0,
+        56.0,
+        65.0,
+        75.0,
+        87.0,
+        100.0,
+        115.0
+      ],
+      "n_extension_masses": 13
+    },
+    {
+      "subgroup": "CygOB2-B",
+      "family": "PARSEC",
+      "R_V": 3.5,
+      "truth_age_Myr": 2.8065,
+      "turnoff_Msun": 120.0,
+      "extension_masses": [
+        20.0,
+        23.0,
+        27.0,
+        31.0,
+        36.0,
+        42.0,
+        48.0,
+        56.0,
+        65.0,
+        75.0,
+        87.0,
+        100.0,
+        115.0
+      ],
+      "n_extension_masses": 13
+    },
+    {
+      "subgroup": "CygOB2-B",
+      "family": "PARSEC",
+      "R_V": 3.5,
+      "truth_age_Myr": 2.8127,
+      "turnoff_Msun": 120.0,
+      "extension_masses": [
+        20.0,
+        23.0,
+        27.0,
+        31.0,
+        36.0,
+        42.0,
+        48.0,
+        56.0,
+        65.0,
+        75.0,
+        87.0,
+        100.0,
+        115.0
+      ],
+      "n_extension_masses": 13
+    },
+    {
+      "subgroup": "CygOB2-B",
+      "family": "PARSEC",
+      "R_V": 3.5,
+      "truth_age_Myr": 2.8184,
+      "turnoff_Msun": 120.0,
+      "extension_masses": [
+        20.0,
+        23.0,
+        27.0,
+        31.0,
+        36.0,
+        42.0,
+        48.0,
+        56.0,
+        65.0,
+        75.0,
+        87.0,
+        100.0,
+        115.0
+      ],
+      "n_extension_masses": 13
+    },
+    {
+      "subgroup": "CygOB2-B",
+      "family": "PARSEC",
+      "R_V": 3.5,
+      "truth_age_Myr": 2.9417,
+      "turnoff_Msun": 120.0,
+      "extension_masses": [
+        20.0,
+        23.0,
+        27.0,
+        31.0,
+        36.0,
+        42.0,
+        48.0,
+        56.0,
+        65.0,
+        75.0,
+        87.0,
+        100.0,
+        115.0
+      ],
+      "n_extension_masses": 13
+    },
+    {
+      "subgroup": "CygOB2-B",
+      "family": "PARSEC",
+      "R_V": 3.5,
+      "truth_age_Myr": 3.0759,
+      "turnoff_Msun": 106.8,
+      "extension_masses": [
+        20.0,
+        23.0,
+        27.0,
+        31.0,
+        36.0,
+        42.0,
+        48.0,
+        56.0,
+        65.0,
+        75.0,
+        87.0,
+        100.0
+      ],
+      "n_extension_masses": 12
+    },
+    {
+      "subgroup": "CygOB2-B",
+      "family": "PARSEC",
+      "R_V": 3.5,
+      "truth_age_Myr": 3.2411,
+      "turnoff_Msun": 90.7,
+      "extension_masses": [
+        20.0,
+        23.0,
+        27.0,
+        31.0,
+        36.0,
+        42.0,
+        48.0,
+        56.0,
+        65.0,
+        75.0,
+        87.0
+      ],
+      "n_extension_masses": 11
+    },
+    {
+      "subgroup": "CygOB2-B",
+      "family": "PARSEC",
+      "R_V": 3.5,
+      "truth_age_Myr": 3.5145,
+      "turnoff_Msun": 75.3,
+      "extension_masses": [
+        20.0,
+        23.0,
+        27.0,
+        31.0,
+        36.0,
+        42.0,
+        48.0,
+        56.0,
+        65.0,
+        75.0
+      ],
+      "n_extension_masses": 10
+    },
+    {
+      "subgroup": "CygOB2-C",
+      "family": "PARSEC",
+      "R_V": 3.5,
+      "truth_age_Myr": 1.8346,
+      "turnoff_Msun": 120.0,
+      "extension_masses": [
+        20.0,
+        23.0,
+        27.0,
+        31.0,
+        36.0,
+        42.0,
+        48.0,
+        56.0,
+        65.0,
+        75.0,
+        87.0,
+        100.0,
+        115.0
+      ],
+      "n_extension_masses": 13
+    },
+    {
+      "subgroup": "CygOB2-C",
+      "family": "PARSEC",
+      "R_V": 3.5,
+      "truth_age_Myr": 1.8977,
+      "turnoff_Msun": 120.0,
+      "extension_masses": [
+        20.0,
+        23.0,
+        27.0,
+        31.0,
+        36.0,
+        42.0,
+        48.0,
+        56.0,
+        65.0,
+        75.0,
+        87.0,
+        100.0,
+        115.0
+      ],
+      "n_extension_masses": 13
+    },
+    {
+      "subgroup": "CygOB2-C",
+      "family": "PARSEC",
+      "R_V": 3.5,
+      "truth_age_Myr": 1.9358,
+      "turnoff_Msun": 120.0,
+      "extension_masses": [
+        20.0,
+        23.0,
+        27.0,
+        31.0,
+        36.0,
+        42.0,
+        48.0,
+        56.0,
+        65.0,
+        75.0,
+        87.0,
+        100.0,
+        115.0
+      ],
+      "n_extension_masses": 13
+    },
+    {
+      "subgroup": "CygOB2-C",
+      "family": "PARSEC",
+      "R_V": 3.5,
+      "truth_age_Myr": 1.9668,
+      "turnoff_Msun": 120.0,
+      "extension_masses": [
+        20.0,
+        23.0,
+        27.0,
+        31.0,
+        36.0,
+        42.0,
+        48.0,
+        56.0,
+        65.0,
+        75.0,
+        87.0,
+        100.0,
+        115.0
+      ],
+      "n_extension_masses": 13
+    },
+    {
+      "subgroup": "CygOB2-C",
+      "family": "PARSEC",
+      "R_V": 3.5,
+      "truth_age_Myr": 1.9953,
+      "turnoff_Msun": 120.0,
+      "extension_masses": [
+        20.0,
+        23.0,
+        27.0,
+        31.0,
+        36.0,
+        42.0,
+        48.0,
+        56.0,
+        65.0,
+        75.0,
+        87.0,
+        100.0,
+        115.0
+      ],
+      "n_extension_masses": 13
+    },
+    {
+      "subgroup": "CygOB2-C",
+      "family": "PARSEC",
+      "R_V": 3.5,
+      "truth_age_Myr": 2.0393,
+      "turnoff_Msun": 120.0,
+      "extension_masses": [
+        20.0,
+        23.0,
+        27.0,
+        31.0,
+        36.0,
+        42.0,
+        48.0,
+        56.0,
+        65.0,
+        75.0,
+        87.0,
+        100.0,
+        115.0
+      ],
+      "n_extension_masses": 13
+    },
+    {
+      "subgroup": "CygOB2-C",
+      "family": "PARSEC",
+      "R_V": 3.5,
+      "truth_age_Myr": 2.0873,
+      "turnoff_Msun": 120.0,
+      "extension_masses": [
+        20.0,
+        23.0,
+        27.0,
+        31.0,
+        36.0,
+        42.0,
+        48.0,
+        56.0,
+        65.0,
+        75.0,
+        87.0,
+        100.0,
+        115.0
+      ],
+      "n_extension_masses": 13
+    },
+    {
+      "subgroup": "CygOB2-C",
+      "family": "PARSEC",
+      "R_V": 3.5,
+      "truth_age_Myr": 2.1463,
+      "turnoff_Msun": 120.0,
+      "extension_masses": [
+        20.0,
+        23.0,
+        27.0,
+        31.0,
+        36.0,
+        42.0,
+        48.0,
+        56.0,
+        65.0,
+        75.0,
+        87.0,
+        100.0,
+        115.0
+      ],
+      "n_extension_masses": 13
+    },
+    {
+      "subgroup": "CygOB2-C",
+      "family": "PARSEC",
+      "R_V": 3.5,
+      "truth_age_Myr": 2.244,
+      "turnoff_Msun": 120.0,
+      "extension_masses": [
+        20.0,
+        23.0,
+        27.0,
+        31.0,
+        36.0,
+        42.0,
+        48.0,
+        56.0,
+        65.0,
+        75.0,
+        87.0,
+        100.0,
+        115.0
+      ],
+      "n_extension_masses": 13
+    },
+    {
+      "subgroup": "CygOB2-A",
+      "family": "MIST",
+      "R_V": 3.0,
+      "truth_age_Myr": 3.9654,
+      "turnoff_Msun": 59.5,
+      "extension_masses": [
+        20.0,
+        23.0,
+        27.0,
+        31.0,
+        36.0,
+        42.0,
+        48.0,
+        56.0
+      ],
+      "n_extension_masses": 8
+    },
+    {
+      "subgroup": "CygOB2-A",
+      "family": "MIST",
+      "R_V": 3.0,
+      "truth_age_Myr": 3.9824,
+      "turnoff_Msun": 59.1,
+      "extension_masses": [
+        20.0,
+        23.0,
+        27.0,
+        31.0,
+        36.0,
+        42.0,
+        48.0,
+        56.0
+      ],
+      "n_extension_masses": 8
+    },
+    {
+      "subgroup": "CygOB2-A",
+      "family": "MIST",
+      "R_V": 3.0,
+      "truth_age_Myr": 3.9927,
+      "turnoff_Msun": 58.9,
+      "extension_masses": [
+        20.0,
+        23.0,
+        27.0,
+        31.0,
+        36.0,
+        42.0,
+        48.0,
+        56.0
+      ],
+      "n_extension_masses": 8
+    },
+    {
+      "subgroup": "CygOB2-A",
+      "family": "MIST",
+      "R_V": 3.0,
+      "truth_age_Myr": 4.001,
+      "turnoff_Msun": 58.7,
+      "extension_masses": [
+        20.0,
+        23.0,
+        27.0,
+        31.0,
+        36.0,
+        42.0,
+        48.0,
+        56.0
+      ],
+      "n_extension_masses": 8
+    },
+    {
+      "subgroup": "CygOB2-A",
+      "family": "MIST",
+      "R_V": 3.0,
+      "truth_age_Myr": 4.0087,
+      "turnoff_Msun": 58.6,
+      "extension_masses": [
+        20.0,
+        23.0,
+        27.0,
+        31.0,
+        36.0,
+        42.0,
+        48.0,
+        56.0
+      ],
+      "n_extension_masses": 8
+    },
+    {
+      "subgroup": "CygOB2-A",
+      "family": "MIST",
+      "R_V": 3.0,
+      "truth_age_Myr": 4.0426,
+      "turnoff_Msun": 57.6,
+      "extension_masses": [
+        20.0,
+        23.0,
+        27.0,
+        31.0,
+        36.0,
+        42.0,
+        48.0,
+        56.0
+      ],
+      "n_extension_masses": 8
+    },
+    {
+      "subgroup": "CygOB2-A",
+      "family": "MIST",
+      "R_V": 3.0,
+      "truth_age_Myr": 4.0795,
+      "turnoff_Msun": 56.6,
+      "extension_masses": [
+        20.0,
+        23.0,
+        27.0,
+        31.0,
+        36.0,
+        42.0,
+        48.0,
+        56.0
+      ],
+      "n_extension_masses": 8
+    },
+    {
+      "subgroup": "CygOB2-A",
+      "family": "MIST",
+      "R_V": 3.0,
+      "truth_age_Myr": 4.1249,
+      "turnoff_Msun": 55.5,
+      "extension_masses": [
+        20.0,
+        23.0,
+        27.0,
+        31.0,
+        36.0,
+        42.0,
+        48.0
+      ],
+      "n_extension_masses": 7
+    },
+    {
+      "subgroup": "CygOB2-A",
+      "family": "MIST",
+      "R_V": 3.0,
+      "truth_age_Myr": 4.2001,
+      "turnoff_Msun": 53.6,
+      "extension_masses": [
+        20.0,
+        23.0,
+        27.0,
+        31.0,
+        36.0,
+        42.0,
+        48.0
+      ],
+      "n_extension_masses": 7
+    },
+    {
+      "subgroup": "CygOB2-B",
+      "family": "MIST",
+      "R_V": 3.0,
+      "truth_age_Myr": 3.2699,
+      "turnoff_Msun": 69.0,
+      "extension_masses": [
+        20.0,
+        23.0,
+        27.0,
+        31.0,
+        36.0,
+        42.0,
+        48.0,
+        56.0,
+        65.0
+      ],
+      "n_extension_masses": 9
+    },
+    {
+      "subgroup": "CygOB2-B",
+      "family": "MIST",
+      "R_V": 3.0,
+      "truth_age_Myr": 3.5601,
+      "turnoff_Msun": 69.0,
+      "extension_masses": [
+        20.0,
+        23.0,
+        27.0,
+        31.0,
+        36.0,
+        42.0,
+        48.0,
+        56.0,
+        65.0
+      ],
+      "n_extension_masses": 9
+    },
+    {
+      "subgroup": "CygOB2-B",
+      "family": "MIST",
+      "R_V": 3.0,
+      "truth_age_Myr": 3.7353,
+      "turnoff_Msun": 64.7,
+      "extension_masses": [
+        20.0,
+        23.0,
+        27.0,
+        31.0,
+        36.0,
+        42.0,
+        48.0,
+        56.0
+      ],
+      "n_extension_masses": 8
+    },
+    {
+      "subgroup": "CygOB2-B",
+      "family": "MIST",
+      "R_V": 3.0,
+      "truth_age_Myr": 3.8778,
+      "turnoff_Msun": 61.4,
+      "extension_masses": [
+        20.0,
+        23.0,
+        27.0,
+        31.0,
+        36.0,
+        42.0,
+        48.0,
+        56.0
+      ],
+      "n_extension_masses": 8
+    },
+    {
+      "subgroup": "CygOB2-B",
+      "family": "MIST",
+      "R_V": 3.0,
+      "truth_age_Myr": 4.0087,
+      "turnoff_Msun": 58.6,
+      "extension_masses": [
+        20.0,
+        23.0,
+        27.0,
+        31.0,
+        36.0,
+        42.0,
+        48.0,
+        56.0
+      ],
+      "n_extension_masses": 8
+    },
+    {
+      "subgroup": "CygOB2-B",
+      "family": "MIST",
+      "R_V": 3.0,
+      "truth_age_Myr": 4.0252,
+      "turnoff_Msun": 58.1,
+      "extension_masses": [
+        20.0,
+        23.0,
+        27.0,
+        31.0,
+        36.0,
+        42.0,
+        48.0,
+        56.0
+      ],
+      "n_extension_masses": 8
+    },
+    {
+      "subgroup": "CygOB2-B",
+      "family": "MIST",
+      "R_V": 3.0,
+      "truth_age_Myr": 4.0432,
+      "turnoff_Msun": 57.6,
+      "extension_masses": [
+        20.0,
+        23.0,
+        27.0,
+        31.0,
+        36.0,
+        42.0,
+        48.0,
+        56.0
+      ],
+      "n_extension_masses": 8
+    },
+    {
+      "subgroup": "CygOB2-B",
+      "family": "MIST",
+      "R_V": 3.0,
+      "truth_age_Myr": 4.0653,
+      "turnoff_Msun": 57.0,
+      "extension_masses": [
+        20.0,
+        23.0,
+        27.0,
+        31.0,
+        36.0,
+        42.0,
+        48.0,
+        56.0
+      ],
+      "n_extension_masses": 8
+    },
+    {
+      "subgroup": "CygOB2-B",
+      "family": "MIST",
+      "R_V": 3.0,
+      "truth_age_Myr": 4.102,
+      "turnoff_Msun": 56.1,
+      "extension_masses": [
+        20.0,
+        23.0,
+        27.0,
+        31.0,
+        36.0,
+        42.0,
+        48.0,
+        56.0
+      ],
+      "n_extension_masses": 8
+    },
+    {
+      "subgroup": "CygOB2-C",
+      "family": "MIST",
+      "R_V": 3.0,
+      "truth_age_Myr": 2.7529,
+      "turnoff_Msun": 84.4,
+      "extension_masses": [
+        20.0,
+        23.0,
+        27.0,
+        31.0,
+        36.0,
+        42.0,
+        48.0,
+        56.0,
+        65.0,
+        75.0
+      ],
+      "n_extension_masses": 10
+    },
+    {
+      "subgroup": "CygOB2-C",
+      "family": "MIST",
+      "R_V": 3.0,
+      "truth_age_Myr": 2.9209,
+      "turnoff_Msun": 75.4,
+      "extension_masses": [
+        20.0,
+        23.0,
+        27.0,
+        31.0,
+        36.0,
+        42.0,
+        48.0,
+        56.0,
+        65.0,
+        75.0
+      ],
+      "n_extension_masses": 10
+    },
+    {
+      "subgroup": "CygOB2-C",
+      "family": "MIST",
+      "R_V": 3.0,
+      "truth_age_Myr": 3.0223,
+      "turnoff_Msun": 72.8,
+      "extension_masses": [
+        20.0,
+        23.0,
+        27.0,
+        31.0,
+        36.0,
+        42.0,
+        48.0,
+        56.0,
+        65.0
+      ],
+      "n_extension_masses": 9
+    },
+    {
+      "subgroup": "CygOB2-C",
+      "family": "MIST",
+      "R_V": 3.0,
+      "truth_age_Myr": 3.1048,
+      "turnoff_Msun": 70.8,
+      "extension_masses": [
+        20.0,
+        23.0,
+        27.0,
+        31.0,
+        36.0,
+        42.0,
+        48.0,
+        56.0,
+        65.0
+      ],
+      "n_extension_masses": 9
+    },
+    {
+      "subgroup": "CygOB2-C",
+      "family": "MIST",
+      "R_V": 3.0,
+      "truth_age_Myr": 3.1805,
+      "turnoff_Msun": 69.0,
+      "extension_masses": [
+        20.0,
+        23.0,
+        27.0,
+        31.0,
+        36.0,
+        42.0,
+        48.0,
+        56.0,
+        65.0
+      ],
+      "n_extension_masses": 9
+    },
+    {
+      "subgroup": "CygOB2-C",
+      "family": "MIST",
+      "R_V": 3.0,
+      "truth_age_Myr": 3.1896,
+      "turnoff_Msun": 69.0,
+      "extension_masses": [
+        20.0,
+        23.0,
+        27.0,
+        31.0,
+        36.0,
+        42.0,
+        48.0,
+        56.0,
+        65.0
+      ],
+      "n_extension_masses": 9
+    },
+    {
+      "subgroup": "CygOB2-C",
+      "family": "MIST",
+      "R_V": 3.0,
+      "truth_age_Myr": 3.1995,
+      "turnoff_Msun": 69.0,
+      "extension_masses": [
+        20.0,
+        23.0,
+        27.0,
+        31.0,
+        36.0,
+        42.0,
+        48.0,
+        56.0,
+        65.0
+      ],
+      "n_extension_masses": 9
+    },
+    {
+      "subgroup": "CygOB2-C",
+      "family": "MIST",
+      "R_V": 3.0,
+      "truth_age_Myr": 3.2117,
+      "turnoff_Msun": 69.0,
+      "extension_masses": [
+        20.0,
+        23.0,
+        27.0,
+        31.0,
+        36.0,
+        42.0,
+        48.0,
+        56.0,
+        65.0
+      ],
+      "n_extension_masses": 9
+    },
+    {
+      "subgroup": "CygOB2-C",
+      "family": "MIST",
+      "R_V": 3.0,
+      "truth_age_Myr": 3.2319,
+      "turnoff_Msun": 69.0,
+      "extension_masses": [
+        20.0,
+        23.0,
+        27.0,
+        31.0,
+        36.0,
+        42.0,
+        48.0,
+        56.0,
+        65.0
+      ],
+      "n_extension_masses": 9
+    },
+    {
+      "subgroup": "CygOB2-A",
+      "family": "MIST",
+      "R_V": 3.1,
+      "truth_age_Myr": 3.9691,
+      "turnoff_Msun": 59.4,
+      "extension_masses": [
+        20.0,
+        23.0,
+        27.0,
+        31.0,
+        36.0,
+        42.0,
+        48.0,
+        56.0
+      ],
+      "n_extension_masses": 8
+    },
+    {
+      "subgroup": "CygOB2-A",
+      "family": "MIST",
+      "R_V": 3.1,
+      "truth_age_Myr": 3.9847,
+      "turnoff_Msun": 59.1,
+      "extension_masses": [
+        20.0,
+        23.0,
+        27.0,
+        31.0,
+        36.0,
+        42.0,
+        48.0,
+        56.0
+      ],
+      "n_extension_masses": 8
+    },
+    {
+      "subgroup": "CygOB2-A",
+      "family": "MIST",
+      "R_V": 3.1,
+      "truth_age_Myr": 3.994,
+      "turnoff_Msun": 58.9,
+      "extension_masses": [
+        20.0,
+        23.0,
+        27.0,
+        31.0,
+        36.0,
+        42.0,
+        48.0,
+        56.0
+      ],
+      "n_extension_masses": 8
+    },
+    {
+      "subgroup": "CygOB2-A",
+      "family": "MIST",
+      "R_V": 3.1,
+      "truth_age_Myr": 4.0017,
+      "turnoff_Msun": 58.7,
+      "extension_masses": [
+        20.0,
+        23.0,
+        27.0,
+        31.0,
+        36.0,
+        42.0,
+        48.0,
+        56.0
+      ],
+      "n_extension_masses": 8
+    },
+    {
+      "subgroup": "CygOB2-A",
+      "family": "MIST",
+      "R_V": 3.1,
+      "truth_age_Myr": 4.0087,
+      "turnoff_Msun": 58.6,
+      "extension_masses": [
+        20.0,
+        23.0,
+        27.0,
+        31.0,
+        36.0,
+        42.0,
+        48.0,
+        56.0
+      ],
+      "n_extension_masses": 8
+    },
+    {
+      "subgroup": "CygOB2-A",
+      "family": "MIST",
+      "R_V": 3.1,
+      "truth_age_Myr": 4.0409,
+      "turnoff_Msun": 57.7,
+      "extension_masses": [
+        20.0,
+        23.0,
+        27.0,
+        31.0,
+        36.0,
+        42.0,
+        48.0,
+        56.0
+      ],
+      "n_extension_masses": 8
+    },
+    {
+      "subgroup": "CygOB2-A",
+      "family": "MIST",
+      "R_V": 3.1,
+      "truth_age_Myr": 4.0761,
+      "turnoff_Msun": 56.7,
+      "extension_masses": [
+        20.0,
+        23.0,
+        27.0,
+        31.0,
+        36.0,
+        42.0,
+        48.0,
+        56.0
+      ],
+      "n_extension_masses": 8
+    },
+    {
+      "subgroup": "CygOB2-A",
+      "family": "MIST",
+      "R_V": 3.1,
+      "truth_age_Myr": 4.1193,
+      "turnoff_Msun": 55.6,
+      "extension_masses": [
+        20.0,
+        23.0,
+        27.0,
+        31.0,
+        36.0,
+        42.0,
+        48.0
+      ],
+      "n_extension_masses": 7
+    },
+    {
+      "subgroup": "CygOB2-A",
+      "family": "MIST",
+      "R_V": 3.1,
+      "truth_age_Myr": 4.1909,
+      "turnoff_Msun": 53.8,
+      "extension_masses": [
+        20.0,
+        23.0,
+        27.0,
+        31.0,
+        36.0,
+        42.0,
+        48.0
+      ],
+      "n_extension_masses": 7
+    },
+    {
+      "subgroup": "CygOB2-B",
+      "family": "MIST",
+      "R_V": 3.1,
+      "truth_age_Myr": 3.1433,
+      "turnoff_Msun": 69.9,
+      "extension_masses": [
+        20.0,
+        23.0,
+        27.0,
+        31.0,
+        36.0,
+        42.0,
+        48.0,
+        56.0,
+        65.0
+      ],
+      "n_extension_masses": 9
+    },
+    {
+      "subgroup": "CygOB2-B",
+      "family": "MIST",
+      "R_V": 3.1,
+      "truth_age_Myr": 3.4832,
+      "turnoff_Msun": 69.0,
+      "extension_masses": [
+        20.0,
+        23.0,
+        27.0,
+        31.0,
+        36.0,
+        42.0,
+        48.0,
+        56.0,
+        65.0
+      ],
+      "n_extension_masses": 9
+    },
+    {
+      "subgroup": "CygOB2-B",
+      "family": "MIST",
+      "R_V": 3.1,
+      "truth_age_Myr": 3.6885,
+      "turnoff_Msun": 65.9,
+      "extension_masses": [
+        20.0,
+        23.0,
+        27.0,
+        31.0,
+        36.0,
+        42.0,
+        48.0,
+        56.0,
+        65.0
+      ],
+      "n_extension_masses": 9
+    },
+    {
+      "subgroup": "CygOB2-B",
+      "family": "MIST",
+      "R_V": 3.1,
+      "truth_age_Myr": 3.8554,
+      "turnoff_Msun": 61.9,
+      "extension_masses": [
+        20.0,
+        23.0,
+        27.0,
+        31.0,
+        36.0,
+        42.0,
+        48.0,
+        56.0
+      ],
+      "n_extension_masses": 8
+    },
+    {
+      "subgroup": "CygOB2-B",
+      "family": "MIST",
+      "R_V": 3.1,
+      "truth_age_Myr": 4.0087,
+      "turnoff_Msun": 58.6,
+      "extension_masses": [
+        20.0,
+        23.0,
+        27.0,
+        31.0,
+        36.0,
+        42.0,
+        48.0,
+        56.0
+      ],
+      "n_extension_masses": 8
+    },
+    {
+      "subgroup": "CygOB2-B",
+      "family": "MIST",
+      "R_V": 3.1,
+      "truth_age_Myr": 4.0163,
+      "turnoff_Msun": 58.3,
+      "extension_masses": [
+        20.0,
+        23.0,
+        27.0,
+        31.0,
+        36.0,
+        42.0,
+        48.0,
+        56.0
+      ],
+      "n_extension_masses": 8
+    },
+    {
+      "subgroup": "CygOB2-B",
+      "family": "MIST",
+      "R_V": 3.1,
+      "truth_age_Myr": 4.0246,
+      "turnoff_Msun": 58.1,
+      "extension_masses": [
+        20.0,
+        23.0,
+        27.0,
+        31.0,
+        36.0,
+        42.0,
+        48.0,
+        56.0
+      ],
+      "n_extension_masses": 8
+    },
+    {
+      "subgroup": "CygOB2-B",
+      "family": "MIST",
+      "R_V": 3.1,
+      "truth_age_Myr": 4.0348,
+      "turnoff_Msun": 57.8,
+      "extension_masses": [
+        20.0,
+        23.0,
+        27.0,
+        31.0,
+        36.0,
+        42.0,
+        48.0,
+        56.0
+      ],
+      "n_extension_masses": 8
+    },
+    {
+      "subgroup": "CygOB2-B",
+      "family": "MIST",
+      "R_V": 3.1,
+      "truth_age_Myr": 4.0517,
+      "turnoff_Msun": 57.4,
+      "extension_masses": [
+        20.0,
+        23.0,
+        27.0,
+        31.0,
+        36.0,
+        42.0,
+        48.0,
+        56.0
+      ],
+      "n_extension_masses": 8
+    },
+    {
+      "subgroup": "CygOB2-C",
+      "family": "MIST",
+      "R_V": 3.1,
+      "truth_age_Myr": 3.0438,
+      "turnoff_Msun": 72.3,
+      "extension_masses": [
+        20.0,
+        23.0,
+        27.0,
+        31.0,
+        36.0,
+        42.0,
+        48.0,
+        56.0,
+        65.0
+      ],
+      "n_extension_masses": 9
+    },
+    {
+      "subgroup": "CygOB2-C",
+      "family": "MIST",
+      "R_V": 3.1,
+      "truth_age_Myr": 3.0975,
+      "turnoff_Msun": 71.0,
+      "extension_masses": [
+        20.0,
+        23.0,
+        27.0,
+        31.0,
+        36.0,
+        42.0,
+        48.0,
+        56.0,
+        65.0
+      ],
+      "n_extension_masses": 9
+    },
+    {
+      "subgroup": "CygOB2-C",
+      "family": "MIST",
+      "R_V": 3.1,
+      "truth_age_Myr": 3.1299,
+      "turnoff_Msun": 70.2,
+      "extension_masses": [
+        20.0,
+        23.0,
+        27.0,
+        31.0,
+        36.0,
+        42.0,
+        48.0,
+        56.0,
+        65.0
+      ],
+      "n_extension_masses": 9
+    },
+    {
+      "subgroup": "CygOB2-C",
+      "family": "MIST",
+      "R_V": 3.1,
+      "truth_age_Myr": 3.1563,
+      "turnoff_Msun": 69.6,
+      "extension_masses": [
+        20.0,
+        23.0,
+        27.0,
+        31.0,
+        36.0,
+        42.0,
+        48.0,
+        56.0,
+        65.0
+      ],
+      "n_extension_masses": 9
+    },
+    {
+      "subgroup": "CygOB2-C",
+      "family": "MIST",
+      "R_V": 3.1,
+      "truth_age_Myr": 3.1805,
+      "turnoff_Msun": 69.0,
+      "extension_masses": [
+        20.0,
+        23.0,
+        27.0,
+        31.0,
+        36.0,
+        42.0,
+        48.0,
+        56.0,
+        65.0
+      ],
+      "n_extension_masses": 9
+    },
+    {
+      "subgroup": "CygOB2-C",
+      "family": "MIST",
+      "R_V": 3.1,
+      "truth_age_Myr": 3.1994,
+      "turnoff_Msun": 69.0,
+      "extension_masses": [
+        20.0,
+        23.0,
+        27.0,
+        31.0,
+        36.0,
+        42.0,
+        48.0,
+        56.0,
+        65.0
+      ],
+      "n_extension_masses": 9
+    },
+    {
+      "subgroup": "CygOB2-C",
+      "family": "MIST",
+      "R_V": 3.1,
+      "truth_age_Myr": 3.22,
+      "turnoff_Msun": 69.0,
+      "extension_masses": [
+        20.0,
+        23.0,
+        27.0,
+        31.0,
+        36.0,
+        42.0,
+        48.0,
+        56.0,
+        65.0
+      ],
+      "n_extension_masses": 9
+    },
+    {
+      "subgroup": "CygOB2-C",
+      "family": "MIST",
+      "R_V": 3.1,
+      "truth_age_Myr": 3.2454,
+      "turnoff_Msun": 69.0,
+      "extension_masses": [
+        20.0,
+        23.0,
+        27.0,
+        31.0,
+        36.0,
+        42.0,
+        48.0,
+        56.0,
+        65.0
+      ],
+      "n_extension_masses": 9
+    },
+    {
+      "subgroup": "CygOB2-C",
+      "family": "MIST",
+      "R_V": 3.1,
+      "truth_age_Myr": 3.2873,
+      "turnoff_Msun": 69.0,
+      "extension_masses": [
+        20.0,
+        23.0,
+        27.0,
+        31.0,
+        36.0,
+        42.0,
+        48.0,
+        56.0,
+        65.0
+      ],
+      "n_extension_masses": 9
+    },
+    {
+      "subgroup": "CygOB2-A",
+      "family": "MIST",
+      "R_V": 3.5,
+      "truth_age_Myr": 3.9766,
+      "turnoff_Msun": 59.2,
+      "extension_masses": [
+        20.0,
+        23.0,
+        27.0,
+        31.0,
+        36.0,
+        42.0,
+        48.0,
+        56.0
+      ],
+      "n_extension_masses": 8
+    },
+    {
+      "subgroup": "CygOB2-A",
+      "family": "MIST",
+      "R_V": 3.5,
+      "truth_age_Myr": 3.9892,
+      "turnoff_Msun": 59.0,
+      "extension_masses": [
+        20.0,
+        23.0,
+        27.0,
+        31.0,
+        36.0,
+        42.0,
+        48.0,
+        56.0
+      ],
+      "n_extension_masses": 8
+    },
+    {
+      "subgroup": "CygOB2-A",
+      "family": "MIST",
+      "R_V": 3.5,
+      "truth_age_Myr": 3.9968,
+      "turnoff_Msun": 58.8,
+      "extension_masses": [
+        20.0,
+        23.0,
+        27.0,
+        31.0,
+        36.0,
+        42.0,
+        48.0,
+        56.0
+      ],
+      "n_extension_masses": 8
+    },
+    {
+      "subgroup": "CygOB2-A",
+      "family": "MIST",
+      "R_V": 3.5,
+      "truth_age_Myr": 4.003,
+      "turnoff_Msun": 58.7,
+      "extension_masses": [
+        20.0,
+        23.0,
+        27.0,
+        31.0,
+        36.0,
+        42.0,
+        48.0,
+        56.0
+      ],
+      "n_extension_masses": 8
+    },
+    {
+      "subgroup": "CygOB2-A",
+      "family": "MIST",
+      "R_V": 3.5,
+      "truth_age_Myr": 4.0087,
+      "turnoff_Msun": 58.6,
+      "extension_masses": [
+        20.0,
+        23.0,
+        27.0,
+        31.0,
+        36.0,
+        42.0,
+        48.0,
+        56.0
+      ],
+      "n_extension_masses": 8
+    },
+    {
+      "subgroup": "CygOB2-A",
+      "family": "MIST",
+      "R_V": 3.5,
+      "truth_age_Myr": 4.0393,
+      "turnoff_Msun": 57.7,
+      "extension_masses": [
+        20.0,
+        23.0,
+        27.0,
+        31.0,
+        36.0,
+        42.0,
+        48.0,
+        56.0
+      ],
+      "n_extension_masses": 8
+    },
+    {
+      "subgroup": "CygOB2-A",
+      "family": "MIST",
+      "R_V": 3.5,
+      "truth_age_Myr": 4.0727,
+      "turnoff_Msun": 56.8,
+      "extension_masses": [
+        20.0,
+        23.0,
+        27.0,
+        31.0,
+        36.0,
+        42.0,
+        48.0,
+        56.0
+      ],
+      "n_extension_masses": 8
+    },
+    {
+      "subgroup": "CygOB2-A",
+      "family": "MIST",
+      "R_V": 3.5,
+      "truth_age_Myr": 4.1137,
+      "turnoff_Msun": 55.8,
+      "extension_masses": [
+        20.0,
+        23.0,
+        27.0,
+        31.0,
+        36.0,
+        42.0,
+        48.0
+      ],
+      "n_extension_masses": 7
+    },
+    {
+      "subgroup": "CygOB2-A",
+      "family": "MIST",
+      "R_V": 3.5,
+      "truth_age_Myr": 4.1816,
+      "turnoff_Msun": 54.1,
+      "extension_masses": [
+        20.0,
+        23.0,
+        27.0,
+        31.0,
+        36.0,
+        42.0,
+        48.0
+      ],
+      "n_extension_masses": 7
+    },
+    {
+      "subgroup": "CygOB2-B",
+      "family": "MIST",
+      "R_V": 3.5,
+      "truth_age_Myr": 3.0933,
+      "turnoff_Msun": 71.1,
+      "extension_masses": [
+        20.0,
+        23.0,
+        27.0,
+        31.0,
+        36.0,
+        42.0,
+        48.0,
+        56.0,
+        65.0
+      ],
+      "n_extension_masses": 9
+    },
+    {
+      "subgroup": "CygOB2-B",
+      "family": "MIST",
+      "R_V": 3.5,
+      "truth_age_Myr": 3.1275,
+      "turnoff_Msun": 70.3,
+      "extension_masses": [
+        20.0,
+        23.0,
+        27.0,
+        31.0,
+        36.0,
+        42.0,
+        48.0,
+        56.0,
+        65.0
+      ],
+      "n_extension_masses": 9
+    },
+    {
+      "subgroup": "CygOB2-B",
+      "family": "MIST",
+      "R_V": 3.5,
+      "truth_age_Myr": 3.1482,
+      "turnoff_Msun": 69.8,
+      "extension_masses": [
+        20.0,
+        23.0,
+        27.0,
+        31.0,
+        36.0,
+        42.0,
+        48.0,
+        56.0,
+        65.0
+      ],
+      "n_extension_masses": 9
+    },
+    {
+      "subgroup": "CygOB2-B",
+      "family": "MIST",
+      "R_V": 3.5,
+      "truth_age_Myr": 3.1651,
+      "turnoff_Msun": 69.4,
+      "extension_masses": [
+        20.0,
+        23.0,
+        27.0,
+        31.0,
+        36.0,
+        42.0,
+        48.0,
+        56.0,
+        65.0
+      ],
+      "n_extension_masses": 9
+    },
+    {
+      "subgroup": "CygOB2-B",
+      "family": "MIST",
+      "R_V": 3.5,
+      "truth_age_Myr": 3.1805,
+      "turnoff_Msun": 69.0,
+      "extension_masses": [
+        20.0,
+        23.0,
+        27.0,
+        31.0,
+        36.0,
+        42.0,
+        48.0,
+        56.0,
+        65.0
+      ],
+      "n_extension_masses": 9
+    },
+    {
+      "subgroup": "CygOB2-B",
+      "family": "MIST",
+      "R_V": 3.5,
+      "truth_age_Myr": 3.2736,
+      "turnoff_Msun": 69.0,
+      "extension_masses": [
+        20.0,
+        23.0,
+        27.0,
+        31.0,
+        36.0,
+        42.0,
+        48.0,
+        56.0,
+        65.0
+      ],
+      "n_extension_masses": 9
+    },
+    {
+      "subgroup": "CygOB2-B",
+      "family": "MIST",
+      "R_V": 3.5,
+      "truth_age_Myr": 3.3749,
+      "turnoff_Msun": 69.0,
+      "extension_masses": [
+        20.0,
+        23.0,
+        27.0,
+        31.0,
+        36.0,
+        42.0,
+        48.0,
+        56.0,
+        65.0
+      ],
+      "n_extension_masses": 9
+    },
+    {
+      "subgroup": "CygOB2-B",
+      "family": "MIST",
+      "R_V": 3.5,
+      "truth_age_Myr": 3.4995,
+      "turnoff_Msun": 69.0,
+      "extension_masses": [
+        20.0,
+        23.0,
+        27.0,
+        31.0,
+        36.0,
+        42.0,
+        48.0,
+        56.0,
+        65.0
+      ],
+      "n_extension_masses": 9
+    },
+    {
+      "subgroup": "CygOB2-B",
+      "family": "MIST",
+      "R_V": 3.5,
+      "truth_age_Myr": 3.7058,
+      "turnoff_Msun": 65.5,
+      "extension_masses": [
+        20.0,
+        23.0,
+        27.0,
+        31.0,
+        36.0,
+        42.0,
+        48.0,
+        56.0,
+        65.0
+      ],
+      "n_extension_masses": 9
+    },
+    {
+      "subgroup": "CygOB2-C",
+      "family": "MIST",
+      "R_V": 3.5,
+      "truth_age_Myr": 1.7819,
+      "turnoff_Msun": 120.0,
+      "extension_masses": [
+        20.0,
+        23.0,
+        27.0,
+        31.0,
+        36.0,
+        42.0,
+        48.0,
+        56.0,
+        65.0,
+        75.0,
+        87.0,
+        100.0,
+        115.0
+      ],
+      "n_extension_masses": 13
+    },
+    {
+      "subgroup": "CygOB2-C",
+      "family": "MIST",
+      "R_V": 3.5,
+      "truth_age_Myr": 1.8684,
+      "turnoff_Msun": 120.0,
+      "extension_masses": [
+        20.0,
+        23.0,
+        27.0,
+        31.0,
+        36.0,
+        42.0,
+        48.0,
+        56.0,
+        65.0,
+        75.0,
+        87.0,
+        100.0,
+        115.0
+      ],
+      "n_extension_masses": 13
+    },
+    {
+      "subgroup": "CygOB2-C",
+      "family": "MIST",
+      "R_V": 3.5,
+      "truth_age_Myr": 1.9207,
+      "turnoff_Msun": 120.0,
+      "extension_masses": [
+        20.0,
+        23.0,
+        27.0,
+        31.0,
+        36.0,
+        42.0,
+        48.0,
+        56.0,
+        65.0,
+        75.0,
+        87.0,
+        100.0,
+        115.0
+      ],
+      "n_extension_masses": 13
+    },
+    {
+      "subgroup": "CygOB2-C",
+      "family": "MIST",
+      "R_V": 3.5,
+      "truth_age_Myr": 1.9632,
+      "turnoff_Msun": 120.0,
+      "extension_masses": [
+        20.0,
+        23.0,
+        27.0,
+        31.0,
+        36.0,
+        42.0,
+        48.0,
+        56.0,
+        65.0,
+        75.0,
+        87.0,
+        100.0,
+        115.0
+      ],
+      "n_extension_masses": 13
+    },
+    {
+      "subgroup": "CygOB2-C",
+      "family": "MIST",
+      "R_V": 3.5,
+      "truth_age_Myr": 2.0022,
+      "turnoff_Msun": 120.0,
+      "extension_masses": [
+        20.0,
+        23.0,
+        27.0,
+        31.0,
+        36.0,
+        42.0,
+        48.0,
+        56.0,
+        65.0,
+        75.0,
+        87.0,
+        100.0,
+        115.0
+      ],
+      "n_extension_masses": 13
+    },
+    {
+      "subgroup": "CygOB2-C",
+      "family": "MIST",
+      "R_V": 3.5,
+      "truth_age_Myr": 2.0193,
+      "turnoff_Msun": 120.0,
+      "extension_masses": [
+        20.0,
+        23.0,
+        27.0,
+        31.0,
+        36.0,
+        42.0,
+        48.0,
+        56.0,
+        65.0,
+        75.0,
+        87.0,
+        100.0,
+        115.0
+      ],
+      "n_extension_masses": 13
+    },
+    {
+      "subgroup": "CygOB2-C",
+      "family": "MIST",
+      "R_V": 3.5,
+      "truth_age_Myr": 2.0379,
+      "turnoff_Msun": 120.0,
+      "extension_masses": [
+        20.0,
+        23.0,
+        27.0,
+        31.0,
+        36.0,
+        42.0,
+        48.0,
+        56.0,
+        65.0,
+        75.0,
+        87.0,
+        100.0,
+        115.0
+      ],
+      "n_extension_masses": 13
+    },
+    {
+      "subgroup": "CygOB2-C",
+      "family": "MIST",
+      "R_V": 3.5,
+      "truth_age_Myr": 2.0608,
+      "turnoff_Msun": 120.0,
+      "extension_masses": [
+        20.0,
+        23.0,
+        27.0,
+        31.0,
+        36.0,
+        42.0,
+        48.0,
+        56.0,
+        65.0,
+        75.0,
+        87.0,
+        100.0,
+        115.0
+      ],
+      "n_extension_masses": 13
+    },
+    {
+      "subgroup": "CygOB2-C",
+      "family": "MIST",
+      "R_V": 3.5,
+      "truth_age_Myr": 2.0988,
+      "turnoff_Msun": 120.0,
+      "extension_masses": [
+        20.0,
+        23.0,
+        27.0,
+        31.0,
+        36.0,
+        42.0,
+        48.0,
+        56.0,
+        65.0,
+        75.0,
+        87.0,
+        100.0,
+        115.0
+      ],
+      "n_extension_masses": 13
+    }
+  ]
+}

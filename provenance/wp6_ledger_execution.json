@@ -1,0 +1,71 @@
+{
+  "created_utc": "2026-07-28T18:01:59.875358+00:00",
+  "script": "scripts/wp6_ledger.py",
+  "status": "SUCCESS",
+  "work_package": "WP6 step 5",
+  "baseline_branch": "PARSEC R_V=3.1 (reporting branch)",
+  "runaway_weighting": "purity per separation bin, times the star's own recovery probability.  Purity = (selected - expected chance) / selected, with expected chance summed over ALL candidates in the bin, so the ledger total reproduces the aggregate false-positive correction instead of contradicting it.",
+  "weight_definitions": {
+    "member": "p_membership * P(M > 8 Msun) from the WP4 posterior",
+    "orphan_anchor": "1.0 \u2014 spectroscopically confirmed, inside the 1 deg footprint, above 8 Msun by its spectral type, and absent from the member sample",
+    "runaway": "purity(separation) * recovery probability; see runaway_weighting"
+  },
+  "environment": {
+    "python": "3.11.15 | packaged by conda-forge | (main, Jun 11 2026, 03:29:05) [Clang 19.1.7 ]",
+    "platform": "macOS-15.6.1-arm64-arm-64bit",
+    "numpy": "2.4.6",
+    "pandas": "3.0.3"
+  },
+  "inputs": {
+    "data/processed/wp4_mass_posteriors_repair_v5.parquet": "944c495fef8587552a5398cab87a8e9a7eb44b4ebfe566149f4d735ba61dfb38",
+    "tables/wp6_orphan_anchors.csv": "df5d3e2849f5e4f24b4cf950336ae3408775508e4fbad8ea038a7d848022d315",
+    "tables/wp6_runaways.csv": "42f5ebf2a63fe344e9df7cc1977af85746b0100dbf779e16db396c00a6613280"
+  },
+  "by_channel": {
+    "member": {
+      "entries": 632,
+      "summed_weight": 295.4
+    },
+    "orphan_anchor": {
+      "entries": 27,
+      "summed_weight": 27.0
+    },
+    "runaway": {
+      "entries": 119,
+      "summed_weight": 58.18
+    }
+  },
+  "by_subgroup_weight": {
+    "CygOB2-A": 66.41,
+    "CygOB2-B": 87.55,
+    "CygOB2-C": 119.44,
+    "unassigned": 58.18
+  },
+  "total_living_above_8_Msun": 380.58,
+  "runaway_total_reconciliation": {
+    "ledger_binned": 58.18,
+    "aggregate_unclipped": 54.9,
+    "why_they_differ": "the binned purity clips a bin at zero when its expected chance count exceeds the number selected there, because a negative count of real runaways is meaningless.  The unclipped aggregate allows those bins to subtract from others.  The clipped figure is the conservative one to quote per bin; the unclipped one is the better global estimate.  Both are reported and WP7 should carry the difference as a systematic on the runaway correction."
+  },
+  "runaway_provenance": {
+    "traceback_record": "provenance/wp6_runaways_execution.json",
+    "raw_recovered": 119,
+    "aggregate_false_positive_corrected": 54.9,
+    "association_centroid_galactic_deg": [
+      80.0729,
+      0.816
+    ],
+    "peculiar_motion": "the traceback runs on proper motions with the association's systemic motion subtracted (issue #16).  An earlier absolute-PM version of this ledger, quoting 260 raw and 109.2 corrected, is WITHDRAWN: Cyg OB2's systemic motion is larger than a typical ejection signature, so that traceback measured bulk drift.",
+    "external_gate": "provenance/wp6_runaway_crossmatch_execution.json \u2014 BD+43 3654 recovered at p = 1.000, 38.8 km/s and 1.36 Myr against a literature ~40 km/s and 1.6 Myr"
+  },
+  "handoff_to_wp7": "runaways are LIVING stars that left the association.  WP7 must subtract them from the missing-equals-dead bookkeeping, which reduces N_SN.  Their subgroup is 'unassigned': a 2D traceback constrains the origin footprint, not which subgroup inside it, so assigning them per subgroup would invent precision.",
+  "carried_limitations": [
+    "runaway weights are statistical, not per-star confirmations",
+    "the traceback is 2D, so line-of-sight ejections are missed and the runaway count is a lower bound",
+    "orphan-anchor masses come from spectral type, not from the WP4 posterior, so they carry a different systematic",
+    "13 orphan anchors have no spectral type and are excluded as unknown rather than counted either way"
+  ],
+  "outputs": {
+    "tables/wp6_massive_census.cat": "4eff76e8d0f240cb06616745890c40333f474c7aa803552ed0b22beef028a0bf"
+  }
+}

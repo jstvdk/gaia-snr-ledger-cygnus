@@ -1,0 +1,116 @@
+{
+  "created_utc": "2026-07-28T17:43:03.539325+00:00",
+  "script": "scripts/wp6_runaways.py",
+  "status": "SUCCESS",
+  "work_package": "WP6 steps 3-4",
+  "method": "standard 2D proper-motion traceback (Blaauw 1961; Hoogerwerf+ 2001 in its Gaia form).  Each candidate is traced back 256 times from its full proper-motion covariance, so recovery is a probability rather than a yes/no.",
+  "environment": {
+    "python": "3.11.15 | packaged by conda-forge | (main, Jun 11 2026, 03:29:05) [Clang 19.1.7 ]",
+    "platform": "macOS-15.6.1-arm64-arm-64bit",
+    "numpy": "2.4.6",
+    "pandas": "3.0.3"
+  },
+  "inputs": {
+    "data/processed/wp1_gaia_wide.parquet": "afb54bb3e88c52c0c76546fe151a9abed107ed230516b36aa7ca046e6a4be7c6",
+    "data/processed/wp2_members.parquet": "5db938b116edd70e8c7af3d2d4bbc8c9273d4e4c9cde76309ffc84d8cdaf90be"
+  },
+  "configuration": {
+    "distance_pc": 1620.0,
+    "parallax_window_mas": [
+      0.45,
+      0.9
+    ],
+    "min_parallax_snr": 5.0,
+    "max_absolute_g_observed": 0.0,
+    "footprint_radius_deg": 1.0,
+    "max_lookback_Myr": 5.0,
+    "velocity_window_km_s": [
+      10.0,
+      100.0
+    ],
+    "traceback_samples": 256,
+    "min_recovery_probability": 0.5,
+    "seed": 20260728,
+    "systemic_pmra_mas_yr": -2.7067,
+    "systemic_pmdec_mas_yr": -4.3168,
+    "peculiar_motion_note": "the traceback runs on proper motion MINUS the association systemic motion.  Using absolute proper motions measures the common bulk drift, not the ejection, and recovers essentially nothing -- caught by the literature cross-match, which found the canonical ejected star BD+43 3654 scoring 0.000."
+  },
+  "result": {
+    "ob_candidates_outside_footprint": 3337,
+    "raw_recovered": 119,
+    "effective_false_positive_rate": 0.01922,
+    "false_positive_rate_by_separation": [
+      {
+        "separation_lo_deg": 1.0,
+        "separation_hi_deg": 1.5,
+        "control_stars": 348,
+        "false_positive_rate": 0.2069
+      },
+      {
+        "separation_lo_deg": 1.5,
+        "separation_hi_deg": 2.0,
+        "control_stars": 450,
+        "false_positive_rate": 0.13333
+      },
+      {
+        "separation_lo_deg": 2.0,
+        "separation_hi_deg": 3.0,
+        "control_stars": 931,
+        "false_positive_rate": 0.08485
+      },
+      {
+        "separation_lo_deg": 3.0,
+        "separation_hi_deg": 4.0,
+        "control_stars": 1145,
+        "false_positive_rate": 0.04978
+      },
+      {
+        "separation_lo_deg": 4.0,
+        "separation_hi_deg": 5.0,
+        "control_stars": 1125,
+        "false_positive_rate": 0.01956
+      },
+      {
+        "separation_lo_deg": 5.0,
+        "separation_hi_deg": 6.0,
+        "control_stars": 1221,
+        "false_positive_rate": 0.01556
+      },
+      {
+        "separation_lo_deg": 6.0,
+        "separation_hi_deg": 8.0,
+        "control_stars": 2242,
+        "false_positive_rate": 0.00624
+      },
+      {
+        "separation_lo_deg": 8.0,
+        "separation_hi_deg": 12.0,
+        "control_stars": 3996,
+        "false_positive_rate": 0.00375
+      }
+    ],
+    "rate_matching": "chance recovery falls steeply with separation from the centre, so the control rate is measured per separation bin and applied to each real candidate at its own separation.  A pooled control rate would be meaningless: the control and real samples do not share a separation distribution.",
+    "expected_false_positives": 64.1,
+    "false_positive_corrected": 54.9
+  },
+  "distance_note": "velocity ceilings are computed at the WP2 distance of 1620 pc.  CUTS section 4.2 tabulated them at a round 1.4 kpc and so quotes slightly smaller values; the numbers here supersede that table.",
+  "issue_10_velocity_ceiling": {
+    "statement": "the +-8 deg wide box caps the recoverable ejection velocity. The plan's stated 10-100 km/s range is NOT achievable over the full age baseline, and the recovered count is a lower bound.",
+    "ceiling_km_s_by_lookback": {
+      "1_Myr": 221.2,
+      "2_Myr": 110.6,
+      "3_Myr": 73.7,
+      "4_Myr": 55.3,
+      "5_Myr": 44.2
+    },
+    "adopted_wording": "the runaway search is complete to v <~ 44 km/s for ejections up to 5 Myr ago; faster or older ejections lie outside the search footprint and make N_SN a lower bound"
+  },
+  "carried_limitations": [
+    "2D only \u2014 no radial velocity is used, so ejections along the line of sight are missed and the count is a lower bound",
+    "the observed-magnitude OB cut is conservative (over-inclusive), because no per-star extinction exists outside the member sample",
+    "chance alignments are subtracted statistically, not per star, so individual candidates carry no confirmation"
+  ],
+  "outputs": {
+    "tables/wp6_runaways.csv": "42f5ebf2a63fe344e9df7cc1977af85746b0100dbf779e16db396c00a6613280"
+  }
+}

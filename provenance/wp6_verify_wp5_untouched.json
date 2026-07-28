@@ -1,0 +1,70 @@
+{
+  "created_utc": "2026-07-28T15:48:56.822439+00:00",
+  "script": "scripts/wp6_verify_wp5_untouched.py",
+  "status": "SUCCESS",
+  "verification": "V1 of provenance/wp6_mass_extension_decision.json",
+  "claim_under_test": "extending the injection response above 18 Msun leaves every accepted repair_v6 artifact byte-identical",
+  "environment": {
+    "python": "3.11.15 | packaged by conda-forge | (main, Jun 11 2026, 03:29:05) [Clang 19.1.7 ]",
+    "platform": "macOS-15.6.1-arm64-arm-64bit"
+  },
+  "artifacts_checked": 5,
+  "artifacts_unchanged": 5,
+  "checks": [
+    {
+      "path": "data/processed/wp5_imf_normalization_repair_v6.parquet",
+      "expected_sha256": "a3111ca512e5838f5e0c86359721921870285b80af3d37033eb3e26d66c7abf8",
+      "actual_sha256": "a3111ca512e5838f5e0c86359721921870285b80af3d37033eb3e26d66c7abf8",
+      "expected_bytes": 38984,
+      "actual_bytes": 38984,
+      "match": true,
+      "status": "UNCHANGED"
+    },
+    {
+      "path": "data/processed/wp5_mass_function_bins_repair_v6.parquet",
+      "expected_sha256": "891ab088e5e39c71ef46efa9fbfe764f1b69fd4397d31946f5b03b7bb2066479",
+      "actual_sha256": "891ab088e5e39c71ef46efa9fbfe764f1b69fd4397d31946f5b03b7bb2066479",
+      "expected_bytes": 19421,
+      "actual_bytes": 19421,
+      "match": true,
+      "status": "UNCHANGED"
+    },
+    {
+      "path": "data/processed/wp5_association_mass_repair_v6.parquet",
+      "expected_sha256": "5cf513a92753e0b6f14153ace872d79f5c3f9aad8ffdcc734ed2714898e0eeed",
+      "actual_sha256": "5cf513a92753e0b6f14153ace872d79f5c3f9aad8ffdcc734ed2714898e0eeed",
+      "expected_bytes": 12056,
+      "actual_bytes": 12056,
+      "match": true,
+      "status": "UNCHANGED"
+    },
+    {
+      "path": "data/processed/wp5_completeness_curves_repair_v6.parquet",
+      "expected_sha256": "4f5c0c8a3ac54925ad468825331e498cc4b021696519e52ccec4faaa3a6073d8",
+      "actual_sha256": "4f5c0c8a3ac54925ad468825331e498cc4b021696519e52ccec4faaa3a6073d8",
+      "expected_bytes": 31386,
+      "actual_bytes": 31386,
+      "match": true,
+      "status": "UNCHANGED"
+    },
+    {
+      "path": "data/processed/wp5_imf_posterior_draws_repair_v6.npz",
+      "expected_sha256": "a50e5ad9f058774db02f94104434c8b10cdbd48ee641a6e7060adc093e8804ef",
+      "actual_sha256": "a50e5ad9f058774db02f94104434c8b10cdbd48ee641a6e7060adc093e8804ef",
+      "expected_bytes": 5676586,
+      "actual_bytes": 5676586,
+      "match": true,
+      "status": "UNCHANGED"
+    }
+  ],
+  "gate_record": {
+    "accepted": true,
+    "downstream_wp6_authorized": true,
+    "blocking_reason": null,
+    "G3_pass": true,
+    "A_or_C_regressions": [],
+    "branches_passing": 40
+  },
+  "gate_intact": true,
+  "V1_pass": true
+}

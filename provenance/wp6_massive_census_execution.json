@@ -1,0 +1,99 @@
+{
+  "created_utc": "2026-07-28T14:46:34.534548+00:00",
+  "script": "scripts/wp6_massive_census.py",
+  "status": "SUCCESS",
+  "work_package": "WP6 step 0b",
+  "counting_convention": "N_obs = sum over members of p_membership * P(M > 8 Msun), per branch.  Thresholding point-estimate masses is Eddington-biased because the mass function is steep; the inflation factor is reported per branch so the size of the bias is on the record.",
+  "comparison_rule": "the injection response models recovery through the WP2 pipeline, so it predicts the MEMBER count.  Anchors absent from the member sample are kept separate as an independent check on the response, never added to the same number -- that would double-correct.",
+  "environment": {
+    "python": "3.11.15 | packaged by conda-forge | (main, Jun 11 2026, 03:29:05) [Clang 19.1.7 ]",
+    "platform": "macOS-15.6.1-arm64-arm-64bit",
+    "numpy": "2.4.6",
+    "pandas": "3.0.3"
+  },
+  "inputs": {
+    "data/processed/wp4_mass_posteriors_repair_v5.parquet": "944c495fef8587552a5398cab87a8e9a7eb44b4ebfe566149f4d735ba61dfb38",
+    "data/processed/wp1_spectroscopic_anchors.parquet": "9bb30e91d98568b346616e5c712f4784d3ff23f90d6216af501597bf18c9b283",
+    "data/processed/wp2_members.parquet": "5db938b116edd70e8c7af3d2d4bbc8c9273d4e4c9cde76309ffc84d8cdaf90be"
+  },
+  "spectral_type_calibration": {
+    "source": "Martins, Schaerer & Hillier (2005) theoretical scale for O stars; conventional masses for B dwarfs and supergiants",
+    "applies_to": "orphan anchors only, never to member stars",
+    "robustness": "every O star and every Wolf-Rayet clears 8 Msun regardless of calibration detail, so the count above threshold is far more robust than the individual masses.  Only B3 and later fall below, and the classification there is unambiguous.",
+    "wolf_rayet_nominal_initial_mass_Msun": 40.0
+  },
+  "member_side": {
+    "baseline_PARSEC_rv3.1": [
+      {
+        "subgroup": "CygOB2-A",
+        "n_members": 476,
+        "observed_above_8_probabilistic": 59.41,
+        "observed_above_8_thresholded": 57,
+        "eddington_inflation": 0.959
+      },
+      {
+        "subgroup": "CygOB2-B",
+        "n_members": 426,
+        "observed_above_8_probabilistic": 79.55,
+        "observed_above_8_thresholded": 75,
+        "eddington_inflation": 0.943
+      },
+      {
+        "subgroup": "CygOB2-C",
+        "n_members": 429,
+        "observed_above_8_probabilistic": 107.44,
+        "observed_above_8_thresholded": 109,
+        "eddington_inflation": 1.015
+      }
+    ],
+    "eddington_inflation_grid_range": [
+      0.936,
+      1.083
+    ]
+  },
+  "anchor_side": {
+    "countable_anchors": 252,
+    "in_member_sample": 190,
+    "orphans": 62,
+    "orphans_above_8_in_footprint": 27,
+    "orphans_outside_footprint": 19,
+    "orphans_unclassifiable": 13,
+    "footprint_radius_deg": 1.0,
+    "unclassifiable_caveat": "orphans with no spectral type in the anchor table cannot be placed above or below 8 Msun.  They are counted as unknown, not as sub-threshold, and bound the orphan census from below.",
+    "orphan_composition": {
+      "O": 30,
+      "B": 13,
+      "WR": 6,
+      "unparsed": 0
+    },
+    "by_subgroup": [
+      {
+        "subgroup": "CygOB2-A",
+        "orphan_anchors": 12,
+        "orphan_anchors_above_8": 7,
+        "unclassifiable": 2,
+        "median_initial_mass_Msun": 14.2
+      },
+      {
+        "subgroup": "CygOB2-B",
+        "orphan_anchors": 17,
+        "orphan_anchors_above_8": 8,
+        "unclassifiable": 9,
+        "median_initial_mass_Msun": 28.8
+      },
+      {
+        "subgroup": "CygOB2-C",
+        "orphan_anchors": 14,
+        "orphan_anchors_above_8": 12,
+        "unclassifiable": 2,
+        "median_initial_mass_Msun": 23.5
+      }
+    ],
+    "subgroup_assignment": "nearest WP2 subgroup centroid on the sky; positional only, flagged as such, and reported with the separation",
+    "interpretation": "these are spectroscopically confirmed massive stars that the Gaia pipeline lost, mostly bright supergiants failing the WP2 quality filter.  They are the empirical counterpart of the response's predicted loss and are used to test it, not to inflate the census."
+  },
+  "outputs": {
+    "tables/wp6_massive_census.csv": "db572c6a5b4432112d22d993996a9df12e5800fde37a2986c9515f744557fdd3",
+    "tables/wp6_orphan_anchors.csv": "df5d3e2849f5e4f24b4cf950336ae3408775508e4fbad8ea038a7d848022d315"
+  }
+}
