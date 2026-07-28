@@ -1,0 +1,399 @@
+{
+  "created_utc": "2026-07-28T14:23:45.141137+00:00",
+  "script": "scripts/wp5_verdict_stability.py",
+  "status": "SUCCESS",
+  "issue": "#11 \u2014 criteria R3a/R3b/R3c",
+  "predeclaration": "CUTS_AND_THRESHOLDS.md section 14.6, written before this run",
+  "withdrawn_criterion": "R3 as written in section 14.4 required identical verdicts on both realizations of an identical model.  A cell with pass-probability pi disagrees with probability 2*pi*(1-pi), so only a degenerate test could comply; the criterion was unsatisfiable by any statistic and is withdrawn, not weakened.",
+  "pi_definition": "fraction of M response replicates, drawn from the fit's own Dirichlet posterior over the response matrix category counts, that pass the unchanged three-way gate.  The observed counts are held fixed; only the injection realization varies.  No new parameter and no new noise model.",
+  "response_replicates": 400,
+  "replicate_seed": 20260729,
+  "null_seed": 20260730,
+  "indeterminate_band": [
+    0.05,
+    0.95
+  ],
+  "environment": {
+    "python": "3.11.15 | packaged by conda-forge | (main, Jun 11 2026, 03:29:05) [Clang 19.1.7 ]",
+    "platform": "macOS-15.6.1-arm64-arm-64bit",
+    "numpy": "2.4.6",
+    "pandas": "3.0.3"
+  },
+  "inputs": {
+    "data/processed/wp5_mass_function_bins_repair_v3.parquet": "a35fb2b4d66c6ce36d1b5a00ae1c30451be144df259265d7b0b3433edd811d8e",
+    "data/processed/wp5_mass_function_bins_repair_v4.parquet": "94aff38c79723386b4db9d6c20ac51aa999bc33a69682f83d7df84321b268bd8",
+    "data/processed/wp5_mass_function_bins_repair_v5.parquet": "fb6ea24ee9e987888e6f7edaa8001ae6beb4aa92365afc3166298b935e2a5d8b",
+    "data/processed/wp5_mass_function_bins_repair_v6.parquet": "891ab088e5e39c71ef46efa9fbfe764f1b69fd4397d31946f5b03b7bb2066479"
+  },
+  "R3a": {
+    "criterion": "widest gap between achievable p-values inside [0.01, 0.20] on null data simulated from each cell's own fitted lambda, limit 0.005",
+    "null_simulations_per_cell": 20000,
+    "p_values_retained_per_cell": 4000,
+    "cells": 12,
+    "incumbent": {
+      "widest_gap": 0.045387755102040614,
+      "gap_containing_threshold": 0.030833819241982592,
+      "gap_containing_threshold_bounds": [
+        0.04156268221574335,
+        0.07239650145772594
+      ],
+      "n_achievable": 5
+    },
+    "replacement": {
+      "widest_gap": 0.00020000000000000573,
+      "gap_containing_threshold": 4.999999999999449e-05,
+      "gap_containing_threshold_bounds": [
+        0.05,
+        0.05005
+      ],
+      "n_achievable": 3396
+    },
+    "R3a_pass": true,
+    "incumbent_would_pass": false
+  },
+  "R3b": {
+    "criterion": "observed verdict flips on the four identical-model pairs must lie inside the 95% Poisson-binomial interval implied by each cell's pi; too few flips fails as well as too many",
+    "pairs": [
+      {
+        "subgroup": "CygOB2-A",
+        "family": "MIST",
+        "R_V": 3.1,
+        "alpha": 2.0,
+        "pi_replacement_mean_over_realizations": 0.0,
+        "pi_incumbent_mean_over_realizations": 0.2275,
+        "implied_flip_probability_replacement": 0.0,
+        "implied_flip_probability_incumbent": 0.3515,
+        "observed_flip_incumbent": true,
+        "observed_flip_replacement": false
+      },
+      {
+        "subgroup": "CygOB2-C",
+        "family": "MIST",
+        "R_V": 3.1,
+        "alpha": 2.0,
+        "pi_replacement_mean_over_realizations": 0.9988,
+        "pi_incumbent_mean_over_realizations": 0.83,
+        "implied_flip_probability_replacement": 0.0025,
+        "implied_flip_probability_incumbent": 0.2822,
+        "observed_flip_incumbent": true,
+        "observed_flip_replacement": false
+      },
+      {
+        "subgroup": "CygOB2-C",
+        "family": "MIST",
+        "R_V": 3.1,
+        "alpha": 2.3,
+        "pi_replacement_mean_over_realizations": 0.635,
+        "pi_incumbent_mean_over_realizations": 0.4075,
+        "implied_flip_probability_replacement": 0.4636,
+        "implied_flip_probability_incumbent": 0.4829,
+        "observed_flip_incumbent": true,
+        "observed_flip_replacement": true
+      },
+      {
+        "subgroup": "CygOB2-A",
+        "family": "MIST",
+        "R_V": 3.5,
+        "alpha": 2.6,
+        "pi_replacement_mean_over_realizations": 0.8362,
+        "pi_incumbent_mean_over_realizations": 0.8037,
+        "implied_flip_probability_replacement": 0.2739,
+        "implied_flip_probability_incumbent": 0.3155,
+        "observed_flip_incumbent": true,
+        "observed_flip_replacement": false
+      }
+    ],
+    "replacement": {
+      "observed_flips": 1,
+      "expected_flips": 0.74,
+      "interval_95": [
+        0,
+        2
+      ],
+      "consistent": true
+    },
+    "incumbent": {
+      "observed_flips": 4,
+      "expected_flips": 1.432,
+      "interval_95": [
+        0,
+        3
+      ],
+      "consistent": false
+    },
+    "R3b_pass": true
+  },
+  "R3c": {
+    "criterion": "every cell carries pi; cells with 0.05 < pi < 0.95 are labelled indeterminate and reported separately, never counted as a clean pass or a clean failure",
+    "implemented": true,
+    "per_version": [
+      {
+        "version": "repair_v3",
+        "cells": 54,
+        "grid_replacement": 25,
+        "grid_incumbent": 26,
+        "determinate_pass": 16,
+        "determinate_fail": 15,
+        "indeterminate": 23,
+        "indeterminate_fraction": 0.4259,
+        "exceeds_25pc_indeterminate": true,
+        "median_pi": 0.63,
+        "indeterminate_incumbent": 32
+      },
+      {
+        "version": "repair_v4",
+        "cells": 54,
+        "grid_replacement": 27,
+        "grid_incumbent": 29,
+        "determinate_pass": 19,
+        "determinate_fail": 11,
+        "indeterminate": 24,
+        "indeterminate_fraction": 0.4444,
+        "exceeds_25pc_indeterminate": true,
+        "median_pi": 0.835,
+        "indeterminate_incumbent": 34
+      },
+      {
+        "version": "repair_v5",
+        "cells": 54,
+        "grid_replacement": 37,
+        "grid_incumbent": 38,
+        "determinate_pass": 27,
+        "determinate_fail": 5,
+        "indeterminate": 22,
+        "indeterminate_fraction": 0.4074,
+        "exceeds_25pc_indeterminate": true,
+        "median_pi": 0.9487,
+        "indeterminate_incumbent": 34
+      },
+      {
+        "version": "repair_v6",
+        "cells": 54,
+        "grid_replacement": 40,
+        "grid_incumbent": 40,
+        "determinate_pass": 34,
+        "determinate_fail": 11,
+        "indeterminate": 9,
+        "indeterminate_fraction": 0.1667,
+        "exceeds_25pc_indeterminate": false,
+        "median_pi": 1.0,
+        "indeterminate_incumbent": 19
+      }
+    ],
+    "R3c_pass": true,
+    "section_14_7_5_reporting_obligation_triggered": true,
+    "finding_if_triggered": "more than 25% of the 54-cell grid has a verdict that is a coin flip under the injection experiment's own uncertainty.  The branch grid is underpowered at N_INJECT_PER_MASS = 400 and its per-cell verdicts must not be read as independent evidence.  This is a finding about the grid, not about the statistic."
+  },
+  "R3_overall_pass": true,
+  "gate_G3_no_regression_clause": [
+    {
+      "comparison": "repair_v3 -> repair_v4",
+      "clause": "CygOB2-A and CygOB2-C must not regress (strict per-branch reading)",
+      "strict_reading": {
+        "regressions": [
+          {
+            "subgroup": "CygOB2-C",
+            "family": "MIST",
+            "R_V": 3.1,
+            "alpha": 2.3,
+            "repair_v3_trend_p": 0.0579,
+            "repair_v4_trend_p": 0.0435,
+            "repair_v3_max_abs_residual": 2.297,
+            "repair_v4_max_abs_residual": 2.256,
+            "repair_v3_pi": 0.693,
+            "repair_v4_pi": 0.578,
+            "indeterminate_in_both": true
+          }
+        ],
+        "count": 1,
+        "passes": false
+      },
+      "refined_reading_section_14_7": {
+        "regressions": [],
+        "count": 0,
+        "passes": true,
+        "discounted_as_indeterminate_in_both": 1
+      },
+      "improvements": [
+        {
+          "subgroup": "CygOB2-A",
+          "family": "PARSEC",
+          "R_V": 3.1,
+          "alpha": 2.0,
+          "repair_v3_trend_p": 0.04,
+          "repair_v4_trend_p": 0.051,
+          "repair_v3_max_abs_residual": 2.035,
+          "repair_v4_max_abs_residual": 1.821,
+          "repair_v3_pi": 0.275,
+          "repair_v4_pi": 0.46,
+          "indeterminate_in_both": true,
+          "counted": false
+        },
+        {
+          "subgroup": "CygOB2-C",
+          "family": "MIST",
+          "R_V": 3.5,
+          "alpha": 2.0,
+          "repair_v3_trend_p": 0.0824,
+          "repair_v4_trend_p": 0.2203,
+          "repair_v3_max_abs_residual": 3.033,
+          "repair_v4_max_abs_residual": 2.271,
+          "repair_v3_pi": 0.968,
+          "repair_v4_pi": 1.0,
+          "indeterminate_in_both": false,
+          "counted": true
+        }
+      ],
+      "readings_agree": false
+    },
+    {
+      "comparison": "repair_v4 -> repair_v5",
+      "clause": "CygOB2-A and CygOB2-C must not regress (strict per-branch reading)",
+      "strict_reading": {
+        "regressions": [
+          {
+            "subgroup": "CygOB2-A",
+            "family": "MIST",
+            "R_V": 3.5,
+            "alpha": 2.6,
+            "repair_v4_trend_p": 0.0612,
+            "repair_v5_trend_p": 0.0483,
+            "repair_v4_max_abs_residual": 2.388,
+            "repair_v5_max_abs_residual": 2.31,
+            "repair_v4_pi": 0.79,
+            "repair_v5_pi": 0.777,
+            "indeterminate_in_both": true
+          },
+          {
+            "subgroup": "CygOB2-A",
+            "family": "PARSEC",
+            "R_V": 3.1,
+            "alpha": 2.0,
+            "repair_v4_trend_p": 0.051,
+            "repair_v5_trend_p": 0.0395,
+            "repair_v4_max_abs_residual": 1.821,
+            "repair_v5_max_abs_residual": 1.928,
+            "repair_v4_pi": 0.46,
+            "repair_v5_pi": 0.295,
+            "indeterminate_in_both": true
+          },
+          {
+            "subgroup": "CygOB2-C",
+            "family": "MIST",
+            "R_V": 3.5,
+            "alpha": 2.0,
+            "repair_v4_trend_p": 0.2203,
+            "repair_v5_trend_p": 0.0353,
+            "repair_v4_max_abs_residual": 2.271,
+            "repair_v5_max_abs_residual": 3.25,
+            "repair_v4_pi": 1.0,
+            "repair_v5_pi": 0.9,
+            "indeterminate_in_both": false
+          }
+        ],
+        "count": 3,
+        "passes": false
+      },
+      "refined_reading_section_14_7": {
+        "regressions": [
+          {
+            "subgroup": "CygOB2-C",
+            "family": "MIST",
+            "R_V": 3.5,
+            "alpha": 2.0,
+            "repair_v4_trend_p": 0.2203,
+            "repair_v5_trend_p": 0.0353,
+            "repair_v4_max_abs_residual": 2.271,
+            "repair_v5_max_abs_residual": 3.25,
+            "repair_v4_pi": 1.0,
+            "repair_v5_pi": 0.9,
+            "indeterminate_in_both": false
+          }
+        ],
+        "count": 1,
+        "passes": false,
+        "discounted_as_indeterminate_in_both": 2
+      },
+      "improvements": [
+        {
+          "subgroup": "CygOB2-A",
+          "family": "MIST",
+          "R_V": 3.0,
+          "alpha": 2.3,
+          "repair_v4_trend_p": 0.0338,
+          "repair_v5_trend_p": 0.0715,
+          "repair_v4_max_abs_residual": 2.056,
+          "repair_v5_max_abs_residual": 1.762,
+          "repair_v4_pi": 0.22,
+          "repair_v5_pi": 0.537,
+          "indeterminate_in_both": true,
+          "counted": false
+        },
+        {
+          "subgroup": "CygOB2-C",
+          "family": "MIST",
+          "R_V": 3.1,
+          "alpha": 2.3,
+          "repair_v4_trend_p": 0.0435,
+          "repair_v5_trend_p": 0.0556,
+          "repair_v4_max_abs_residual": 2.256,
+          "repair_v5_max_abs_residual": 2.236,
+          "repair_v4_pi": 0.578,
+          "repair_v5_pi": 0.68,
+          "indeterminate_in_both": true,
+          "counted": false
+        }
+      ],
+      "readings_agree": true
+    },
+    {
+      "comparison": "repair_v5 -> repair_v6",
+      "clause": "CygOB2-A and CygOB2-C must not regress (strict per-branch reading)",
+      "strict_reading": {
+        "regressions": [],
+        "count": 0,
+        "passes": true
+      },
+      "refined_reading_section_14_7": {
+        "regressions": [],
+        "count": 0,
+        "passes": true,
+        "discounted_as_indeterminate_in_both": 0
+      },
+      "improvements": [
+        {
+          "subgroup": "CygOB2-A",
+          "family": "PARSEC",
+          "R_V": 3.1,
+          "alpha": 2.0,
+          "repair_v5_trend_p": 0.0395,
+          "repair_v6_trend_p": 0.0536,
+          "repair_v5_max_abs_residual": 1.928,
+          "repair_v6_max_abs_residual": 1.781,
+          "repair_v5_pi": 0.295,
+          "repair_v6_pi": 0.378,
+          "indeterminate_in_both": true,
+          "counted": false
+        },
+        {
+          "subgroup": "CygOB2-C",
+          "family": "MIST",
+          "R_V": 3.5,
+          "alpha": 2.0,
+          "repair_v5_trend_p": 0.0353,
+          "repair_v6_trend_p": 0.0833,
+          "repair_v5_max_abs_residual": 3.25,
+          "repair_v6_max_abs_residual": 2.935,
+          "repair_v5_pi": 0.9,
+          "repair_v6_pi": 1.0,
+          "indeterminate_in_both": false,
+          "counted": true
+        }
+      ],
+      "readings_agree": true
+    }
+  ],
+  "outputs": {
+    "tables/wp5_verdict_stability.csv": "7e7de350d9eb792ea972c3202cac77430ece00cec23f6ef46cb3db3b80ff9100"
+  }
+}

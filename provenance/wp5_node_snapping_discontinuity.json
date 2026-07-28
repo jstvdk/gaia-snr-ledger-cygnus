@@ -1,0 +1,62 @@
+{
+  "created_utc": "2026-07-28T11:25:07.560113+00:00",
+  "script": "diagnostic recorded from session: why CygOB2-C MIST R_V=3.5 alpha=2.0 regressed v4 -> v5",
+  "status": "SUCCESS",
+  "issue": "#13 (new) \u2014 truth-age node set changes discontinuously under age-grid snapping",
+  "finding": "The regression is NOT physical.  CygOB2-C's fitted age did not move at all (2.002 -> 2.002 Myr) and its extinction moved only -0.059 mag, but its 68% interval upper edge fell from 2.084 to 2.062 Myr.  That 0.022 Myr shift pushed a posterior quantile across a native-isochrone-age snapping boundary, DELETING the 2.248 Myr truth-age node that had carried 41.6% of the posterior weight in repair_v4.  The node set went from [1.783, 2.002, 2.248] to [1.783, 2.002], and bin 0's residual jumped +2.27 -> +3.25.",
+  "residuals": {
+    "repair_v4": [
+      2.27,
+      -0.43,
+      1.78,
+      0.44,
+      -0.28,
+      0.42
+    ],
+    "repair_v5": [
+      3.25,
+      -0.26,
+      1.87,
+      0.34,
+      -0.38,
+      0.19
+    ]
+  },
+  "node_sets": {
+    "repair_v4": {
+      "nodes_Myr": [
+        1.783,
+        2.002,
+        2.248
+      ],
+      "posterior_weights": [
+        0.002,
+        0.582,
+        0.416
+      ]
+    },
+    "repair_v5": {
+      "nodes_Myr": [
+        1.783,
+        2.002
+      ],
+      "posterior_weights": [
+        0.055,
+        0.945
+      ]
+    }
+  },
+  "root_cause": "The repair_v4 node rule snaps the nine posterior quantiles to native isochrone ages, whose grid is coarse (0.05 dex, about 12% in age).  An arbitrarily small change in the age posterior can therefore add or remove a whole node carrying tens of percent of the weight.  This is a cliff of exactly the same character as issue #11's Spearman p-value lattice: a coarse discretization making a continuous input produce a discontinuous output.",
+  "consequence": "Re-specifying criterion R3 (issue #11) will NOT clear this cell, because this is not a threshold-boundary effect.  Two separate methodological fixes are needed before gate G3 can be re-evaluated fairly.",
+  "candidate_fix": "Interpolate the truth isochrone between native ages instead of snapping, so the node set varies continuously with the posterior.  wp4_repair_common already does exactly this on the RECOVERY side (_interpolate_age_sequence), so the two sides are currently inconsistent: recovery interpolates, truth snaps.  Cost: the node count per branch would be fixed by the rule rather than by grid accidents, so injection cost is predictable.",
+  "not_a_reason_to_dismiss_the_cell": "The cell genuinely fails at max|r| = 3.25 in the repair_v5 products as they stand, and must be reported under the section 13 retention policy regardless of cause.",
+  "environment": {
+    "python": "3.11.15 | packaged by conda-forge | (main, Jun 11 2026, 03:29:05) [Clang 19.1.7 ]",
+    "platform": "macOS-15.6.1-arm64-arm-64bit"
+  },
+  "inputs": {
+    "data/processed/wp5_mass_function_bins_repair_v4.parquet": "94aff38c79723386b4db9d6c20ac51aa999bc33a69682f83d7df84321b268bd8",
+    "data/processed/wp5_mass_function_bins_repair_v5.parquet": "fb6ea24ee9e987888e6f7edaa8001ae6beb4aa92365afc3166298b935e2a5d8b",
+    "data/processed/wp4_age_posteriors_repair_v5.parquet": "dc14e923a5dc4ad1336d08059e397bbc007f0f926f91a94f5ac2ddfbdc141ada"
+  }
+}

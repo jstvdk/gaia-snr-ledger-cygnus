@@ -1,0 +1,398 @@
+{
+  "created_utc": "2026-07-28T09:27:51.962060+00:00",
+  "script": "scripts/wp3_nir_extinction_crosscheck.py",
+  "status": "SUCCESS",
+  "issue": "#12 / #1d \u2014 independent near-IR extinction check for CygOB2-B",
+  "upstream_version": "repair_v3",
+  "branch": "PARSEC / R_V=3.1",
+  "stored_artifacts_overwritten": false,
+  "environment": {
+    "python": "3.11.15 | packaged by conda-forge | (main, Jun 11 2026, 03:29:05) [Clang 19.1.7 ]",
+    "platform": "macOS-15.6.1-arm64-arm-64bit",
+    "numpy": "2.4.6",
+    "pandas": "3.0.3"
+  },
+  "method": {
+    "estimator": "A_V = [(J-Ks)_obs - (J-Ks)_0] / (k_J - k_Ks)",
+    "extinction_law_coefficients": {
+      "G": 0.8362675559647974,
+      "BP": 1.0833697650359149,
+      "RP": 0.6343903329421758,
+      "J": 0.28760574926358984,
+      "H": 0.17830578090680688,
+      "Ks": 0.11701313389302864
+    },
+    "k_J_minus_k_Ks": 0.1705926153705612,
+    "independence": "the near-IR colour excess does not use G/BP/RP, so it is not a restatement of the WP3 broadband fit that produced av_rv3.1"
+  },
+  "inputs": {
+    "data/processed/wp3_extinction_repair_v3.parquet": "6f3b92a035b62b8b2fac3c86a833a19abd1f1e16a42e9a0a539db1dd71623e75",
+    "data/processed/wp4_mass_posteriors_repair_v3.parquet": "7e6da3d4d3df80b030a3d4d04b07a0dc5ab3aa57536b89920eed8960c1ec71c2",
+    "data/processed/wp4_age_posteriors_repair_v3.parquet": "3f83738acf6932790177a8373f8dce1c45a83fcfdd112253c80f88c4de3633fd",
+    "data/processed/wp1_spectroscopic_anchors.parquet": "9bb30e91d98568b346616e5c712f4784d3ff23f90d6216af501597bf18c9b283",
+    "data/processed/wp3_isochrones_parsec.parquet": "9e0444045acf3e9331bf609e44c5f065635b217558f2ff46deec68fb66c8c663"
+  },
+  "n_stars_used": 1284,
+  "guard1_anchor_validation": {
+    "n_matched": 105,
+    "nir_minus_spectroscopic": {
+      "n": 105,
+      "median": -0.2190010127137727,
+      "mad_sigma": 0.23040778685647545,
+      "mean": -0.14494244829845612,
+      "sem": 0.035980288585866445
+    },
+    "wp3_minus_spectroscopic": {
+      "n": 105,
+      "median": 0.10503899281691353,
+      "mad_sigma": 0.13107227636372112,
+      "mean": 0.13315238509295643,
+      "sem": 0.02781297962908702
+    },
+    "by_subgroup": {
+      "CygOB2-A": {
+        "n": 59,
+        "nir_minus_spec_median": -0.23140714565181053
+      },
+      "CygOB2-B": {
+        "n": 4,
+        "nir_minus_spec_median": 0.4240477080514089
+      },
+      "CygOB2-C": {
+        "n": 42,
+        "nir_minus_spec_median": -0.19872410952857367
+      }
+    },
+    "note": "Calibrates the near-IR method where ground truth exists.  Issue #1d predicts few or no anchors near CygOB2-B; the per-subgroup counts show whether that is so."
+  },
+  "guard2_age_robustness": {
+    "disputed_ages_Myr": [
+      2.818,
+      3.981
+    ],
+    "max_abs_intrinsic_JKs_shift_mag": 0.3221756206678718,
+    "implied_max_A_V_shift_mag": 1.8885672159257427,
+    "verdict": "WARNING: intrinsic colour is age sensitive; interpret with care"
+  },
+  "guard2b_offset_vs_assumed_age_for_B": {
+    "reference_A_plus_C_median": -0.12410598825309371,
+    "per_assumed_age": [
+      {
+        "assumed_age_for_B_Myr": 2.818,
+        "B_median_delta_av": 0.2604971285082516,
+        "offset_vs_A_and_C_mag": 0.3846031167613453,
+        "mannwhitney_p": 2.387539589287076e-12
+      },
+      {
+        "assumed_age_for_B_Myr": 3.162,
+        "B_median_delta_av": 0.21898835189627297,
+        "offset_vs_A_and_C_mag": 0.3430943401493667,
+        "mannwhitney_p": 5.439217961671404e-11
+      },
+      {
+        "assumed_age_for_B_Myr": 3.548,
+        "B_median_delta_av": 0.2084941772954494,
+        "offset_vs_A_and_C_mag": 0.3326001655485431,
+        "mannwhitney_p": 4.08486636519169e-10
+      },
+      {
+        "assumed_age_for_B_Myr": 3.981,
+        "B_median_delta_av": 0.1568716419326015,
+        "offset_vs_A_and_C_mag": 0.2809776301856952,
+        "mannwhitney_p": 1.1346868338248767e-08
+      },
+      {
+        "assumed_age_for_B_Myr": 4.467,
+        "B_median_delta_av": 0.14094000521454086,
+        "offset_vs_A_and_C_mag": 0.2650459934676346,
+        "mannwhitney_p": 1.1687470276699237e-07
+      }
+    ],
+    "offset_range_mag": [
+      0.2650459934676346,
+      0.3846031167613453
+    ],
+    "sign_stable_across_ages": true,
+    "verdict": "the B-specific offset keeps the same sign at every candidate age, so it is not an artifact of assuming B's disputed young age"
+  },
+  "reddening_slope_from_colour_excesses": {
+    "CygOB2-A": {
+      "n": 458,
+      "theil_sen": 1.2836414402816925,
+      "lo95": 1.1582144113011752,
+      "hi95": 1.409219632987605,
+      "extinction_law_prediction": 1.7832476435911302,
+      "consistent_with_law": false
+    },
+    "CygOB2-B": {
+      "n": 415,
+      "theil_sen": 1.211180444950597,
+      "lo95": 1.0795872380574287,
+      "hi95": 1.3350847003153143,
+      "extinction_law_prediction": 1.7832476435911302,
+      "consistent_with_law": false
+    },
+    "CygOB2-C": {
+      "n": 408,
+      "theil_sen": 1.253795454096763,
+      "lo95": 1.097460390914137,
+      "hi95": 1.4099198145013148,
+      "extinction_law_prediction": 1.7832476435911302,
+      "consistent_with_law": false
+    }
+  },
+  "guard3_fixed_colour_variant": "reported per subgroup as delta_av_fixed_colour_variant",
+  "guard4_mass_matched": [
+    {
+      "mass_lo": 2.0,
+      "mass_hi": 2.82842712474619,
+      "CygOB2-A": {
+        "n": 163,
+        "median": -0.21637959416239916,
+        "mad_sigma": 0.7316465958532242,
+        "mean": -0.34435942244077716,
+        "sem": 0.1098650633220202
+      },
+      "CygOB2-B": {
+        "n": 41,
+        "median": 0.7834383657634065,
+        "mad_sigma": 2.602689019894165,
+        "mean": 0.25111296503903735,
+        "sem": 0.38497207109995374
+      },
+      "CygOB2-C": {
+        "n": 36,
+        "median": -0.3371685483578126,
+        "mad_sigma": 2.2199647767829935,
+        "mean": -0.4805699816994825,
+        "sem": 0.5414811397759557
+      }
+    },
+    {
+      "mass_lo": 2.82842712474619,
+      "mass_hi": 3.999999999999999,
+      "CygOB2-A": {
+        "n": 96,
+        "median": -0.08493065493635843,
+        "mad_sigma": 0.5568819446114227,
+        "mean": -0.2625612115196074,
+        "sem": 0.08989498756619771
+      },
+      "CygOB2-B": {
+        "n": 160,
+        "median": 0.22842769753448033,
+        "mad_sigma": 0.7237000857169303,
+        "mean": 0.04573463029969906,
+        "sem": 0.10719282575794833
+      },
+      "CygOB2-C": {
+        "n": 120,
+        "median": -0.15766676128322965,
+        "mad_sigma": 0.6027337810782758,
+        "mean": -0.27926381497844044,
+        "sem": 0.0717041219722002
+      }
+    },
+    {
+      "mass_lo": 3.999999999999999,
+      "mass_hi": 5.656854249492379,
+      "CygOB2-A": {
+        "n": 78,
+        "median": -0.01904882198932789,
+        "mad_sigma": 0.6877204981440633,
+        "mean": -0.44397272365411755,
+        "sem": 0.17788607308470905
+      },
+      "CygOB2-B": {
+        "n": 82,
+        "median": 0.2713237764124843,
+        "mad_sigma": 0.7485859827164149,
+        "mean": 0.07329153478713588,
+        "sem": 0.10099592791062595
+      },
+      "CygOB2-C": {
+        "n": 84,
+        "median": -0.18463353836933027,
+        "mad_sigma": 0.7129950532187109,
+        "mean": -0.3612785467817478,
+        "sem": 0.11866227585660873
+      }
+    },
+    {
+      "mass_lo": 5.656854249492379,
+      "mass_hi": 8.0,
+      "CygOB2-A": {
+        "n": 46,
+        "median": 0.17773821283344082,
+        "mad_sigma": 0.4302288307213101,
+        "mean": -0.01787438979060681,
+        "sem": 0.10494633656002417
+      },
+      "CygOB2-B": {
+        "n": 51,
+        "median": 0.2398925256738753,
+        "mad_sigma": 0.5441718798506503,
+        "mean": 0.07740222496510209,
+        "sem": 0.15595893041774225
+      },
+      "CygOB2-C": {
+        "n": 61,
+        "median": -0.09548729171962744,
+        "mad_sigma": 0.9077502376659216,
+        "mean": -0.7487986119774577,
+        "sem": 0.23877798858082436
+      }
+    }
+  ],
+  "per_subgroup": {
+    "CygOB2-A": {
+      "n_stars": 458,
+      "n_in_mass_window": 383,
+      "fitted_age_Myr": 3.9810717055349722,
+      "av_wp3": {
+        "n": 458,
+        "median": 5.54730147024868,
+        "mad_sigma": 0.8120159121507393,
+        "mean": 5.466159805711482,
+        "sem": 0.03501693866864209
+      },
+      "av_nir": {
+        "n": 458,
+        "median": 5.534289908994312,
+        "mad_sigma": 1.2077509712478052,
+        "mean": 5.679366373555491,
+        "sem": 0.07313720477614868
+      },
+      "delta_av_wp3_minus_nir": {
+        "n": 458,
+        "median": -0.05267298943521803,
+        "mad_sigma": 0.7005379548119484,
+        "mean": -0.21320656784400904,
+        "sem": 0.059119595536968286
+      },
+      "delta_av_fixed_colour_variant": {
+        "n": 458,
+        "median": -0.38018578119713453,
+        "mad_sigma": 1.0214758746626593,
+        "mean": -0.6947523306121053,
+        "sem": 0.07232855160411049
+      },
+      "reddening_slope_JH_over_HKs": {
+        "theil_sen": 1.390128852642698,
+        "lo95": 1.268291406440808,
+        "hi95": 1.516833826239767,
+        "extinction_law_prediction": 1.7832476435911302
+      }
+    },
+    "CygOB2-B": {
+      "n_stars": 417,
+      "n_in_mass_window": 334,
+      "fitted_age_Myr": 2.8183829312644537,
+      "av_wp3": {
+        "n": 417,
+        "median": 6.393901299961371,
+        "mad_sigma": 0.49106650465521123,
+        "mean": 6.240647193718246,
+        "sem": 0.03142665275036521
+      },
+      "av_nir": {
+        "n": 417,
+        "median": 6.0510025375497,
+        "mad_sigma": 1.163777061207382,
+        "mean": 6.083622634031235,
+        "sem": 0.0819071154999059
+      },
+      "delta_av_wp3_minus_nir": {
+        "n": 417,
+        "median": 0.2637888374792121,
+        "mad_sigma": 0.7539303213604065,
+        "mean": 0.1570245596870121,
+        "sem": 0.06526556667283202
+      },
+      "delta_av_fixed_colour_variant": {
+        "n": 417,
+        "median": 0.23415571858197648,
+        "mad_sigma": 0.8508351438069253,
+        "mean": 0.010486766396041422,
+        "sem": 0.07094323045165193
+      },
+      "reddening_slope_JH_over_HKs": {
+        "theil_sen": 1.2475885996621314,
+        "lo95": 1.1276390678421784,
+        "hi95": 1.3614574117268559,
+        "extinction_law_prediction": 1.7832476435911302
+      }
+    },
+    "CygOB2-C": {
+      "n_stars": 409,
+      "n_in_mass_window": 301,
+      "fitted_age_Myr": 2.51188643150958,
+      "av_wp3": {
+        "n": 409,
+        "median": 6.497226230260281,
+        "mad_sigma": 0.3978354699907007,
+        "mean": 6.331707048696664,
+        "sem": 0.030775155040793586
+      },
+      "av_nir": {
+        "n": 409,
+        "median": 6.418797843858556,
+        "mad_sigma": 0.9138722140514868,
+        "mean": 6.6311238393134335,
+        "sem": 0.07781102352874394
+      },
+      "delta_av_wp3_minus_nir": {
+        "n": 409,
+        "median": -0.0700165440579319,
+        "mad_sigma": 0.6557086886329401,
+        "mean": -0.29941679061676924,
+        "sem": 0.07058204581479462
+      },
+      "delta_av_fixed_colour_variant": {
+        "n": 409,
+        "median": -0.03107266049074564,
+        "mad_sigma": 0.9835473723573048,
+        "mean": -0.37642124745185085,
+        "sem": 0.0812883051675413
+      },
+      "reddening_slope_JH_over_HKs": {
+        "theil_sen": 1.4076257891730828,
+        "lo95": 1.2678428500877028,
+        "hi95": 1.5584275646821317,
+        "extinction_law_prediction": 1.7832476435911302
+      }
+    }
+  },
+  "contrasts": {
+    "B_vs_A_and_C": {
+      "B": {
+        "n": 334,
+        "median": 0.2604971285082516,
+        "mad_sigma": 0.758307975028773,
+        "mean": 0.08254668185723872,
+        "sem": 0.07741316042042981
+      },
+      "A_plus_C": {
+        "n": 684,
+        "median": -0.12410598825309371,
+        "mad_sigma": 0.6987203817371657,
+        "mean": -0.35617667680994736,
+        "sem": 0.05419994628010237
+      },
+      "median_offset_mag": 0.3846031167613453,
+      "mannwhitney_p": 2.387539589287076e-12,
+      "note": "delta_av = A_V(WP3 broadband) - A_V(near-IR).  A B-specific offset means B's optical extinction is biased relative to its siblings, which is the mass-scale error issue #12 needs."
+    }
+  },
+  "required_offset_comparison": {
+    "framing": "both effects expressed as the multiplicative shift they induce in the mass assigned to a star of fixed observed magnitude",
+    "mass_ratio_from_disputed_age_shift": 0.9957178907001982,
+    "mass_ratio_from_measured_A_V_offset": 0.874413522142693,
+    "measured_B_offset_mag": 0.3846031167613453,
+    "A_V_offset_mag_equivalent_to_the_age_shift": 0.01229825423501698,
+    "note": "Order-of-magnitude comparison only.  It asks whether the measured B-specific extinction offset is even the right size to account for the disputed age shift; it does not establish that extinction is the cause."
+  },
+  "outputs": {
+    "tables/wp3_nir_extinction_crosscheck.csv": "ae47727ab810aa3f031ccbda6b7ad6e7af055d25b84b45237449dd999dc695c8"
+  }
+}

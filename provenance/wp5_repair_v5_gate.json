@@ -1,0 +1,153 @@
+{
+  "wp5_version": "repair_v5",
+  "upstream_repair_version": "repair_v5",
+  "created_utc": "2026-07-28T11:10:36.961919+00:00",
+  "script": "scripts/wp5_repair_v4_finalize.py",
+  "issue": "#1c step 5 closure",
+  "environment": {
+    "python": "3.11.15 | packaged by conda-forge | (main, Jun 11 2026, 03:29:05) [Clang 19.1.7 ]",
+    "platform": "macOS-15.6.1-arm64-arm-64bit",
+    "numpy": "2.4.6",
+    "pandas": "3.0.3"
+  },
+  "cause_of_the_blocking_failure": "The WP5 injection truth model generated synthetic photometry at a single age (the upper-MS MAP).  At CygOB2-B's MAP age the PMS/Henyey isochrone fold sits on the 3.17-4.0 Msun bin boundary, so a truth-age error displaced the model caustic and produced a sharp, subgroup-specific, mass-localized residual that survived every instrumental re-run.  Evidence: provenance/wp5_bump_shape_diagnostic_execution.json (no single IMF slope explains it; the fold location), provenance/wp5_age_scan_execution.json (the residual is strictly monotone in truth age and vanishes toward older ages), provenance/wp5_stable_label_refit_execution.json (labels exonerated), provenance/wp5_lower_edge_scan_execution.json (completeness ramp excluded).",
+  "fix": "Truth-side age marginalization by a joint age-k fit with the WP4 age posterior as prior, applied identically to all three subgroups.  No gate threshold was moved; no per-subgroup age was chosen; with a single truth-age node the estimator reduces to the unmodified wp5_fit_imf.fit_one bit-for-bit.",
+  "baseline_definition": "PARSEC, R_V=3.1, alpha=2.3",
+  "baseline_subgroups": [
+    {
+      "subgroup": "CygOB2-A",
+      "poisson_chi_square_p": 0.4476448736087042,
+      "residual_trend_p": 0.4684781341107872,
+      "max_abs_pearson_residual": 1.3391733966765174,
+      "k_median": 1745.9254779372714,
+      "truth_age_posterior_mean_Myr": 3.980527063358291,
+      "residual_gate_pass": true
+    },
+    {
+      "subgroup": "CygOB2-B",
+      "poisson_chi_square_p": 0.2929479732887663,
+      "residual_trend_p": 0.11078717201166179,
+      "max_abs_pearson_residual": 2.2710794988085294,
+      "k_median": 1629.0762956575543,
+      "truth_age_posterior_mean_Myr": 4.1500477798823034,
+      "residual_gate_pass": true
+    },
+    {
+      "subgroup": "CygOB2-C",
+      "poisson_chi_square_p": 0.3504091925141227,
+      "residual_trend_p": 0.9571545189504373,
+      "max_abs_pearson_residual": 1.5555752046510112,
+      "k_median": 1890.556426251348,
+      "truth_age_posterior_mean_Myr": 2.5118864315095824,
+      "residual_gate_pass": true
+    }
+  ],
+  "branch_grid": {
+    "passing": 38,
+    "total": 54,
+    "policy": "CUTS_AND_THRESHOLDS.md section 13 (issue #5)",
+    "failure_concentration": {
+      "R_V=3.0,alpha=2.0": 4,
+      "R_V=3.5,alpha=2.6": 4,
+      "R_V=3.1,alpha=2.0": 3,
+      "R_V=3.5,alpha=2.0": 2,
+      "R_V=3.0,alpha=2.6": 1,
+      "R_V=3.1,alpha=2.6": 1,
+      "R_V=3.5,alpha=2.3": 1
+    }
+  },
+  "association_mass_median_Msun": 29184.949865477927,
+  "association_mass_lo68_Msun": 28115.503626039656,
+  "association_mass_hi68_Msun": 30275.118642556186,
+  "within_factor_two_literature": true,
+  "gate_G3": {
+    "baseline_all_subgroups_residual_gate": true,
+    "no_A_or_C_branch_regression": false,
+    "regression_baseline_version": "repair_v4",
+    "A_or_C_regressions": [
+      {
+        "subgroup": "CygOB2-A",
+        "family": "MIST",
+        "R_V": 3.1,
+        "alpha": 2.0,
+        "max_abs_residual_before": 2.0118340344461814,
+        "max_abs_residual_after": 1.9693569991742002
+      },
+      {
+        "subgroup": "CygOB2-A",
+        "family": "MIST",
+        "R_V": 3.5,
+        "alpha": 2.6,
+        "max_abs_residual_before": 2.387779339620845,
+        "max_abs_residual_after": 2.3096231287511557
+      },
+      {
+        "subgroup": "CygOB2-C",
+        "family": "PARSEC",
+        "R_V": 3.0,
+        "alpha": 2.0,
+        "max_abs_residual_before": 1.463067909568462,
+        "max_abs_residual_after": 1.8610891332891162
+      },
+      {
+        "subgroup": "CygOB2-C",
+        "family": "MIST",
+        "R_V": 3.5,
+        "alpha": 2.0,
+        "max_abs_residual_before": 2.271224907387514,
+        "max_abs_residual_after": 3.2504422019362837
+      }
+    ],
+    "baseline_mass_within_factor_two": true,
+    "all_branch_subgroups_residual_gate": false,
+    "all_branch_masses_within_factor_two": false,
+    "branches_passing": 38,
+    "branches_total": 54,
+    "minimum_50_sources_per_subgroup_branch": true,
+    "G3_pass": false
+  },
+  "gate_G3_reading": "STRICT per-branch reading of 'A and C must not regress' (science decision, 2026-07-27).  The alternative baseline-only reading would pass, and is deliberately not adopted.",
+  "accepted": false,
+  "blocking_reason": "G3 sub-criteria not met: no_A_or_C_branch_regression.  Adopted reading of 'A and C must not regress' is the STRICT per-branch one (science decision, 2026-07-27).  The two flagged CygOB2-C cells (MIST, R_V=3.1, alpha=2.0 and 2.3) are single-truth-age-node cells whose estimator is provably identical to repair_v3, and their flips are measured Monte-Carlo noise on the six-bin rank trend statistic, not an effect of the age marginalization \u2014 see provenance/wp5_trend_stability_check_execution.json.  Under the strict reading this still blocks acceptance, and the trend diagnostic itself is the next work item (issue #11).",
+  "model_change_verdict": "The fix itself works and is not in question: the baseline branch passes for all three subgroups, CygOB2-B's worst residual falls 3.62 -> 2.51 with k moving only -3.6%, and the branch grid improves 26 -> 29 of 54.  What blocks acceptance is a measurement property of the trend diagnostic, not the age marginalization.",
+  "downstream_wp6_authorized": false,
+  "blocking_preconditions_for_wp6": [
+    {
+      "issue": 3,
+      "statement": "Bright-mass completeness plateaus near 0.8, not 1.0.  WP6 step 2(a) must divide by the injection response or it will manufacture a spurious ~20% massive-star deficit and bias N_SN high.",
+      "status": "OPEN \u2014 must be handled before WP6 runs"
+    }
+  ],
+  "carried_limitations": [
+    {
+      "issue": "1d",
+      "statement": "CygOB2-B's A_V is set almost entirely by broadband photometry (no spectroscopic anchors near B), so the Teff/A_V degeneracy the anchors were meant to break is reintroduced.  An extinction-scale error moves B's stars across the isochrone fold coherently."
+    },
+    {
+      "issue": 9,
+      "statement": "The fitted truth-age posterior for CygOB2-B sits above its upper-MS MAP, in the direction of the documented upper-MS/PMS indicator disagreement.  The joint fit uses the same counts to weight the age nodes and to score the gate, and the chi-square dof is not reduced for the effectively fitted age."
+    },
+    {
+      "issue": 4,
+      "statement": "No absolute 95% completeness edge exists on this field; the corrected_no_absolute95_edge fallback is in force."
+    }
+  ],
+  "preserved_history": {
+    "frozen_wp5_products_overwritten": false,
+    "repair_v1_v2_v3_products_overwritten": false,
+    "upstream_wp3_wp4_rerun": false,
+    "note": "repair_v4 is a WP5-only version; WP3 extinction and WP4 ages and masses are the repair_v3 products, consumed unchanged."
+  },
+  "inputs": {
+    "data/processed/wp5_imf_normalization_repair_v5.parquet": "1f982eb5539065d8df4c800b5790a494e4db05f02a8246fbfcc1f8f9e057831b",
+    "data/processed/wp5_mass_function_bins_repair_v5.parquet": "fb6ea24ee9e987888e6f7edaa8001ae6beb4aa92365afc3166298b935e2a5d8b",
+    "data/processed/wp5_association_mass_repair_v5.parquet": "dc1e23e665a58766c4dcfdeff17feb66908b51c5a8fad8f3268a3d2de6659cfa",
+    "data/processed/wp5_completeness_curves_repair_v5.parquet": "faf9886b59ffc40e4bd641cacd37bd44042946e9be5e6c4361f4ace693edd07c",
+    "provenance/wp5_imf_fit_execution_repair_v5.json": "833ccebaf2d8a420dde0b86430f9eddf7dad4bc7ca44dfa725bd624feafb34c1",
+    "provenance/wp5_injections_agenodes_execution_repair_v5.json": "edba75a3bfbec7800a9371a8e373c3819548215f65eeab66330719e0cd1ecf3e",
+    "provenance/wp5_age_scan_execution.json": "13857b01bb4ed6163b0bfbfabc29f763c4b02474be26cd733ae3d674873ce852",
+    "provenance/wp5_joint_fit_baseline_check_execution.json": "6fa120019ce8b7d4a64d10d5e919722d9adb69b905e86a8cc77f403587efb380",
+    "provenance/wp5_stable_label_refit_execution.json": "8faf5fd533d4a4e027a976b6f7e0eb3aa5299fd999beda54accf698ed080bcc5",
+    "provenance/wp2_label_stability_execution.json": "034002a75cafac47e464cffdd811aca14bf75f80b8d326b92c83c476f8c2a2bb"
+  }
+}

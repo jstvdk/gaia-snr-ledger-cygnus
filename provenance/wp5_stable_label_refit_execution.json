@@ -1,0 +1,179 @@
+{
+  "created_utc": "2026-07-27T13:26:19.153542+00:00",
+  "script": "scripts/wp5_stable_label_refit.py",
+  "status": "SUCCESS",
+  "issue": "#1c step 1 / #6 closure \u2014 stable-label WP5 refit (gate G1)",
+  "wp5_version_consumed": "repair_v3",
+  "stored_artifacts_overwritten": false,
+  "seed": 20260723,
+  "environment": {
+    "python": "3.11.15 | packaged by conda-forge | (main, Jun 11 2026, 03:29:05) [Clang 19.1.7 ]",
+    "platform": "macOS-15.6.1-arm64-arm-64bit",
+    "numpy": "2.4.6",
+    "pandas": "3.0.3"
+  },
+  "inputs": {
+    "data/processed/wp4_mass_posteriors_repair_v3.parquet": "7e6da3d4d3df80b030a3d4d04b07a0dc5ab3aa57536b89920eed8960c1ec71c2",
+    "data/processed/wp5_completeness_curves_repair_v3.parquet": "c8b222e1c1ed64006b8e07b26c00d369056a6275b70c4ef5d2603f3387b94c83",
+    "data/processed/wp5_injection_response_repair_v3.parquet": "7b1267e11bf230bab1dc337e2d7459d5015fb0aa3b44ebdf8d3ae62cab35beed",
+    "data/processed/wp4_mass_posterior_samples_repair_v3.npz": "06a5f2b97ad9e145635260e315504f3e6368a3001c80ecad27e1a5dc7be78c2d",
+    "data/processed/wp5_mass_function_bins_repair_v3.parquet": "a35fb2b4d66c6ce36d1b5a00ae1c30451be144df259265d7b0b3433edd811d8e",
+    "data/processed/wp5_imf_normalization_repair_v3.parquet": "56233772367948e4265ed66a920e7368c9e1b4090d5ac91549ea8ea2dfe0b905",
+    "provenance/wp2_label_stability_per_star.csv": "9989d47309e7a292105b29fa82097a2d9ab136759a4c1afbfd142eddf60551f4",
+    "provenance/wp2_label_stability_execution.json": "034002a75cafac47e464cffdd811aca14bf75f80b8d326b92c83c476f8c2a2bb"
+  },
+  "selection": {
+    "stable_threshold": 0.9,
+    "n_labelled_sources": 1331,
+    "n_removed": 4,
+    "removed": [
+      {
+        "source_id": 2064749830416451712,
+        "subgroup": "CygOB2-B"
+      },
+      {
+        "source_id": 2067784413791807232,
+        "subgroup": "CygOB2-C"
+      },
+      {
+        "source_id": 2067825374896535168,
+        "subgroup": "CygOB2-A"
+      },
+      {
+        "source_id": 2067879491482083328,
+        "subgroup": "CygOB2-A"
+      }
+    ]
+  },
+  "baseline_comparison": {
+    "CygOB2-A": {
+      "stored_residuals": [
+        1.326735478358227,
+        1.3667260237006842,
+        -0.6503092835429112,
+        -0.2706442693867676,
+        0.127378985619524,
+        1.1976039826645135
+      ],
+      "stable_label_residuals": [
+        1.3206141388602028,
+        1.3456057279816782,
+        -0.6669632776800147,
+        -0.26169180572626854,
+        0.1461701587424838,
+        1.219236019931651
+      ],
+      "residual_shift": [
+        -0.006121339498024181,
+        -0.021120295719005977,
+        -0.016653994137103556,
+        0.008952463660499066,
+        0.018791173122959803,
+        0.02163203726713747
+      ],
+      "stored_gate": {
+        "chi2_p": 0.3498136748411814,
+        "trend_p": 0.4684781341107872,
+        "max_abs_residual": 1.3667260237006842,
+        "pass": true
+      },
+      "stable_label_gate": {
+        "chi2_p": 0.34969479296501754,
+        "trend_p": 0.4684781341107872,
+        "max_abs_residual": 1.3456057279816782,
+        "pass": true
+      },
+      "n_sources_removed": 2
+    },
+    "CygOB2-B": {
+      "stored_residuals": [
+        1.4455350754373062,
+        2.41314480136855,
+        3.6249050682539177,
+        -0.36313115864214945,
+        -1.3008176257871533,
+        -0.9180290659283242
+      ],
+      "stable_label_residuals": [
+        1.4334599178231586,
+        2.4077259066750205,
+        3.6154124485435064,
+        -0.36687125946451343,
+        -1.293913383152355,
+        -0.9024566457177297
+      ],
+      "residual_shift": [
+        -0.01207515761414757,
+        -0.00541889469352963,
+        -0.009492619710411265,
+        -0.0037401008223639787,
+        0.006904242634798274,
+        0.015572420210594573
+      ],
+      "stored_gate": {
+        "chi2_p": 0.0002457769536345612,
+        "trend_p": 0.11078717201166179,
+        "max_abs_residual": 3.6249050682539177,
+        "pass": false
+      },
+      "stable_label_gate": {
+        "chi2_p": 0.0002653095643730605,
+        "trend_p": 0.11078717201166179,
+        "max_abs_residual": 3.6154124485435064,
+        "pass": false
+      },
+      "n_sources_removed": 1
+    },
+    "CygOB2-C": {
+      "stored_residuals": [
+        1.493917331861449,
+        0.5427445494874469,
+        0.828737912282991,
+        -0.2028188121685878,
+        0.28253544107459366,
+        1.5244777289403961
+      ],
+      "stable_label_residuals": [
+        1.3994844505799025,
+        0.5560905984367903,
+        0.8405758928902051,
+        -0.1911474987339069,
+        0.29490809354317643,
+        1.5361823557756826
+      ],
+      "residual_shift": [
+        -0.09443288128154648,
+        0.013346048949343436,
+        0.011837980607214083,
+        0.011671313434680891,
+        0.012372652468582768,
+        0.011704626835286502
+      ],
+      "stored_gate": {
+        "chi2_p": 0.3409143658046784,
+        "trend_p": 0.9571545189504373,
+        "max_abs_residual": 1.5244777289403961,
+        "pass": true
+      },
+      "stable_label_gate": {
+        "chi2_p": 0.3626036830393015,
+        "trend_p": 0.9571545189504373,
+        "max_abs_residual": 1.5361823557756826,
+        "pass": true
+      },
+      "n_sources_removed": 1
+    }
+  },
+  "grid_54": {
+    "stored_branches_passing": 26,
+    "stable_label_branches_passing": 26
+  },
+  "gate_G1": {
+    "bump_bin_residual_shift_abs": 0.009492619710411265,
+    "shift_limit": 0.5,
+    "shift_within_limit": true,
+    "no_mass_dependent_instability_in_B": true,
+    "labels_exonerated": true,
+    "verdict": "PASS \u2014 labels exonerated, proceed to step 2 (age-conditional refit)"
+  }
+}

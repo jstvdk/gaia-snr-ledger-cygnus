@@ -1,0 +1,144 @@
+{
+  "created_utc": "2026-07-28T14:22:54.432081+00:00",
+  "script": "scripts/wp5_node_interpolation_outcome.py",
+  "status": "SUCCESS",
+  "issue": "#13 \u2014 outcome of the pre-registered repair_v6 node-interpolation fix",
+  "version": "repair_v6",
+  "reference": "repair_v5",
+  "prereg": "provenance/wp5_node_interpolation_prereg.json",
+  "prereg_sha256": "8b769a1c2702b8288f5231f3003b45c7807bc0a81cf6b6633d14c99f48d5f450",
+  "adoption_rule": "repair_v6 is adopted if P1 (established), P3 and P4 hold.  P2 is reported either way and does not gate adoption.  If P3 or P4 fails the fix is not adopted, repair_v5 stands, and the failure is written up as a finding.",
+  "environment": {
+    "python": "3.11.15 | packaged by conda-forge | (main, Jun 11 2026, 03:29:05) [Clang 19.1.7 ]",
+    "platform": "macOS-15.6.1-arm64-arm-64bit",
+    "numpy": "2.4.6",
+    "pandas": "3.0.3"
+  },
+  "inputs": {
+    "data/processed/wp5_mass_function_bins_repair_v6.parquet": "891ab088e5e39c71ef46efa9fbfe764f1b69fd4397d31946f5b03b7bb2066479",
+    "data/processed/wp5_imf_normalization_repair_v6.parquet": "a3111ca512e5838f5e0c86359721921870285b80af3d37033eb3e26d66c7abf8",
+    "data/processed/wp5_association_mass_repair_v6.parquet": "5cf513a92753e0b6f14153ace872d79f5c3f9aad8ffdcc734ed2714898e0eeed"
+  },
+  "P1": {
+    "id": "P1",
+    "gates_adoption": true,
+    "statement": "The repair_v6 node rule is continuous in the WP4 posterior: W1 jump per 0.0005 Myr offset step is 0.0005 Myr, ratio 1.0.",
+    "status": "established before the run",
+    "evidence": "provenance/wp5_node_rule_continuity_execution.json",
+    "confirmed": true
+  },
+  "P2": {
+    "id": "P2",
+    "gates_adoption": false,
+    "statement": "The one genuine repair_v4 -> repair_v5 regression, CygOB2-C MIST R_V=3.5 alpha=2.0, clears: max|Pearson residual| < 3.0. Its repair_v5 value of 3.25 came from deleting the 2.248 Myr node that held 41.6% of the posterior weight; the unsnapped mixture spans 1.782-2.099 Myr continuously.",
+    "repair_v5_max_abs_residual": 3.25,
+    "repair_v6_max_abs_residual": 2.935,
+    "repair_v5_residuals": [
+      3.25,
+      -0.259,
+      1.869,
+      0.338,
+      -0.385,
+      0.187
+    ],
+    "repair_v6_residuals": [
+      2.935,
+      -0.282,
+      1.713,
+      0.383,
+      -0.29,
+      0.319
+    ],
+    "repair_v6_trend_p": 0.0833,
+    "repair_v6_chi2_p": 0.0353,
+    "repair_v6_gate_replacement": true,
+    "confirmed": true
+  },
+  "P3": {
+    "id": "P3",
+    "gates_adoption": true,
+    "statement": "The baseline (PARSEC, R_V=3.1, alpha=2.3) still passes the residual gate for all three subgroups under both the incumbent and the section 14 replacement trend statistic, and CygOB2-B's |T| stays below 2.",
+    "per_subgroup": [
+      {
+        "subgroup": "CygOB2-A",
+        "residuals": [
+          1.098,
+          1.415,
+          -0.371,
+          -0.289,
+          0.169,
+          1.156
+        ],
+        "chi2_p": 0.4417,
+        "max_abs_residual": 1.415,
+        "incumbent_trend_p": 0.8717,
+        "replacement_trend_p": 0.6817,
+        "replacement_T": -0.402,
+        "gate_incumbent": true,
+        "gate_replacement": true
+      },
+      {
+        "subgroup": "CygOB2-B",
+        "residuals": [
+          0.867,
+          2.435,
+          0.425,
+          -0.271,
+          -0.086,
+          0.126
+        ],
+        "chi2_p": 0.2239,
+        "max_abs_residual": 2.435,
+        "incumbent_trend_p": 0.1108,
+        "replacement_trend_p": 0.1479,
+        "replacement_T": -1.43,
+        "gate_incumbent": true,
+        "gate_replacement": true
+      },
+      {
+        "subgroup": "CygOB2-C",
+        "residuals": [
+          1.344,
+          0.5,
+          0.786,
+          -0.054,
+          0.249,
+          1.567
+        ],
+        "chi2_p": 0.3923,
+        "max_abs_residual": 1.567,
+        "incumbent_trend_p": 0.9572,
+        "replacement_trend_p": 0.955,
+        "replacement_T": -0.057,
+        "gate_incumbent": true,
+        "gate_replacement": true
+      }
+    ],
+    "all_pass_incumbent": true,
+    "all_pass_replacement": true,
+    "B_abs_T": 1.43,
+    "confirmed": true
+  },
+  "P4": {
+    "id": "P4",
+    "gates_adoption": true,
+    "statement": "The fix is a local correction, not a wholesale re-scoring: every branch's truth-age posterior mean moves by less than 0.15 Myr against repair_v5, the association stellar mass stays within +-5%, and the 54-cell grid moves by at most 6 cells in either direction.",
+    "max_abs_truth_age_posterior_mean_shift_Myr": 0.1183,
+    "max_shift_cell": "CygOB2-B PARSEC R_V=3.1 alpha=2.6",
+    "median_abs_truth_age_posterior_mean_shift_Myr": 0.0293,
+    "limit_truth_age_shift_Myr": 0.15,
+    "repair_v5_baseline_association_mass_Msun": 29184.9,
+    "repair_v6_baseline_association_mass_Msun": 29122.0,
+    "association_mass_fractional_change": -0.0022,
+    "limit_association_mass_fractional_change": 0.05,
+    "grid_replacement_before": 37,
+    "grid_replacement_after": 40,
+    "grid_incumbent_before": 38,
+    "grid_incumbent_after": 40,
+    "grid_change": 3,
+    "limit_abs_grid_change": 6,
+    "confirmed": true
+  },
+  "adopted": true,
+  "verdict": "ADOPTED \u2014 P3 and P4 both hold"
+}

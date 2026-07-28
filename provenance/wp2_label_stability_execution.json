@@ -1,0 +1,225 @@
+{
+  "created_utc": "2026-07-27T13:25:15.983449+00:00",
+  "script": "scripts/wp2_label_stability.py",
+  "status": "SUCCESS",
+  "issue": "#6 subgroup-label uncertainty / step 1 of the #1c gated plan",
+  "deterministic": true,
+  "environment": {
+    "python": "3.11.15 | packaged by conda-forge | (main, Jun 11 2026, 03:29:05) [Clang 19.1.7 ]",
+    "platform": "macOS-15.6.1-arm64-arm-64bit",
+    "numpy": "2.4.6",
+    "pandas": "3.0.3",
+    "sklearn": "1.9.0"
+  },
+  "method": {
+    "replay": "frozen WP2 clean-member selection (P>0.5, not anchor-exempt), StandardScaler on (l_deg, b_deg, pmra, pmdec), GaussianMixture k=3 full covariance reg_covar=1e-4 max_iter=500 n_init=1, the 50 frozen seeds 1000..1049, per-seed components named with wp2_derive_subgroups.name_components",
+    "stability_definition": "fraction of the 50 seed runs assigning the star its frozen consensus (sidecar) label",
+    "stable_threshold": 0.9,
+    "adopted_k": 3
+  },
+  "inputs": {
+    "data/processed/wp2_members.parquet": "5db938b116edd70e8c7af3d2d4bbc8c9273d4e4c9cde76309ffc84d8cdaf90be",
+    "tables/wp2_subgroup_labels.parquet": "44a5ee7b9190703dae8dca9540c192757423db293c9ecc1ea123065849800887",
+    "data/processed/wp4_mass_posteriors_repair_v3.parquet": "7e6da3d4d3df80b030a3d4d04b07a0dc5ab3aa57536b89920eed8960c1ec71c2",
+    "provenance/wp2_subgroups_execution.json": "eb3398ef30e3b67f82cda2f031308927a9393af1dc451ab43cad1f39551f6eb3"
+  },
+  "n_clean_members": 1331,
+  "seed_averaged_confusion_matrix_rows_consensus": {
+    "CygOB2-A": {
+      "CygOB2-A": 0.9984033613445378,
+      "CygOB2-B": 0.0009663865546218487,
+      "CygOB2-C": 0.0006302521008403362
+    },
+    "CygOB2-B": {
+      "CygOB2-A": 0.0,
+      "CygOB2-B": 0.9990140845070422,
+      "CygOB2-C": 0.0009859154929577464
+    },
+    "CygOB2-C": {
+      "CygOB2-A": 0.0005594405594405594,
+      "CygOB2-B": 0.0,
+      "CygOB2-C": 0.9994405594405594
+    }
+  },
+  "stability_by_subgroup": {
+    "CygOB2-A": {
+      "n_stars": 476,
+      "stability_mean": 0.9984033613445379,
+      "stability_min": 0.54,
+      "n_below_090": 2
+    },
+    "CygOB2-B": {
+      "n_stars": 426,
+      "stability_mean": 0.9990140845070422,
+      "stability_min": 0.58,
+      "n_below_090": 1
+    },
+    "CygOB2-C": {
+      "n_stars": 429,
+      "stability_mean": 0.9994405594405594,
+      "stability_min": 0.76,
+      "n_below_090": 1
+    }
+  },
+  "mass_profile_baseline_branch": {
+    "CygOB2-A": {
+      "window_bins": [
+        {
+          "mass_lo": 2.0,
+          "mass_hi": 2.5198420997897464,
+          "n": 91,
+          "stability_median": 1.0,
+          "fraction_stable_ge_090": 1.0
+        },
+        {
+          "mass_lo": 2.5198420997897464,
+          "mass_hi": 3.174802103936399,
+          "n": 121,
+          "stability_median": 1.0,
+          "fraction_stable_ge_090": 0.9834710743801653
+        },
+        {
+          "mass_lo": 3.174802103936399,
+          "mass_hi": 3.999999999999999,
+          "n": 58,
+          "stability_median": 1.0,
+          "fraction_stable_ge_090": 1.0
+        },
+        {
+          "mass_lo": 3.999999999999999,
+          "mass_hi": 5.039684199579493,
+          "n": 56,
+          "stability_median": 1.0,
+          "fraction_stable_ge_090": 1.0
+        },
+        {
+          "mass_lo": 5.039684199579493,
+          "mass_hi": 6.349604207872796,
+          "n": 38,
+          "stability_median": 1.0,
+          "fraction_stable_ge_090": 1.0
+        },
+        {
+          "mass_lo": 6.349604207872796,
+          "mass_hi": 8.0,
+          "n": 33,
+          "stability_median": 1.0,
+          "fraction_stable_ge_090": 1.0
+        }
+      ],
+      "window_n": 397,
+      "window_fraction_stable_ge_090": 0.9949622166246851,
+      "stability_vs_mass_trend": {
+        "spearman_rho": 0.013002846200914391,
+        "p": 0.7961955528953857
+      }
+    },
+    "CygOB2-B": {
+      "window_bins": [
+        {
+          "mass_lo": 2.0,
+          "mass_hi": 2.5198420997897464,
+          "n": 29,
+          "stability_median": 1.0,
+          "fraction_stable_ge_090": 1.0
+        },
+        {
+          "mass_lo": 2.5198420997897464,
+          "mass_hi": 3.174802103936399,
+          "n": 91,
+          "stability_median": 1.0,
+          "fraction_stable_ge_090": 1.0
+        },
+        {
+          "mass_lo": 3.174802103936399,
+          "mass_hi": 3.999999999999999,
+          "n": 86,
+          "stability_median": 1.0,
+          "fraction_stable_ge_090": 0.9883720930232558
+        },
+        {
+          "mass_lo": 3.999999999999999,
+          "mass_hi": 5.039684199579493,
+          "n": 54,
+          "stability_median": 1.0,
+          "fraction_stable_ge_090": 1.0
+        },
+        {
+          "mass_lo": 5.039684199579493,
+          "mass_hi": 6.349604207872796,
+          "n": 46,
+          "stability_median": 1.0,
+          "fraction_stable_ge_090": 1.0
+        },
+        {
+          "mass_lo": 6.349604207872796,
+          "mass_hi": 8.0,
+          "n": 36,
+          "stability_median": 1.0,
+          "fraction_stable_ge_090": 1.0
+        }
+      ],
+      "window_n": 342,
+      "window_fraction_stable_ge_090": 0.9970760233918129,
+      "stability_vs_mass_trend": {
+        "spearman_rho": 0.01069605913599125,
+        "p": 0.8437600365316873
+      }
+    },
+    "CygOB2-C": {
+      "window_bins": [
+        {
+          "mass_lo": 2.0,
+          "mass_hi": 2.5198420997897464,
+          "n": 21,
+          "stability_median": 1.0,
+          "fraction_stable_ge_090": 0.9523809523809523
+        },
+        {
+          "mass_lo": 2.5198420997897464,
+          "mass_hi": 3.174802103936399,
+          "n": 64,
+          "stability_median": 1.0,
+          "fraction_stable_ge_090": 1.0
+        },
+        {
+          "mass_lo": 3.174802103936399,
+          "mass_hi": 3.999999999999999,
+          "n": 81,
+          "stability_median": 1.0,
+          "fraction_stable_ge_090": 1.0
+        },
+        {
+          "mass_lo": 3.999999999999999,
+          "mass_hi": 5.039684199579493,
+          "n": 57,
+          "stability_median": 1.0,
+          "fraction_stable_ge_090": 1.0
+        },
+        {
+          "mass_lo": 5.039684199579493,
+          "mass_hi": 6.349604207872796,
+          "n": 52,
+          "stability_median": 1.0,
+          "fraction_stable_ge_090": 1.0
+        },
+        {
+          "mass_lo": 6.349604207872796,
+          "mass_hi": 8.0,
+          "n": 45,
+          "stability_median": 1.0,
+          "fraction_stable_ge_090": 1.0
+        }
+      ],
+      "window_n": 320,
+      "window_fraction_stable_ge_090": 0.996875,
+      "stability_vs_mass_trend": {
+        "spearman_rho": 0.09485533575902592,
+        "p": 0.09026429839514788
+      }
+    }
+  },
+  "outputs": {
+    "provenance/wp2_label_stability_per_star.csv": "9989d47309e7a292105b29fa82097a2d9ab136759a4c1afbfd142eddf60551f4"
+  }
+}

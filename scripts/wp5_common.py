@@ -56,10 +56,34 @@ NOTEBOOKS = ROOT / "notebooks"
 SEED = 20260723
 FAMILIES = ["PARSEC", "MIST"]
 IMF_SLOPES = [2.0, 2.3, 2.6]
-# Extend below the nominal 2-Msun calibration edge so the forward response can
-# account for lower-mass stars scattered into the observed 2--8-Msun window by
-# unresolved binaries and the WP3/WP4 inverse-mass uncertainty.
-MASS_GRID = np.round(np.arange(0.50, 8.0001, 0.25), 2)
+# The injected parent range is NOT the observed calibration window.  The
+# response must cover every true mass that can be *measured* into 2--8 Msun,
+# and the WP4 mass kernel is ~23% wide in log mass, so the parent extends on
+# BOTH sides of the window:
+#   below 2 Msun  -- low-mass stars scattered up by unresolved binaries and the
+#                    WP3/WP4 inverse-mass uncertainty;
+#   above 8 Msun  -- the ~300 living members heavier than the window (WP4
+#                    posterior E[N(>8)] = 310.9) scattered down into the top
+#                    observed bin.  Truncating the parent at 8 under-predicted
+#                    the 6.35--8 Msun bin in every subgroup and blocked the
+#                    repair_v1 gate; see
+#                    reports/WP5_RESIDUAL_DIAGNOSIS_CORRECTION_repair_v1.md.
+# 18 Msun is the converged ceiling: the >8 Msun contribution to the top-bin
+# rate is 100.0% recovered at 18 for every alpha in {2.0, 2.3, 2.6} (99.9% at
+# 16, 95.8% at 12).  Spacing coarsens above the window because the integrand
+# there is small and smooth; the response integral uses non-uniform trapezoid
+# weights, so a non-uniform grid is exact to the same order.
+PARENT_MASS_HI = 18.0
+MASS_GRID = np.round(
+    np.concatenate(
+        [
+            np.arange(0.50, 8.0001, 0.25),   # observed window + downward wing
+            np.arange(8.50, 12.0001, 0.50),  # dominant down-scatter region
+            np.arange(13.0, PARENT_MASS_HI + 0.0001, 1.00),
+        ]
+    ),
+    2,
+)
 N_INJECT_PER_MASS = 400
 F_BINARY = 0.40
 Q_MIN = 0.10
@@ -135,6 +159,68 @@ def load_isochrone_at_age(family: str, age_myr: float) -> tuple[pd.DataFrame, fl
     required = ["Mini", "G0", "BP0", "RP0", "J0", "H0", "Ks0"]
     out = out.dropna(subset=required)
     return out, nearest_age
+
+
+def load_isochrone_between_ages(family: str, age_myr: float) -> tuple[pd.DataFrame, float]:
+    """Isochrone at an arbitrary age, interpolated between the native ages.
+
+    Issue #13.  ``load_isochrone_at_age`` snaps to the nearest native age, and
+    the native grid is coarse (0.05 dex), so the truth model is a step function
+    of the requested age while the *recovery* side already interpolates
+    (``wp4_repair_common._interpolate_age_sequence``).  The two sides were
+    therefore inconsistent, and the truth side could add or delete a whole
+    posterior node under an arbitrarily small change in the WP4 age.
+
+    The bracketing rule, the linear blend in age and the linear interpolation
+    in initial mass are the recovery side's, so both sides now build the same
+    isochrone for the same age.  The phase cut and column schema are the truth
+    side's own, unchanged.  At a native age this reduces to the native table.
+    """
+    path = PROC / f"wp3_isochrones_{family.lower()}.parquet"
+    iso = pd.read_parquet(path)
+    ages = np.sort(iso["age_Myr"].unique())
+    upper_index = int(np.searchsorted(ages, age_myr, side="left"))
+    upper_index = min(max(upper_index, 0), len(ages) - 1)
+    lower_index = max(upper_index - 1, 0)
+    lower_age = float(ages[lower_index])
+    upper_age = float(ages[upper_index])
+    fraction = (
+        0.0
+        if np.isclose(lower_age, upper_age)
+        else float((age_myr - lower_age) / (upper_age - lower_age))
+    )
+
+    required = ["Mini", "G0", "BP0", "RP0", "J0", "H0", "Ks0"]
+    brackets = []
+    for native_age in (lower_age, upper_age):
+        frame = iso[np.isclose(iso["age_Myr"], native_age)].copy()
+        # Same PMS/MS restriction as load_isochrone_at_age: below 8 Msun at
+        # 1--10 Myr the relevant locus is PMS/MS, and dropping later phases
+        # prevents interpolation across high-mass evolutionary loops.
+        frame = frame[frame["label"] <= 1] if family == "PARSEC" else frame[frame["phase"] <= 1]
+        frame = frame.sort_values("Mini").drop_duplicates("Mini", keep="first")
+        brackets.append(frame.dropna(subset=required))
+
+    # Union of both native mass samplings over their overlap: this keeps the
+    # full resolution of each isochrone rather than imposing a coarser grid.
+    lo = max(float(frame["Mini"].min()) for frame in brackets)
+    hi = min(float(frame["Mini"].max()) for frame in brackets)
+    mass = np.unique(np.concatenate([frame["Mini"].to_numpy(float) for frame in brackets]))
+    mass = mass[(mass >= lo) & (mass <= hi)]
+    if len(mass) < 2:
+        raise RuntimeError(
+            f"{family} isochrones at {lower_age} and {upper_age} Myr do not overlap in mass"
+        )
+
+    out = {"Mini": mass}
+    for column in required[1:]:
+        blended = [
+            np.interp(mass, frame["Mini"].to_numpy(float), frame[column].to_numpy(float))
+            for frame in brackets
+        ]
+        out[column] = (1.0 - fraction) * blended[0] + fraction * blended[1]
+    effective_age = (1.0 - fraction) * lower_age + fraction * upper_age
+    return pd.DataFrame(out), float(effective_age)
 
 
 def interpolate_photometry(

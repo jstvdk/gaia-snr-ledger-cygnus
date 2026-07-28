@@ -1,0 +1,88 @@
+{
+  "created_utc": "2026-07-28T11:08:09.454798+00:00",
+  "script": "downstream-impact assessment for the repair_v5 kriged prior",
+  "status": "SUCCESS",
+  "issue": "adoption decision \u2014 does the kriged anchor prior bias WP6/WP7 inputs?",
+  "magnitude_effects": {
+    "k_median_baseline": {
+      "CygOB2-A": [
+        1708,
+        1746,
+        "+2.2%"
+      ],
+      "CygOB2-B": [
+        1855,
+        1629,
+        "-12.2%"
+      ],
+      "CygOB2-C": [
+        1873,
+        1891,
+        "+1.0%"
+      ]
+    },
+    "association_mass_Msun_baseline": [
+      30155,
+      29185,
+      "-3.2%"
+    ],
+    "association_mass_branch_range_Msun": {
+      "repair_v4": [
+        27939,
+        39996
+      ],
+      "repair_v5": [
+        27307,
+        38845
+      ]
+    },
+    "assessment": "Small.  The -3.2% shift in association mass is far inside the +-18% spread already carried across the 18 model branches, so N_SN moves by about 3% -- negligible against existing systematics."
+  },
+  "structural_effects": {
+    "ages_Myr_baseline": {
+      "repair_v3": {
+        "A": 3.981,
+        "B": 2.818,
+        "C": 2.512
+      },
+      "repair_v5": {
+        "A": 3.981,
+        "B": 3.548,
+        "C": 2.512
+      }
+    },
+    "age_spread_Myr": {
+      "repair_v3": 1.469,
+      "repair_v5": 1.469
+    },
+    "assessment": "THIS is the consequential change, and it is qualitative rather than numerical. The total spread is unchanged because A and C set the endpoints and neither moved.  But CygOB2-B relocates from near C to near A, so the association now reads as two older subgroups (A 3.98, B 3.55) plus one younger (C 2.51) instead of one older plus two younger.  That is a different star-formation history and it changes the supernova timeline WP7 reconstructs.  It must be presented as a result of the repair, not absorbed silently."
+  },
+  "anchor_selection_bias_test": {
+    "question": "Kriging shrinks poorly-anchored stars toward the ANCHOR median.  If spectroscopic anchors were preferentially drawn from low-extinction sightlines -- plausible, since spectra are easier through less dust -- that bias would be imported into exactly the stars the fix touches most.",
+    "method": "For each of the 149 anchors, compare its A_V against the median PHOTOMETRY-ONLY A_V of its 15 nearest members (median sky separation 0.043 deg).  The photometry-only value carries no prior, so this comparison is not circular.",
+    "result_mag": 0.5,
+    "mad_sigma": 0.743,
+    "sem": 0.064,
+    "wilcoxon_p": 4.26e-16,
+    "verdict": "NOT PRESENT, and the sign is opposite to the failure mode.  Anchors read HIGHER than co-located members' photometry, so shrinking toward the anchor field mean cannot import a low-extinction selection bias."
+  },
+  "carried_systematic_not_introduced_here": {
+    "statement": "The same test shows the broadband photometry sits about 0.5 mag BELOW spectroscopically calibrated anchors at matched sky position.  The project's absolute extinction -- and therefore its absolute mass scale -- rests on the anchor calibration, not on the photometry.  This predates repair_v5 and is unchanged by it, but it should be stated in the paper's systematics budget: a shift in the anchor A_V scale moves every mass and hence N_SN.",
+    "affects": [
+      "WP5 association mass",
+      "WP6 N_SN",
+      "WP7 supernova timeline"
+    ]
+  },
+  "recommendation": "Adopt.  The change is a principled correction of an internal inconsistency (the prior's width and mean disagreed), introduces no new parameter, was pre-registered with four predictions that all held, is supported by two independent 3D dust maps, and shifts the headline mass by only -3.2%.  The condition on adoption is disclosure, not caution: report the revised star-formation history as a finding, and carry the anchor-scale systematic explicitly.",
+  "environment": {
+    "python": "3.11.15 | packaged by conda-forge | (main, Jun 11 2026, 03:29:05) [Clang 19.1.7 ]",
+    "platform": "macOS-15.6.1-arm64-arm-64bit"
+  },
+  "inputs": {
+    "data/processed/wp5_imf_normalization_repair_v5.parquet": "1f982eb5539065d8df4c800b5790a494e4db05f02a8246fbfcc1f8f9e057831b",
+    "data/processed/wp5_association_mass_repair_v5.parquet": "dc1e23e665a58766c4dcfdeff17feb66908b51c5a8fad8f3268a3d2de6659cfa",
+    "data/processed/wp4_age_posteriors_repair_v5.parquet": "dc14e923a5dc4ad1336d08059e397bbc007f0f926f91a94f5ac2ddfbdc141ada",
+    "tables/wp3_band_tension.csv": "f10b54aa7a02ec6d5ddac73651f299b31f9770e5718962f850c346a9a12ee852"
+  }
+}

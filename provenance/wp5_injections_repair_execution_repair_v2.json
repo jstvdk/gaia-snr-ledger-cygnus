@@ -1,0 +1,476 @@
+{
+  "repair_version": "repair_v1",
+  "output_version": "repair_v2",
+  "created_utc": "2026-07-27T09:47:18.129112+00:00",
+  "script": "scripts/wp5_injections_repair.py",
+  "status": "SUCCESS",
+  "execution_scope": "all_branches",
+  "seed": 20260723,
+  "environment": {
+    "python": "3.11.15 | packaged by conda-forge | (main, Jun 11 2026, 03:29:05) [Clang 19.1.7 ]",
+    "platform": "macOS-15.6.1-arm64-arm-64bit",
+    "numpy": "2.4.6",
+    "pandas": "3.0.3",
+    "scipy": "1.17.1",
+    "sklearn": "1.9.0"
+  },
+  "preserved_configuration": {
+    "mass_grid": [
+      0.5,
+      0.75,
+      1.0,
+      1.25,
+      1.5,
+      1.75,
+      2.0,
+      2.25,
+      2.5,
+      2.75,
+      3.0,
+      3.25,
+      3.5,
+      3.75,
+      4.0,
+      4.25,
+      4.5,
+      4.75,
+      5.0,
+      5.25,
+      5.5,
+      5.75,
+      6.0,
+      6.25,
+      6.5,
+      6.75,
+      7.0,
+      7.25,
+      7.5,
+      7.75,
+      8.0,
+      8.5,
+      9.0,
+      9.5,
+      10.0,
+      10.5,
+      11.0,
+      11.5,
+      12.0,
+      13.0,
+      14.0,
+      15.0,
+      16.0,
+      17.0,
+      18.0
+    ],
+    "parent_mass_range_Msun": [
+      0.5,
+      18.0
+    ],
+    "observed_calibration_window_Msun": [
+      2.0,
+      8.0
+    ],
+    "injections_per_mass_branch": 400,
+    "membership_qmc_points": 128,
+    "membership_threshold": 0.5,
+    "binary_fraction": 0.4,
+    "minimum_mass_ratio": 0.1
+  },
+  "repair_change": "synthetic G/BP/RP/J/H/Ks and their cloned errors pass through the actual repair_v1 WP3 posterior estimator, then the repair_v1 WP4 posterior sampler (16 stratified draws for response throughput)",
+  "qmc_validation": {
+    "rows": 760,
+    "covariance_repairs": 0,
+    "decision_agreement": 0.9894736842105263,
+    "false_negative_count": 7,
+    "false_positive_count": 1,
+    "median_abs_probability_difference": 0.0068187499999999845,
+    "p95_abs_probability_difference": 0.02272812500000001
+  },
+  "inputs": {
+    "data/processed/wp1_gaia_narrow.parquet": "ae17f6180e11073b8cc781497a45d3245085569502147f07926d1c5e46e5587a",
+    "data/processed/wp1_2mass_join.parquet": "2be08c74dab31d09b914c3b2038aed39d03fa6595339bf40efd78f6e15c11c2e",
+    "data/processed/wp2_members.parquet": "5db938b116edd70e8c7af3d2d4bbc8c9273d4e4c9cde76309ffc84d8cdaf90be",
+    "tables/wp2_subgroup_labels.parquet": "44a5ee7b9190703dae8dca9540c192757423db293c9ecc1ea123065849800887",
+    "data/processed/wp3_extinction_repair_v1.parquet": "9a2a323b2b4ae420059c4c11e3a902c276b5175d3ebc051837adb209a231fd80",
+    "data/processed/wp3_extinction_posterior_repair_v1.npz": "e8a5cc27b7e2db3e89a58d462d28f12e408d6fa88f8c094413f3907c87ecac45",
+    "data/processed/wp4_mass_posteriors_repair_v1.parquet": "30e1604ec1dc2ac15dcafd198fc97a69eb4d75ad10e8e8bed11cfe70d2dce9d1",
+    "data/processed/wp4_age_posteriors_repair_v1.parquet": "e8169cbaf754a2efdc3952c44e5825cd91f9b622923c186d8cb2268f732118ea",
+    "provenance/wp2_membership_manifest.json": "984c8a4638267033abe278d9ca454610e12eb53d647ad6c9329071e83be769fe",
+    "provenance/wp3_repair_execution.json": "c9588865c1408490fd773a8fc75379efc9f782824c2b7d5f7ad6216009877533"
+  },
+  "branches": [
+    {
+      "subgroup": "CygOB2-A",
+      "family": "PARSEC",
+      "R_V": 3.0,
+      "age_fit_Myr": 3.9810717055349722,
+      "age_isochrone_Myr": 3.9810717055349696,
+      "injected": 18000,
+      "member_donors": 476,
+      "observational_donors_used": 2871,
+      "covariance_repairs": 0,
+      "binary_fraction_realized": 0.4068888888888889,
+      "av_draw_median": 5.458607406968165,
+      "g_mag_range": [
+        9.421073380204712,
+        24.77906438558349
+      ],
+      "membership_pass": 12251,
+      "mass_recovered": 12251,
+      "inverse_mass_draws": 64
+    },
+    {
+      "subgroup": "CygOB2-B",
+      "family": "PARSEC",
+      "R_V": 3.0,
+      "age_fit_Myr": 3.1622776601683795,
+      "age_isochrone_Myr": 3.1622776601683795,
+      "injected": 18000,
+      "member_donors": 426,
+      "observational_donors_used": 3888,
+      "covariance_repairs": 0,
+      "binary_fraction_realized": 0.4012222222222222,
+      "av_draw_median": 6.450742936063067,
+      "g_mag_range": [
+        10.030001080128319,
+        25.109630566734467
+      ],
+      "membership_pass": 11585,
+      "mass_recovered": 11585,
+      "inverse_mass_draws": 64
+    },
+    {
+      "subgroup": "CygOB2-C",
+      "family": "PARSEC",
+      "R_V": 3.0,
+      "age_fit_Myr": 2.51188643150958,
+      "age_isochrone_Myr": 2.5118864315095824,
+      "injected": 18000,
+      "member_donors": 429,
+      "observational_donors_used": 2866,
+      "covariance_repairs": 0,
+      "binary_fraction_realized": 0.4002222222222222,
+      "av_draw_median": 6.336040404705663,
+      "g_mag_range": [
+        10.260632180166805,
+        24.820827998081235
+      ],
+      "membership_pass": 11310,
+      "mass_recovered": 11310,
+      "inverse_mass_draws": 64
+    },
+    {
+      "subgroup": "CygOB2-A",
+      "family": "PARSEC",
+      "R_V": 3.1,
+      "age_fit_Myr": 3.9810717055349722,
+      "age_isochrone_Myr": 3.9810717055349696,
+      "injected": 18000,
+      "member_donors": 476,
+      "observational_donors_used": 2887,
+      "covariance_repairs": 0,
+      "binary_fraction_realized": 0.4086111111111111,
+      "av_draw_median": 5.534806874619692,
+      "g_mag_range": [
+        9.44327271976568,
+        24.890455117422484
+      ],
+      "membership_pass": 12213,
+      "mass_recovered": 12213,
+      "inverse_mass_draws": 64
+    },
+    {
+      "subgroup": "CygOB2-B",
+      "family": "PARSEC",
+      "R_V": 3.1,
+      "age_fit_Myr": 2.8183829312644537,
+      "age_isochrone_Myr": 2.818382931264455,
+      "injected": 18000,
+      "member_donors": 426,
+      "observational_donors_used": 3894,
+      "covariance_repairs": 0,
+      "binary_fraction_realized": 0.40055555555555555,
+      "av_draw_median": 6.530315734462638,
+      "g_mag_range": [
+        10.232768779652536,
+        24.748313056796025
+      ],
+      "membership_pass": 11441,
+      "mass_recovered": 11441,
+      "inverse_mass_draws": 64
+    },
+    {
+      "subgroup": "CygOB2-C",
+      "family": "PARSEC",
+      "R_V": 3.1,
+      "age_fit_Myr": 2.51188643150958,
+      "age_isochrone_Myr": 2.5118864315095824,
+      "injected": 18000,
+      "member_donors": 429,
+      "observational_donors_used": 2945,
+      "covariance_repairs": 0,
+      "binary_fraction_realized": 0.4027222222222222,
+      "av_draw_median": 6.4153263968971235,
+      "g_mag_range": [
+        10.325920420375416,
+        25.111486036348165
+      ],
+      "membership_pass": 11271,
+      "mass_recovered": 11271,
+      "inverse_mass_draws": 64
+    },
+    {
+      "subgroup": "CygOB2-A",
+      "family": "PARSEC",
+      "R_V": 3.5,
+      "age_fit_Myr": 3.9810717055349722,
+      "age_isochrone_Myr": 3.9810717055349696,
+      "injected": 18000,
+      "member_donors": 476,
+      "observational_donors_used": 3111,
+      "covariance_repairs": 0,
+      "binary_fraction_realized": 0.3977222222222222,
+      "av_draw_median": 5.758833572536023,
+      "g_mag_range": [
+        9.447673037250649,
+        25.061170189377044
+      ],
+      "membership_pass": 12173,
+      "mass_recovered": 12173,
+      "inverse_mass_draws": 64
+    },
+    {
+      "subgroup": "CygOB2-B",
+      "family": "PARSEC",
+      "R_V": 3.5,
+      "age_fit_Myr": 2.51188643150958,
+      "age_isochrone_Myr": 2.5118864315095824,
+      "injected": 18000,
+      "member_donors": 426,
+      "observational_donors_used": 4210,
+      "covariance_repairs": 0,
+      "binary_fraction_realized": 0.39411111111111113,
+      "av_draw_median": 6.803947403433096,
+      "g_mag_range": [
+        10.526798872690625,
+        24.79438661433106
+      ],
+      "membership_pass": 11211,
+      "mass_recovered": 11211,
+      "inverse_mass_draws": 64
+    },
+    {
+      "subgroup": "CygOB2-C",
+      "family": "PARSEC",
+      "R_V": 3.5,
+      "age_fit_Myr": 1.9952623149688795,
+      "age_isochrone_Myr": 1.9952623149688788,
+      "injected": 18000,
+      "member_donors": 429,
+      "observational_donors_used": 3149,
+      "covariance_repairs": 0,
+      "binary_fraction_realized": 0.40455555555555556,
+      "av_draw_median": 6.668565944445566,
+      "g_mag_range": [
+        10.496196086004428,
+        25.038720639299484
+      ],
+      "membership_pass": 11009,
+      "mass_recovered": 11009,
+      "inverse_mass_draws": 64
+    },
+    {
+      "subgroup": "CygOB2-A",
+      "family": "MIST",
+      "R_V": 3.0,
+      "age_fit_Myr": 4.008667176273027,
+      "age_isochrone_Myr": 4.008667176273026,
+      "injected": 18000,
+      "member_donors": 476,
+      "observational_donors_used": 2860,
+      "covariance_repairs": 0,
+      "binary_fraction_realized": 0.3968888888888889,
+      "av_draw_median": 5.454484925148114,
+      "g_mag_range": [
+        9.59247392460346,
+        24.336892698530093
+      ],
+      "membership_pass": 12271,
+      "mass_recovered": 12271,
+      "inverse_mass_draws": 64
+    },
+    {
+      "subgroup": "CygOB2-B",
+      "family": "MIST",
+      "R_V": 3.0,
+      "age_fit_Myr": 3.570672345572628,
+      "age_isochrone_Myr": 3.5706723455726257,
+      "injected": 18000,
+      "member_donors": 426,
+      "observational_donors_used": 3777,
+      "covariance_repairs": 0,
+      "binary_fraction_realized": 0.3958888888888889,
+      "av_draw_median": 6.454450730658685,
+      "g_mag_range": [
+        10.365789307592172,
+        24.76823658988702
+      ],
+      "membership_pass": 11520,
+      "mass_recovered": 11520,
+      "inverse_mass_draws": 64
+    },
+    {
+      "subgroup": "CygOB2-C",
+      "family": "MIST",
+      "R_V": 3.0,
+      "age_fit_Myr": 3.1805336883295205,
+      "age_isochrone_Myr": 3.180533688329517,
+      "injected": 18000,
+      "member_donors": 429,
+      "observational_donors_used": 2961,
+      "covariance_repairs": 0,
+      "binary_fraction_realized": 0.3962222222222222,
+      "av_draw_median": 6.323171120889889,
+      "g_mag_range": [
+        10.228663142138537,
+        24.919736809593125
+      ],
+      "membership_pass": 11456,
+      "mass_recovered": 11456,
+      "inverse_mass_draws": 64
+    },
+    {
+      "subgroup": "CygOB2-A",
+      "family": "MIST",
+      "R_V": 3.1,
+      "age_fit_Myr": 4.008667176273027,
+      "age_isochrone_Myr": 4.008667176273026,
+      "injected": 18000,
+      "member_donors": 476,
+      "observational_donors_used": 2937,
+      "covariance_repairs": 0,
+      "binary_fraction_realized": 0.4037222222222222,
+      "av_draw_median": 5.537077846931991,
+      "g_mag_range": [
+        9.521309464397167,
+        24.519493527103883
+      ],
+      "membership_pass": 12222,
+      "mass_recovered": 12222,
+      "inverse_mass_draws": 64
+    },
+    {
+      "subgroup": "CygOB2-B",
+      "family": "MIST",
+      "R_V": 3.1,
+      "age_fit_Myr": 3.1805336883295205,
+      "age_isochrone_Myr": 3.180533688329517,
+      "injected": 18000,
+      "member_donors": 426,
+      "observational_donors_used": 3929,
+      "covariance_repairs": 0,
+      "binary_fraction_realized": 0.40655555555555556,
+      "av_draw_median": 6.531275283378096,
+      "g_mag_range": [
+        10.40564984157544,
+        24.422007416622847
+      ],
+      "membership_pass": 11512,
+      "mass_recovered": 11512,
+      "inverse_mass_draws": 64
+    },
+    {
+      "subgroup": "CygOB2-C",
+      "family": "MIST",
+      "R_V": 3.1,
+      "age_fit_Myr": 3.1805336883295205,
+      "age_isochrone_Myr": 3.180533688329517,
+      "injected": 18000,
+      "member_donors": 429,
+      "observational_donors_used": 2978,
+      "covariance_repairs": 0,
+      "binary_fraction_realized": 0.39155555555555555,
+      "av_draw_median": 6.409186497333506,
+      "g_mag_range": [
+        10.118528120963141,
+        24.756186938989366
+      ],
+      "membership_pass": 11342,
+      "mass_recovered": 11342,
+      "inverse_mass_draws": 64
+    },
+    {
+      "subgroup": "CygOB2-A",
+      "family": "MIST",
+      "R_V": 3.5,
+      "age_fit_Myr": 4.008667176273027,
+      "age_isochrone_Myr": 4.008667176273026,
+      "injected": 18000,
+      "member_donors": 476,
+      "observational_donors_used": 3093,
+      "covariance_repairs": 0,
+      "binary_fraction_realized": 0.4018333333333333,
+      "av_draw_median": 5.773327051868291,
+      "g_mag_range": [
+        9.804427299634055,
+        24.79851788864681
+      ],
+      "membership_pass": 12181,
+      "mass_recovered": 12181,
+      "inverse_mass_draws": 64
+    },
+    {
+      "subgroup": "CygOB2-B",
+      "family": "MIST",
+      "R_V": 3.5,
+      "age_fit_Myr": 2.5234807724805743,
+      "age_isochrone_Myr": 2.5234807724805752,
+      "injected": 18000,
+      "member_donors": 426,
+      "observational_donors_used": 4106,
+      "covariance_repairs": 0,
+      "binary_fraction_realized": 0.40194444444444444,
+      "av_draw_median": 6.808669936670257,
+      "g_mag_range": [
+        10.989322329032643,
+        24.675107227474
+      ],
+      "membership_pass": 11136,
+      "mass_recovered": 11136,
+      "inverse_mass_draws": 64
+    },
+    {
+      "subgroup": "CygOB2-C",
+      "family": "MIST",
+      "R_V": 3.5,
+      "age_fit_Myr": 2.00216562158904,
+      "age_isochrone_Myr": 2.0021656215890395,
+      "injected": 18000,
+      "member_donors": 429,
+      "observational_donors_used": 3081,
+      "covariance_repairs": 0,
+      "binary_fraction_realized": 0.39811111111111114,
+      "av_draw_median": 6.679182378696902,
+      "g_mag_range": [
+        10.445522953079715,
+        24.751416771167847
+      ],
+      "membership_pass": 10976,
+      "mass_recovered": 10976,
+      "inverse_mass_draws": 64
+    }
+  ],
+  "outputs": {
+    "data/processed/wp5_completeness_curves_repair_v2.parquet": {
+      "sha256": "063a17bdd597f69144b9f04463d5ce19228e5ca8ba3e7044c70b8da4693af6e7",
+      "bytes": 32577,
+      "rows": 810
+    },
+    "data/processed/wp5_injection_response_repair_v2.parquet": {
+      "sha256": "6405d8b68e18b81cc052d2ed810f2423097e4d1a7bc8ba927dbee6315c0b36f4",
+      "bytes": 145319174,
+      "rows": 324000
+    }
+  },
+  "frozen_wp5_outputs_overwritten": false
+}

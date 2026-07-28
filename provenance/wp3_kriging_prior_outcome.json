@@ -1,0 +1,113 @@
+{
+  "created_utc": "2026-07-28T10:52:35.000215+00:00",
+  "script": "outcome record for provenance/wp3_kriging_prior_prereg.json",
+  "status": "SUCCESS",
+  "issue": "#1d / #12 \u2014 outcome of the pre-registered kriged-prior test",
+  "predictions_registered_utc": "2026-07-28T10:07:16.361603+00:00",
+  "outcomes": [
+    {
+      "id": "P1",
+      "statement": "CygOB2-B's median fitted A_V falls by 0.2-0.5 mag",
+      "measured": "CygOB2-B median A_V 6.391 -> 6.031 (-0.359 mag)",
+      "verdict": "CONFIRMED"
+    },
+    {
+      "id": "P2",
+      "statement": "CygOB2-B's fitted upper-main-sequence age RISES above its repair_v3 value of 2.818 Myr",
+      "measured": "CygOB2-B upper-MS age 2.818 -> 3.548 Myr (+0.730), central-68 [3.389, 3.991]",
+      "verdict": "CONFIRMED",
+      "note": "the new interval reaches 3.981 Myr, the age at which the WP5 mass function independently passed its gate in provenance/wp5_tilt_vs_age_diagnostic_execution.json; the WP4/WP5 age conflict closes without either being tuned to the other"
+    },
+    {
+      "id": "P3",
+      "statement": "CygOB2-A and CygOB2-C ages and extinctions are essentially unchanged (A within 0.05 mag, C within 0.15 mag)",
+      "measured": "A age 3.981 -> 3.981 (0.000), A_V -0.051; C age 2.512 -> 2.512 (0.000), A_V -0.059",
+      "verdict": "CONFIRMED"
+    },
+    {
+      "id": "P4",
+      "statement": "the WP5 residual tilt for B flattens (replacement trend statistic |T| falls below 2)",
+      "measured": "CygOB2-B baseline replacement trend statistic |T| 2.40 -> 1.31 (trend p 0.017 -> 0.186); residuals [+1.20 +2.08 +2.51 -0.24 -0.79 -0.54] -> [+0.87 +2.27 +0.36 -0.24 -0.03 +0.17]",
+      "verdict": "CONFIRMED"
+    }
+  ],
+  "all_predictions_confirmed": true,
+  "headline": "Two independent, separately pre-registered mechanisms account for CygOB2-B: the single-age injection truth model sitting on the PMS/Henyey fold (fixed in repair_v4) and an anchor-prior extinction-scale error (fixed in repair_v5).  repair_v5 is the FIRST version whose baseline passes for all three subgroups under BOTH the incumbent and the better-calibrated replacement trend statistic.  Branch grid 26 -> 38 of 54 (37 under the replacement statistic).",
+  "grid_by_version_incumbent_then_replacement": {
+    "frozen": [
+      0,
+      0
+    ],
+    "repair_v1": [
+      31,
+      29
+    ],
+    "repair_v2": [
+      33,
+      31
+    ],
+    "repair_v3": [
+      26,
+      25
+    ],
+    "repair_v4": [
+      29,
+      27
+    ],
+    "repair_v5": [
+      38,
+      37
+    ]
+  },
+  "baseline_all_pass_under_replacement_statistic": {
+    "frozen": false,
+    "repair_v1": false,
+    "repair_v2": false,
+    "repair_v3": false,
+    "repair_v4": false,
+    "repair_v5": true
+  },
+  "cells_changing_v4_to_v5_under_replacement": {
+    "fail_to_pass": 13,
+    "by_subgroup": {
+      "CygOB2-A": 1,
+      "CygOB2-B": 11,
+      "CygOB2-C": 1
+    },
+    "pass_to_fail": 3,
+    "pass_to_fail_detail": [
+      {
+        "cell": "CygOB2-A PARSEC R_V=3.1 alpha=2.0",
+        "max_abs_residual": 1.93,
+        "trend_p": 0.04
+      },
+      {
+        "cell": "CygOB2-A MIST R_V=3.5 alpha=2.6",
+        "max_abs_residual": 2.31,
+        "trend_p": 0.048
+      },
+      {
+        "cell": "CygOB2-C MIST R_V=3.5 alpha=2.0",
+        "max_abs_residual": 3.25,
+        "trend_p": 0.035
+      }
+    ],
+    "note": "11 of the 13 gains are CygOB2-B, the subgroup the change targeted.  Two of the three losses sit at trend p = 0.040 and 0.048, inside the indeterminate band around the 0.05 threshold that issue #11 identified and that criterion R3 has not yet resolved.  The third, CygOB2-C MIST R_V=3.5 alpha=2.0, is a genuine max-residual failure at 3.25 and is NOT a threshold artifact."
+  },
+  "gate_G3_strict_reading": {
+    "baseline_all_subgroups_pass": true,
+    "no_A_or_C_branch_regression": false,
+    "G3_pass": false,
+    "statement": "Under the strict per-branch reading adopted on 2026-07-27, G3 still fails: three A/C non-baseline cells regress.  WP5 therefore remains unaccepted and downstream_wp6_authorized stays false.  The science question that blocked WP5 for four repair versions is resolved; what remains is the threshold-boundary problem of issue #11 plus one genuine non-baseline failure."
+  },
+  "environment": {
+    "python": "3.11.15 | packaged by conda-forge | (main, Jun 11 2026, 03:29:05) [Clang 19.1.7 ]",
+    "platform": "macOS-15.6.1-arm64-arm-64bit"
+  },
+  "inputs": {
+    "provenance/wp3_kriging_prior_prereg.json": "d47467b49289dbaf4ca8d73b413908bfac568c3231fdc8eceea9eb1ca5bcd3d5",
+    "data/processed/wp5_mass_function_bins_repair_v5.parquet": "fb6ea24ee9e987888e6f7edaa8001ae6beb4aa92365afc3166298b935e2a5d8b",
+    "data/processed/wp4_age_posteriors_repair_v5.parquet": "dc14e923a5dc4ad1336d08059e397bbc007f0f926f91a94f5ac2ddfbdc141ada",
+    "data/processed/wp3_extinction_repair_v5.parquet": "76a3c3df1e754b9846a2401ce898aad50f8de28b90a11725687af0e7cc4524fc"
+  }
+}

@@ -1,0 +1,51 @@
+{
+  "created_utc": "2026-07-28T09:45:53.226839+00:00",
+  "script": "inline diagnostic recorded from the /code session (see provenance/wp3_band_tension_diagnostic_execution.json for the parent analysis)",
+  "status": "SUCCESS",
+  "issue": "#1d \u2014 is the anchor prior or the photometry the unreliable side for CygOB2-B?",
+  "test": "Correlate (prior mean - photometry-only A_V) against each star's 8th-nearest-anchor separation, within each subgroup so any subgroup-level offset is removed.  Anchor separation is a property of sky position and carries no photometric information, so a correlation implicates the PRIOR rather than the photometry.",
+  "environment": {
+    "python": "3.11.15 | packaged by conda-forge | (main, Jun 11 2026, 03:29:05) [Clang 19.1.7 ]",
+    "platform": "macOS-15.6.1-arm64-arm-64bit",
+    "numpy": "2.4.6",
+    "pandas": "3.0.3"
+  },
+  "inputs": {
+    "data/processed/wp3_extinction_repair_v3.parquet": "6f3b92a035b62b8b2fac3c86a833a19abd1f1e16a42e9a0a539db1dd71623e75",
+    "tables/wp3_band_tension.csv": "f10b54aa7a02ec6d5ddac73651f299b31f9770e5718962f850c346a9a12ee852"
+  },
+  "per_subgroup": {
+    "CygOB2-A": {
+      "n": 450,
+      "anchor_separation_range_deg": [
+        0.023456838957252996,
+        0.5864286031455339
+      ],
+      "median_disagreement_mag": 0.48068256039903723,
+      "spearman_rho_disagreement_vs_separation": -0.13126992870120527,
+      "p": 0.0052872916721345056
+    },
+    "CygOB2-B": {
+      "n": 402,
+      "anchor_separation_range_deg": [
+        0.039269093652568705,
+        1.0226970460682698
+      ],
+      "median_disagreement_mag": 0.7051820721575242,
+      "spearman_rho_disagreement_vs_separation": 0.4205787704731726,
+      "p": 1.1583661929567296e-18
+    },
+    "CygOB2-C": {
+      "n": 391,
+      "anchor_separation_range_deg": [
+        0.019612342143855863,
+        0.6514094914195601
+      ],
+      "median_disagreement_mag": -0.10304962761816139,
+      "spearman_rho_disagreement_vs_separation": -0.08277451448806948,
+      "p": 0.10219054231876283
+    }
+  },
+  "finding": "The disagreement grows with anchor distance ONLY in CygOB2-B (rho=+0.421, p=1.2e-18); CygOB2-A is slightly negative (-0.131) and CygOB2-C is consistent with zero (-0.083, p=0.10).  Since anchor separation is independent of the photometry, this implicates the prior as the unreliable side for B specifically.",
+  "caveat": "Still does not prove the prior causes B's WP5 tilt: CygOB2-A carries a comparable absolute prior pull (+0.415 mag) and passes the gate."
+}

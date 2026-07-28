@@ -1,0 +1,48 @@
+{
+  "created_utc": "2026-07-28T10:07:16.361603+00:00",
+  "script": "pre-registration recorded before running the repair_v5 chain",
+  "status": "PREREGISTERED",
+  "issue": "#1d / #12 \u2014 kriged anchor prior mean",
+  "change": "ANCHOR_PRIOR_MODE=kriging.  The anchor prior MEAN is now a simple-kriging estimate using the already-fitted exponential variogram, instead of the plain median of the 8 nearest anchors.  The prior WIDTH is unchanged.  No new parameter is introduced: the correlation range (0.853 deg) and sill (1.228 mag) were fitted in repair_v3 and are reused as-is.",
+  "motivation": "The plain median gives distant anchors full weight while prior_sigma_at simultaneously widens the same star's uncertainty to near the sill, i.e. declares those anchors nearly uninformative.  The prior's first and second moments contradict each other.  Kriging removes the contradiction.",
+  "not_tuned": "The size of the correction is fixed by the fitted variogram and each star's anchor geometry; nothing was adjusted to make any gate pass.  Independent evidence that the correction points the right way: both 3D dust cubes rank CygOB2-B as the LEAST extinguished subgroup (Vergely 3.378 vs A 3.685, C 3.763; Dharmawardena 1.200 vs 1.371, 1.278) while the uncorrected prior ranks it the MOST extinguished.",
+  "measured_prior_mean_shift_mag": {
+    "CygOB2-A": 0.01,
+    "CygOB2-B": -0.512,
+    "CygOB2-C": -0.11
+  },
+  "kriging_weight_sum": {
+    "CygOB2-A": 1.0,
+    "CygOB2-B": 0.772,
+    "CygOB2-C": 0.992
+  },
+  "predictions": [
+    {
+      "id": "P1",
+      "statement": "CygOB2-B's median fitted A_V falls by 0.2-0.5 mag",
+      "falsifies_if": "B's A_V moves by less than 0.1 mag or rises"
+    },
+    {
+      "id": "P2",
+      "statement": "CygOB2-B's fitted upper-main-sequence age RISES above its repair_v3 value of 2.818 Myr",
+      "falsifies_if": "B's age stays within 0.1 Myr of 2.818 or falls",
+      "note": "less extinction -> intrinsically fainter stars -> older isochrone"
+    },
+    {
+      "id": "P3",
+      "statement": "CygOB2-A and CygOB2-C ages and extinctions are essentially unchanged (A within 0.05 mag, C within 0.15 mag)",
+      "falsifies_if": "A or C moves more than that, which would mean the change is not B-specific"
+    },
+    {
+      "id": "P4",
+      "statement": "the WP5 residual tilt for B flattens (replacement trend statistic |T| falls below 2)",
+      "note": "tested only in stage B, after the full chain",
+      "falsifies_if": "|T| stays above 2 with the corrected extinction"
+    }
+  ],
+  "interpretation_rule": "If P1-P3 hold but P4 fails, the extinction error is real but is NOT the cause of B's mass-function tilt, and CygOB2-B being a genuinely distinct population returns as the leading hypothesis.  That outcome will be reported as such, not worked around.",
+  "environment": {
+    "python": "3.11.15 | packaged by conda-forge | (main, Jun 11 2026, 03:29:05) [Clang 19.1.7 ]",
+    "platform": "macOS-15.6.1-arm64-arm-64bit"
+  }
+}

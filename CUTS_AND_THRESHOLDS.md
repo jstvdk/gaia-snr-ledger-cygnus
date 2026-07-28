@@ -282,6 +282,25 @@ From §4.3, expect this to land above 2 M<sub>☉</sub>, and to differ between s
 
 **The injection must go through the full chain, not just the magnitude limit.** A star can be bright enough to detect yet still lost by the RUWE cut, the BP/RP cut, or by DBSCAN failing to assign it. Only end-to-end injection captures that.
 
+**Amendment, 2026-07-27 — the 95% edge was not reachable on this field.** No subgroup reaches an absolute 95% recovery edge anywhere; the bright plateau tops out at 0.83–0.85 because ~15% of *bright* injected stars are lost by the WP2 quality filter, which is magnitude-independent and therefore never clears with increasing mass. Steps 2–3 above are consequently unexecutable as written. The predeclared fallback is in force: the fit uses the full nominal 2–8 M<sub>☉</sub> window with the injection curve inside the Poisson intensity, labelled `corrected_no_absolute95_edge`, and is **explicitly not** described as 95% complete. Relative-to-plateau edges are diagnostic only. This supersedes steps 2–3 for Cyg OB2; it does not license skipping the measurement on another field.
+
+### 7.2 The window edge and the parent integration range are two different numbers
+
+*Added 2026-07-27, after this conflation blocked the WP5 gate. See `reports/WP5_RESIDUAL_DIAGNOSIS_CORRECTION_repair_v1.md`.*
+
+§7.1 gives the upper edge a Class A justification — 8 M<sub>☉</sub> is where stars start dying, so above it the surviving population no longer traces the birth population. That is correct, and it is a statement about **which stars you count**. It says nothing about **which stars the forward model is allowed to contain**, and the two must not be tied together.
+
+The mass estimator has a finite width (~23% in log mass, measured from the WP4 injection response). Any star whose *true* mass lies within roughly 3σ of a window edge can be *measured* onto the other side of it. So the parent population the response integrates has to be wider than the observed window **on both sides**:
+
+| | value | class | justification |
+|---|---|---|---|
+| Observed counting window | 2–8 M<sub>☉</sub> | A (upper), C (lower) | §7.1 |
+| Injected parent range | 0.5–18 M<sub>☉</sub> | A | must cover every true mass that can be measured into the window |
+
+The downward extension to 0.5 M<sub>☉</sub> was present from the start. The upward extension was not: the parent was truncated at the same 8.0 M<sub>☉</sub> value as the window, so the ~300 living members above 8 M<sub>☉</sub> had no term in the model, and the top observed bin was under-predicted in every subgroup. The ceiling of 18 M<sub>☉</sub> is measured, not chosen — it is where the >8 M<sub>☉</sub> contribution to the top-bin rate converges to 100.0% for every IMF slope branch (99.9% at 16, 95.8% at 12).
+
+> **Rule: whenever a fit bins a quantity that carries measurement error, the model's parent range must exceed the binned range by several times the error width at every edge. Truncating the parent at the bin boundary is the same error as ignoring truncation (§3.3), applied in the opposite direction.**
+
 ---
 
 ## 8. Gates are numbers too — and yours has a hole
@@ -373,3 +392,328 @@ The WP5 Poisson-residual gate is **unchanged**: chi-square p ≥ 0.01,
 residual-trend p ≥ 0.05, and max absolute Pearson residual ≤ 3 in every
 subgroup. The converged baseline repair still fails only the last condition for
 CygOB2-C (3.257), so WP6 remains unauthorized.
+
+---
+
+## 13. Branch-retention policy (open issue #5, adopted 2026-07-27)
+
+*Written before the `repair_v4` grid was evaluated, so it cannot be tailored to
+which branches happened to fail. Plan §1.4 requires model branches to be
+carried and reported, never averaged; this section states what "carried" means
+when some of them fail the residual gate.*
+
+The branch grid is 2 isochrone families × 3 R_V × 3 IMF slopes = 18 model
+branches, each fit for 3 subgroups (54 subgroup-branch fits).
+
+**The rules.**
+
+1. **No branch is ever dropped.** Every one of the 54 fits is reported with its
+   gate statistics, whatever the outcome. A failing branch is a measurement of
+   a systematic, not a defective run to be discarded.
+2. **The baseline branch is the headline and must pass.** PARSEC, R_V = 3.1,
+   α = 2.3 is the predeclared baseline (`CUTS_AND_THRESHOLDS.md` §2). WP5
+   acceptance requires the baseline to pass for all three subgroups. A version
+   whose baseline fails is blocked regardless of how many other branches pass.
+3. **Non-baseline failures are carried as a systematic statement**, in the form
+   "N/54 pass; the failures are concentrated at <corner>". They do not block
+   acceptance by themselves, and they must never be repaired by moving a
+   threshold (§6.4).
+4. **A concentrated failure pattern is a result and must be reported as one.**
+   If failures cluster in a corner of the grid (historically R_V = 3.5 and
+   α = 2.6), that clustering is evidence about the extinction law or the slope
+   prior and belongs in the systematics discussion, not in a footnote.
+5. **Downstream consumes the ensemble, not the winner.** WP6/WP7 propagate
+   every branch that passes its own gate and report each derived quantity with
+   its across-branch spread. Selecting the single best-scoring branch for a
+   headline number is the same error as tuning a threshold.
+6. **A failing branch may not be silently re-run to a better outcome.** Any
+   re-run is a new version with its own provenance record; the earlier result
+   stays on disk and referenced.
+
+**Consequence for acceptance.** The WP5 gate reads: baseline passes for all
+three subgroups **and** the association mass is within a factor two of the
+literature scale **and** no previously passing subgroup-branch regressed. The
+all-54 pass rate is reported, not required.
+
+---
+
+## 14. Replacement of the WP5 residual-trend statistic (pre-declared 2026-07-28)
+
+*Written and committed **before** the replacement was evaluated on any pipeline
+version, so it cannot be reverse-engineered to a desired verdict. This is a
+§6.4 action — **replace the diagnostic, do not move the threshold**. The
+threshold stays 0.05 and the statistic keeps the same role in the same
+three-way conjunction.*
+
+### 14.1 Why the incumbent is being replaced
+
+The incumbent trend test is a Spearman rank correlation between
+log₁₀(bin centre) and the Pearson residual over the 6 observed-mass bins. It is
+**not stable against Monte-Carlo resampling of an unchanged model** (open issue
+#11). Two properties combine:
+
+- It responds to the residuals' *rank order*, not their magnitude, so noise in
+  residuals that are individually consistent with zero can reorder them and
+  swing the statistic.
+- With n = 6 the two-sided p-value is confined to a lattice — near the
+  threshold the only achievable values are 0.0048, 0.0188, 0.0416, 0.0724.
+  **No p-value exists between 0.042 and 0.072**, so a cell in that region has
+  no stable verdict; it sits on a cliff.
+
+Measured consequence: of the 7 gate flips between `repair_v3` and `repair_v4`,
+4 occurred in cells whose estimator is *provably identical* between the two
+versions, and a paired refit on two independent Monte-Carlo realizations of the
+same model returns opposite verdicts (2 flips in each direction).
+Evidence: `provenance/wp5_trend_stability_check_execution.json`.
+
+Exact null over all 720 orderings: false-positive rate 0.0583 at nominal 0.05.
+
+### 14.2 The replacement statistic
+
+For each subgroup × family × R_V × α cell, with x_i = log₁₀ of the geometric
+centre of bin i and res_i the Pearson residual:
+
+    b    = Σ (x_i − x̄) res_i / Σ (x_i − x̄)²        (least-squares slope)
+    T    = b · sqrt( Σ (x_i − x̄)² )                  (test statistic)
+
+Pearson residuals are already standardized, so T needs no estimate of the
+residual variance from 6 points. T measures **how large** the mass-dependent
+drift is, not merely how the bins rank, and is continuous in the residuals.
+
+### 14.3 Null distribution — parametric bootstrap
+
+The p-value is **not** taken from an asymptotic formula. For each cell, with
+λ_i the fitted expected counts and r_i the per-k rates:
+
+1. simulate ñ_i ~ Poisson(λ_i), M = 20,000 times;
+2. refit the normalization on each simulated dataset by the same Jeffreys rule
+   used in production, k̃ = median of Gamma(Σñ_i + ½, rate Σr_i);
+3. recompute res̃_i = (ñ_i − k̃ r_i)/sqrt(k̃ r_i) and hence T̃;
+4. p = fraction of draws with |T̃| ≥ |T_observed|.
+
+This is exact for the actual bin counts: it carries Poisson non-normality in
+low-count bins and the constraint imposed by fitting k from the same counts,
+neither of which an asymptotic null handles. Seeded deterministically and
+recorded in provenance.
+
+**Gate:** `trend_p ≥ 0.05`, unchanged, inside the unchanged conjunction
+`chi2_p ≥ 0.01` **and** `trend_p ≥ 0.05` **and** `max|Pearson residual| ≤ 3.0`.
+
+### 14.4 Acceptance criteria for the replacement itself
+
+The replacement is adopted **only if all four hold**. If any fails it is
+rejected and the incumbent stands.
+
+| # | Criterion | Requirement |
+|---|---|---|
+| R1 | **Calibration** | False-positive rate on simulated null data drawn from the real fitted λ of every cell lies in [0.04, 0.06] at nominal 0.05. Reported alongside the incumbent's rate on the same data. |
+| R2 | **Power** | Against residual drifts of injected known slope, detection rate ≥ the incumbent's **at matched false-positive rate**. A test that merely passes more cells is a weakened gate, not a better one, and is rejected under this criterion. |
+| R3 | **Stability** | On the four identical-model cell pairs of issue #11, both Monte-Carlo realizations must return the **same** verdict. This is the specific defect being repaired. |
+| R4 | **Equal footing** | Every version — frozen, repair_v1, v2, v3, v4 — is re-scored and its grid change reported. A replacement that improves only the newest version is tuning in disguise and must be reported as such. |
+
+### 14.5 Binding consequence
+
+Gate G3 for `repair_v4` is then re-evaluated under the replaced statistic with
+the **same strict per-branch reading** already adopted. The outcome is binding
+in both directions: if `repair_v4` fails under a correctly calibrated test,
+that is the result and WP5 stays blocked.
+
+### 14.6 Criterion R3 re-specified (pre-declared 2026-07-28, before measurement)
+
+R3 in §14.4 required that on the four identical-model cell pairs of issue #11,
+**both** Monte-Carlo realizations return the same verdict. That criterion is
+**wrong in principle, not merely strict**, and it is withdrawn.
+
+The reason is elementary and applies to every statistic, not just this one. For
+a cell whose model gives it probability π of passing, two independent injection
+realizations disagree with probability **2π(1 − π)**. A test that never
+disagrees would need π ∈ {0, 1} for every cell — that is, its verdict would have
+to be a deterministic function of the model with no sampling variation at all.
+No test of finite data has that property. R3 as written was therefore
+unsatisfiable by *any* candidate, which is precisely why the replacement failed
+it on the one cell whose true p sits at ≈ 0.05. The failure was in the
+criterion.
+
+What is genuinely wrong with the incumbent is narrower, and R3 is re-specified
+to test exactly that and nothing more. **These three replace R3; R1, R2 and R4
+are unchanged and their recorded outcomes stand.**
+
+| # | Criterion | Requirement |
+|---|---|---|
+| **R3a** | **No forbidden region at the threshold** | Simulating null data from every cell's own fitted λ, the widest gap between achievable p-values inside [0.01, 0.20] must be **≤ 0.005**. The incumbent's lattice has no achievable value between **0.0416 and 0.0724** — a gap of 0.031 straddling the 0.05 threshold — so a cell landing there has no verdict the data can support. This is the defect being repaired. |
+| **R3b** | **Flip rate consistent with calibration, not zero** | On the four identical-model pairs, the observed number of verdict flips must lie inside the 95% interval of the Poisson-binomial implied by each cell's own pass-probability π. Both too many flips (unstable) and too few (degenerate) fail. |
+| **R3c** | **Indeterminacy declared, not hidden** | Every cell carries a computed pass-probability π under its own injection uncertainty. Cells with **0.05 < π < 0.95** are labelled **indeterminate** and reported as such — never counted as a clean pass or a clean failure. |
+
+**How π is computed.** The noise source measured in issue #11 is the injection
+realization, and the fit already carries a model of it: the Dirichlet posterior
+over the response matrix's category counts. For each cell, M = 400 response
+replicates are drawn from that same posterior, the normalization is refitted on
+each by the production Jeffreys rule against the **unchanged** observed counts,
+and the full three-way gate is re-evaluated. π is the fraction that pass. No new
+parameter and no new noise model: this is the fit's own response uncertainty,
+already propagated into every published k.
+
+### 14.7 Binding consequence of R3c for gate G3
+
+Under the strict per-branch reading of G3 adopted 2026-07-27, any CygOB2-A or
+CygOB2-C cell moving pass → fail blocks acceptance. R3c refines *what counts as
+a move*, and the refinement is declared here **before** the version it will be
+applied to (`repair_v6`) exists:
+
+1. A cell that is **indeterminate in both versions** contributes to neither a
+   regression nor an improvement. Its verdict is a coin flip on the injection
+   realization, so reading it either way is reading noise.
+2. The rule is **symmetric**: an indeterminate cell flipping fail → pass is
+   likewise not counted as an improvement, and the grid count is reported with
+   indeterminate cells broken out separately.
+3. The rule applies to **every version**, retroactively, not only the newest.
+4. A regression that is **determinate in both versions** blocks, exactly as
+   before. The strict reading is untouched for cells whose verdict the data
+   actually supports.
+5. If more than **25%** of the 54-cell grid is indeterminate, that is itself a
+   finding — the branch grid is underpowered — and must be reported as such
+   rather than absorbed.
+
+**This is a change to a reading the project owner chose explicitly on
+2026-07-27.** Every G3 evaluation from here reports the outcome under **both**
+readings, and WP6 authorization is not flipped on the refined reading alone
+without that difference being stated in the completion report.
+
+---
+
+## 15. Adopted WP3 anchor prior: kriged mean (`repair_v5`, 2026-07-28)
+
+*Adopted after the pre-registered test in §14's spirit — predictions written
+before the run, all four confirmed. Decision record:
+`provenance/wp3_kriging_adoption.json`; evidence:
+`reports/WP3_KRIGED_PRIOR_repair_v5.md`.*
+
+### 15.1 What changed
+
+| Quantity | Adopted value | Class | Justification |
+|---|---|---|---|
+| Anchor-prior **mean** | simple-kriging estimate over the 8 nearest anchors, shrinking to the anchor field median as separation grows | **A (derived)** | The previous plain neighbour median gave distant anchors weights summing to one while `prior_sigma_at` simultaneously widened the same star's uncertainty toward the sill — the prior's first and second moments contradicted each other. Kriging removes the contradiction using the variogram already fitted in repair_v3. |
+| Variogram parameters | nugget ≈ 0, sill 1.228 mag, range 0.853° | C | **Unchanged** — fitted in repair_v3 and reused as-is. |
+| Anchor-prior **width** | unchanged (unconditional variogram sigma, *not* the smaller kriging variance) | C | Deliberately conservative: the change corrects where the prior sits, not how confident it is. |
+| Kriging jitter | 1e-6 added to the 8×8 covariance diagonal | D | Numerical only; the fitted nugget is ~0 so the matrix is near-singular when anchors nearly coincide. |
+
+**No new free parameter is introduced.** The size of the correction follows
+from each star's anchor geometry: kriging weights sum to 1.000 for CygOB2-A,
+0.992 for CygOB2-C and 0.772 for CygOB2-B, so the correction is intrinsically
+B-specific without any per-subgroup choice having been made.
+
+### 15.2 Why this is not tuning
+
+Under §6.4 the test is whether the change was motivated by the diagnostic or by
+the gate. Four things establish the former:
+
+1. The defect is an internal inconsistency identifiable **without reference to
+   any gate outcome** — the prior's width and mean disagreed.
+2. The predictions were **pre-declared** (`wp3_kriging_prior_prereg.json`) with
+   explicit falsification conditions, including one — P4 — that could have
+   failed and was committed in advance to mean "the extinction error is real
+   but is not the cause, and CygOB2-B being genuinely distinct returns as the
+   leading hypothesis."
+3. Two **independent** 3D dust maps rank CygOB2-B as the least extinguished
+   subgroup, contradicting the uncorrected prior's ranking of it as the most.
+4. The correction's magnitude is fixed by the fitted variogram, not chosen.
+
+### 15.3 Gate status
+
+The WP5 residual gate is **unchanged**: χ² p ≥ 0.01 **and** trend p ≥ 0.05
+**and** max |Pearson residual| ≤ 3.0, in every subgroup. `repair_v5` passes the
+baseline for all three subgroups under **both** the incumbent rank statistic
+and the §14 replacement statistic — the first version to do so — with the
+branch grid at 38/54. It nevertheless **does not** pass gate G3 under the
+strict per-branch reading, because three A/C non-baseline cells regress; two of
+those sit at trend p = 0.040 and 0.048, inside the indeterminate band of issue
+#11. **WP5 is not accepted and WP6 is not authorized.**
+
+### 15.4 Systematics this makes explicit
+
+Broadband photometry sits about **0.5 mag below** spectroscopically calibrated
+anchors at matched sky position (+0.500 mag, Wilcoxon p = 4.3×10⁻¹⁶, measured
+against the members' own prior-free photometric A_V). The project's absolute
+extinction scale — and therefore its absolute mass scale and N_SN — rests on
+the anchor calibration rather than on the photometry. This predates `repair_v5`
+and is unchanged by it, but it belongs in the systematics budget.
+
+---
+
+## 16. WP6 census-closure estimator (binding, 2026-07-28)
+
+*Resolves open issue #3, which had flagged that WP6 step 2(a) assumes bright-mass
+completeness ≈ 1.0. Evidence:
+`provenance/wp6_bright_completeness_execution.json`,
+`scripts/wp6_bright_completeness.py`.*
+
+### 16.1 The defect
+
+WP6's closure test compares the observed massive-star count against the number
+the WP5 normalization predicts, and reads the shortfall as the population that
+has already exploded. As designed it compares against the **true** number. The
+catalogue does not contain every massive star: the injection experiment recovers
+a fraction that is **flat in mass out to 18 M☉** (plateau 0.787 median across
+the grid), so the loss is the WP2 quality filter, not a magnitude limit, and it
+does not disappear at the bright end. Uncorrected, that fraction is read as a
+real deficit and inflates N_SN by the same factor.
+
+### 16.2 The estimator WP6 must use
+
+With `k` the WP5 normalization, α the IMF slope, and `R(observed above
+threshold | M)` the injection response:
+
+    expected observed count above threshold
+        = k · ∫ dM M^(−α) · R(observed above threshold | M)
+
+This is the construction WP5 already uses inside 2–8 M☉, extended to one
+open-ended bin. The deficit is `observed − expected_observed`, and **only that
+difference** is attributable to stars that have left the main sequence.
+
+**Dividing the observed count by a scalar completeness is forbidden**, and not
+merely as a matter of style. The response also scatters mass estimates across
+the threshold, and the two treatments disagree in size and sometimes in sign:
+
+| quantity | value |
+|---|---|
+| scalar plateau recovery (the naive divisor) | **0.785** |
+| forward effective completeness, grid median | **0.872** |
+| forward effective completeness, grid range | 0.810 – **1.040** |
+| cells where the forward value **exceeds 1** | **6 of 54** |
+
+In those 6 cells net up-scatter across 8 M☉ more than compensates the recovery
+loss, so the scalar correction has the **wrong sign**. Dividing by 0.787
+everywhere would over-correct by ~10% and turn a modest real deficit into a
+manufactured one in the opposite direction.
+
+### 16.3 Size of the bias avoided
+
+A closure test assuming completeness 1.0 reports a spurious deficit of **12.8%**
+(grid median) and inflates N_SN by that factor. Note this is materially smaller
+than the ~20% that issue #3 originally estimated from the raw plateau — the
+up-scatter partly cancels it, and only the forward calculation reveals that.
+
+### 16.4 Per-subgroup systematic that WP6 must carry
+
+Effective completeness is **not** common across subgroups:
+
+| subgroup | min | median | max |
+|---|---:|---:|---:|
+| CygOB2-A | 0.810 | 0.834 | 0.872 |
+| **CygOB2-B** | 0.912 | **0.962** | 1.040 |
+| CygOB2-C | 0.822 | 0.846 | 0.921 |
+
+CygOB2-B sits ~0.12 higher because its mass posteriors are wider — the same
+weaker extinction calibration recorded as obligation O3 in §15 — so more of its
+stars scatter up across the threshold. A single association-wide completeness
+would bias B's closure relative to A's and C's, in the direction of
+under-counting B's explosions. **WP6 must apply the response per subgroup.**
+
+### 16.5 Re-measurement obligation
+
+The numbers above are measured on **`repair_v6`, the accepted version**
+(2026-07-28); they moved by <0.01 from the `repair_v5` measurement, so the
+specification is insensitive to which of the two is used. Should any later WP5
+version supersede `repair_v6`, `scripts/wp6_bright_completeness.py --version
+<accepted>` must be re-run and its output re-read into WP6 before the closure
+test is executed.

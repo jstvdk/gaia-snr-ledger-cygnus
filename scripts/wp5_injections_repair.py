@@ -133,7 +133,10 @@ def infer_repaired_inverse(
     mass_q16 = np.full(n_row, np.nan)
     mass_q84 = np.full(n_row, np.nan)
     mass_draws = np.full((n_row, MASS_POSTERIOR_DRAWS_INJECTION), np.nan)
-    prior_mean, _ = anchor_map.evaluate(longitude, latitude, rv)
+    prior_mean, prior_separation = anchor_map.evaluate(longitude, latitude, rv)
+    # Per-star prior width, so injected synthetic stars are fit under exactly
+    # the same prior their real neighbours received (ANCHOR_PRIOR_MODE).
+    prior_width = anchor_map.prior_sigma_at(prior_separation, rv)
     selected = np.flatnonzero(recovered)
     for progress, index in enumerate(selected, start=1):
         magnitudes = np.array(
@@ -147,7 +150,7 @@ def infer_repaired_inverse(
             errors,
             rv,
             float(prior_mean[index]),
-            float(anchor_map.prior_sigma[rv]),
+            float(prior_width[index]),
             template_magnitudes,
             template_weights,
             template_branch_sigma=branch_sigma,
@@ -207,7 +210,23 @@ def inject_curve(
     template_weights: np.ndarray,
     branch_sigma: float,
     age_posterior: pd.DataFrame,
+    truth_age_override: float | None = None,
+    interpolate_truth_age: bool = False,
 ) -> tuple[pd.DataFrame, pd.DataFrame, dict]:
+    """Inject one branch.
+
+    ``truth_age_override`` replaces the upper-MS MAP age used to generate the
+    injected *truth* photometry; the recovery side keeps marginalizing the full
+    WP4 age posterior either way.  It is consumed before any RNG draw, so a
+    node family generated with the same seed differs only in truth age.  The
+    default None reproduces the frozen single-age repair_v1..v3 behaviour
+    exactly.
+
+    ``interpolate_truth_age`` builds the truth isochrone by interpolating
+    between native ages instead of snapping to the nearest one (issue #13),
+    which is what the recovery side already does.  It changes no RNG draw, so
+    the default False likewise reproduces repair_v1..v5 exactly.
+    """
     age_row = age_posterior[
         age_posterior["subgroup"].eq(subgroup)
         & age_posterior["family"].eq(family)
@@ -221,7 +240,12 @@ def inject_curve(
             f"missing repaired age for {subgroup}/{family}/R_V={rv}"
         )
     age = float(age_row["age_map"].iloc[0])
-    iso, native_age = w.load_isochrone_at_age(family, age)
+    if truth_age_override is not None:
+        age = float(truth_age_override)
+    if interpolate_truth_age:
+        iso, native_age = w.load_isochrone_between_ages(family, age)
+    else:
+        iso, native_age = w.load_isochrone_at_age(family, age)
     member_donors = load_member_donors(subgroup, rv)
     p_weights = member_donors["membership_probability"].to_numpy(float, copy=True)
     p_weights /= p_weights.sum()
@@ -463,7 +487,17 @@ def main() -> None:
         action="store_true",
         help="replace only PARSEC R_V=3.1 branches in existing repair outputs",
     )
+    parser.add_argument(
+        "--output-version",
+        default=REPAIR_VERSION,
+        help=(
+            "suffix for the WP5 injection outputs and provenance record.  "
+            "Upstream WP3/WP4 inputs always stay at REPAIR_VERSION; use this "
+            "when a WP5-only re-run must not overwrite an earlier version."
+        ),
+    )
     args = parser.parse_args()
+    output_version = args.output_version
     classifier = w.reconstruct_wp2_classifier()
     donor_pool, donor_model = build_donor_pool(classifier)
     donor_pool = augment_donor_pool(donor_pool)
@@ -524,8 +558,8 @@ def main() -> None:
                 responses.append(response)
                 summaries.append(summary)
 
-    curve_path = w.PROC / f"wp5_completeness_curves_{REPAIR_VERSION}.parquet"
-    response_path = w.PROC / f"wp5_injection_response_{REPAIR_VERSION}.parquet"
+    curve_path = w.PROC / f"wp5_completeness_curves_{output_version}.parquet"
+    response_path = w.PROC / f"wp5_injection_response_{output_version}.parquet"
     curve_result = pd.concat(curves, ignore_index=True)
     response_result = pd.concat(responses, ignore_index=True)
     if args.baseline_only:
@@ -561,6 +595,7 @@ def main() -> None:
     ]
     record = {
         "repair_version": REPAIR_VERSION,
+        "output_version": output_version,
         "created_utc": datetime.now(timezone.utc).isoformat(),
         "script": "scripts/wp5_injections_repair.py",
         "status": "SUCCESS",
@@ -580,6 +615,14 @@ def main() -> None:
         },
         "preserved_configuration": {
             "mass_grid": w.MASS_GRID.tolist(),
+            "parent_mass_range_Msun": [
+                float(w.MASS_GRID.min()),
+                float(w.MASS_GRID.max()),
+            ],
+            "observed_calibration_window_Msun": [
+                w.CALIBRATION_NOMINAL_LO,
+                w.CALIBRATION_HI,
+            ],
             "injections_per_mass_branch": w.N_INJECT_PER_MASS,
             "membership_qmc_points": w.MEMBERSHIP_QMC_POINTS,
             "membership_threshold": w.MEMBERSHIP_THRESHOLD,
@@ -606,9 +649,12 @@ def main() -> None:
         },
         "frozen_wp5_outputs_overwritten": False,
     }
-    w.write_json(
-        w.PROVENANCE / "wp5_injections_repair_execution.json", record
+    provenance_name = (
+        "wp5_injections_repair_execution.json"
+        if output_version == REPAIR_VERSION
+        else f"wp5_injections_repair_execution_{output_version}.json"
     )
+    w.write_json(w.PROVENANCE / provenance_name, record)
     print(
         f"wrote {curve_path.relative_to(w.ROOT)} and "
         f"{response_path.relative_to(w.ROOT)}"

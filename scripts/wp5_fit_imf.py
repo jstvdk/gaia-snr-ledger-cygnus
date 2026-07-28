@@ -195,13 +195,17 @@ def fit_one(
         dtype=int,
     )
 
-    # Forward response: true masses below the observed lower edge can enter the
-    # calibration catalogue through binary brightening and mass-estimation
-    # scatter.  Integrate the whole injected 0.5--8 Msun parent interval and
-    # predict counts in the *observed* mass bins.
+    # Forward response: the parent interval is the *injected* range, not the
+    # observed window.  True masses on both sides of 2--8 Msun are measured into
+    # it -- from below by binary brightening and mass-estimation scatter, from
+    # above by the same scatter acting on the living members heavier than
+    # 8 Msun.  Clipping the parent at CALIBRATION_HI silently deleted the second
+    # channel and under-predicted the top observed bin; see
+    # reports/WP5_RESIDUAL_DIAGNOSIS_CORRECTION_repair_v1.md.  Integrate the
+    # whole injected parent interval and predict counts in the *observed* bins.
     response = response[
         response["true_primary_mass"].between(
-            float(w.MASS_GRID.min()), w.CALIBRATION_HI
+            float(w.MASS_GRID.min()), float(w.MASS_GRID.max())
         )
     ].copy()
     true_mass = np.sort(response["true_primary_mass"].unique())
@@ -360,16 +364,28 @@ def main() -> None:
         default=None,
         help="consume and write version-suffixed repair products (for example repair_v1)",
     )
+    parser.add_argument(
+        "--wp5-version",
+        default=None,
+        help=(
+            "override the suffix for the WP5 injection inputs and every WP5 "
+            "output, leaving --repair-version to select the upstream WP3/WP4 "
+            "products.  Use when a WP5-only re-run must not overwrite an "
+            "earlier repair version."
+        ),
+    )
     args = parser.parse_args()
     version = args.repair_version
     suffix = f"_{version}" if version else ""
+    wp5_version = args.wp5_version or version
+    wp5_suffix = f"_{wp5_version}" if wp5_version else ""
     masses_input = (
         w.PROC / f"wp4_mass_posteriors_{version}.parquet"
         if version
         else w.PROC / "wp4_masses.parquet"
     )
-    curves_input = w.PROC / f"wp5_completeness_curves{suffix}.parquet"
-    response_input = w.PROC / f"wp5_injection_response{suffix}.parquet"
+    curves_input = w.PROC / f"wp5_completeness_curves{wp5_suffix}.parquet"
+    response_input = w.PROC / f"wp5_injection_response{wp5_suffix}.parquet"
     masses = pd.read_parquet(masses_input)
     curves = pd.read_parquet(curves_input)
     responses = pd.read_parquet(response_input)
@@ -529,10 +545,10 @@ def main() -> None:
         ),
     }
 
-    norm_path = w.PROC / f"wp5_imf_normalization{suffix}.parquet"
-    bins_path = w.PROC / f"wp5_mass_function_bins{suffix}.parquet"
-    assoc_path = w.PROC / f"wp5_association_mass{suffix}.parquet"
-    draws_path = w.PROC / f"wp5_imf_posterior_draws{suffix}.npz"
+    norm_path = w.PROC / f"wp5_imf_normalization{wp5_suffix}.parquet"
+    bins_path = w.PROC / f"wp5_mass_function_bins{wp5_suffix}.parquet"
+    assoc_path = w.PROC / f"wp5_association_mass{wp5_suffix}.parquet"
+    draws_path = w.PROC / f"wp5_imf_posterior_draws{wp5_suffix}.npz"
     normalization.to_parquet(norm_path, index=False)
     mass_bins.to_parquet(bins_path, index=False)
     association.to_parquet(assoc_path, index=False)
@@ -548,6 +564,7 @@ def main() -> None:
         "created_utc": datetime.now(timezone.utc).isoformat(),
         "script": "scripts/wp5_fit_imf.py",
         "repair_version": version,
+        "wp5_version": wp5_version,
         "status": (
             "WP5_REPAIR_BASELINE_ACCEPTED"
             if gate["baseline_all_subgroups_residual_gate"]
@@ -575,6 +592,16 @@ def main() -> None:
                 w.CALIBRATION_NOMINAL_LO,
                 w.CALIBRATION_HI,
             ],
+            "parent_mass_range_Msun": [
+                float(w.MASS_GRID.min()),
+                float(w.MASS_GRID.max()),
+            ],
+            "parent_range_note": (
+                "The injected parent range is deliberately wider than the "
+                "observed window on BOTH sides; the mass kernel migrates true "
+                "masses across each edge.  These are two separate numbers with "
+                "separate justifications and must not be tied together."
+            ),
             "bins": w.N_IMF_BINS,
             "count": "sum of WP2 membership probabilities",
             "mass_posterior_counting": (
@@ -633,8 +660,8 @@ def main() -> None:
         },
     }
     provenance_name = (
-        f"wp5_imf_fit_execution_{version}.json"
-        if version
+        f"wp5_imf_fit_execution_{wp5_version}.json"
+        if wp5_version
         else "wp5_imf_fit_execution.json"
     )
     w.write_json(w.PROVENANCE / provenance_name, record)

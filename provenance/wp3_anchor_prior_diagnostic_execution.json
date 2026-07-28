@@ -1,0 +1,121 @@
+{
+  "created_utc": "2026-07-27T11:29:37.689438+00:00",
+  "script": "scripts/wp3_anchor_prior_diagnostic.py",
+  "status": "SUCCESS",
+  "purpose": "Diagnose PROJECT_TRACE.md issue #1b: whether the repair_v1 anchor spatial prior over-constrains CygOB2-B's extinction and thereby drives the WP5 bin-2 residual failure.",
+  "environment": {
+    "python": "3.11.15 | packaged by conda-forge | (main, Jun 11 2026, 03:29:05) [Clang 19.1.7 ]",
+    "platform": "macOS-15.6.1-arm64-arm-64bit",
+    "numpy": "2.4.6",
+    "pandas": "3.0.3",
+    "scipy": "1.17.1",
+    "matplotlib": "3.11.0"
+  },
+  "configuration": {
+    "anchor_neighbours": 8,
+    "n_anchors": 149,
+    "min_prior_sigma_mag": 0.3,
+    "separation_bins_deg": [
+      0.0,
+      0.05,
+      0.1,
+      0.15,
+      0.2,
+      0.3,
+      0.4,
+      0.5,
+      0.7,
+      1.0,
+      2.0
+    ],
+    "min_pairs_per_bin": 20,
+    "spread_measure": "half of the central-68% span",
+    "variogram_model": "sigma(d)^2 = nugget^2 + (sill^2 - nugget^2)(1 - exp(-3d/range))"
+  },
+  "adopted_prior_sigma_mag": {
+    "rv3.0": 0.45229304681872573,
+    "rv3.1": 0.45281428018337194,
+    "rv3.5": 0.47468941330286424
+  },
+  "variogram_fit": {
+    "rv3.0": {
+      "nugget_mag": 3.144759830028197e-12,
+      "sill_mag": 1.2113229746337892,
+      "correlation_range_deg": 0.8241052796685221
+    },
+    "rv3.1": {
+      "nugget_mag": 4.02711770597135e-12,
+      "sill_mag": 1.2279287483583354,
+      "correlation_range_deg": 0.8526865990581222
+    },
+    "rv3.5": {
+      "nugget_mag": 2.508620571684464e-10,
+      "sill_mag": 1.2460992450897124,
+      "correlation_range_deg": 0.8670602440288192
+    }
+  },
+  "per_subgroup": [
+    {
+      "subgroup": "CygOB2-A",
+      "n_members": 476,
+      "median_8th_anchor_separation_deg": 0.08853444777151624,
+      "prior_mean_spread_mag": 0.9013118336597445,
+      "frozen_wp3_av_spread_mag": 1.86720771587969,
+      "repair_v1_av_spread_mag": 0.9165699553122773,
+      "collapse_factor": 2.0371687998910333,
+      "adopted_prior_sigma_mag": 0.45281428018337194,
+      "variogram_required_sigma_mag": 0.6352618635038018,
+      "sigma_understatement_factor": 1.402919234893709,
+      "vergely_A0_spread_mag": 0.19543489042605966,
+      "dharma_Acum_spread_mag": 0.04514004490535373
+    },
+    {
+      "subgroup": "CygOB2-B",
+      "n_members": 426,
+      "median_8th_anchor_separation_deg": 0.37674371027759734,
+      "prior_mean_spread_mag": 0.14566171355057733,
+      "frozen_wp3_av_spread_mag": 1.8601741559135119,
+      "repair_v1_av_spread_mag": 0.19560884690655955,
+      "collapse_factor": 9.509662703559103,
+      "adopted_prior_sigma_mag": 0.45281428018337194,
+      "variogram_required_sigma_mag": 1.0522485095077356,
+      "sigma_understatement_factor": 2.3237970964202286,
+      "vergely_A0_spread_mag": 0.23261068638881222,
+      "dharma_Acum_spread_mag": 0.07811702161841727
+    },
+    {
+      "subgroup": "CygOB2-C",
+      "n_members": 429,
+      "median_8th_anchor_separation_deg": 0.12987827223655535,
+      "prior_mean_spread_mag": 0.5850554752062691,
+      "frozen_wp3_av_spread_mag": 1.6669759986816497,
+      "repair_v1_av_spread_mag": 0.5748322401228769,
+      "collapse_factor": 2.899934767620749,
+      "adopted_prior_sigma_mag": 0.45281428018337194,
+      "variogram_required_sigma_mag": 0.743670550804199,
+      "sigma_understatement_factor": 1.6423301634900773,
+      "vergely_A0_spread_mag": 0.23773540405545557,
+      "dharma_Acum_spread_mag": 0.07005428981269834
+    }
+  ],
+  "inputs": {
+    "data/processed/wp3_extinction.parquet": "f83a612215e9e0e0dfb532eab10687bd83808787aa27a649a78b597b895ef0e1",
+    "data/processed/wp3_extinction_repair_v1.parquet": "9a2a323b2b4ae420059c4c11e3a902c276b5175d3ebc051837adb209a231fd80",
+    "data/processed/wp3_cube_comparison.parquet": "da7cb31095d116b6c82dcb60f5d92503f55d5c09329be30df36d797d272643b1",
+    "tables/wp2_subgroup_labels.parquet": "44a5ee7b9190703dae8dca9540c192757423db293c9ecc1ea123065849800887"
+  },
+  "outputs": {
+    "tables/wp3_anchor_variogram.csv": {
+      "sha256": "4d0958b899d2f1a3fe7b662ff2699f2726fb8452d141042ccd39365170f72aab",
+      "bytes": 1747
+    },
+    "tables/wp3_anchor_prior_diagnostic.csv": {
+      "sha256": "4ad5d8040b70f20007f43dc96372b284970967b76dc7a5cab8935ade9aff8500",
+      "bytes": 882
+    },
+    "figures/wp3_repair/wp3_anchor_prior_diagnostic.png": {
+      "sha256": "335620236270f53b55bc226df1e4353d4fa9299cb7cf599a96a80504905dbedc",
+      "bytes": 143835
+    }
+  }
+}

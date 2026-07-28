@@ -1,6 +1,6 @@
 {
-  "repair_version": "repair_v1",
-  "created_utc": "2026-07-24T09:23:39.449864+00:00",
+  "repair_version": "repair_v5",
+  "created_utc": "2026-07-28T10:13:47.616188+00:00",
   "script": "scripts/wp4_mass_posteriors_repair.py",
   "method": "Monte Carlo posterior propagation of the complete WP3 A_V grid, G/BP/RP/J/H/Ks photometric errors plus floor, unresolved-binary state and q, and branch-specific subgroup age posterior; continuous parabolic projection on a dense initial-mass grid; frozen spectroscopic HRD override",
   "environment": {
@@ -11,9 +11,9 @@
     "scipy": "1.17.1"
   },
   "inputs": {
-    "data/processed/wp3_extinction_repair_v1.parquet": "9a2a323b2b4ae420059c4c11e3a902c276b5175d3ebc051837adb209a231fd80",
-    "data/processed/wp3_extinction_posterior_repair_v1.npz": "e8a5cc27b7e2db3e89a58d462d28f12e408d6fa88f8c094413f3907c87ecac45",
-    "data/processed/wp4_age_posteriors_repair_v1.parquet": "e8169cbaf754a2efdc3952c44e5825cd91f9b622923c186d8cb2268f732118ea",
+    "data/processed/wp3_extinction_repair_v5.parquet": "76a3c3df1e754b9846a2401ce898aad50f8de28b90a11725687af0e7cc4524fc",
+    "data/processed/wp3_extinction_posterior_repair_v5.npz": "36f9bd9849cb6c1d3168004ccc53fed294293d55dd67f4dca5eeac3b157af19c",
+    "data/processed/wp4_age_posteriors_repair_v5.parquet": "dc14e923a5dc4ad1336d08059e397bbc007f0f926f91a94f5ac2ddfbdc141ada",
     "data/processed/wp4_anchor_hrd.parquet": "26aa7bca7bb37b456f6fe981ed7748dc47f9a67900920352aa5b444ccf4887c4",
     "data/processed/wp3_isochrones_parsec.parquet": "9e0444045acf3e9331bf609e44c5f065635b217558f2ff46deec68fb66c8c663",
     "data/processed/wp3_isochrones_mist.parquet": "3b1437d791e61a5dc9b7b2a2ed12e83bc0a1c64cb775c3862a2073731623135b",
@@ -37,9 +37,9 @@
     "finite_baseline_mass": 1383,
     "spectroscopic_hrd_overrides": 150,
     "photometric_posteriors": 1242,
-    "baseline_between_2p5_3p2": 276,
-    "baseline_posterior_median_gt8": 302,
-    "baseline_expected_gt8_from_posterior": 310.90625
+    "baseline_between_2p5_3p2": 292,
+    "baseline_posterior_median_gt8": 290,
+    "baseline_expected_gt8_from_posterior": 304.140625
   },
   "acceptance_diagnostics": {
     "largest_exact_baseline_mass_fraction": 0.007953723788864787,
@@ -47,13 +47,13 @@
     "largest_exact_mass_fraction_pass": true
   },
   "outputs": {
-    "data/processed/wp4_mass_posteriors_repair_v1.parquet": {
-      "sha256": "30e1604ec1dc2ac15dcafd198fc97a69eb4d75ad10e8e8bed11cfe70d2dce9d1",
-      "bytes": 412768
+    "data/processed/wp4_mass_posteriors_repair_v5.parquet": {
+      "sha256": "944c495fef8587552a5398cab87a8e9a7eb44b4ebfe566149f4d735ba61dfb38",
+      "bytes": 413873
     },
-    "data/processed/wp4_mass_posterior_samples_repair_v1.npz": {
-      "sha256": "8598ce038564d492bde55b0838827a948ab45a3dcf4ea811cbaaac92f9de7908",
-      "bytes": 6566361
+    "data/processed/wp4_mass_posterior_samples_repair_v5.npz": {
+      "sha256": "6eba6390f6fb97e5b8f31495b6727c12d8c708985f8d4a1409764092561e50d0",
+      "bytes": 6592819
     }
   },
   "frozen_outputs_overwritten": false

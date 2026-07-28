@@ -1,0 +1,111 @@
+{
+  "created_utc": "2026-07-28T11:32:42.604569+00:00",
+  "script": "scripts/wp5_node_rule_continuity.py",
+  "status": "SUCCESS",
+  "issue": "#13 part a \u2014 measuring the truth-age node-rule discontinuity",
+  "question": "Is the repair_v4 truth-age node rule a discontinuous function of the WP4 age posterior, and does dropping the snap step remove the discontinuity?",
+  "method": "Translate each branch's WP4 age posterior (MAP, lo68, hi68 all shifted by the same epsilon) over a fine grid and measure the 1-Wasserstein distance between the resulting truth-age node distributions.  A continuous rule cannot move further in W1 between adjacent offsets than the offset step itself.",
+  "epsilon_half_width_Myr": 0.1,
+  "epsilon_step_Myr": 0.0005,
+  "n_age_nodes": 9,
+  "environment": {
+    "python": "3.11.15 | packaged by conda-forge | (main, Jun 11 2026, 03:29:05) [Clang 19.1.7 ]",
+    "platform": "macOS-15.6.1-arm64-arm-64bit",
+    "numpy": "2.4.6",
+    "pandas": "3.0.3"
+  },
+  "inputs": {
+    "data/processed/wp4_age_posteriors_repair_v3.parquet": "3f83738acf6932790177a8373f8dce1c45a83fcfdd112253c80f88c4de3633fd",
+    "data/processed/wp4_age_posteriors_repair_v5.parquet": "dc14e923a5dc4ad1336d08059e397bbc007f0f926f91a94f5ac2ddfbdc141ada",
+    "data/processed/wp3_isochrones_parsec.parquet": "9e0444045acf3e9331bf609e44c5f065635b217558f2ff46deec68fb66c8c663",
+    "data/processed/wp3_isochrones_mist.parquet": "3b1437d791e61a5dc9b7b2a2ed12e83bc0a1c64cb775c3862a2073731623135b"
+  },
+  "native_isochrone_grid": {
+    "PARSEC": {
+      "n_ages": 21,
+      "min_Myr": 1.0,
+      "max_Myr": 10.0,
+      "median_relative_spacing": 0.12201845430196306
+    },
+    "MIST": {
+      "n_ages": 21,
+      "min_Myr": 1.0,
+      "max_Myr": 10.115794542598984,
+      "median_relative_spacing": 0.122664525980235
+    }
+  },
+  "summary": {
+    "branches": 18,
+    "snap_max_step_jump_Myr": 0.05463569544333979,
+    "snap_worst_jump_over_step_ratio": 109.27139088667958,
+    "snap_branches_with_support_changes": 13,
+    "snap_node_count_range_within_branch_max": 1,
+    "interp_max_step_jump_Myr": 0.0005000000000006111,
+    "interp_worst_jump_over_step_ratio": 1.0000000000012221,
+    "interp_node_count_always_nine": true
+  },
+  "recorded_regression_case": {
+    "repair_v4": {
+      "age_map_Myr": 2.00216562158904,
+      "age_lo68_Myr": 1.9066515348848765,
+      "age_hi68_Myr": 2.0841143580588377,
+      "raw_quantile_nodes_Myr": [
+        1.8491,
+        1.9092,
+        1.9456,
+        1.9751,
+        2.0022,
+        2.0254,
+        2.0507,
+        2.0819,
+        2.1335
+      ],
+      "snapped_support_Myr": [
+        1.7834050825119674,
+        2.0021656215890395,
+        2.2477603184951818
+      ],
+      "snapped_weights": [
+        0.1111111111111111,
+        0.7777777777777779,
+        0.1111111111111111
+      ]
+    },
+    "repair_v5": {
+      "age_map_Myr": 2.00216562158904,
+      "age_lo68_Myr": 1.864703703269293,
+      "age_hi68_Myr": 2.06246849253068,
+      "raw_quantile_nodes_Myr": [
+        1.7819,
+        1.8684,
+        1.9207,
+        1.9632,
+        2.0022,
+        2.0193,
+        2.0379,
+        2.0608,
+        2.0988
+      ],
+      "snapped_support_Myr": [
+        1.7834050825119674,
+        2.0021656215890395
+      ],
+      "snapped_weights": [
+        0.2222222222222222,
+        0.7777777777777779
+      ]
+    },
+    "posterior_shift_Myr": {
+      "age_map": 0.0,
+      "age_lo68": -0.041947831615583464,
+      "age_hi68": -0.021645865528157504
+    },
+    "snapped_W1_Myr": 0.05159502622035711,
+    "interpolated_W1_Myr": 0.024388888888888866,
+    "amplification_factor": 2.115513603568175
+  },
+  "verdict": "The snapping rule is discontinuous: within a +-0.1 Myr translation every branch's node support changes and the node distribution moves in W1 by far more than the translation that caused it.  Removing the snap makes W1 equal to the translation exactly, which is the tightest continuity a rule can have.",
+  "outputs": {
+    "tables/wp5_node_rule_continuity.csv": "11213521b8051a605cba3257eff5e9c4e396685a158dd73dd86f980d7cf94928"
+  }
+}

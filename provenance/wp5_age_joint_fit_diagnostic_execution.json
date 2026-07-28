@@ -1,0 +1,207 @@
+{
+  "created_utc": "2026-07-27T13:40:22.230970+00:00",
+  "script": "scripts/wp5_age_joint_fit_diagnostic.py",
+  "status": "SUCCESS",
+  "issue": "#1c step 2 addendum \u2014 joint age\u2013k fit forecast for step 3",
+  "repair_version": "repair_v3",
+  "stored_artifacts_overwritten": false,
+  "environment": {
+    "python": "3.11.15 | packaged by conda-forge | (main, Jun 11 2026, 03:29:05) [Clang 19.1.7 ]",
+    "platform": "macOS-15.6.1-arm64-arm-64bit",
+    "numpy": "2.4.6",
+    "pandas": "3.0.3",
+    "scipy": "1.17.1"
+  },
+  "method": {
+    "marginal_likelihood": "Poisson bins with Jeffreys k prior integrated analytically: log ML_j = sum_i n_i log r_ij - (N+1/2) log R_j + const; n_i are the official repair_v3 soft-bin membership-weighted counts (alpha=2.3 baseline), r_ij the point-estimate forward rates of node j's saved response snapshot",
+    "posterior": "prior (recovery-side age discretization) times ML, normalized",
+    "posterior_predictive": "largest-remainder composite of the node responses at the posterior weights, fit with unmodified wp5_fit_imf.fit_one",
+    "anti_tuning_status": "the age posterior update is driven by the WP5 likelihood under the WP4 prior \u2014 the joint-fit adoption the brief section 4 explicitly authorizes; no gate statistic enters the weight computation"
+  },
+  "observed_counts_baseline": [
+    41.78067539062501,
+    53.390837109375,
+    51.942934765625,
+    46.942568359374995,
+    42.448115234375,
+    33.032551953124994
+  ],
+  "log_marginal_likelihood_by_node": {
+    "2.239": -495.6907785059657,
+    "2.512": -491.25999200598096,
+    "2.818": -488.09707064245913,
+    "3.162": -484.1557547527865,
+    "3.548": -482.91100322463615,
+    "3.981": -480.8737361716836,
+    "4.467": -480.4254102131755,
+    "5.012": -479.3930066304082
+  },
+  "inputs": {
+    "provenance/wp5_age_scan_execution.json": "13857b01bb4ed6163b0bfbfabc29f763c4b02474be26cd733ae3d674873ce852",
+    "data/processed/wp5_mass_function_bins_repair_v3.parquet": "a35fb2b4d66c6ce36d1b5a00ae1c30451be144df259265d7b0b3433edd811d8e",
+    "data/processed/wp4_mass_posteriors_repair_v3.parquet": "7e6da3d4d3df80b030a3d4d04b07a0dc5ab3aa57536b89920eed8960c1ec71c2",
+    "data/processed/wp4_mass_posterior_samples_repair_v3.npz": "06a5f2b97ad9e145635260e315504f3e6368a3001c80ecad27e1a5dc7be78c2d",
+    "data/processed/wp5_age_scan_B_response_age2p239_repair_v3.parquet": "8ec2a1b5748ea0c07572832440397b9890e30492e3b8563fb6d52e06a5e43b05",
+    "data/processed/wp5_age_scan_B_response_age2p512_repair_v3.parquet": "93c9adb52c1d0fd7aec22efd8c1b72aef9c156da0330a7f842d348c7db80ce25",
+    "data/processed/wp5_age_scan_B_response_age2p818_repair_v3.parquet": "21246602f3ab5adaa4dc96870461f8918dd8f25d658627c06979e56f529dc7b5",
+    "data/processed/wp5_age_scan_B_response_age3p162_repair_v3.parquet": "6e6e76f06004edca0edff33e10a2086fa3d34f62581479469ee19221e8fed7c0",
+    "data/processed/wp5_age_scan_B_response_age3p548_repair_v3.parquet": "37bbd124a239d870fdfb3fedc34cc5918af78ce938e2e12a510c128050b8f7e3",
+    "data/processed/wp5_age_scan_B_response_age3p981_repair_v3.parquet": "b3ba2874e0e84cf923b37327a7485e5a6b9318f6d0ca90fa9c098a6bd2353511",
+    "data/processed/wp5_age_scan_B_response_age4p467_repair_v3.parquet": "dfcca12c6be90496facf12ec7302f3fd2e49757736d404f69d75570c97a856a6",
+    "data/processed/wp5_age_scan_B_response_age5p012_repair_v3.parquet": "c8c83ec342cbb06e63721ae879b6391756d8c5b134096ad54000ac2260586fc6"
+  },
+  "results": {
+    "posterior_9node": {
+      "prior_weights": {
+        "2.818": 0.6666666666666667,
+        "3.162": 0.2222222222222222,
+        "3.548": 0.1111111111111111
+      },
+      "posterior_weights": {
+        "2.818": 0.0208523916860036,
+        "3.162": 0.3578708803146264,
+        "3.548": 0.62127672799937
+      },
+      "composited_weights_after_1_per_400_floor": {
+        "2.818": 0.0208523916860036,
+        "3.162": 0.3578708803146264,
+        "3.548": 0.62127672799937
+      },
+      "fits": {
+        "alpha_2.0": {
+          "residuals": [
+            1.8027837715800408,
+            2.258855266279571,
+            2.5914795025212385,
+            -0.4574495422330204,
+            -1.3696807550622634,
+            -1.458479104816156
+          ],
+          "chi2_p": 0.0017039218414377133,
+          "trend_p": 0.07239650145772594,
+          "max_abs_residual": 2.5914795025212385,
+          "bump_bin_residual": 2.5914795025212385,
+          "k_median": 1311.4740570352012,
+          "residual_gate_pass": false
+        },
+        "alpha_2.3": {
+          "residuals": [
+            1.424669206391175,
+            2.191172671252794,
+            2.483641687395452,
+            -0.3028506369680972,
+            -0.8543057473887794,
+            -0.6179537115397198
+          ],
+          "chi2_p": 0.014371132438959428,
+          "trend_p": 0.11078717201166179,
+          "max_abs_residual": 2.483641687395452,
+          "bump_bin_residual": 2.483641687395452,
+          "k_median": 1894.327071460963,
+          "residual_gate_pass": true
+        },
+        "alpha_2.6": {
+          "residuals": [
+            1.2040664850387963,
+            2.296937827375357,
+            2.570341360337859,
+            0.016274479314274806,
+            -0.20639516226361995,
+            0.3295393463355519
+          ],
+          "chi2_p": 0.019243091040586257,
+          "trend_p": 0.208,
+          "max_abs_residual": 2.570341360337859,
+          "bump_bin_residual": 2.570341360337859,
+          "k_median": 2649.3297679155576,
+          "residual_gate_pass": true
+        }
+      },
+      "baseline_gate_pass": true
+    },
+    "posterior_9node_sf1myr": {
+      "prior_weights": {
+        "2.239": 0.006455782824127083,
+        "2.512": 0.1119059457061523,
+        "2.818": 0.24777111469990806,
+        "3.162": 0.3415949806868451,
+        "3.548": 0.22844848223198527,
+        "3.981": 0.05864116994173817,
+        "4.467": 0.005182523909243952
+      },
+      "posterior_weights": {
+        "2.239": 2.164528207676012e-08,
+        "2.512": 3.151618397142928e-05,
+        "2.818": 0.0016495688037600975,
+        "3.162": 0.11709085656017564,
+        "3.548": 0.27188703549214643,
+        "3.981": 0.5352746644798098,
+        "4.467": 0.07406633683485454
+      },
+      "composited_weights_after_1_per_400_floor": {
+        "3.162": 0.11728803024579496,
+        "3.548": 0.2723448762701114,
+        "3.981": 0.5361760335663011,
+        "4.467": 0.07419105991779266
+      },
+      "fits": {
+        "alpha_2.0": {
+          "residuals": [
+            1.7837670665867789,
+            1.998313750788926,
+            2.1877194864416647,
+            -0.3356201869199633,
+            -1.1501148468961773,
+            -1.349728860405687
+          ],
+          "chi2_p": 0.009468902873904665,
+          "trend_p": 0.07239650145772594,
+          "max_abs_residual": 2.1877194864416647,
+          "bump_bin_residual": 2.1877194864416647,
+          "k_median": 1309.9960425866743,
+          "residual_gate_pass": false
+        },
+        "alpha_2.3": {
+          "residuals": [
+            1.4005264683902436,
+            1.9093888255892348,
+            2.058440198988835,
+            -0.16901216108479122,
+            -0.5959290966267901,
+            -0.47669892587982154
+          ],
+          "chi2_p": 0.06331441327305072,
+          "trend_p": 0.11078717201166179,
+          "max_abs_residual": 2.058440198988835,
+          "bump_bin_residual": 2.058440198988835,
+          "k_median": 1885.7200673602451,
+          "residual_gate_pass": true
+        },
+        "alpha_2.6": {
+          "residuals": [
+            1.1848342716811935,
+            2.0044648812455037,
+            2.1342755969813507,
+            0.17057012414022368,
+            0.10253604782359377,
+            0.517070917731176
+          ],
+          "chi2_p": 0.06758149008708113,
+          "trend_p": 0.208,
+          "max_abs_residual": 2.1342755969813507,
+          "bump_bin_residual": 2.1342755969813507,
+          "k_median": 2623.817308170092,
+          "residual_gate_pass": true
+        }
+      },
+      "baseline_gate_pass": true
+    }
+  },
+  "step3_forecast": {
+    "joint_fit_baseline_gate_pass": {
+      "posterior_9node": true,
+      "posterior_9node_sf1myr": true
+    },
+    "implication": "if any prior variant passes, repair_v4 should implement the joint age\u2013k fit (WP4 posterior as prior) uniformly for all three subgroups; if none passes, step 4 contingencies apply"
+  }
+}

@@ -1,0 +1,188 @@
+{
+  "created_utc": "2026-07-28T09:14:16.310674+00:00",
+  "script": "scripts/wp5_tilt_vs_age_diagnostic.py",
+  "status": "SUCCESS",
+  "issue": "#12 \u2014 is CygOB2-B's residual tilt removable by truth age?",
+  "branch": "CygOB2-B / PARSEC / R_V=3.1 / alpha=2.3",
+  "new_injections_run": 0,
+  "responses_reused_from": "provenance/wp5_age_scan_execution.json (gate-G2 scan)",
+  "trend_statistic": "CUTS_AND_THRESHOLDS.md section 14 replacement (pre-declared)",
+  "seed": 20260723,
+  "environment": {
+    "python": "3.11.15 | packaged by conda-forge | (main, Jun 11 2026, 03:29:05) [Clang 19.1.7 ]",
+    "platform": "macOS-15.6.1-arm64-arm-64bit",
+    "numpy": "2.4.6",
+    "pandas": "3.0.3"
+  },
+  "wp4_age_posterior_for_B": {
+    "age_map": 2.8183829312644537,
+    "central68": [
+      2.8144893833792053,
+      3.24594197414397
+    ],
+    "central90": [
+      2.749953670959939,
+      3.4213944462457
+    ]
+  },
+  "scan": [
+    {
+      "truth_age_Myr": 2.239,
+      "inside_wp4_central90": false,
+      "residuals": [
+        1.0865751388647193,
+        2.8036764272111254,
+        5.498712952825022,
+        0.189080336394803,
+        -1.7526256249721601,
+        -1.6522339345776258
+      ],
+      "max_abs_residual": 5.498712952825022,
+      "chi2_p": 1.3752068782773221e-08,
+      "incumbent_trend_p": 0.11078717201166179,
+      "replacement_trend_p": 0.0002,
+      "replacement_T": -3.9051207305242426,
+      "gate_pass_replacement": false
+    },
+    {
+      "truth_age_Myr": 2.512,
+      "inside_wp4_central90": false,
+      "residuals": [
+        1.395808410532792,
+        2.6043998314517487,
+        4.484413042193992,
+        -0.13292873101040403,
+        -1.531213279370557,
+        -1.2939921557857625
+      ],
+      "max_abs_residual": 4.484413042193992,
+      "chi2_p": 3.979576122405576e-06,
+      "incumbent_trend_p": 0.11078717201166179,
+      "replacement_trend_p": 0.00025,
+      "replacement_T": -3.6422421259327344,
+      "gate_pass_replacement": false
+    },
+    {
+      "truth_age_Myr": 2.818,
+      "inside_wp4_central90": true,
+      "residuals": [
+        1.256163951476213,
+        2.4442811368364254,
+        3.7833172441260445,
+        -0.21242623134437,
+        -1.3011007402675527,
+        -1.0158892828677366
+      ],
+      "max_abs_residual": 3.7833172441260445,
+      "chi2_p": 0.00016378951773683625,
+      "incumbent_trend_p": 0.11078717201166179,
+      "replacement_trend_p": 0.0012,
+      "replacement_T": -3.1783704772728325,
+      "gate_pass_replacement": false
+    },
+    {
+      "truth_age_Myr": 3.162,
+      "inside_wp4_central90": true,
+      "residuals": [
+        1.1597101317212628,
+        2.069092579184957,
+        2.846274203666747,
+        -0.17212230569842324,
+        -0.8940550901989767,
+        -0.6554185824790405
+      ],
+      "max_abs_residual": 2.846274203666747,
+      "chi2_p": 0.010422829805334767,
+      "incumbent_trend_p": 0.11078717201166179,
+      "replacement_trend_p": 0.01255,
+      "replacement_T": -2.5080059310881726,
+      "gate_pass_replacement": false
+    },
+    {
+      "truth_age_Myr": 3.548,
+      "inside_wp4_central90": false,
+      "residuals": [
+        1.2125501824301608,
+        2.0733756297459105,
+        2.2968040169284567,
+        -0.28305363675979406,
+        -0.7210908612052257,
+        -0.45736616960789583
+      ],
+      "max_abs_residual": 2.2968040169284567,
+      "chi2_p": 0.03684766024228699,
+      "incumbent_trend_p": 0.11078717201166179,
+      "replacement_trend_p": 0.02195,
+      "replacement_T": -2.3083257564887822,
+      "gate_pass_replacement": false
+    },
+    {
+      "truth_age_Myr": 3.981,
+      "inside_wp4_central90": false,
+      "residuals": [
+        1.0498538439840528,
+        1.6405381384533797,
+        1.8188522505824896,
+        -0.0677566000523527,
+        -0.344449491419981,
+        -0.19853122563131162
+      ],
+      "max_abs_residual": 1.8188522505824896,
+      "chi2_p": 0.20170514612284968,
+      "incumbent_trend_p": 0.11078717201166179,
+      "replacement_trend_p": 0.09215,
+      "replacement_T": -1.683299863945174,
+      "gate_pass_replacement": true
+    },
+    {
+      "truth_age_Myr": 4.467,
+      "inside_wp4_central90": false,
+      "residuals": [
+        1.3276487886252386,
+        1.5864192639982948,
+        1.2281844516247293,
+        -0.2342454196997356,
+        -0.2376591748105718,
+        0.03590260513364112
+      ],
+      "max_abs_residual": 1.5864192639982948,
+      "chi2_p": 0.3160258042034532,
+      "incumbent_trend_p": 0.07239650145772594,
+      "replacement_trend_p": 0.10755,
+      "replacement_T": -1.60081702010937,
+      "gate_pass_replacement": true
+    },
+    {
+      "truth_age_Myr": 5.012,
+      "inside_wp4_central90": false,
+      "residuals": [
+        1.1932776884487195,
+        1.2765690446948037,
+        0.7437696822687968,
+        0.14385567758000817,
+        0.11476182401982175,
+        0.16017053392141103
+      ],
+      "max_abs_residual": 1.2765690446948037,
+      "chi2_p": 0.5983939635546742,
+      "incumbent_trend_p": 0.07239650145772594,
+      "replacement_trend_p": 0.2708,
+      "replacement_T": -1.10569062055859,
+      "gate_pass_replacement": true
+    }
+  ],
+  "findings": {
+    "tilt_is_monotone_in_truth_age": true,
+    "lowest_passing_age_Myr": 3.981,
+    "passing_ages_inside_wp4_central90": [],
+    "conflict": true,
+    "statement": "CygOB2-B's residual tilt is monotone in the injection truth age and is removed only at ages >= 3.98 Myr, which lie ABOVE the upper edge of B's WP4 upper-main-sequence age posterior (MAP 2.82, central-90% upper 3.42 Myr).  So the tilt is an age-like effect, but the age WP5 needs is not an age WP4 allows.  This is a genuine WP4/WP5 conflict specific to CygOB2-B, not a WP5 bug, and it must be resolved upstream on independent evidence.",
+    "forbidden_action": "Adopting an age outside the WP4 posterior because it makes the WP5 gate pass is exactly the tuning CUTS_AND_THRESHOLDS.md 6.4 and the fix brief's anti-tuning rule prohibit.",
+    "degeneracy_warning": "Age and extinction are degenerate here.  Issue #1d records that B has no nearby spectroscopic anchors, so its A_V comes from broadband photometry alone; an overestimated A_V makes stars look intrinsically fainter, which biases the fitted age young AND displaces the mass scale.  One upstream error can produce both symptoms, so the two must be separated with data that do not depend on the isochrone fit."
+  },
+  "inputs": {
+    "data/processed/wp4_mass_posteriors_repair_v3.parquet": "7e6da3d4d3df80b030a3d4d04b07a0dc5ab3aa57536b89920eed8960c1ec71c2",
+    "data/processed/wp4_age_posteriors_repair_v3.parquet": "3f83738acf6932790177a8373f8dce1c45a83fcfdd112253c80f88c4de3633fd",
+    "provenance/wp5_age_scan_execution.json": "13857b01bb4ed6163b0bfbfabc29f763c4b02474be26cd733ae3d674873ce852"
+  }
+}

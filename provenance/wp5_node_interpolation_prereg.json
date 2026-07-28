@@ -1,0 +1,253 @@
+{
+  "created_utc": "2026-07-28T11:37:52.654890+00:00",
+  "script": "scripts/wp5_node_interpolation_prereg.py",
+  "status": "PREREGISTERED",
+  "issue": "#13 \u2014 truth-age node snapping replaced by isochrone interpolation",
+  "version": "repair_v6",
+  "upstream_unchanged": "repair_v6 is a WP5-only version: WP3 extinction (kriged prior) and WP4 ages and masses are consumed from repair_v5 unchanged",
+  "change": "The nine WP4 age-posterior quantiles are no longer snapped to native isochrone ages.  Each keeps weight 1/9 at the age the posterior puts it, and wp5_common.load_isochrone_between_ages builds the truth isochrone there by the same bracketing and linear age blend the recovery side (wp4_repair_common._interpolate_age_sequence) already uses.  No new parameter: the node count is still N_AGE_NODES = 9.",
+  "motivation": "Measured in provenance/wp5_node_rule_continuity_execution.json: the snapping rule amplifies a 0.0005 Myr shift of the WP4 posterior into a 0.055 Myr move of the truth-age node distribution (109x), and the node count varies between 1 and 4 within a single branch under a +-0.1 Myr translation.  The unsnapped rule is Lipschitz-1 \u2014 it moves in 1-Wasserstein distance by exactly the shift that caused it, which is the tightest continuity any rule can have.",
+  "not_tuned": "The defect is identifiable without reference to any gate outcome: it is a discontinuity in a map from a continuous input, and it is an internal inconsistency between the truth and recovery sides of the same pipeline.  No gate statistic, threshold or window is changed. The adoption decision rests on P3 and P4 below, which are direction-free, and NOT on P2, which is the specific cell that motivated the investigation.",
+  "cost": {
+    "nodes_repair_v5": 37,
+    "nodes_repair_v6": 162,
+    "reusable": 0,
+    "note": "every repair_v6 node is at a new age, so no repair_v4/v5 node response can be reused; repair_v1-v5 artifacts are untouched"
+  },
+  "predictions": [
+    {
+      "id": "P1",
+      "statement": "The repair_v6 node rule is continuous in the WP4 posterior: W1 jump per 0.0005 Myr offset step is 0.0005 Myr, ratio 1.0.",
+      "status": "ALREADY MEASURED \u2014 not a forecast",
+      "evidence": "provenance/wp5_node_rule_continuity_execution.json"
+    },
+    {
+      "id": "P2",
+      "statement": "The one genuine repair_v4 -> repair_v5 regression, CygOB2-C MIST R_V=3.5 alpha=2.0, clears: max|Pearson residual| < 3.0. Its repair_v5 value of 3.25 came from deleting the 2.248 Myr node that held 41.6% of the posterior weight; the unsnapped mixture spans 1.782-2.099 Myr continuously.",
+      "falsifies_if": "max|r| stays >= 3.0",
+      "if_falsified": "that cell's failure is NOT a node-set artifact.  It is then a genuine branch failure, reported under the CUTS section 13 retention policy, and issue #13's fix is judged on P3 and P4 alone.  This prediction failing does not by itself reject the fix \u2014 continuity is established independently by P1."
+    },
+    {
+      "id": "P3",
+      "statement": "The baseline (PARSEC, R_V=3.1, alpha=2.3) still passes the residual gate for all three subgroups under both the incumbent and the section 14 replacement trend statistic, and CygOB2-B's |T| stays below 2.",
+      "falsifies_if": "any baseline subgroup fails either statistic",
+      "if_falsified": "the finer node set is telling us repair_v5's baseline passed partly by accident of the coarse mixture.  Issue #1c reopens and the CygOB2-B result must be re-examined before anything downstream is claimed."
+    },
+    {
+      "id": "P4",
+      "statement": "The fix is a local correction, not a wholesale re-scoring: every branch's truth-age posterior mean moves by less than 0.15 Myr against repair_v5, the association stellar mass stays within +-5%, and the 54-cell grid moves by at most 6 cells in either direction.",
+      "falsifies_if": "any branch's posterior mean age moves >= 0.15 Myr, or the association mass moves >= 5%, or |grid change| > 6",
+      "if_falsified": "snapping was BIASING the truth model, not merely making it jumpy.  That is a larger finding than issue #13 as written: repair_v4's conclusions would inherit the same bias and would have to be re-derived.  Report it as such rather than adopting repair_v6 quietly.",
+      "direction_free": "P4 bounds the SIZE of the change, not its sign, so it cannot be satisfied by moving the result toward passing"
+    }
+  ],
+  "adoption_rule": "repair_v6 is adopted if P1 (established), P3 and P4 hold.  P2 is reported either way and does not gate adoption.  If P3 or P4 fails the fix is not adopted, repair_v5 stands, and the failure is written up as a finding.",
+  "prior_mean_age_shift_forecast": {
+    "max_abs_Myr": 0.0466,
+    "median_abs_Myr": 0.0162,
+    "note": "computed from the node rules alone, before any injection; this is the PRIOR mean shift, whereas P4 bounds the POSTERIOR mean shift, which also carries the likelihood reweighting"
+  },
+  "node_plan": [
+    {
+      "subgroup": "CygOB2-A",
+      "family": "PARSEC",
+      "R_V": 3.0,
+      "n_nodes_repair_v5": 1,
+      "n_nodes_repair_v6": 9,
+      "prior_mean_age_repair_v5_Myr": 3.9811,
+      "prior_mean_age_repair_v6_Myr": 3.9668,
+      "prior_mean_age_shift_Myr": -0.0143
+    },
+    {
+      "subgroup": "CygOB2-B",
+      "family": "PARSEC",
+      "R_V": 3.0,
+      "n_nodes_repair_v5": 4,
+      "n_nodes_repair_v6": 9,
+      "prior_mean_age_repair_v5_Myr": 3.484,
+      "prior_mean_age_repair_v6_Myr": 3.5032,
+      "prior_mean_age_shift_Myr": 0.0193
+    },
+    {
+      "subgroup": "CygOB2-C",
+      "family": "PARSEC",
+      "R_V": 3.0,
+      "n_nodes_repair_v5": 1,
+      "n_nodes_repair_v6": 9,
+      "prior_mean_age_repair_v5_Myr": 2.5119,
+      "prior_mean_age_repair_v6_Myr": 2.5203,
+      "prior_mean_age_shift_Myr": 0.0084
+    },
+    {
+      "subgroup": "CygOB2-A",
+      "family": "PARSEC",
+      "R_V": 3.1,
+      "n_nodes_repair_v5": 2,
+      "n_nodes_repair_v6": 9,
+      "prior_mean_age_repair_v5_Myr": 3.933,
+      "prior_mean_age_repair_v6_Myr": 3.9458,
+      "prior_mean_age_shift_Myr": 0.0129
+    },
+    {
+      "subgroup": "CygOB2-B",
+      "family": "PARSEC",
+      "R_V": 3.1,
+      "n_nodes_repair_v5": 4,
+      "n_nodes_repair_v6": 9,
+      "prior_mean_age_repair_v5_Myr": 3.7035,
+      "prior_mean_age_repair_v6_Myr": 3.657,
+      "prior_mean_age_shift_Myr": -0.0466
+    },
+    {
+      "subgroup": "CygOB2-C",
+      "family": "PARSEC",
+      "R_V": 3.1,
+      "n_nodes_repair_v5": 1,
+      "n_nodes_repair_v6": 9,
+      "prior_mean_age_repair_v5_Myr": 2.5119,
+      "prior_mean_age_repair_v6_Myr": 2.5146,
+      "prior_mean_age_shift_Myr": 0.0027
+    },
+    {
+      "subgroup": "CygOB2-A",
+      "family": "PARSEC",
+      "R_V": 3.5,
+      "n_nodes_repair_v5": 2,
+      "n_nodes_repair_v6": 9,
+      "prior_mean_age_repair_v5_Myr": 3.8849,
+      "prior_mean_age_repair_v6_Myr": 3.9106,
+      "prior_mean_age_shift_Myr": 0.0258
+    },
+    {
+      "subgroup": "CygOB2-B",
+      "family": "PARSEC",
+      "R_V": 3.5,
+      "n_nodes_repair_v5": 3,
+      "n_nodes_repair_v6": 9,
+      "prior_mean_age_repair_v5_Myr": 2.9759,
+      "prior_mean_age_repair_v6_Myr": 2.9773,
+      "prior_mean_age_shift_Myr": 0.0015
+    },
+    {
+      "subgroup": "CygOB2-C",
+      "family": "PARSEC",
+      "R_V": 3.5,
+      "n_nodes_repair_v5": 3,
+      "n_nodes_repair_v6": 9,
+      "prior_mean_age_repair_v5_Myr": 2.0253,
+      "prior_mean_age_repair_v6_Myr": 2.0164,
+      "prior_mean_age_shift_Myr": -0.0089
+    },
+    {
+      "subgroup": "CygOB2-A",
+      "family": "MIST",
+      "R_V": 3.0,
+      "n_nodes_repair_v5": 1,
+      "n_nodes_repair_v6": 9,
+      "prior_mean_age_repair_v5_Myr": 4.0087,
+      "prior_mean_age_repair_v6_Myr": 4.0441,
+      "prior_mean_age_shift_Myr": 0.0355
+    },
+    {
+      "subgroup": "CygOB2-B",
+      "family": "MIST",
+      "R_V": 3.0,
+      "n_nodes_repair_v5": 3,
+      "n_nodes_repair_v6": 9,
+      "prior_mean_age_repair_v5_Myr": 3.8193,
+      "prior_mean_age_repair_v6_Myr": 3.8542,
+      "prior_mean_age_shift_Myr": 0.0348
+    },
+    {
+      "subgroup": "CygOB2-C",
+      "family": "MIST",
+      "R_V": 3.0,
+      "n_nodes_repair_v5": 2,
+      "n_nodes_repair_v6": 9,
+      "prior_mean_age_repair_v5_Myr": 3.1033,
+      "prior_mean_age_repair_v6_Myr": 3.0905,
+      "prior_mean_age_shift_Myr": -0.0128
+    },
+    {
+      "subgroup": "CygOB2-A",
+      "family": "MIST",
+      "R_V": 3.1,
+      "n_nodes_repair_v5": 1,
+      "n_nodes_repair_v6": 9,
+      "prior_mean_age_repair_v5_Myr": 4.0087,
+      "prior_mean_age_repair_v6_Myr": 4.0428,
+      "prior_mean_age_shift_Myr": 0.0342
+    },
+    {
+      "subgroup": "CygOB2-B",
+      "family": "MIST",
+      "R_V": 3.1,
+      "n_nodes_repair_v5": 3,
+      "n_nodes_repair_v6": 9,
+      "prior_mean_age_repair_v5_Myr": 3.8193,
+      "prior_mean_age_repair_v6_Myr": 3.8118,
+      "prior_mean_age_shift_Myr": -0.0075
+    },
+    {
+      "subgroup": "CygOB2-C",
+      "family": "MIST",
+      "R_V": 3.1,
+      "n_nodes_repair_v5": 1,
+      "n_nodes_repair_v6": 9,
+      "prior_mean_age_repair_v5_Myr": 3.1805,
+      "prior_mean_age_repair_v6_Myr": 3.1734,
+      "prior_mean_age_shift_Myr": -0.0072
+    },
+    {
+      "subgroup": "CygOB2-A",
+      "family": "MIST",
+      "R_V": 3.5,
+      "n_nodes_repair_v5": 1,
+      "n_nodes_repair_v6": 9,
+      "prior_mean_age_repair_v5_Myr": 4.0087,
+      "prior_mean_age_repair_v6_Myr": 4.0424,
+      "prior_mean_age_shift_Myr": 0.0337
+    },
+    {
+      "subgroup": "CygOB2-B",
+      "family": "MIST",
+      "R_V": 3.5,
+      "n_nodes_repair_v5": 2,
+      "n_nodes_repair_v6": 9,
+      "prior_mean_age_repair_v5_Myr": 3.2672,
+      "prior_mean_age_repair_v6_Myr": 3.2854,
+      "prior_mean_age_shift_Myr": 0.0181
+    },
+    {
+      "subgroup": "CygOB2-C",
+      "family": "MIST",
+      "R_V": 3.5,
+      "n_nodes_repair_v5": 2,
+      "n_nodes_repair_v6": 9,
+      "prior_mean_age_repair_v5_Myr": 1.9536,
+      "prior_mean_age_repair_v6_Myr": 1.9726,
+      "prior_mean_age_shift_Myr": 0.019
+    }
+  ],
+  "repair_v5_reference": {
+    "regressing_cell": "CygOB2-C MIST R_V=3.5 alpha=2.0",
+    "repair_v5_residuals": [
+      3.25,
+      -0.259,
+      1.869,
+      0.338,
+      -0.385,
+      0.187
+    ],
+    "repair_v5_max_abs_residual": 3.25,
+    "repair_v5_baseline_association_mass_Msun": 29184.9
+  },
+  "inputs": {
+    "data/processed/wp4_age_posteriors_repair_v5.parquet": "dc14e923a5dc4ad1336d08059e397bbc007f0f926f91a94f5ac2ddfbdc141ada",
+    "data/processed/wp5_mass_function_bins_repair_v5.parquet": "fb6ea24ee9e987888e6f7edaa8001ae6beb4aa92365afc3166298b935e2a5d8b",
+    "data/processed/wp5_association_mass_repair_v5.parquet": "dc1e23e665a58766c4dcfdeff17feb66908b51c5a8fad8f3268a3d2de6659cfa",
+    "scripts/wp5_common.py": "21a655e71f4d931d6e18a857ba59e6812f48a04f3f5137af51beb93d862cdbdf",
+    "scripts/wp5_joint_age_fit.py": "16066a460beaeaa939efacfe41f2307654b1faeed098844d5808ce5a43a6b033",
+    "scripts/wp5_injections_repair.py": "56d8fc723f97fa99db83388147b32cfc9ab4c6a137233395228abcff9706310f"
+  }
+}

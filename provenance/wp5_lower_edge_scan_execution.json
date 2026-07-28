@@ -1,0 +1,148 @@
+{
+  "created_utc": "2026-07-27T12:32:09.261139+00:00",
+  "script": "scripts/wp5_lower_edge_scan.py",
+  "status": "SUCCESS",
+  "wp5_version": "repair_v3",
+  "purpose": "Test whether a per-subgroup calibration lower edge driven by each subgroup's own completeness curve (plan WP5 step 2, CUTS 7.1) resolves the CygOB2-B mid-window residual. It does not: raising B's edge makes B monotonically worse, ruling out a completeness-ramp artifact.",
+  "environment": {
+    "python": "3.11.15 | packaged by conda-forge | (main, Jun 11 2026, 03:29:05) [Clang 19.1.7 ]",
+    "platform": "macOS-15.6.1-arm64-arm-64bit",
+    "numpy": "2.4.6",
+    "pandas": "3.0.3"
+  },
+  "inputs": {
+    "data/processed/wp4_mass_posteriors_repair_v3.parquet": "7e6da3d4d3df80b030a3d4d04b07a0dc5ab3aa57536b89920eed8960c1ec71c2",
+    "data/processed/wp5_completeness_curves_repair_v3.parquet": "c8b222e1c1ed64006b8e07b26c00d369056a6275b70c4ef5d2603f3387b94c83",
+    "data/processed/wp5_injection_response_repair_v3.parquet": "7b1267e11bf230bab1dc337e2d7459d5015fb0aa3b44ebdf8d3ae62cab35beed"
+  },
+  "scan": [
+    {
+      "rule": "global 2.0 (current)",
+      "branches_passing": 26,
+      "baseline_all_pass": false,
+      "min_sources_any_branch": 300,
+      "baseline": [
+        {
+          "subgroup": "CygOB2-A",
+          "calibration_lower_Msun": 2.0,
+          "raw_calibration_sources": 397,
+          "max_abs_pearson_residual": 1.3667260237006842,
+          "poisson_chi_square_p": 0.3498136748411814,
+          "residual_gate_pass": true
+        },
+        {
+          "subgroup": "CygOB2-B",
+          "calibration_lower_Msun": 2.0,
+          "raw_calibration_sources": 342,
+          "max_abs_pearson_residual": 3.6249050682539177,
+          "poisson_chi_square_p": 0.0002457769536345612,
+          "residual_gate_pass": false
+        },
+        {
+          "subgroup": "CygOB2-C",
+          "calibration_lower_Msun": 2.0,
+          "raw_calibration_sources": 320,
+          "max_abs_pearson_residual": 1.5244777289403961,
+          "poisson_chi_square_p": 0.3409143658046784,
+          "residual_gate_pass": true
+        }
+      ]
+    },
+    {
+      "rule": "absolute recovery >= 0.30",
+      "branches_passing": 25,
+      "baseline_all_pass": false,
+      "min_sources_any_branch": 275,
+      "baseline": [
+        {
+          "subgroup": "CygOB2-A",
+          "calibration_lower_Msun": 2.0,
+          "raw_calibration_sources": 397,
+          "max_abs_pearson_residual": 1.367191092287021,
+          "poisson_chi_square_p": 0.3495003078001013,
+          "residual_gate_pass": true
+        },
+        {
+          "subgroup": "CygOB2-B",
+          "calibration_lower_Msun": 2.5,
+          "raw_calibration_sources": 314,
+          "max_abs_pearson_residual": 5.1113480793547295,
+          "poisson_chi_square_p": 8.879683799751645e-06,
+          "residual_gate_pass": false
+        },
+        {
+          "subgroup": "CygOB2-C",
+          "calibration_lower_Msun": 2.75,
+          "raw_calibration_sources": 287,
+          "max_abs_pearson_residual": 1.416435409908031,
+          "poisson_chi_square_p": 0.3701048283451284,
+          "residual_gate_pass": true
+        }
+      ]
+    },
+    {
+      "rule": "absolute recovery >= 0.50",
+      "branches_passing": 28,
+      "baseline_all_pass": false,
+      "min_sources_any_branch": 267,
+      "baseline": [
+        {
+          "subgroup": "CygOB2-A",
+          "calibration_lower_Msun": 2.25,
+          "raw_calibration_sources": 338,
+          "max_abs_pearson_residual": 1.6951719040966946,
+          "poisson_chi_square_p": 0.35325150968068153,
+          "residual_gate_pass": true
+        },
+        {
+          "subgroup": "CygOB2-B",
+          "calibration_lower_Msun": 2.75,
+          "raw_calibration_sources": 303,
+          "max_abs_pearson_residual": 5.227423932770841,
+          "poisson_chi_square_p": 4.038247706188848e-07,
+          "residual_gate_pass": false
+        },
+        {
+          "subgroup": "CygOB2-C",
+          "calibration_lower_Msun": 2.75,
+          "raw_calibration_sources": 287,
+          "max_abs_pearson_residual": 1.4182913100558707,
+          "poisson_chi_square_p": 0.3680279715256929,
+          "residual_gate_pass": true
+        }
+      ]
+    },
+    {
+      "rule": "95% of bright plateau",
+      "branches_passing": 29,
+      "baseline_all_pass": false,
+      "min_sources_any_branch": 55,
+      "baseline": [
+        {
+          "subgroup": "CygOB2-A",
+          "calibration_lower_Msun": 3.25,
+          "raw_calibration_sources": 180,
+          "max_abs_pearson_residual": 2.555811773437167,
+          "poisson_chi_square_p": 0.164314155438554,
+          "residual_gate_pass": true
+        },
+        {
+          "subgroup": "CygOB2-B",
+          "calibration_lower_Msun": 5.0,
+          "raw_calibration_sources": 82,
+          "max_abs_pearson_residual": 1.0196892735293506,
+          "poisson_chi_square_p": 0.38714133758950775,
+          "residual_gate_pass": true
+        },
+        {
+          "subgroup": "CygOB2-C",
+          "calibration_lower_Msun": 4.5,
+          "raw_calibration_sources": 123,
+          "max_abs_pearson_residual": 1.5130226810856688,
+          "poisson_chi_square_p": 0.1870439054696454,
+          "residual_gate_pass": false
+        }
+      ]
+    }
+  ]
+}

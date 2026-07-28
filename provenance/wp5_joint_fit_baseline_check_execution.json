@@ -1,0 +1,573 @@
+{
+  "created_utc": "2026-07-27T14:55:09.134172+00:00",
+  "script": "scripts/wp5_joint_fit_baseline_check.py",
+  "status": "SUCCESS",
+  "issue": "#1c step 3b \u2014 joint age\u2013k fit validation on the baseline branch",
+  "repair_version_consumed": "repair_v3",
+  "stored_artifacts_overwritten": false,
+  "new_injections_required": 0,
+  "seed": 20260723,
+  "environment": {
+    "python": "3.11.15 | packaged by conda-forge | (main, Jun 11 2026, 03:29:05) [Clang 19.1.7 ]",
+    "platform": "macOS-15.6.1-arm64-arm-64bit",
+    "numpy": "2.4.6",
+    "pandas": "3.0.3",
+    "scipy": "1.17.1"
+  },
+  "node_rule": "wp4_repair_common.age_posterior_nodes (the recovery side's own nine equiprobable split-normal nodes) snapped to native isochrone ages, prior weight = summed node count.  No new parameter.",
+  "inputs": {
+    "data/processed/wp4_mass_posteriors_repair_v3.parquet": "7e6da3d4d3df80b030a3d4d04b07a0dc5ab3aa57536b89920eed8960c1ec71c2",
+    "data/processed/wp4_mass_posterior_samples_repair_v3.npz": "06a5f2b97ad9e145635260e315504f3e6368a3001c80ecad27e1a5dc7be78c2d",
+    "data/processed/wp4_age_posteriors_repair_v3.parquet": "3f83738acf6932790177a8373f8dce1c45a83fcfdd112253c80f88c4de3633fd",
+    "data/processed/wp5_completeness_curves_repair_v3.parquet": "c8b222e1c1ed64006b8e07b26c00d369056a6275b70c4ef5d2603f3387b94c83",
+    "data/processed/wp5_injection_response_repair_v3.parquet": "7b1267e11bf230bab1dc337e2d7459d5015fb0aa3b44ebdf8d3ae62cab35beed",
+    "data/processed/wp5_imf_normalization_repair_v3.parquet": "56233772367948e4265ed66a920e7368c9e1b4090d5ac91549ea8ea2dfe0b905",
+    "data/processed/wp5_mass_function_bins_repair_v3.parquet": "a35fb2b4d66c6ce36d1b5a00ae1c30451be144df259265d7b0b3433edd811d8e",
+    "provenance/wp5_age_scan_execution.json": "13857b01bb4ed6163b0bfbfabc29f763c4b02474be26cd733ae3d674873ce852"
+  },
+  "node_response_sources": {
+    "CygOB2-A": {
+      "3.981": "data/processed/wp5_injection_response_repair_v3.parquet (branch slice)"
+    },
+    "CygOB2-B": {
+      "2.818": "data/processed/wp5_age_scan_B_response_age2p818_repair_v3.parquet",
+      "3.162": "data/processed/wp5_age_scan_B_response_age3p162_repair_v3.parquet",
+      "3.548": "data/processed/wp5_age_scan_B_response_age3p548_repair_v3.parquet"
+    },
+    "CygOB2-C": {
+      "2.512": "data/processed/wp5_injection_response_repair_v3.parquet (branch slice)"
+    }
+  },
+  "single_node_equivalence": [
+    {
+      "subgroup": "CygOB2-A",
+      "family": "PARSEC",
+      "R_V": 3.1,
+      "alpha": 2.0,
+      "identical_summary_fields": {
+        "calibration_lower_Msun": true,
+        "membership_weighted_calibration_sources": true,
+        "k_median": true,
+        "poisson_chi_square": true,
+        "poisson_chi_square_p": true,
+        "residual_trend_p": true,
+        "max_abs_pearson_residual": true,
+        "residual_gate_pass": true
+      },
+      "max_abs_residual_difference": 0.0,
+      "max_abs_k_draw_difference": 0.0,
+      "equivalent": true
+    },
+    {
+      "subgroup": "CygOB2-A",
+      "family": "PARSEC",
+      "R_V": 3.1,
+      "alpha": 2.3,
+      "identical_summary_fields": {
+        "calibration_lower_Msun": true,
+        "membership_weighted_calibration_sources": true,
+        "k_median": true,
+        "poisson_chi_square": true,
+        "poisson_chi_square_p": true,
+        "residual_trend_p": true,
+        "max_abs_pearson_residual": true,
+        "residual_gate_pass": true
+      },
+      "max_abs_residual_difference": 0.0,
+      "max_abs_k_draw_difference": 0.0,
+      "equivalent": true
+    },
+    {
+      "subgroup": "CygOB2-A",
+      "family": "PARSEC",
+      "R_V": 3.1,
+      "alpha": 2.6,
+      "identical_summary_fields": {
+        "calibration_lower_Msun": true,
+        "membership_weighted_calibration_sources": true,
+        "k_median": true,
+        "poisson_chi_square": true,
+        "poisson_chi_square_p": true,
+        "residual_trend_p": true,
+        "max_abs_pearson_residual": true,
+        "residual_gate_pass": true
+      },
+      "max_abs_residual_difference": 0.0,
+      "max_abs_k_draw_difference": 0.0,
+      "equivalent": true
+    },
+    {
+      "subgroup": "CygOB2-C",
+      "family": "PARSEC",
+      "R_V": 3.1,
+      "alpha": 2.0,
+      "identical_summary_fields": {
+        "calibration_lower_Msun": true,
+        "membership_weighted_calibration_sources": true,
+        "k_median": true,
+        "poisson_chi_square": true,
+        "poisson_chi_square_p": true,
+        "residual_trend_p": true,
+        "max_abs_pearson_residual": true,
+        "residual_gate_pass": true
+      },
+      "max_abs_residual_difference": 0.0,
+      "max_abs_k_draw_difference": 0.0,
+      "equivalent": true
+    },
+    {
+      "subgroup": "CygOB2-C",
+      "family": "PARSEC",
+      "R_V": 3.1,
+      "alpha": 2.3,
+      "identical_summary_fields": {
+        "calibration_lower_Msun": true,
+        "membership_weighted_calibration_sources": true,
+        "k_median": true,
+        "poisson_chi_square": true,
+        "poisson_chi_square_p": true,
+        "residual_trend_p": true,
+        "max_abs_pearson_residual": true,
+        "residual_gate_pass": true
+      },
+      "max_abs_residual_difference": 0.0,
+      "max_abs_k_draw_difference": 0.0,
+      "equivalent": true
+    },
+    {
+      "subgroup": "CygOB2-C",
+      "family": "PARSEC",
+      "R_V": 3.1,
+      "alpha": 2.6,
+      "identical_summary_fields": {
+        "calibration_lower_Msun": true,
+        "membership_weighted_calibration_sources": true,
+        "k_median": true,
+        "poisson_chi_square": true,
+        "poisson_chi_square_p": true,
+        "residual_trend_p": true,
+        "max_abs_pearson_residual": true,
+        "residual_gate_pass": true
+      },
+      "max_abs_residual_difference": 0.0,
+      "max_abs_k_draw_difference": 0.0,
+      "equivalent": true
+    }
+  ],
+  "baseline_joint_fit": {
+    "CygOB2-A": {
+      "n_truth_age_nodes": 1,
+      "by_alpha": {
+        "alpha_2.0": {
+          "truth_age_prior_weights": {
+            "3.981": 1.0000000000000002
+          },
+          "truth_age_posterior_weights": {
+            "3.981": 1.0
+          },
+          "truth_age_posterior_mean_Myr": 3.9810717055349696,
+          "joint": {
+            "residuals": [
+              2.0253317079683026,
+              1.6232632272775565,
+              -0.66979581892269,
+              -0.6736617322446873,
+              -0.6966455458381231,
+              0.014791501030365254
+            ],
+            "chi2_p": 0.14948343524623642,
+            "trend_p": 0.1561749271137024,
+            "max_abs_residual": 2.0253317079683026,
+            "k_median": 1210.9690737589044,
+            "residual_gate_pass": true
+          },
+          "stored_repair_v3": {
+            "residuals": [
+              2.0351556179532557,
+              1.631339006161346,
+              -0.6626276370325016,
+              -0.666412442338497,
+              -0.6902999178743532,
+              0.02060750428844372
+            ],
+            "chi2_p": 0.147465399606553,
+            "trend_p": 0.1561749271137024,
+            "max_abs_residual": 2.0351556179532557,
+            "k_median": 1209.766154397749,
+            "residual_gate_pass": true
+          },
+          "k_shift_fraction": 0.0009943403994090438
+        },
+        "alpha_2.3": {
+          "truth_age_prior_weights": {
+            "3.981": 1.0000000000000002
+          },
+          "truth_age_posterior_weights": {
+            "3.981": 1.0
+          },
+          "truth_age_posterior_mean_Myr": 3.9810717055349696,
+          "joint": {
+            "residuals": [
+              1.315146193747057,
+              1.3571842688185185,
+              -0.6587911200947991,
+              -0.2792148675656505,
+              0.11988089574668583,
+              1.190686152661517
+            ],
+            "chi2_p": 0.35623500837655625,
+            "trend_p": 0.4684781341107872,
+            "max_abs_residual": 1.3571842688185185,
+            "k_median": 1726.1459037243785,
+            "residual_gate_pass": true
+          },
+          "stored_repair_v3": {
+            "residuals": [
+              1.326735478358227,
+              1.3667260237006842,
+              -0.6503092835429112,
+              -0.2706442693867676,
+              0.127378985619524,
+              1.1976039826645135
+            ],
+            "chi2_p": 0.3498136748411814,
+            "trend_p": 0.4684781341107872,
+            "max_abs_residual": 1.3667260237006842,
+            "k_median": 1724.1171077862755,
+            "residual_gate_pass": true
+          },
+          "k_shift_fraction": 0.0011767158558666502
+        },
+        "alpha_2.6": {
+          "truth_age_prior_weights": {
+            "3.981": 1.0000000000000002
+          },
+          "truth_age_posterior_weights": {
+            "3.981": 1.0
+          },
+          "truth_age_posterior_mean_Myr": 3.9810717055349696,
+          "joint": {
+            "residuals": [
+              0.7993298731928691,
+              1.2699421695442812,
+              -0.5043083971000024,
+              0.24043943786244956,
+              1.0462902468961675,
+              2.4859033336953167
+            ],
+            "chi2_p": 0.07995001602007017,
+            "trend_p": 0.4684781341107872,
+            "max_abs_residual": 2.4859033336953167,
+            "k_median": 2400.0087370566716,
+            "residual_gate_pass": true
+          },
+          "stored_repair_v3": {
+            "residuals": [
+              0.8111985924179661,
+              1.2797235406186058,
+              -0.4956134977232784,
+              0.24922877550525077,
+              1.0540056592009848,
+              2.4931192400603233
+            ],
+            "chi2_p": 0.07724154864228727,
+            "trend_p": 0.4684781341107872,
+            "max_abs_residual": 2.4931192400603233,
+            "k_median": 2397.1158720747485,
+            "residual_gate_pass": true
+          },
+          "k_shift_fraction": 0.0012068106576004212
+        }
+      }
+    },
+    "CygOB2-B": {
+      "n_truth_age_nodes": 3,
+      "by_alpha": {
+        "alpha_2.0": {
+          "truth_age_prior_weights": {
+            "2.818": 0.6666666666666667,
+            "3.162": 0.2222222222222222,
+            "3.548": 0.1111111111111111
+          },
+          "truth_age_posterior_weights": {
+            "2.818": 0.011902081830081089,
+            "3.162": 0.29539380691848544,
+            "3.548": 0.6927041112514335
+          },
+          "truth_age_posterior_mean_Myr": 3.4254687953383587,
+          "joint": {
+            "residuals": [
+              1.580494190682961,
+              2.1437668159276475,
+              2.569479638607293,
+              -0.4107828380098826,
+              -1.2948164310631864,
+              -1.3693803460646254
+            ],
+            "chi2_p": 0.003774149396051432,
+            "trend_p": 0.07239650145772594,
+            "max_abs_residual": 2.569479638607293,
+            "k_median": 1283.2911527997876,
+            "residual_gate_pass": false
+          },
+          "stored_repair_v3": {
+            "residuals": [
+              1.8374811597315777,
+              2.471714633493444,
+              3.6765155077279026,
+              -0.5240628009826198,
+              -1.7530524759193502,
+              -1.7013537126629767
+            ],
+            "chi2_p": 2.0758165677128524e-05,
+            "trend_p": 0.11078717201166179,
+            "max_abs_residual": 3.6765155077279026,
+            "k_median": 1324.6646353255337,
+            "residual_gate_pass": false
+          },
+          "k_shift_fraction": -0.031233175116491818
+        },
+        "alpha_2.3": {
+          "truth_age_prior_weights": {
+            "2.818": 0.6666666666666667,
+            "3.162": 0.2222222222222222,
+            "3.548": 0.1111111111111111
+          },
+          "truth_age_posterior_weights": {
+            "2.818": 0.02085239168600128,
+            "3.162": 0.35787088031462727,
+            "3.548": 0.6212767279993715
+          },
+          "truth_age_posterior_mean_Myr": 3.3948301299816355,
+          "joint": {
+            "residuals": [
+              1.1968032467055012,
+              2.0812238925689215,
+              2.5129375169143415,
+              -0.2411885224039169,
+              -0.7920286777328954,
+              -0.5371004332277978
+            ],
+            "chi2_p": 0.02289039910184634,
+            "trend_p": 0.11078717201166179,
+            "max_abs_residual": 2.5129375169143415,
+            "k_median": 1855.1830091863585,
+            "residual_gate_pass": true
+          },
+          "stored_repair_v3": {
+            "residuals": [
+              1.4455350754373062,
+              2.41314480136855,
+              3.6249050682539177,
+              -0.36313115864214945,
+              -1.3008176257871533,
+              -0.9180290659283242
+            ],
+            "chi2_p": 0.0002457769536345612,
+            "trend_p": 0.11078717201166179,
+            "max_abs_residual": 3.6249050682539177,
+            "k_median": 1924.5880729943274,
+            "residual_gate_pass": false
+          },
+          "k_shift_fraction": -0.03606229550201179
+        },
+        "alpha_2.6": {
+          "truth_age_prior_weights": {
+            "2.818": 0.6666666666666667,
+            "3.162": 0.2222222222222222,
+            "3.548": 0.1111111111111111
+          },
+          "truth_age_posterior_weights": {
+            "2.818": 0.03854762457600649,
+            "3.162": 0.41738248603315475,
+            "3.548": 0.5440698893908388
+          },
+          "truth_age_posterior_mean_Myr": 3.3589540928209924,
+          "joint": {
+            "residuals": [
+              0.9574611645071895,
+              2.1830898137130896,
+              2.655038603826816,
+              0.08534503744159407,
+              -0.17391033811947748,
+              0.38483514209593195
+            ],
+            "chi2_p": 0.024164564204013705,
+            "trend_p": 0.208,
+            "max_abs_residual": 2.655038603826816,
+            "k_median": 2604.06201458713,
+            "residual_gate_pass": true
+          },
+          "stored_repair_v3": {
+            "residuals": [
+              1.2070731665867025,
+              2.5265673527133092,
+              3.764904020079303,
+              -0.03628105373558629,
+              -0.716757530027651,
+              -0.03542473589050605
+            ],
+            "chi2_p": 0.00041479107911247505,
+            "trend_p": 0.208,
+            "max_abs_residual": 3.764904020079303,
+            "k_median": 2708.6904233499545,
+            "residual_gate_pass": false
+          },
+          "k_shift_fraction": -0.03862693494276326
+        }
+      }
+    },
+    "CygOB2-C": {
+      "n_truth_age_nodes": 1,
+      "by_alpha": {
+        "alpha_2.0": {
+          "truth_age_prior_weights": {
+            "2.512": 1.0000000000000002
+          },
+          "truth_age_posterior_weights": {
+            "2.512": 1.0
+          },
+          "truth_age_posterior_mean_Myr": 2.5118864315095824,
+          "joint": {
+            "residuals": [
+              1.8912630360880187,
+              0.6736653277929538,
+              0.8422531210141464,
+              -0.3838129997813918,
+              -0.2665122697412984,
+              0.5266023063345049
+            ],
+            "chi2_p": 0.3877926084460932,
+            "trend_p": 0.11078717201166179,
+            "max_abs_residual": 1.8912630360880187,
+            "k_median": 1276.549105542756,
+            "residual_gate_pass": true
+          },
+          "stored_repair_v3": {
+            "residuals": [
+              1.886945377060792,
+              0.6674255292779185,
+              0.8368566295330031,
+              -0.38913513773100916,
+              -0.2721522027170336,
+              0.5212994681595245
+            ],
+            "chi2_p": 0.39154202871799954,
+            "trend_p": 0.11078717201166179,
+            "max_abs_residual": 1.886945377060792,
+            "k_median": 1277.597403659318,
+            "residual_gate_pass": true
+          },
+          "k_shift_fraction": -0.0008205230486219017
+        },
+        "alpha_2.3": {
+          "truth_age_prior_weights": {
+            "2.512": 1.0000000000000002
+          },
+          "truth_age_posterior_weights": {
+            "2.512": 1.0
+          },
+          "truth_age_posterior_mean_Myr": 2.5118864315095824,
+          "joint": {
+            "residuals": [
+              1.502184658052021,
+              0.5547606186130276,
+              0.8391330703041381,
+              -0.19256996354926662,
+              0.29340013003859494,
+              1.5347557558689457
+            ],
+            "chi2_p": 0.33160960712741056,
+            "trend_p": 0.9571545189504373,
+            "max_abs_residual": 1.5347557558689457,
+            "k_median": 1881.3315374336935,
+            "residual_gate_pass": true
+          },
+          "stored_repair_v3": {
+            "residuals": [
+              1.493917331861449,
+              0.5427445494874469,
+              0.828737912282991,
+              -0.2028188121685878,
+              0.28253544107459366,
+              1.5244777289403961
+            ],
+            "chi2_p": 0.3409143658046784,
+            "trend_p": 0.9571545189504373,
+            "max_abs_residual": 1.5244777289403961,
+            "k_median": 1884.3087453776266,
+            "residual_gate_pass": true
+          },
+          "k_shift_fraction": -0.0015800000669935477
+        },
+        "alpha_2.6": {
+          "truth_age_prior_weights": {
+            "2.512": 1.0000000000000002
+          },
+          "truth_age_posterior_weights": {
+            "2.512": 1.0
+          },
+          "truth_age_posterior_mean_Myr": 2.5118864315095824,
+          "joint": {
+            "residuals": [
+              1.2546352856495617,
+              0.6218453969435597,
+              1.0201604096560966,
+              0.16330562723973308,
+              1.004727917146671,
+              2.6926625414721848
+            ],
+            "chi2_p": 0.045957609062354646,
+            "trend_p": 0.7871720116618076,
+            "max_abs_residual": 2.6926625414721848,
+            "k_median": 2687.0144024831425,
+            "residual_gate_pass": true
+          },
+          "stored_repair_v3": {
+            "residuals": [
+              1.2604037026887804,
+              0.6302566293954501,
+              1.027442994793656,
+              0.1704781581672605,
+              1.0123504759001236,
+              2.69995990670864
+            ],
+            "chi2_p": 0.04425579256806311,
+            "trend_p": 0.7871720116618076,
+            "max_abs_residual": 2.69995990670864,
+            "k_median": 2684.042449031628,
+            "residual_gate_pass": true
+          },
+          "k_shift_fraction": 0.0011072676784924518
+        }
+      }
+    }
+  },
+  "verdict": {
+    "single_node_equivalence_holds": true,
+    "single_node_equivalence_note": "exact, RNG stream included: with one truth-age node fit_joint reproduces fit_one bit-for-bit (max k-draw difference 0.0), so the new machinery provably cannot move a subgroup whose WP4 posterior spans a single native isochrone age",
+    "baseline_gate_pass_by_subgroup": {
+      "CygOB2-A": true,
+      "CygOB2-B": true,
+      "CygOB2-C": true
+    },
+    "baseline_all_subgroups_pass": true,
+    "single_node_subgroup_drift_vs_stored": {
+      "CygOB2-A": {
+        "max_abs_residual_shift_vs_stored": 0.011868719225097024,
+        "max_abs_k_shift_fraction_vs_stored": 0.0012068106576004212
+      },
+      "CygOB2-C": {
+        "max_abs_residual_shift_vs_stored": 0.01201606912558073,
+        "max_abs_k_shift_fraction_vs_stored": 0.0015800000669935477
+      }
+    },
+    "monte_carlo_tolerance": {
+      "residual": 0.05,
+      "k_fraction": 0.01,
+      "reason": "different RNG stream position (shared generator in the production loop vs fresh generator per fit here); not a model difference"
+    },
+    "A_and_C_within_monte_carlo_noise": true,
+    "step3c_ready": true
+  }
+}

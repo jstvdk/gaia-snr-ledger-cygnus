@@ -1,0 +1,59 @@
+{
+  "created_utc": "2026-07-28T14:24:54.748300+00:00",
+  "script": "scripts/wp6_bright_completeness.py",
+  "status": "SUCCESS",
+  "issue": "#3 \u2014 WP6 step 2(a) assumes bright-mass completeness ~1.0",
+  "wp5_version": "repair_v6",
+  "defect": "WP6's census-closure step compares the observed massive-star count against k * integral M^-alpha over M >= threshold, i.e. against the TRUE number, and reads the shortfall as stars that have already exploded.  The catalogue does not contain every massive star: the injection response recovers a fraction that is flat in mass out to 18 Msun, so the loss is the WP2 quality filter rather than a magnitude limit and does not vanish at the bright end.",
+  "consequence_if_uncorrected": "the un-recovered fraction is counted as a real deficit, so the inferred number of exploded stars \u2014 and therefore N_SN \u2014 is inflated by that fraction",
+  "required_estimator": "expected OBSERVED count = k * integral dM M^-alpha * R(recovered above threshold | M), with R the WP5 injection response.  This is the same forward construction WP5 already uses inside 2-8 Msun, extended to one open-ended bin.  Do NOT divide an observed count by a scalar completeness: the response also scatters mass estimates across the threshold, and the difference between the two treatments is reported below as effective_completeness vs bright_recovery_plateau_response.",
+  "threshold_Msun": 8.0,
+  "environment": {
+    "python": "3.11.15 | packaged by conda-forge | (main, Jun 11 2026, 03:29:05) [Clang 19.1.7 ]",
+    "platform": "macOS-15.6.1-arm64-arm-64bit",
+    "numpy": "2.4.6",
+    "pandas": "3.0.3"
+  },
+  "inputs": {
+    "data/processed/wp5_imf_normalization_repair_v6.parquet": "a3111ca512e5838f5e0c86359721921870285b80af3d37033eb3e26d66c7abf8",
+    "data/processed/wp5_completeness_curves_repair_v6.parquet": "4f5c0c8a3ac54925ad468825331e498cc4b021696519e52ccec4faaa3a6073d8",
+    "data/processed/wp4_age_posteriors_repair_v5.parquet": "dc14e923a5dc4ad1336d08059e397bbc007f0f926f91a94f5ac2ddfbdc141ada"
+  },
+  "grid_summary": {
+    "cells": 54,
+    "effective_completeness_min": 0.8097,
+    "effective_completeness_median": 0.8715,
+    "effective_completeness_max": 1.0398,
+    "spurious_deficit_median": 0.1285,
+    "bright_plateau_recovery_median": 0.7873
+  },
+  "baseline_PARSEC_rv3.1_alpha2.3": [
+    {
+      "subgroup": "CygOB2-A",
+      "k_median": 1726.13,
+      "expected_true_above_8Msun": 59.89,
+      "expected_observed_above_8Msun": 49.92,
+      "effective_completeness": 0.8336,
+      "bright_recovery_plateau": 0.7713
+    },
+    {
+      "subgroup": "CygOB2-B",
+      "k_median": 1639.05,
+      "expected_true_above_8Msun": 56.87,
+      "expected_observed_above_8Msun": 54.71,
+      "effective_completeness": 0.9621,
+      "bright_recovery_plateau": 0.797
+    },
+    {
+      "subgroup": "CygOB2-C",
+      "k_median": 1884.3,
+      "expected_true_above_8Msun": 65.37,
+      "expected_observed_above_8Msun": 55.28,
+      "effective_completeness": 0.8456,
+      "bright_recovery_plateau": 0.7883
+    }
+  ],
+  "outputs": {
+    "tables/wp6_bright_completeness.csv": "507c2f31f3026f55c826dbfce4a67feb4bf41d92a9d7d5cdf5de4a900dc49f92"
+  }
+}

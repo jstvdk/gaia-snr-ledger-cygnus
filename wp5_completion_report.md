@@ -1,3 +1,9 @@
+> **SUPERSEDED 2026-07-27.** This report describes the frozen pre-repair WP5
+> run (0/54 branches passing) and is retained as a historical record. The
+> current WP5 verdict is in
+> [wp5_completion_report_repair_v6.md](wp5_completion_report_repair_v6.md);
+> the repair history is in [PROJECT_TRACE.md](PROJECT_TRACE.md) §8.
+
 # WP5 completion report
 
 **Verdict: BLOCKED — validation gate failed.**

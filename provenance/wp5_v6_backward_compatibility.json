@@ -1,0 +1,65 @@
+{
+  "created_utc": "2026-07-28T11:59:04.139929+00:00",
+  "script": "scripts/wp5_v6_backward_compatibility.py",
+  "status": "SUCCESS",
+  "issue": "#13 \u2014 repair_v1..v5 must be unaffected by the repair_v6 change",
+  "claim_under_test": "every repair_v6 code change sits behind a default argument that reproduces the previous behaviour, and the one performance edit (vectorizing the Jeffreys k inside bootstrap_null) changes no value",
+  "environment": {
+    "python": "3.11.15 | packaged by conda-forge | (main, Jun 11 2026, 03:29:05) [Clang 19.1.7 ]",
+    "platform": "macOS-15.6.1-arm64-arm-64bit",
+    "numpy": "2.4.6",
+    "pandas": "3.0.3"
+  },
+  "C1_default_node_rule_reproduces_disk": [
+    {
+      "version": "repair_v4",
+      "upstream": "repair_v3",
+      "branches_checked": 17,
+      "mismatches": [],
+      "pass": true
+    },
+    {
+      "version": "repair_v5",
+      "upstream": "repair_v5",
+      "branches_checked": 18,
+      "mismatches": [],
+      "pass": true
+    }
+  ],
+  "C2_interpolating_loader_equals_native_at_native_ages": {
+    "per_family": [
+      {
+        "family": "PARSEC",
+        "native_ages_checked": 18,
+        "max_abs_magnitude_difference": 0.0,
+        "pass": true
+      },
+      {
+        "family": "MIST",
+        "native_ages_checked": 17,
+        "max_abs_magnitude_difference": 0.0,
+        "pass": true
+      }
+    ],
+    "pass": true
+  },
+  "C3_vectorized_jeffreys_k_bitwise_identical": {
+    "samples": 20000,
+    "max_abs_difference": 0.0,
+    "bitwise_identical": true,
+    "pass": true
+  },
+  "C4_interpolation_flag_off_for_all_pre_v6_versions": {
+    "flags": {
+      "frozen": false,
+      "repair_v1": false,
+      "repair_v2": false,
+      "repair_v3": false,
+      "repair_v4": false,
+      "repair_v5": false,
+      "repair_v6": true
+    },
+    "pass": true
+  },
+  "all_pass": true
+}

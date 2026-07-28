@@ -128,7 +128,9 @@ def main() -> None:
                 float(rv),
             )
             prior_mean = float(centre[0])
-            prior_sigma = float(anchor_map.prior_sigma[float(rv)])
+            prior_sigma = float(
+                anchor_map.prior_sigma_at(separation, float(rv))[0]
+            )
             method = str(row["av_method"])
             if method == "intrinsic_color_spectroscopic":
                 frozen_row = frozen.loc[frozen["source_id"].eq(source_id)].iloc[0]

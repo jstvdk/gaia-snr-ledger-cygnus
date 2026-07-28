@@ -1,0 +1,524 @@
+{
+  "created_utc": "2026-07-28T10:51:24.290888+00:00",
+  "script": "scripts/wp5_rescore_all_versions.py",
+  "status": "SUCCESS",
+  "issue": "#11 R4 \u2014 equal-footing re-scoring under the replacement statistic",
+  "predeclaration": "CUTS_AND_THRESHOLDS.md section 14",
+  "seed": 20260728,
+  "environment": {
+    "python": "3.11.15 | packaged by conda-forge | (main, Jun 11 2026, 03:29:05) [Clang 19.1.7 ]",
+    "platform": "macOS-15.6.1-arm64-arm-64bit",
+    "numpy": "2.4.6",
+    "pandas": "3.0.3"
+  },
+  "inputs": {
+    "data/processed/wp5_mass_function_bins.parquet": "f438210f2be7a692a206498b63be7645fb091ba2c59a61d8c2e300ff834c5849",
+    "data/processed/wp5_mass_function_bins_repair_v1.parquet": "aca92e02ea306578fb4a21f21edca05b49cee9b0fadb5fa775dc1a91fbf13e74",
+    "data/processed/wp5_mass_function_bins_repair_v2.parquet": "af14d9e0fc3204e7ae9c831b7029df4e8b5a135f2163afbc7c2d69b481bf9f9c",
+    "data/processed/wp5_mass_function_bins_repair_v3.parquet": "a35fb2b4d66c6ce36d1b5a00ae1c30451be144df259265d7b0b3433edd811d8e",
+    "data/processed/wp5_mass_function_bins_repair_v4.parquet": "94aff38c79723386b4db9d6c20ac51aa999bc33a69682f83d7df84321b268bd8",
+    "data/processed/wp5_mass_function_bins_repair_v5.parquet": "fb6ea24ee9e987888e6f7edaa8001ae6beb4aa92365afc3166298b935e2a5d8b"
+  },
+  "unchanged": "chi-square criterion, max-residual criterion, the 0.05 trend threshold and the three-way conjunction are identical in both scorings; only the trend statistic differs",
+  "per_version": [
+    {
+      "version": "frozen",
+      "cells": 54,
+      "grid_incumbent": 0,
+      "grid_replacement": 0,
+      "grid_change": 0,
+      "baseline_all_pass_incumbent": false,
+      "baseline_all_pass_replacement": false,
+      "baseline_detail": [
+        {
+          "subgroup": "CygOB2-A",
+          "chi2_p": 1.2743945665463034e-13,
+          "max_abs_residual": 6.442037744717707,
+          "incumbent_trend_p": 0.9571545189504373,
+          "replacement_trend_p": 0.0475,
+          "gate_incumbent": false,
+          "gate_replacement": false
+        },
+        {
+          "subgroup": "CygOB2-B",
+          "chi2_p": 1.787495844013844e-18,
+          "max_abs_residual": 7.8627136103473205,
+          "incumbent_trend_p": 0.208,
+          "replacement_trend_p": 4.999750012499375e-05,
+          "gate_incumbent": false,
+          "gate_replacement": false
+        },
+        {
+          "subgroup": "CygOB2-C",
+          "chi2_p": 1.4249372842872335e-13,
+          "max_abs_residual": 7.171089813194513,
+          "incumbent_trend_p": 0.9571545189504373,
+          "replacement_trend_p": 0.01195,
+          "gate_incumbent": false,
+          "gate_replacement": false
+        }
+      ]
+    },
+    {
+      "version": "repair_v1",
+      "cells": 54,
+      "grid_incumbent": 31,
+      "grid_replacement": 29,
+      "grid_change": -2,
+      "baseline_all_pass_incumbent": false,
+      "baseline_all_pass_replacement": false,
+      "baseline_detail": [
+        {
+          "subgroup": "CygOB2-A",
+          "chi2_p": 0.09017633768351256,
+          "max_abs_residual": 2.6261214166622318,
+          "incumbent_trend_p": 0.8717434402332361,
+          "replacement_trend_p": 0.3619,
+          "gate_incumbent": true,
+          "gate_replacement": true
+        },
+        {
+          "subgroup": "CygOB2-B",
+          "chi2_p": 0.03725098039393433,
+          "max_abs_residual": 2.746390708790029,
+          "incumbent_trend_p": 0.1561749271137024,
+          "replacement_trend_p": 0.29945,
+          "gate_incumbent": true,
+          "gate_replacement": true
+        },
+        {
+          "subgroup": "CygOB2-C",
+          "chi2_p": 0.03970009919167857,
+          "max_abs_residual": 3.2569828867786406,
+          "incumbent_trend_p": 0.6227871720116619,
+          "replacement_trend_p": 0.109,
+          "gate_incumbent": false,
+          "gate_replacement": false
+        }
+      ]
+    },
+    {
+      "version": "repair_v2",
+      "cells": 54,
+      "grid_incumbent": 33,
+      "grid_replacement": 31,
+      "grid_change": -2,
+      "baseline_all_pass_incumbent": false,
+      "baseline_all_pass_replacement": false,
+      "baseline_detail": [
+        {
+          "subgroup": "CygOB2-A",
+          "chi2_p": 0.3843701306212301,
+          "max_abs_residual": 1.4659872735106108,
+          "incumbent_trend_p": 0.8717434402332361,
+          "replacement_trend_p": 0.9869,
+          "gate_incumbent": true,
+          "gate_replacement": true
+        },
+        {
+          "subgroup": "CygOB2-B",
+          "chi2_p": 0.036024358255711486,
+          "max_abs_residual": 3.0158551172597177,
+          "incumbent_trend_p": 0.208,
+          "replacement_trend_p": 0.1412,
+          "gate_incumbent": false,
+          "gate_replacement": false
+        },
+        {
+          "subgroup": "CygOB2-C",
+          "chi2_p": 0.28548091318495145,
+          "max_abs_residual": 1.8922894200135305,
+          "incumbent_trend_p": 0.7871720116618076,
+          "replacement_trend_p": 0.74055,
+          "gate_incumbent": true,
+          "gate_replacement": true
+        }
+      ]
+    },
+    {
+      "version": "repair_v3",
+      "cells": 54,
+      "grid_incumbent": 26,
+      "grid_replacement": 25,
+      "grid_change": -1,
+      "baseline_all_pass_incumbent": false,
+      "baseline_all_pass_replacement": false,
+      "baseline_detail": [
+        {
+          "subgroup": "CygOB2-A",
+          "chi2_p": 0.3498136748411814,
+          "max_abs_residual": 1.3667260237006842,
+          "incumbent_trend_p": 0.4684781341107872,
+          "replacement_trend_p": 0.62915,
+          "gate_incumbent": true,
+          "gate_replacement": true
+        },
+        {
+          "subgroup": "CygOB2-B",
+          "chi2_p": 0.0002457769536345612,
+          "max_abs_residual": 3.6249050682539177,
+          "incumbent_trend_p": 0.11078717201166179,
+          "replacement_trend_p": 0.00125,
+          "gate_incumbent": false,
+          "gate_replacement": false
+        },
+        {
+          "subgroup": "CygOB2-C",
+          "chi2_p": 0.3409143658046784,
+          "max_abs_residual": 1.5244777289403961,
+          "incumbent_trend_p": 0.9571545189504373,
+          "replacement_trend_p": 0.8413,
+          "gate_incumbent": true,
+          "gate_replacement": true
+        }
+      ]
+    },
+    {
+      "version": "repair_v4",
+      "cells": 54,
+      "grid_incumbent": 29,
+      "grid_replacement": 27,
+      "grid_change": -2,
+      "baseline_all_pass_incumbent": true,
+      "baseline_all_pass_replacement": false,
+      "baseline_detail": [
+        {
+          "subgroup": "CygOB2-A",
+          "chi2_p": 0.38025323709531256,
+          "max_abs_residual": 1.4531158583839419,
+          "incumbent_trend_p": 0.8717434402332361,
+          "replacement_trend_p": 0.69515,
+          "gate_incumbent": true,
+          "gate_replacement": true
+        },
+        {
+          "subgroup": "CygOB2-B",
+          "chi2_p": 0.02289039910184634,
+          "max_abs_residual": 2.5129375169143415,
+          "incumbent_trend_p": 0.11078717201166179,
+          "replacement_trend_p": 0.0166,
+          "gate_incumbent": true,
+          "gate_replacement": false
+        },
+        {
+          "subgroup": "CygOB2-C",
+          "chi2_p": 0.49198402689733345,
+          "max_abs_residual": 1.5216536991174585,
+          "incumbent_trend_p": 0.8717434402332361,
+          "replacement_trend_p": 0.84545,
+          "gate_incumbent": true,
+          "gate_replacement": true
+        }
+      ]
+    },
+    {
+      "version": "repair_v5",
+      "cells": 54,
+      "grid_incumbent": 38,
+      "grid_replacement": 37,
+      "grid_change": -1,
+      "baseline_all_pass_incumbent": true,
+      "baseline_all_pass_replacement": true,
+      "baseline_detail": [
+        {
+          "subgroup": "CygOB2-A",
+          "chi2_p": 0.4476448736087042,
+          "max_abs_residual": 1.3391733966765174,
+          "incumbent_trend_p": 0.4684781341107872,
+          "replacement_trend_p": 0.58965,
+          "gate_incumbent": true,
+          "gate_replacement": true
+        },
+        {
+          "subgroup": "CygOB2-B",
+          "chi2_p": 0.2929479732887663,
+          "max_abs_residual": 2.2710794988085294,
+          "incumbent_trend_p": 0.11078717201166179,
+          "replacement_trend_p": 0.1863,
+          "gate_incumbent": true,
+          "gate_replacement": true
+        },
+        {
+          "subgroup": "CygOB2-C",
+          "chi2_p": 0.3504091925141227,
+          "max_abs_residual": 1.5555752046510112,
+          "incumbent_trend_p": 0.9571545189504373,
+          "replacement_trend_p": 0.85785,
+          "gate_incumbent": true,
+          "gate_replacement": true
+        }
+      ]
+    }
+  ],
+  "cells_changing_verdict": [
+    {
+      "version": "repair_v1",
+      "subgroup": "CygOB2-A",
+      "family": "MIST",
+      "R_V": 3.0,
+      "alpha": 2.0,
+      "incumbent_trend_p": 0.3287230320699708,
+      "replacement_trend_p": 0.00975,
+      "chi2_p": 0.025373014347119766,
+      "max_abs_residual": 2.8012520911211687,
+      "direction": "pass_to_fail"
+    },
+    {
+      "version": "repair_v1",
+      "subgroup": "CygOB2-B",
+      "family": "PARSEC",
+      "R_V": 3.1,
+      "alpha": 2.0,
+      "incumbent_trend_p": 0.1561749271137024,
+      "replacement_trend_p": 0.0401,
+      "chi2_p": 0.021317794262783032,
+      "max_abs_residual": 2.7511856067510094,
+      "direction": "pass_to_fail"
+    },
+    {
+      "version": "repair_v2",
+      "subgroup": "CygOB2-A",
+      "family": "PARSEC",
+      "R_V": 3.0,
+      "alpha": 2.0,
+      "incumbent_trend_p": 0.3965014577259473,
+      "replacement_trend_p": 0.02935,
+      "chi2_p": 0.046230252961531916,
+      "max_abs_residual": 2.4785150441189825,
+      "direction": "pass_to_fail"
+    },
+    {
+      "version": "repair_v2",
+      "subgroup": "CygOB2-B",
+      "family": "PARSEC",
+      "R_V": 3.0,
+      "alpha": 2.0,
+      "incumbent_trend_p": 0.07239650145772594,
+      "replacement_trend_p": 0.0245,
+      "chi2_p": 0.06513002229308221,
+      "max_abs_residual": 2.2707698206786935,
+      "direction": "pass_to_fail"
+    },
+    {
+      "version": "repair_v2",
+      "subgroup": "CygOB2-C",
+      "family": "MIST",
+      "R_V": 3.0,
+      "alpha": 2.3,
+      "incumbent_trend_p": 0.04156268221574335,
+      "replacement_trend_p": 0.0663,
+      "chi2_p": 0.20523433972452568,
+      "max_abs_residual": 2.318662177999859,
+      "direction": "fail_to_pass"
+    },
+    {
+      "version": "repair_v2",
+      "subgroup": "CygOB2-C",
+      "family": "MIST",
+      "R_V": 3.1,
+      "alpha": 2.3,
+      "incumbent_trend_p": 0.07239650145772594,
+      "replacement_trend_p": 0.0217,
+      "chi2_p": 0.10078301050908305,
+      "max_abs_residual": 2.4511564061853703,
+      "direction": "pass_to_fail"
+    },
+    {
+      "version": "repair_v3",
+      "subgroup": "CygOB2-A",
+      "family": "MIST",
+      "R_V": 3.0,
+      "alpha": 2.3,
+      "incumbent_trend_p": 0.26570262390670546,
+      "replacement_trend_p": 0.04,
+      "chi2_p": 0.11727137596502704,
+      "max_abs_residual": 2.1930282579294818,
+      "direction": "pass_to_fail"
+    },
+    {
+      "version": "repair_v3",
+      "subgroup": "CygOB2-A",
+      "family": "MIST",
+      "R_V": 3.5,
+      "alpha": 2.6,
+      "incumbent_trend_p": 0.01884548104956266,
+      "replacement_trend_p": 0.07205,
+      "chi2_p": 0.062434040340204715,
+      "max_abs_residual": 2.3615165531388245,
+      "direction": "fail_to_pass"
+    },
+    {
+      "version": "repair_v3",
+      "subgroup": "CygOB2-A",
+      "family": "PARSEC",
+      "R_V": 3.0,
+      "alpha": 2.0,
+      "incumbent_trend_p": 0.3287230320699708,
+      "replacement_trend_p": 0.0072,
+      "chi2_p": 0.01973729001087994,
+      "max_abs_residual": 2.6618846279271513,
+      "direction": "pass_to_fail"
+    },
+    {
+      "version": "repair_v3",
+      "subgroup": "CygOB2-A",
+      "family": "PARSEC",
+      "R_V": 3.1,
+      "alpha": 2.0,
+      "incumbent_trend_p": 0.1561749271137024,
+      "replacement_trend_p": 0.04,
+      "chi2_p": 0.147465399606553,
+      "max_abs_residual": 2.0351556179532557,
+      "direction": "pass_to_fail"
+    },
+    {
+      "version": "repair_v3",
+      "subgroup": "CygOB2-A",
+      "family": "PARSEC",
+      "R_V": 3.5,
+      "alpha": 2.3,
+      "incumbent_trend_p": 0.004804664723032055,
+      "replacement_trend_p": 0.0802,
+      "chi2_p": 0.3207333110228541,
+      "max_abs_residual": 1.8927809991597158,
+      "direction": "fail_to_pass"
+    },
+    {
+      "version": "repair_v4",
+      "subgroup": "CygOB2-A",
+      "family": "MIST",
+      "R_V": 3.0,
+      "alpha": 2.3,
+      "incumbent_trend_p": 0.26570262390670546,
+      "replacement_trend_p": 0.03385,
+      "chi2_p": 0.10060424601879053,
+      "max_abs_residual": 2.0559828471528614,
+      "direction": "pass_to_fail"
+    },
+    {
+      "version": "repair_v4",
+      "subgroup": "CygOB2-A",
+      "family": "MIST",
+      "R_V": 3.1,
+      "alpha": 2.0,
+      "incumbent_trend_p": 0.07239650145772594,
+      "replacement_trend_p": 0.00475,
+      "chi2_p": 0.06337879666697162,
+      "max_abs_residual": 2.0118340344461814,
+      "direction": "pass_to_fail"
+    },
+    {
+      "version": "repair_v4",
+      "subgroup": "CygOB2-A",
+      "family": "PARSEC",
+      "R_V": 3.0,
+      "alpha": 2.0,
+      "incumbent_trend_p": 0.3287230320699708,
+      "replacement_trend_p": 0.00785,
+      "chi2_p": 0.021896936275244885,
+      "max_abs_residual": 2.7149861258298653,
+      "direction": "pass_to_fail"
+    },
+    {
+      "version": "repair_v4",
+      "subgroup": "CygOB2-A",
+      "family": "PARSEC",
+      "R_V": 3.5,
+      "alpha": 2.3,
+      "incumbent_trend_p": 0.04156268221574335,
+      "replacement_trend_p": 0.15185,
+      "chi2_p": 0.39502837359030096,
+      "max_abs_residual": 1.7517490116036585,
+      "direction": "fail_to_pass"
+    },
+    {
+      "version": "repair_v4",
+      "subgroup": "CygOB2-B",
+      "family": "PARSEC",
+      "R_V": 3.1,
+      "alpha": 2.3,
+      "incumbent_trend_p": 0.11078717201166179,
+      "replacement_trend_p": 0.0166,
+      "chi2_p": 0.02289039910184634,
+      "max_abs_residual": 2.5129375169143415,
+      "direction": "pass_to_fail"
+    },
+    {
+      "version": "repair_v4",
+      "subgroup": "CygOB2-C",
+      "family": "MIST",
+      "R_V": 3.1,
+      "alpha": 2.0,
+      "incumbent_trend_p": 0.04156268221574335,
+      "replacement_trend_p": 0.44225,
+      "chi2_p": 0.854941239593398,
+      "max_abs_residual": 1.12623487035929,
+      "direction": "fail_to_pass"
+    },
+    {
+      "version": "repair_v5",
+      "subgroup": "CygOB2-A",
+      "family": "PARSEC",
+      "R_V": 3.0,
+      "alpha": 2.0,
+      "incumbent_trend_p": 0.208,
+      "replacement_trend_p": 0.02265,
+      "chi2_p": 0.08602256903702872,
+      "max_abs_residual": 2.1805176593553166,
+      "direction": "pass_to_fail"
+    },
+    {
+      "version": "repair_v5",
+      "subgroup": "CygOB2-A",
+      "family": "PARSEC",
+      "R_V": 3.1,
+      "alpha": 2.0,
+      "incumbent_trend_p": 0.208,
+      "replacement_trend_p": 0.0395,
+      "chi2_p": 0.18901595537027238,
+      "max_abs_residual": 1.927975288180768,
+      "direction": "pass_to_fail"
+    },
+    {
+      "version": "repair_v5",
+      "subgroup": "CygOB2-A",
+      "family": "PARSEC",
+      "R_V": 3.5,
+      "alpha": 2.3,
+      "incumbent_trend_p": 0.04156268221574335,
+      "replacement_trend_p": 0.1498,
+      "chi2_p": 0.4113652094066046,
+      "max_abs_residual": 1.6699609382936544,
+      "direction": "fail_to_pass"
+    },
+    {
+      "version": "repair_v5",
+      "subgroup": "CygOB2-B",
+      "family": "PARSEC",
+      "R_V": 3.5,
+      "alpha": 2.0,
+      "incumbent_trend_p": 0.07239650145772594,
+      "replacement_trend_p": 0.0431,
+      "chi2_p": 0.08909686489726108,
+      "max_abs_residual": 2.2717634530223783,
+      "direction": "pass_to_fail"
+    },
+    {
+      "version": "repair_v5",
+      "subgroup": "CygOB2-C",
+      "family": "PARSEC",
+      "R_V": 3.0,
+      "alpha": 2.0,
+      "incumbent_trend_p": 0.04156268221574335,
+      "replacement_trend_p": 0.08315,
+      "chi2_p": 0.29080139150786766,
+      "max_abs_residual": 1.8610891332891162,
+      "direction": "fail_to_pass"
+    }
+  ],
+  "improves_only_newest_version": false,
+  "R4_pass": true,
+  "outputs": {
+    "tables/wp5_trend_statistic_rescore.csv": "0c7f41722f8eb928e1645255b3c5fad51a74f1dcf2a7c959124c4478301f2386"
+  }
+}

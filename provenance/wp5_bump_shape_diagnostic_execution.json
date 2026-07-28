@@ -1,0 +1,193 @@
+{
+  "created_utc": "2026-07-27T13:11:51.112943+00:00",
+  "script": "scripts/wp5_bump_shape_diagnostic.py",
+  "repair_version": "repair_v3",
+  "issue": "#1c CygOB2-B mass-function residual \u2014 shape diagnostic",
+  "deterministic": true,
+  "inputs": {
+    "data/processed/wp5_injection_response_repair_v3.parquet": "7b1267e11bf230bab1dc337e2d7459d5015fb0aa3b44ebdf8d3ae62cab35beed",
+    "data/processed/wp5_mass_function_bins_repair_v3.parquet": "a35fb2b4d66c6ce36d1b5a00ae1c30451be144df259265d7b0b3433edd811d8e",
+    "data/processed/wp5_imf_normalization_repair_v3.parquet": "56233772367948e4265ed66a920e7368c9e1b4090d5ac91549ea8ea2dfe0b905",
+    "data/processed/wp4_mass_posteriors_repair_v3.parquet": "7e6da3d4d3df80b030a3d4d04b07a0dc5ab3aa57536b89920eed8960c1ec71c2",
+    "data/processed/wp4_age_posteriors_repair_v3.parquet": "3f83738acf6932790177a8373f8dce1c45a83fcfdd112253c80f88c4de3633fd",
+    "data/processed/wp3_extinction_repair_v3.parquet": "6f3b92a035b62b8b2fac3c86a833a19abd1f1e16a42e9a0a539db1dd71623e75",
+    "data/processed/wp3_isochrones_parsec.parquet": "9e0444045acf3e9331bf609e44c5f065635b217558f2ff46deec68fb66c8c663",
+    "data/processed/wp3_isochrones_mist.parquet": "3b1437d791e61a5dc9b7b2a2ed12e83bc0a1c64cb775c3862a2073731623135b"
+  },
+  "method_caveat": "Point-estimate reconstruction of the forward rates; omits the Dirichlet response draws and k posterior of wp5_fit_imf.py, so absolute residuals are milder than the official gate values. Alpha-dependence of the shape is unaffected.",
+  "alpha_scan": {
+    "grid": [
+      1.8,
+      1.9,
+      2.0,
+      2.1,
+      2.2,
+      2.3,
+      2.4,
+      2.5,
+      2.6,
+      2.7,
+      2.8,
+      2.9,
+      3.0,
+      3.1,
+      3.2,
+      3.3,
+      3.4,
+      3.5,
+      3.6,
+      3.7,
+      3.8,
+      3.9,
+      4.0
+    ],
+    "per_branch": [
+      {
+        "family": "MIST",
+        "R_V": 3.0,
+        "official_maxres_alpha2.3": 4.6247620198021115,
+        "best_alpha": 3.3,
+        "chi2_at_best_alpha": 12.11798309909201,
+        "bin2_residual_at_best_alpha": 0.392229181144318,
+        "min_bin2_residual_over_all_alpha": 0.27744376296383794
+      },
+      {
+        "family": "MIST",
+        "R_V": 3.1,
+        "official_maxres_alpha2.3": 4.118330183314245,
+        "best_alpha": 3.1,
+        "chi2_at_best_alpha": 11.052545106600965,
+        "bin2_residual_at_best_alpha": 0.8473822922344991,
+        "min_bin2_residual_over_all_alpha": 0.656569226720182
+      },
+      {
+        "family": "MIST",
+        "R_V": 3.5,
+        "official_maxres_alpha2.3": 5.109125946166414,
+        "best_alpha": 3.4,
+        "chi2_at_best_alpha": 15.211944211622312,
+        "bin2_residual_at_best_alpha": 3.515153810037878,
+        "min_bin2_residual_over_all_alpha": 3.431331222456108
+      },
+      {
+        "family": "PARSEC",
+        "R_V": 3.0,
+        "official_maxres_alpha2.3": 3.098618301663056,
+        "best_alpha": 3.3,
+        "chi2_at_best_alpha": 5.308972551713298,
+        "bin2_residual_at_best_alpha": 0.7659101604541373,
+        "min_bin2_residual_over_all_alpha": 0.5965959083104299
+      },
+      {
+        "family": "PARSEC",
+        "R_V": 3.1,
+        "official_maxres_alpha2.3": 3.6249050682539177,
+        "best_alpha": 3.3,
+        "chi2_at_best_alpha": 9.301178547534851,
+        "bin2_residual_at_best_alpha": 2.2514225114645487,
+        "min_bin2_residual_over_all_alpha": 2.053060822688954
+      },
+      {
+        "family": "PARSEC",
+        "R_V": 3.5,
+        "official_maxres_alpha2.3": 4.236358639330411,
+        "best_alpha": 3.1,
+        "chi2_at_best_alpha": 9.605816139615046,
+        "bin2_residual_at_best_alpha": 2.7354458683832874,
+        "min_bin2_residual_over_all_alpha": 2.3581510071100293
+      }
+    ],
+    "table": "tables/wp5_bump_shape_diagnostic.csv"
+  },
+  "bump_star_audit": {
+    "baseline_mass_column": "mass_PARSEC_rv3.1",
+    "bump_bin_Msun": [
+      3.174802,
+      4.0
+    ],
+    "bin2_stars": {
+      "n": 86,
+      "membership_p_median": 0.85165,
+      "av_median": 6.310331933445247,
+      "parallax_median_mas": 0.617064280477566,
+      "ruwe_median": 1.019006073474884,
+      "dist_to_B_centroid_median_deg": 0.28657651005080054
+    },
+    "rest_of_window": {
+      "n": 256,
+      "membership_p_median": 0.8560000000000001,
+      "av_median": 6.369617679223273,
+      "parallax_median_mas": 0.6202070544464914,
+      "ruwe_median": 1.0322291254997253,
+      "dist_to_B_centroid_median_deg": 0.33762665332452246
+    }
+  },
+  "upper_ms_map_ages_Myr_baseline": {
+    "CygOB2-A": 3.9810717055349722,
+    "CygOB2-B": 2.8183829312644537,
+    "CygOB2-C": 2.51188643150958
+  },
+  "isochrone_caustic_G0_fold": {
+    "PARSEC": {
+      "CygOB2-A": {
+        "age_used_Myr": 3.9810717055349696,
+        "fold": [
+          2.4040689468,
+          2.8000001907
+        ],
+        "fold_amplitude_mag": 0.525
+      },
+      "CygOB2-B": {
+        "age_used_Myr": 2.818382931264455,
+        "fold": [
+          2.7663156986,
+          3.2158899307
+        ],
+        "fold_amplitude_mag": 0.5740000000000001
+      },
+      "CygOB2-C": {
+        "age_used_Myr": 2.5118864315095824,
+        "fold": [
+          2.8956980705,
+          3.3592758179
+        ],
+        "fold_amplitude_mag": 0.5990000000000001
+      }
+    },
+    "MIST": {
+      "CygOB2-A": {
+        "age_used_Myr": 4.008667176273026,
+        "fold": [
+          2.3859609026064166,
+          2.7724059547586646
+        ],
+        "fold_amplitude_mag": 0.47513399999999995
+      },
+      "CygOB2-B": {
+        "age_used_Myr": 2.8330223452571426,
+        "fold": [
+          2.7348823541685836,
+          3.2090892716330557
+        ],
+        "fold_amplitude_mag": 0.526518
+      },
+      "CygOB2-C": {
+        "age_used_Myr": 2.5234807724805752,
+        "fold": [
+          2.862526661574671,
+          3.355357124421778
+        ],
+        "fold_amplitude_mag": 0.5472670000000001
+      }
+    }
+  },
+  "observed_bin_edges_Msun": [
+    2.0,
+    2.519842,
+    3.174802,
+    4.0,
+    5.039684,
+    6.349604,
+    8.0
+  ]
+}

@@ -1,0 +1,642 @@
+{
+  "created_utc": "2026-07-27T17:54:30.826241+00:00",
+  "script": "scripts/wp5_trend_stability_check.py",
+  "status": "SUCCESS",
+  "issue": "#1c step 3c \u2014 are the flagged A/C gate flips model or Monte Carlo?",
+  "environment": {
+    "python": "3.11.15 | packaged by conda-forge | (main, Jun 11 2026, 03:29:05) [Clang 19.1.7 ]",
+    "platform": "macOS-15.6.1-arm64-arm-64bit",
+    "numpy": "2.4.6",
+    "pandas": "3.0.3"
+  },
+  "spearman_p_quantization_n6": {
+    "-0.886": 0.0188,
+    "-0.829": 0.0416,
+    "-0.771": 0.0724,
+    "-0.714": 0.1108,
+    "-0.657": 0.1562,
+    "-0.6": 0.208,
+    "-0.543": 0.2657,
+    "-0.486": 0.3287,
+    "-0.429": 0.3965,
+    "-0.371": 0.4685,
+    "-0.314": 0.5441,
+    "-0.257": 0.6228,
+    "-0.2": 0.704,
+    "-0.143": 0.7872,
+    "-0.086": 0.8717,
+    "-0.029": 0.9572,
+    "0.029": 0.9572,
+    "0.086": 0.8717,
+    "0.143": 0.7872,
+    "0.2": 0.704,
+    "0.257": 0.6228,
+    "0.314": 0.5441,
+    "0.371": 0.4685,
+    "0.429": 0.3965,
+    "0.486": 0.3287,
+    "0.543": 0.2657,
+    "0.6": 0.208,
+    "0.657": 0.1562,
+    "0.714": 0.1108,
+    "0.771": 0.0724,
+    "0.829": 0.0416,
+    "0.943": 0.0048
+  },
+  "gate_flips_v3_to_v4": [
+    {
+      "subgroup": "CygOB2-B",
+      "family": "PARSEC",
+      "R_V": 3.1,
+      "alpha": 2.3,
+      "direction": "fail_to_pass",
+      "n_truth_age_nodes": 3,
+      "model_identical_to_repair_v3": false,
+      "before": {
+        "chi2_p": 0.0002457769536345612,
+        "trend_p": 0.11078717201166179,
+        "rho": -0.7142857142857143,
+        "max_abs_residual": 3.6249050682539177
+      },
+      "after": {
+        "chi2_p": 0.02289039910184634,
+        "trend_p": 0.11078717201166179,
+        "rho": -0.7142857142857143,
+        "max_abs_residual": 2.5129375169143415
+      }
+    },
+    {
+      "subgroup": "CygOB2-B",
+      "family": "PARSEC",
+      "R_V": 3.1,
+      "alpha": 2.6,
+      "direction": "fail_to_pass",
+      "n_truth_age_nodes": 3,
+      "model_identical_to_repair_v3": false,
+      "before": {
+        "chi2_p": 0.00041479107911247505,
+        "trend_p": 0.208,
+        "rho": -0.6,
+        "max_abs_residual": 3.764904020079303
+      },
+      "after": {
+        "chi2_p": 0.024164564204013705,
+        "trend_p": 0.208,
+        "rho": -0.6,
+        "max_abs_residual": 2.655038603826816
+      }
+    },
+    {
+      "subgroup": "CygOB2-A",
+      "family": "MIST",
+      "R_V": 3.1,
+      "alpha": 2.0,
+      "direction": "fail_to_pass",
+      "n_truth_age_nodes": 1,
+      "model_identical_to_repair_v3": true,
+      "before": {
+        "chi2_p": 0.038160023553659383,
+        "trend_p": 0.004804664723032055,
+        "rho": -0.942857142857143,
+        "max_abs_residual": 2.3459105572308454
+      },
+      "after": {
+        "chi2_p": 0.06337879666697162,
+        "trend_p": 0.07239650145772594,
+        "rho": -0.7714285714285715,
+        "max_abs_residual": 2.0118340344461814
+      }
+    },
+    {
+      "subgroup": "CygOB2-C",
+      "family": "MIST",
+      "R_V": 3.1,
+      "alpha": 2.0,
+      "direction": "pass_to_fail",
+      "n_truth_age_nodes": 1,
+      "model_identical_to_repair_v3": true,
+      "before": {
+        "chi2_p": 0.8081280928416619,
+        "trend_p": 0.208,
+        "rho": 0.6,
+        "max_abs_residual": 1.1787639699735883
+      },
+      "after": {
+        "chi2_p": 0.854941239593398,
+        "trend_p": 0.04156268221574335,
+        "rho": 0.8285714285714287,
+        "max_abs_residual": 1.12623487035929
+      }
+    },
+    {
+      "subgroup": "CygOB2-C",
+      "family": "MIST",
+      "R_V": 3.1,
+      "alpha": 2.3,
+      "direction": "pass_to_fail",
+      "n_truth_age_nodes": 1,
+      "model_identical_to_repair_v3": true,
+      "before": {
+        "chi2_p": 0.18751835899603356,
+        "trend_p": 0.07239650145772594,
+        "rho": 0.7714285714285715,
+        "max_abs_residual": 2.2967604199984213
+      },
+      "after": {
+        "chi2_p": 0.19038676899083215,
+        "trend_p": 0.004804664723032055,
+        "rho": 0.942857142857143,
+        "max_abs_residual": 2.2555500159937893
+      }
+    },
+    {
+      "subgroup": "CygOB2-A",
+      "family": "MIST",
+      "R_V": 3.5,
+      "alpha": 2.6,
+      "direction": "fail_to_pass",
+      "n_truth_age_nodes": 1,
+      "model_identical_to_repair_v3": true,
+      "before": {
+        "chi2_p": 0.062434040340204715,
+        "trend_p": 0.01884548104956266,
+        "rho": 0.8857142857142858,
+        "max_abs_residual": 2.3615165531388245
+      },
+      "after": {
+        "chi2_p": 0.045222266468727804,
+        "trend_p": 0.07239650145772594,
+        "rho": 0.7714285714285715,
+        "max_abs_residual": 2.387779339620845
+      }
+    },
+    {
+      "subgroup": "CygOB2-C",
+      "family": "MIST",
+      "R_V": 3.5,
+      "alpha": 2.0,
+      "direction": "fail_to_pass",
+      "n_truth_age_nodes": 3,
+      "model_identical_to_repair_v3": false,
+      "before": {
+        "chi2_p": 0.013418486217445463,
+        "trend_p": 0.4684781341107872,
+        "rho": -0.3714285714285715,
+        "max_abs_residual": 3.032547792904969
+      },
+      "after": {
+        "chi2_p": 0.11130648267924985,
+        "trend_p": 0.4684781341107872,
+        "rho": -0.3714285714285715,
+        "max_abs_residual": 2.271224907387514
+      }
+    }
+  ],
+  "paired_realization_test": [
+    {
+      "subgroup": "CygOB2-A",
+      "family": "MIST",
+      "R_V": 3.1,
+      "alpha": 2.0,
+      "same_truth_age_both_versions": true,
+      "realizations": {
+        "repair_v3_injection_realization": {
+          "truth_age_Myr": 4.008667176273026,
+          "per_seed": [
+            {
+              "seed": 20260723,
+              "chi2_p": 0.038144835846645055,
+              "trend_p": 0.004804664723032055,
+              "rho": -0.942857142857143,
+              "max_abs_residual": 2.3461544042556697,
+              "gate_pass": false
+            },
+            {
+              "seed": 20260724,
+              "chi2_p": 0.03832662346820512,
+              "trend_p": 0.004804664723032055,
+              "rho": -0.942857142857143,
+              "max_abs_residual": 2.343235289245817,
+              "gate_pass": false
+            },
+            {
+              "seed": 20260725,
+              "chi2_p": 0.03838963344759419,
+              "trend_p": 0.004804664723032055,
+              "rho": -0.942857142857143,
+              "max_abs_residual": 2.3422232610462643,
+              "gate_pass": false
+            },
+            {
+              "seed": 20260726,
+              "chi2_p": 0.037934021651426106,
+              "trend_p": 0.004804664723032055,
+              "rho": -0.942857142857143,
+              "max_abs_residual": 2.349538561991534,
+              "gate_pass": false
+            },
+            {
+              "seed": 20260727,
+              "chi2_p": 0.0378695928249936,
+              "trend_p": 0.004804664723032055,
+              "rho": -0.942857142857143,
+              "max_abs_residual": 2.3505726283641764,
+              "gate_pass": false
+            }
+          ],
+          "trend_p_range": [
+            0.004804664723032055,
+            0.004804664723032055
+          ],
+          "gate_pass_fraction": 0.0
+        },
+        "repair_v4_injection_realization": {
+          "truth_age_Myr": 4.008667176273026,
+          "per_seed": [
+            {
+              "seed": 20260723,
+              "chi2_p": 0.06337879666697162,
+              "trend_p": 0.07239650145772594,
+              "rho": -0.7714285714285715,
+              "max_abs_residual": 2.0118340344461814,
+              "gate_pass": true
+            },
+            {
+              "seed": 20260724,
+              "chi2_p": 0.061683163632688755,
+              "trend_p": 0.07239650145772594,
+              "rho": -0.7714285714285715,
+              "max_abs_residual": 2.026259166558809,
+              "gate_pass": true
+            },
+            {
+              "seed": 20260725,
+              "chi2_p": 0.06351880554355831,
+              "trend_p": 0.07239650145772594,
+              "rho": -0.7714285714285715,
+              "max_abs_residual": 2.0106394370301213,
+              "gate_pass": true
+            },
+            {
+              "seed": 20260726,
+              "chi2_p": 0.06270052224905266,
+              "trend_p": 0.07239650145772594,
+              "rho": -0.7714285714285715,
+              "max_abs_residual": 2.0176131773368637,
+              "gate_pass": true
+            },
+            {
+              "seed": 20260727,
+              "chi2_p": 0.0628029335079097,
+              "trend_p": 0.07239650145772594,
+              "rho": -0.7714285714285715,
+              "max_abs_residual": 2.016741417775765,
+              "gate_pass": true
+            }
+          ],
+          "trend_p_range": [
+            0.07239650145772594,
+            0.07239650145772594
+          ],
+          "gate_pass_fraction": 1.0
+        }
+      },
+      "verdict": "gate outcome differs between two independent Monte-Carlo realizations of an IDENTICAL model"
+    },
+    {
+      "subgroup": "CygOB2-C",
+      "family": "MIST",
+      "R_V": 3.1,
+      "alpha": 2.0,
+      "same_truth_age_both_versions": true,
+      "realizations": {
+        "repair_v3_injection_realization": {
+          "truth_age_Myr": 3.180533688329517,
+          "per_seed": [
+            {
+              "seed": 20260723,
+              "chi2_p": 0.8172035342653647,
+              "trend_p": 0.208,
+              "rho": 0.6,
+              "max_abs_residual": 1.167168256971437,
+              "gate_pass": true
+            },
+            {
+              "seed": 20260724,
+              "chi2_p": 0.8208928771926055,
+              "trend_p": 0.208,
+              "rho": 0.6,
+              "max_abs_residual": 1.162326142610397,
+              "gate_pass": true
+            },
+            {
+              "seed": 20260725,
+              "chi2_p": 0.817886824730231,
+              "trend_p": 0.208,
+              "rho": 0.6,
+              "max_abs_residual": 1.1662773006593137,
+              "gate_pass": true
+            },
+            {
+              "seed": 20260726,
+              "chi2_p": 0.8210670950788153,
+              "trend_p": 0.208,
+              "rho": 0.6,
+              "max_abs_residual": 1.1620955490178173,
+              "gate_pass": true
+            },
+            {
+              "seed": 20260727,
+              "chi2_p": 0.8169552837060043,
+              "trend_p": 0.208,
+              "rho": 0.6,
+              "max_abs_residual": 1.167491310433408,
+              "gate_pass": true
+            }
+          ],
+          "trend_p_range": [
+            0.208,
+            0.208
+          ],
+          "gate_pass_fraction": 1.0
+        },
+        "repair_v4_injection_realization": {
+          "truth_age_Myr": 3.180533688329517,
+          "per_seed": [
+            {
+              "seed": 20260723,
+              "chi2_p": 0.854941239593398,
+              "trend_p": 0.04156268221574335,
+              "rho": 0.8285714285714287,
+              "max_abs_residual": 1.12623487035929,
+              "gate_pass": false
+            },
+            {
+              "seed": 20260724,
+              "chi2_p": 0.852291494473087,
+              "trend_p": 0.04156268221574335,
+              "rho": 0.8285714285714287,
+              "max_abs_residual": 1.1299875144809677,
+              "gate_pass": false
+            },
+            {
+              "seed": 20260725,
+              "chi2_p": 0.84645391842196,
+              "trend_p": 0.04156268221574335,
+              "rho": 0.8285714285714287,
+              "max_abs_residual": 1.138073573739055,
+              "gate_pass": false
+            },
+            {
+              "seed": 20260726,
+              "chi2_p": 0.8522806841138191,
+              "trend_p": 0.04156268221574335,
+              "rho": 0.8285714285714287,
+              "max_abs_residual": 1.1300027160395862,
+              "gate_pass": false
+            },
+            {
+              "seed": 20260727,
+              "chi2_p": 0.8544423499461054,
+              "trend_p": 0.04156268221574335,
+              "rho": 0.8285714285714287,
+              "max_abs_residual": 1.1269455009131197,
+              "gate_pass": false
+            }
+          ],
+          "trend_p_range": [
+            0.04156268221574335,
+            0.04156268221574335
+          ],
+          "gate_pass_fraction": 0.0
+        }
+      },
+      "verdict": "gate outcome differs between two independent Monte-Carlo realizations of an IDENTICAL model"
+    },
+    {
+      "subgroup": "CygOB2-C",
+      "family": "MIST",
+      "R_V": 3.1,
+      "alpha": 2.3,
+      "same_truth_age_both_versions": true,
+      "realizations": {
+        "repair_v3_injection_realization": {
+          "truth_age_Myr": 3.180533688329517,
+          "per_seed": [
+            {
+              "seed": 20260723,
+              "chi2_p": 0.18292881283015697,
+              "trend_p": 0.07239650145772594,
+              "rho": 0.7714285714285715,
+              "max_abs_residual": 2.30524684464211,
+              "gate_pass": true
+            },
+            {
+              "seed": 20260724,
+              "chi2_p": 0.187723234336493,
+              "trend_p": 0.07239650145772594,
+              "rho": 0.7714285714285715,
+              "max_abs_residual": 2.2963833867316916,
+              "gate_pass": true
+            },
+            {
+              "seed": 20260725,
+              "chi2_p": 0.18581888398979468,
+              "trend_p": 0.07239650145772594,
+              "rho": 0.7714285714285715,
+              "max_abs_residual": 2.2998937959831127,
+              "gate_pass": true
+            },
+            {
+              "seed": 20260726,
+              "chi2_p": 0.1860904504861745,
+              "trend_p": 0.07239650145772594,
+              "rho": 0.7714285714285715,
+              "max_abs_residual": 2.2993923959938636,
+              "gate_pass": true
+            },
+            {
+              "seed": 20260727,
+              "chi2_p": 0.18423067696885484,
+              "trend_p": 0.07239650145772594,
+              "rho": 0.7714285714285715,
+              "max_abs_residual": 2.3028316087853455,
+              "gate_pass": true
+            }
+          ],
+          "trend_p_range": [
+            0.07239650145772594,
+            0.07239650145772594
+          ],
+          "gate_pass_fraction": 1.0
+        },
+        "repair_v4_injection_realization": {
+          "truth_age_Myr": 3.180533688329517,
+          "per_seed": [
+            {
+              "seed": 20260723,
+              "chi2_p": 0.19038676899083215,
+              "trend_p": 0.004804664723032055,
+              "rho": 0.942857142857143,
+              "max_abs_residual": 2.2555500159937893,
+              "gate_pass": false
+            },
+            {
+              "seed": 20260724,
+              "chi2_p": 0.1891916478589047,
+              "trend_p": 0.004804664723032055,
+              "rho": 0.942857142857143,
+              "max_abs_residual": 2.2577502020941167,
+              "gate_pass": false
+            },
+            {
+              "seed": 20260725,
+              "chi2_p": 0.18421397517225577,
+              "trend_p": 0.004804664723032055,
+              "rho": 0.942857142857143,
+              "max_abs_residual": 2.266967853698915,
+              "gate_pass": false
+            },
+            {
+              "seed": 20260726,
+              "chi2_p": 0.1882355954589213,
+              "trend_p": 0.004804664723032055,
+              "rho": 0.942857142857143,
+              "max_abs_residual": 2.259513790332647,
+              "gate_pass": false
+            },
+            {
+              "seed": 20260727,
+              "chi2_p": 0.19240295292628257,
+              "trend_p": 0.004804664723032055,
+              "rho": 0.942857142857143,
+              "max_abs_residual": 2.251849087285058,
+              "gate_pass": false
+            }
+          ],
+          "trend_p_range": [
+            0.004804664723032055,
+            0.004804664723032055
+          ],
+          "gate_pass_fraction": 0.0
+        }
+      },
+      "verdict": "gate outcome differs between two independent Monte-Carlo realizations of an IDENTICAL model"
+    },
+    {
+      "subgroup": "CygOB2-A",
+      "family": "MIST",
+      "R_V": 3.5,
+      "alpha": 2.6,
+      "same_truth_age_both_versions": true,
+      "realizations": {
+        "repair_v3_injection_realization": {
+          "truth_age_Myr": 4.008667176273026,
+          "per_seed": [
+            {
+              "seed": 20260723,
+              "chi2_p": 0.061783671691371424,
+              "trend_p": 0.01884548104956266,
+              "rho": 0.8857142857142858,
+              "max_abs_residual": 2.3639729509828373,
+              "gate_pass": false
+            },
+            {
+              "seed": 20260724,
+              "chi2_p": 0.06029220755553678,
+              "trend_p": 0.01884548104956266,
+              "rho": 0.8857142857142858,
+              "max_abs_residual": 2.3696709217242957,
+              "gate_pass": false
+            },
+            {
+              "seed": 20260725,
+              "chi2_p": 0.06030407437704008,
+              "trend_p": 0.01884548104956266,
+              "rho": 0.8857142857142858,
+              "max_abs_residual": 2.3696252213896227,
+              "gate_pass": false
+            },
+            {
+              "seed": 20260726,
+              "chi2_p": 0.06160706504518491,
+              "trend_p": 0.01884548104956266,
+              "rho": 0.8857142857142858,
+              "max_abs_residual": 2.3646429037173706,
+              "gate_pass": false
+            },
+            {
+              "seed": 20260727,
+              "chi2_p": 0.060353647547724855,
+              "trend_p": 0.01884548104956266,
+              "rho": 0.8857142857142858,
+              "max_abs_residual": 2.3694343742840975,
+              "gate_pass": false
+            }
+          ],
+          "trend_p_range": [
+            0.01884548104956266,
+            0.01884548104956266
+          ],
+          "gate_pass_fraction": 0.0
+        },
+        "repair_v4_injection_realization": {
+          "truth_age_Myr": 4.008667176273026,
+          "per_seed": [
+            {
+              "seed": 20260723,
+              "chi2_p": 0.045222266468727804,
+              "trend_p": 0.07239650145772594,
+              "rho": 0.7714285714285715,
+              "max_abs_residual": 2.387779339620845,
+              "gate_pass": true
+            },
+            {
+              "seed": 20260724,
+              "chi2_p": 0.04658640274275905,
+              "trend_p": 0.07239650145772594,
+              "rho": 0.7714285714285715,
+              "max_abs_residual": 2.380836388792218,
+              "gate_pass": true
+            },
+            {
+              "seed": 20260725,
+              "chi2_p": 0.046873275268543735,
+              "trend_p": 0.07239650145772594,
+              "rho": 0.7714285714285715,
+              "max_abs_residual": 2.379393419561541,
+              "gate_pass": true
+            },
+            {
+              "seed": 20260726,
+              "chi2_p": 0.045206149568459475,
+              "trend_p": 0.07239650145772594,
+              "rho": 0.7714285714285715,
+              "max_abs_residual": 2.3878621915177787,
+              "gate_pass": true
+            },
+            {
+              "seed": 20260727,
+              "chi2_p": 0.0462053714041908,
+              "trend_p": 0.07239650145772594,
+              "rho": 0.7714285714285715,
+              "max_abs_residual": 2.382762039877433,
+              "gate_pass": true
+            }
+          ],
+          "trend_p_range": [
+            0.07239650145772594,
+            0.07239650145772594
+          ],
+          "gate_pass_fraction": 1.0
+        }
+      },
+      "verdict": "gate outcome differs between two independent Monte-Carlo realizations of an IDENTICAL model"
+    }
+  ],
+  "inputs": {
+    "data/processed/wp5_imf_normalization_repair_v3.parquet": "56233772367948e4265ed66a920e7368c9e1b4090d5ac91549ea8ea2dfe0b905",
+    "data/processed/wp5_imf_normalization_repair_v4.parquet": "5f075dd402db5a2965d928fdf541969e214f8687b2e2569f0a58a35809f319f1",
+    "data/processed/wp5_injection_response_repair_v3.parquet": "7b1267e11bf230bab1dc337e2d7459d5015fb0aa3b44ebdf8d3ae62cab35beed"
+  }
+}

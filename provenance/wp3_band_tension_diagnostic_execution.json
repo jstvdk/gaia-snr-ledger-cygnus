@@ -1,0 +1,340 @@
+{
+  "created_utc": "2026-07-28T09:39:30.492324+00:00",
+  "script": "scripts/wp3_band_tension_diagnostic.py",
+  "residual_shape_test": {
+    "CygOB2-A": {
+      "residual_over_k_by_band": {
+        "G": -0.3392707827217593,
+        "BP": -0.40925304988877503,
+        "RP": -0.3352152925529498,
+        "J": -0.43313750165152914,
+        "H": -0.391020867796587,
+        "Ks": -0.4828698202753489
+      },
+      "implied_A_V_offset_mag": 0.400136958842681,
+      "spread_across_bands_mag": 0.14765452772239912,
+      "consistent_with_pure_A_V_offset": true
+    },
+    "CygOB2-B": {
+      "residual_over_k_by_band": {
+        "G": -0.43084507471483396,
+        "BP": -0.49328439911396776,
+        "RP": -0.4706869427002237,
+        "J": -0.5045060077431532,
+        "H": -0.5361567425563503,
+        "Ks": -0.4519759328032833
+      },
+      "implied_A_V_offset_mag": 0.48198567090709576,
+      "spread_across_bands_mag": 0.1053116678415163,
+      "consistent_with_pure_A_V_offset": true
+    },
+    "CygOB2-C": {
+      "residual_over_k_by_band": {
+        "G": 0.16130087123143197,
+        "BP": 0.0743419097021776,
+        "RP": 0.10757774053167712,
+        "J": -0.013415282623767122,
+        "H": 0.05796077492757335,
+        "Ks": 0.1975498698299586
+      },
+      "implied_A_V_offset_mag": -0.09095982511692736,
+      "spread_across_bands_mag": 0.2109651524537257,
+      "consistent_with_pure_A_V_offset": true
+    }
+  },
+  "prior_decomposition": {
+    "CygOB2-A": {
+      "median_adopted_av": 5.54730147024868,
+      "median_photometry_only_av": 5.0278587644279895,
+      "median_prior_mean": 5.605198889617135,
+      "median_prior_sigma": 0.636219475484694,
+      "median_8th_anchor_separation_deg": 0.08884803109120877,
+      "prior_pull_mag": 0.4151127354418094,
+      "prior_mean_minus_photometry_mag": 0.48068256039903723
+    },
+    "CygOB2-B": {
+      "median_adopted_av": 6.394036671526933,
+      "median_photometry_only_av": 5.882971932610333,
+      "median_prior_mean": 6.663840490133015,
+      "median_prior_sigma": 1.0504392817995583,
+      "median_8th_anchor_separation_deg": 0.3740575730751303,
+      "prior_pull_mag": 0.48545078903933536,
+      "prior_mean_minus_photometry_mag": 0.7051820721575242
+    },
+    "CygOB2-C": {
+      "median_adopted_av": 6.494306151786518,
+      "median_photometry_only_av": 6.562468092185622,
+      "median_prior_mean": 6.553007723121215,
+      "median_prior_sigma": 0.7634559079105576,
+      "median_8th_anchor_separation_deg": 0.1388968487368671,
+      "prior_pull_mag": -0.07978611671267011,
+      "prior_mean_minus_photometry_mag": -0.10304962761816139
+    }
+  },
+  "headline": "There is NO optical-versus-near-IR conflict inside the fit: the A_V implied by G/BP/RP alone and by J/H/Ks alone agree to 0.04-0.07 mag in every subgroup, and CygOB2-B is not the outlier.  The misfit is instead a PURE A_V offset -- the per-band residuals are proportional to the extinction coefficient -- imposed by the anchor spatial prior, whose mean sits above what the photometry alone prefers by +0.48 mag for A, +0.71 mag for B and -0.10 mag for C.  CygOB2-B's eighth-nearest anchor is 0.374 deg away against 0.089 for A and 0.139 for C.  NOTE: A is pulled almost as hard as B yet passes the WP5 gate, so the prior pull is necessary-but-not-sufficient and does not by itself establish causation for B.",
+  "status": "SUCCESS",
+  "issue": "#1d / #12 \u2014 localizing B's extinction error inside the six-band fit",
+  "upstream_version": "repair_v3",
+  "R_V": 3.1,
+  "stored_artifacts_overwritten": false,
+  "environment": {
+    "python": "3.11.15 | packaged by conda-forge | (main, Jun 11 2026, 03:29:05) [Clang 19.1.7 ]",
+    "platform": "macOS-15.6.1-arm64-arm-64bit",
+    "numpy": "2.4.6",
+    "pandas": "3.0.3"
+  },
+  "method": {
+    "template_library_rows": 2688,
+    "band_order": [
+      "G",
+      "BP",
+      "RP",
+      "J",
+      "H",
+      "Ks"
+    ],
+    "note": "Uses the fit's own template library and its own six-band mixture weights, so template systematics are common to all three subgroups and cancel in the contrast."
+  },
+  "inputs": {
+    "data/processed/wp3_extinction_repair_v3.parquet": "6f3b92a035b62b8b2fac3c86a833a19abd1f1e16a42e9a0a539db1dd71623e75",
+    "data/processed/wp4_mass_posteriors_repair_v3.parquet": "7e6da3d4d3df80b030a3d4d04b07a0dc5ab3aa57536b89920eed8960c1ec71c2"
+  },
+  "per_subgroup": {
+    "CygOB2-A": {
+      "n_stars": 450,
+      "n_in_window": 375,
+      "av_optical_only": {
+        "n": 450,
+        "median": 5.054170096341895,
+        "mad_sigma": 2.091168716564008,
+        "sem": 0.07756839825254352
+      },
+      "av_nir_only": {
+        "n": 450,
+        "median": 4.9892412334844725,
+        "mad_sigma": 2.1158826692659374,
+        "sem": 0.0797239881651047
+      },
+      "av_optical_minus_nir": {
+        "n": 450,
+        "median": 0.07444427982222468,
+        "mad_sigma": 0.06947363478994685,
+        "sem": 0.005092769578251039
+      },
+      "av_optical_minus_nir_mass_window": {
+        "n": 375,
+        "median": 0.07407234268528917,
+        "mad_sigma": 0.06732848903251447,
+        "sem": 0.005609455696905404
+      },
+      "band_residuals_at_adopted_av": {
+        "G": {
+          "n": 450,
+          "median": -0.28372114827698947,
+          "mad_sigma": 1.0692483173230014,
+          "sem": 0.04675527424967816
+        },
+        "BP": {
+          "n": 450,
+          "median": -0.44337238049823374,
+          "mad_sigma": 1.3913436226050033,
+          "sem": 0.06049637712415357
+        },
+        "RP": {
+          "n": 450,
+          "median": -0.2126573410499747,
+          "mad_sigma": 0.7880401652343481,
+          "sem": 0.03626212423952773
+        },
+        "J": {
+          "n": 440,
+          "median": -0.12457283569664743,
+          "mad_sigma": 0.38591155463693955,
+          "sem": 0.01834427711924946
+        },
+        "H": {
+          "n": 450,
+          "median": -0.06972128118332774,
+          "mad_sigma": 0.2086728511628506,
+          "sem": 0.009398244309704307
+        },
+        "Ks": {
+          "n": 448,
+          "median": -0.05650211093278208,
+          "mad_sigma": 0.15324489996421456,
+          "sem": 0.0069717761236601115
+        }
+      }
+    },
+    "CygOB2-B": {
+      "n_stars": 402,
+      "n_in_window": 321,
+      "av_optical_only": {
+        "n": 402,
+        "median": 5.899017353421872,
+        "mad_sigma": 1.573387751910008,
+        "sem": 0.08723673685167642
+      },
+      "av_nir_only": {
+        "n": 402,
+        "median": 5.843219034675359,
+        "mad_sigma": 1.6514035699007752,
+        "sem": 0.08946989892072038
+      },
+      "av_optical_minus_nir": {
+        "n": 402,
+        "median": 0.04362177897725972,
+        "mad_sigma": 0.054493780129695024,
+        "sem": 0.005044416441733922
+      },
+      "av_optical_minus_nir_mass_window": {
+        "n": 321,
+        "median": 0.04022680038087145,
+        "mad_sigma": 0.04970850301542495,
+        "sem": 0.005952036698349155
+      },
+      "band_residuals_at_adopted_av": {
+        "G": {
+          "n": 402,
+          "median": -0.3603017576312447,
+          "mad_sigma": 0.912193473484614,
+          "sem": 0.04991818883569537
+        },
+        "BP": {
+          "n": 402,
+          "median": -0.5344094035639817,
+          "mad_sigma": 1.2415551427134315,
+          "sem": 0.06580257070878641
+        },
+        "RP": {
+          "n": 402,
+          "median": -0.29859924629112977,
+          "mad_sigma": 0.697628744700317,
+          "sem": 0.038252966596079324
+        },
+        "J": {
+          "n": 396,
+          "median": -0.14509882836495205,
+          "mad_sigma": 0.34172974653463645,
+          "sem": 0.01890916885468153
+        },
+        "H": {
+          "n": 402,
+          "median": -0.09559984666995985,
+          "mad_sigma": 0.20800752160510672,
+          "sem": 0.010493136128510073
+        },
+        "Ks": {
+          "n": 397,
+          "median": -0.05288712034153711,
+          "mad_sigma": 0.1369624981881495,
+          "sem": 0.007665984722141665
+        }
+      }
+    },
+    "CygOB2-C": {
+      "n_stars": 391,
+      "n_in_window": 283,
+      "av_optical_only": {
+        "n": 391,
+        "median": 6.5701201427100155,
+        "mad_sigma": 1.0509851663204604,
+        "sem": 0.0663065340868653
+      },
+      "av_nir_only": {
+        "n": 391,
+        "median": 6.5195322056303135,
+        "mad_sigma": 1.0564109119857414,
+        "sem": 0.06847115107853545
+      },
+      "av_optical_minus_nir": {
+        "n": 391,
+        "median": 0.04443228826456114,
+        "mad_sigma": 0.059972488017108194,
+        "sem": 0.005177804885884529
+      },
+      "av_optical_minus_nir_mass_window": {
+        "n": 283,
+        "median": 0.036191381466117,
+        "mad_sigma": 0.05547367795480319,
+        "sem": 0.006215568813785112
+      },
+      "band_residuals_at_adopted_av": {
+        "G": {
+          "n": 391,
+          "median": 0.1348906853597021,
+          "mad_sigma": 0.5828523730696731,
+          "sem": 0.03838841077213639
+        },
+        "BP": {
+          "n": 391,
+          "median": 0.08053977724636935,
+          "mad_sigma": 0.7845386965819054,
+          "sem": 0.05077221724067956
+        },
+        "RP": {
+          "n": 391,
+          "median": 0.06824627863305766,
+          "mad_sigma": 0.47886101782686324,
+          "sem": 0.03060901740547638
+        },
+        "J": {
+          "n": 384,
+          "median": -0.0038583124105913604,
+          "mad_sigma": 0.22294686202532182,
+          "sem": 0.015879387347330326
+        },
+        "H": {
+          "n": 390,
+          "median": 0.01033474123542464,
+          "mad_sigma": 0.13080062709134987,
+          "sem": 0.008118965132459098
+        },
+        "Ks": {
+          "n": 388,
+          "median": 0.023115929368963326,
+          "mad_sigma": 0.09165203489310703,
+          "sem": 0.006390327646015449
+        }
+      }
+    }
+  },
+  "contrast_B_vs_A_and_C": {
+    "statistic": "A_V(optical-only) - A_V(near-IR-only), template mixture averaged",
+    "B": {
+      "n": 402,
+      "median": 0.04362177897725972,
+      "mad_sigma": 0.054493780129695024,
+      "sem": 0.005044416441733922
+    },
+    "A_plus_C": {
+      "n": 841,
+      "median": 0.05925924274435346,
+      "mad_sigma": 0.06852398948934807,
+      "sem": 0.0036832366983387773
+    },
+    "B_minus_reference_median_mag": -0.01563746376709374,
+    "mannwhitney_p": 0.00029351606384630456,
+    "independent_of": "the spatial prior (this is the photometry-only conditional) and of the intrinsic-colour assumption used by the colour-excess method"
+  },
+  "which_band_set_does_the_adopted_av_follow": {
+    "CygOB2-A": {
+      "median_abs_distance_to_optical_only": 0.8792884114212365,
+      "median_abs_distance_to_nir_only": 0.8943159088301784,
+      "fraction_closer_to_optical": 0.6733333333333333
+    },
+    "CygOB2-B": {
+      "median_abs_distance_to_optical_only": 0.7384786502393617,
+      "median_abs_distance_to_nir_only": 0.7597488062449402,
+      "fraction_closer_to_optical": 0.7139303482587065
+    },
+    "CygOB2-C": {
+      "median_abs_distance_to_optical_only": 0.4977119569660191,
+      "median_abs_distance_to_nir_only": 0.49175344235189566,
+      "fraction_closer_to_optical": 0.6163682864450127
+    }
+  },
+  "outputs": {
+    "tables/wp3_band_tension.csv": "f10b54aa7a02ec6d5ddac73651f299b31f9770e5718962f850c346a9a12ee852"
+  }
+}

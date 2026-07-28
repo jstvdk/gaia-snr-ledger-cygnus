@@ -1,0 +1,766 @@
+{
+  "created_utc": "2026-07-28T08:31:17.350683+00:00",
+  "script": "scripts/wp5_trend_replacement_validation.py",
+  "status": "SUCCESS",
+  "issue": "#11 \u2014 validation of the pre-declared replacement trend statistic",
+  "predeclaration": "CUTS_AND_THRESHOLDS.md section 14",
+  "seed": 20260728,
+  "environment": {
+    "python": "3.11.15 | packaged by conda-forge | (main, Jun 11 2026, 03:29:05) [Clang 19.1.7 ]",
+    "platform": "macOS-15.6.1-arm64-arm-64bit",
+    "numpy": "2.4.6",
+    "pandas": "3.0.3"
+  },
+  "inputs": {
+    "data/processed/wp5_mass_function_bins_repair_v4.parquet": "94aff38c79723386b4db9d6c20ac51aa999bc33a69682f83d7df84321b268bd8",
+    "data/processed/wp5_mass_function_bins_repair_v3.parquet": "a35fb2b4d66c6ce36d1b5a00ae1c30451be144df259265d7b0b3433edd811d8e",
+    "provenance/wp5_trend_stability_check_execution.json": "79c34ed47ccd96401cdd41b50b54aff3b20ee9ccd891f474297d7ac588199784"
+  },
+  "R1_calibration": {
+    "n_cells": 54,
+    "n_simulated_null_datasets_per_cell": 4000,
+    "incumbent_false_positive_rate_mean": 0.05798148148148149,
+    "incumbent_false_positive_rate_range": [
+      0.05075,
+      0.06875
+    ],
+    "replacement_false_positive_rate_mean": 0.04981481481481481,
+    "replacement_false_positive_rate_range": [
+      0.04175,
+      0.05875
+    ],
+    "required_interval": [
+      0.04,
+      0.06
+    ],
+    "pass": true
+  },
+  "R2_power": {
+    "matched_false_positive_rate": 0.05,
+    "critical_values": "empirical 95th percentile of each statistic under its own null",
+    "per_slope": [
+      {
+        "subgroup": "CygOB2-A",
+        "injected_slope": 0.0,
+        "incumbent_power": 0.05,
+        "replacement_power": 0.0515
+      },
+      {
+        "subgroup": "CygOB2-A",
+        "injected_slope": 0.1,
+        "incumbent_power": 0.0605,
+        "replacement_power": 0.0635
+      },
+      {
+        "subgroup": "CygOB2-A",
+        "injected_slope": 0.2,
+        "incumbent_power": 0.0935,
+        "replacement_power": 0.1055
+      },
+      {
+        "subgroup": "CygOB2-A",
+        "injected_slope": 0.3,
+        "incumbent_power": 0.114,
+        "replacement_power": 0.1545
+      },
+      {
+        "subgroup": "CygOB2-A",
+        "injected_slope": 0.4,
+        "incumbent_power": 0.157,
+        "replacement_power": 0.2145
+      },
+      {
+        "subgroup": "CygOB2-A",
+        "injected_slope": 0.6,
+        "incumbent_power": 0.275,
+        "replacement_power": 0.4375
+      },
+      {
+        "subgroup": "CygOB2-A",
+        "injected_slope": 0.8,
+        "incumbent_power": 0.4035,
+        "replacement_power": 0.6405
+      },
+      {
+        "subgroup": "CygOB2-B",
+        "injected_slope": 0.0,
+        "incumbent_power": 0.061,
+        "replacement_power": 0.0495
+      },
+      {
+        "subgroup": "CygOB2-B",
+        "injected_slope": 0.1,
+        "incumbent_power": 0.0645,
+        "replacement_power": 0.0605
+      },
+      {
+        "subgroup": "CygOB2-B",
+        "injected_slope": 0.2,
+        "incumbent_power": 0.088,
+        "replacement_power": 0.0805
+      },
+      {
+        "subgroup": "CygOB2-B",
+        "injected_slope": 0.3,
+        "incumbent_power": 0.09,
+        "replacement_power": 0.1165
+      },
+      {
+        "subgroup": "CygOB2-B",
+        "injected_slope": 0.4,
+        "incumbent_power": 0.137,
+        "replacement_power": 0.172
+      },
+      {
+        "subgroup": "CygOB2-B",
+        "injected_slope": 0.6,
+        "incumbent_power": 0.232,
+        "replacement_power": 0.3425
+      },
+      {
+        "subgroup": "CygOB2-B",
+        "injected_slope": 0.8,
+        "incumbent_power": 0.3335,
+        "replacement_power": 0.5355
+      },
+      {
+        "subgroup": "CygOB2-C",
+        "injected_slope": 0.0,
+        "incumbent_power": 0.055,
+        "replacement_power": 0.0485
+      },
+      {
+        "subgroup": "CygOB2-C",
+        "injected_slope": 0.1,
+        "incumbent_power": 0.069,
+        "replacement_power": 0.055
+      },
+      {
+        "subgroup": "CygOB2-C",
+        "injected_slope": 0.2,
+        "incumbent_power": 0.081,
+        "replacement_power": 0.071
+      },
+      {
+        "subgroup": "CygOB2-C",
+        "injected_slope": 0.3,
+        "incumbent_power": 0.103,
+        "replacement_power": 0.108
+      },
+      {
+        "subgroup": "CygOB2-C",
+        "injected_slope": 0.4,
+        "incumbent_power": 0.1205,
+        "replacement_power": 0.15
+      },
+      {
+        "subgroup": "CygOB2-C",
+        "injected_slope": 0.6,
+        "incumbent_power": 0.2015,
+        "replacement_power": 0.2835
+      },
+      {
+        "subgroup": "CygOB2-C",
+        "injected_slope": 0.8,
+        "incumbent_power": 0.3,
+        "replacement_power": 0.4805
+      }
+    ],
+    "max_power_deficit_vs_incumbent": 0.014000000000000005,
+    "mean_power_advantage_of_replacement": 0.06377777777777777,
+    "pass": false
+  },
+  "R3_stability": {
+    "n_identical_model_cell_pairs": 4,
+    "incumbent_consistent_pairs": 0,
+    "replacement_consistent_pairs": 3,
+    "pairs": [
+      {
+        "subgroup": "CygOB2-A",
+        "family": "MIST",
+        "R_V": 3.1,
+        "alpha": 2.0,
+        "realizations": {
+          "repair_v3": {
+            "incumbent_p": 0.004804664723032055,
+            "replacement_p": 0.00195,
+            "T": -3.065085319694555,
+            "incumbent_pass": false,
+            "replacement_pass": false
+          },
+          "repair_v4": {
+            "incumbent_p": 0.07239650145772594,
+            "replacement_p": 0.00475,
+            "T": -2.8179625748080674,
+            "incumbent_pass": true,
+            "replacement_pass": false
+          }
+        },
+        "incumbent_consistent": false,
+        "replacement_consistent": true
+      },
+      {
+        "subgroup": "CygOB2-C",
+        "family": "MIST",
+        "R_V": 3.1,
+        "alpha": 2.0,
+        "realizations": {
+          "repair_v3": {
+            "incumbent_p": 0.208,
+            "replacement_p": 0.54005,
+            "T": 0.6120703987636273,
+            "incumbent_pass": true,
+            "replacement_pass": true
+          },
+          "repair_v4": {
+            "incumbent_p": 0.04156268221574335,
+            "replacement_p": 0.44225,
+            "T": 0.760973788971731,
+            "incumbent_pass": false,
+            "replacement_pass": true
+          }
+        },
+        "incumbent_consistent": false,
+        "replacement_consistent": true
+      },
+      {
+        "subgroup": "CygOB2-C",
+        "family": "MIST",
+        "R_V": 3.1,
+        "alpha": 2.3,
+        "realizations": {
+          "repair_v3": {
+            "incumbent_p": 0.07239650145772594,
+            "replacement_p": 0.0579,
+            "T": 1.8929834222056352,
+            "incumbent_pass": true,
+            "replacement_pass": true
+          },
+          "repair_v4": {
+            "incumbent_p": 0.004804664723032055,
+            "replacement_p": 0.0435,
+            "T": 2.031586813021341,
+            "incumbent_pass": false,
+            "replacement_pass": false
+          }
+        },
+        "incumbent_consistent": false,
+        "replacement_consistent": false
+      },
+      {
+        "subgroup": "CygOB2-A",
+        "family": "MIST",
+        "R_V": 3.5,
+        "alpha": 2.6,
+        "realizations": {
+          "repair_v3": {
+            "incumbent_p": 0.01884548104956266,
+            "replacement_p": 0.07205,
+            "T": 1.7871468551395269,
+            "incumbent_pass": false,
+            "replacement_pass": true
+          },
+          "repair_v4": {
+            "incumbent_p": 0.07239650145772594,
+            "replacement_p": 0.06125,
+            "T": 1.840964219352473,
+            "incumbent_pass": true,
+            "replacement_pass": true
+          }
+        },
+        "incumbent_consistent": false,
+        "replacement_consistent": true
+      }
+    ],
+    "pass": false
+  },
+  "all_criteria_pass": false,
+  "per_cell_calibration": [
+    {
+      "subgroup": "CygOB2-A",
+      "family": "MIST",
+      "R_V": 3.0,
+      "alpha": 2.0,
+      "incumbent_false_positive_rate": 0.05425,
+      "replacement_false_positive_rate": 0.049,
+      "min_expected_count": 32.08250805031229
+    },
+    {
+      "subgroup": "CygOB2-A",
+      "family": "MIST",
+      "R_V": 3.0,
+      "alpha": 2.3,
+      "incumbent_false_positive_rate": 0.057,
+      "replacement_false_positive_rate": 0.05375,
+      "min_expected_count": 26.29974032450338
+    },
+    {
+      "subgroup": "CygOB2-A",
+      "family": "MIST",
+      "R_V": 3.0,
+      "alpha": 2.6,
+      "incumbent_false_positive_rate": 0.05625,
+      "replacement_false_positive_rate": 0.0515,
+      "min_expected_count": 21.19293467206586
+    },
+    {
+      "subgroup": "CygOB2-A",
+      "family": "MIST",
+      "R_V": 3.1,
+      "alpha": 2.0,
+      "incumbent_false_positive_rate": 0.05425,
+      "replacement_false_positive_rate": 0.04525,
+      "min_expected_count": 32.6010138649705
+    },
+    {
+      "subgroup": "CygOB2-A",
+      "family": "MIST",
+      "R_V": 3.1,
+      "alpha": 2.3,
+      "incumbent_false_positive_rate": 0.0565,
+      "replacement_false_positive_rate": 0.047,
+      "min_expected_count": 26.71700267151912
+    },
+    {
+      "subgroup": "CygOB2-A",
+      "family": "MIST",
+      "R_V": 3.1,
+      "alpha": 2.6,
+      "incumbent_false_positive_rate": 0.05675,
+      "replacement_false_positive_rate": 0.0475,
+      "min_expected_count": 21.517345814623148
+    },
+    {
+      "subgroup": "CygOB2-A",
+      "family": "MIST",
+      "R_V": 3.5,
+      "alpha": 2.0,
+      "incumbent_false_positive_rate": 0.05275,
+      "replacement_false_positive_rate": 0.0515,
+      "min_expected_count": 34.764727210008004
+    },
+    {
+      "subgroup": "CygOB2-A",
+      "family": "MIST",
+      "R_V": 3.5,
+      "alpha": 2.3,
+      "incumbent_false_positive_rate": 0.05075,
+      "replacement_false_positive_rate": 0.049,
+      "min_expected_count": 28.57829528803331
+    },
+    {
+      "subgroup": "CygOB2-A",
+      "family": "MIST",
+      "R_V": 3.5,
+      "alpha": 2.6,
+      "incumbent_false_positive_rate": 0.05725,
+      "replacement_false_positive_rate": 0.05275,
+      "min_expected_count": 23.06172355028802
+    },
+    {
+      "subgroup": "CygOB2-A",
+      "family": "PARSEC",
+      "R_V": 3.0,
+      "alpha": 2.0,
+      "incumbent_false_positive_rate": 0.06075,
+      "replacement_false_positive_rate": 0.04825,
+      "min_expected_count": 33.56055589699143
+    },
+    {
+      "subgroup": "CygOB2-A",
+      "family": "PARSEC",
+      "R_V": 3.0,
+      "alpha": 2.3,
+      "incumbent_false_positive_rate": 0.0525,
+      "replacement_false_positive_rate": 0.0495,
+      "min_expected_count": 27.559961003250052
+    },
+    {
+      "subgroup": "CygOB2-A",
+      "family": "PARSEC",
+      "R_V": 3.0,
+      "alpha": 2.6,
+      "incumbent_false_positive_rate": 0.05475,
+      "replacement_false_positive_rate": 0.05025,
+      "min_expected_count": 22.22607695645616
+    },
+    {
+      "subgroup": "CygOB2-A",
+      "family": "PARSEC",
+      "R_V": 3.1,
+      "alpha": 2.0,
+      "incumbent_false_positive_rate": 0.05525,
+      "replacement_false_positive_rate": 0.053,
+      "min_expected_count": 34.11134036861103
+    },
+    {
+      "subgroup": "CygOB2-A",
+      "family": "PARSEC",
+      "R_V": 3.1,
+      "alpha": 2.3,
+      "incumbent_false_positive_rate": 0.0585,
+      "replacement_false_positive_rate": 0.048,
+      "min_expected_count": 27.898290900066474
+    },
+    {
+      "subgroup": "CygOB2-A",
+      "family": "PARSEC",
+      "R_V": 3.1,
+      "alpha": 2.6,
+      "incumbent_false_positive_rate": 0.056,
+      "replacement_false_positive_rate": 0.049,
+      "min_expected_count": 22.429698648592883
+    },
+    {
+      "subgroup": "CygOB2-A",
+      "family": "PARSEC",
+      "R_V": 3.5,
+      "alpha": 2.0,
+      "incumbent_false_positive_rate": 0.057,
+      "replacement_false_positive_rate": 0.05025,
+      "min_expected_count": 36.2606674677956
+    },
+    {
+      "subgroup": "CygOB2-A",
+      "family": "PARSEC",
+      "R_V": 3.5,
+      "alpha": 2.3,
+      "incumbent_false_positive_rate": 0.05325,
+      "replacement_false_positive_rate": 0.04825,
+      "min_expected_count": 29.783944471782416
+    },
+    {
+      "subgroup": "CygOB2-A",
+      "family": "PARSEC",
+      "R_V": 3.5,
+      "alpha": 2.6,
+      "incumbent_false_positive_rate": 0.0645,
+      "replacement_false_positive_rate": 0.053,
+      "min_expected_count": 24.19900414558543
+    },
+    {
+      "subgroup": "CygOB2-B",
+      "family": "MIST",
+      "R_V": 3.0,
+      "alpha": 2.0,
+      "incumbent_false_positive_rate": 0.064,
+      "replacement_false_positive_rate": 0.05425,
+      "min_expected_count": 38.47162236547963
+    },
+    {
+      "subgroup": "CygOB2-B",
+      "family": "MIST",
+      "R_V": 3.0,
+      "alpha": 2.3,
+      "incumbent_false_positive_rate": 0.05675,
+      "replacement_false_positive_rate": 0.043,
+      "min_expected_count": 32.897806637465884
+    },
+    {
+      "subgroup": "CygOB2-B",
+      "family": "MIST",
+      "R_V": 3.0,
+      "alpha": 2.6,
+      "incumbent_false_positive_rate": 0.0575,
+      "replacement_false_positive_rate": 0.04975,
+      "min_expected_count": 27.724061553588843
+    },
+    {
+      "subgroup": "CygOB2-B",
+      "family": "MIST",
+      "R_V": 3.1,
+      "alpha": 2.0,
+      "incumbent_false_positive_rate": 0.06575,
+      "replacement_false_positive_rate": 0.05125,
+      "min_expected_count": 35.46704854466516
+    },
+    {
+      "subgroup": "CygOB2-B",
+      "family": "MIST",
+      "R_V": 3.1,
+      "alpha": 2.3,
+      "incumbent_false_positive_rate": 0.0625,
+      "replacement_false_positive_rate": 0.04325,
+      "min_expected_count": 34.57766657372605
+    },
+    {
+      "subgroup": "CygOB2-B",
+      "family": "MIST",
+      "R_V": 3.1,
+      "alpha": 2.6,
+      "incumbent_false_positive_rate": 0.0515,
+      "replacement_false_positive_rate": 0.04175,
+      "min_expected_count": 29.303084664856566
+    },
+    {
+      "subgroup": "CygOB2-B",
+      "family": "MIST",
+      "R_V": 3.5,
+      "alpha": 2.0,
+      "incumbent_false_positive_rate": 0.05675,
+      "replacement_false_positive_rate": 0.04825,
+      "min_expected_count": 24.97681564853939
+    },
+    {
+      "subgroup": "CygOB2-B",
+      "family": "MIST",
+      "R_V": 3.5,
+      "alpha": 2.3,
+      "incumbent_false_positive_rate": 0.05975,
+      "replacement_false_positive_rate": 0.04975,
+      "min_expected_count": 26.351429759761718
+    },
+    {
+      "subgroup": "CygOB2-B",
+      "family": "MIST",
+      "R_V": 3.5,
+      "alpha": 2.6,
+      "incumbent_false_positive_rate": 0.0625,
+      "replacement_false_positive_rate": 0.0545,
+      "min_expected_count": 27.12221010844631
+    },
+    {
+      "subgroup": "CygOB2-B",
+      "family": "PARSEC",
+      "R_V": 3.0,
+      "alpha": 2.0,
+      "incumbent_false_positive_rate": 0.05775,
+      "replacement_false_positive_rate": 0.04725,
+      "min_expected_count": 33.99276547970292
+    },
+    {
+      "subgroup": "CygOB2-B",
+      "family": "PARSEC",
+      "R_V": 3.0,
+      "alpha": 2.3,
+      "incumbent_false_positive_rate": 0.06225,
+      "replacement_false_positive_rate": 0.04975,
+      "min_expected_count": 34.282507118575325
+    },
+    {
+      "subgroup": "CygOB2-B",
+      "family": "PARSEC",
+      "R_V": 3.0,
+      "alpha": 2.6,
+      "incumbent_false_positive_rate": 0.06375,
+      "replacement_false_positive_rate": 0.05275,
+      "min_expected_count": 30.90482682896232
+    },
+    {
+      "subgroup": "CygOB2-B",
+      "family": "PARSEC",
+      "R_V": 3.1,
+      "alpha": 2.0,
+      "incumbent_false_positive_rate": 0.06,
+      "replacement_false_positive_rate": 0.0525,
+      "min_expected_count": 32.7375968643683
+    },
+    {
+      "subgroup": "CygOB2-B",
+      "family": "PARSEC",
+      "R_V": 3.1,
+      "alpha": 2.3,
+      "incumbent_false_positive_rate": 0.05475,
+      "replacement_false_positive_rate": 0.042,
+      "min_expected_count": 34.72787100558209
+    },
+    {
+      "subgroup": "CygOB2-B",
+      "family": "PARSEC",
+      "R_V": 3.1,
+      "alpha": 2.6,
+      "incumbent_false_positive_rate": 0.06675,
+      "replacement_false_positive_rate": 0.0545,
+      "min_expected_count": 30.893562135415255
+    },
+    {
+      "subgroup": "CygOB2-B",
+      "family": "PARSEC",
+      "R_V": 3.5,
+      "alpha": 2.0,
+      "incumbent_false_positive_rate": 0.05725,
+      "replacement_false_positive_rate": 0.05175,
+      "min_expected_count": 21.568302776387792
+    },
+    {
+      "subgroup": "CygOB2-B",
+      "family": "PARSEC",
+      "R_V": 3.5,
+      "alpha": 2.3,
+      "incumbent_false_positive_rate": 0.055,
+      "replacement_false_positive_rate": 0.0455,
+      "min_expected_count": 22.824978702055365
+    },
+    {
+      "subgroup": "CygOB2-B",
+      "family": "PARSEC",
+      "R_V": 3.5,
+      "alpha": 2.6,
+      "incumbent_false_positive_rate": 0.05875,
+      "replacement_false_positive_rate": 0.05,
+      "min_expected_count": 23.551121488150965
+    },
+    {
+      "subgroup": "CygOB2-C",
+      "family": "MIST",
+      "R_V": 3.0,
+      "alpha": 2.0,
+      "incumbent_false_positive_rate": 0.06225,
+      "replacement_false_positive_rate": 0.04975,
+      "min_expected_count": 34.288225435671606
+    },
+    {
+      "subgroup": "CygOB2-C",
+      "family": "MIST",
+      "R_V": 3.0,
+      "alpha": 2.3,
+      "incumbent_false_positive_rate": 0.05925,
+      "replacement_false_positive_rate": 0.05675,
+      "min_expected_count": 28.976575378582588
+    },
+    {
+      "subgroup": "CygOB2-C",
+      "family": "MIST",
+      "R_V": 3.0,
+      "alpha": 2.6,
+      "incumbent_false_positive_rate": 0.05775,
+      "replacement_false_positive_rate": 0.0575,
+      "min_expected_count": 24.15181977388831
+    },
+    {
+      "subgroup": "CygOB2-C",
+      "family": "MIST",
+      "R_V": 3.1,
+      "alpha": 2.0,
+      "incumbent_false_positive_rate": 0.05675,
+      "replacement_false_positive_rate": 0.052,
+      "min_expected_count": 34.73405960845591
+    },
+    {
+      "subgroup": "CygOB2-C",
+      "family": "MIST",
+      "R_V": 3.1,
+      "alpha": 2.3,
+      "incumbent_false_positive_rate": 0.058,
+      "replacement_false_positive_rate": 0.046,
+      "min_expected_count": 29.186160872326095
+    },
+    {
+      "subgroup": "CygOB2-C",
+      "family": "MIST",
+      "R_V": 3.1,
+      "alpha": 2.6,
+      "incumbent_false_positive_rate": 0.0545,
+      "replacement_false_positive_rate": 0.04875,
+      "min_expected_count": 24.017757890527644
+    },
+    {
+      "subgroup": "CygOB2-C",
+      "family": "MIST",
+      "R_V": 3.5,
+      "alpha": 2.0,
+      "incumbent_false_positive_rate": 0.059,
+      "replacement_false_positive_rate": 0.049,
+      "min_expected_count": 6.895359712527126
+    },
+    {
+      "subgroup": "CygOB2-C",
+      "family": "MIST",
+      "R_V": 3.5,
+      "alpha": 2.3,
+      "incumbent_false_positive_rate": 0.0515,
+      "replacement_false_positive_rate": 0.04625,
+      "min_expected_count": 7.594219865737839
+    },
+    {
+      "subgroup": "CygOB2-C",
+      "family": "MIST",
+      "R_V": 3.5,
+      "alpha": 2.6,
+      "incumbent_false_positive_rate": 0.058,
+      "replacement_false_positive_rate": 0.04775,
+      "min_expected_count": 8.128944337081032
+    },
+    {
+      "subgroup": "CygOB2-C",
+      "family": "PARSEC",
+      "R_V": 3.0,
+      "alpha": 2.0,
+      "incumbent_false_positive_rate": 0.0575,
+      "replacement_false_positive_rate": 0.05175,
+      "min_expected_count": 23.358394078069857
+    },
+    {
+      "subgroup": "CygOB2-C",
+      "family": "PARSEC",
+      "R_V": 3.0,
+      "alpha": 2.3,
+      "incumbent_false_positive_rate": 0.06875,
+      "replacement_false_positive_rate": 0.05875,
+      "min_expected_count": 25.32050617526231
+    },
+    {
+      "subgroup": "CygOB2-C",
+      "family": "PARSEC",
+      "R_V": 3.0,
+      "alpha": 2.6,
+      "incumbent_false_positive_rate": 0.05525,
+      "replacement_false_positive_rate": 0.04775,
+      "min_expected_count": 26.746016161046587
+    },
+    {
+      "subgroup": "CygOB2-C",
+      "family": "PARSEC",
+      "R_V": 3.1,
+      "alpha": 2.0,
+      "incumbent_false_positive_rate": 0.05475,
+      "replacement_false_positive_rate": 0.04575,
+      "min_expected_count": 21.09037141391438
+    },
+    {
+      "subgroup": "CygOB2-C",
+      "family": "PARSEC",
+      "R_V": 3.1,
+      "alpha": 2.3,
+      "incumbent_false_positive_rate": 0.06575,
+      "replacement_false_positive_rate": 0.0475,
+      "min_expected_count": 22.93702629247231
+    },
+    {
+      "subgroup": "CygOB2-C",
+      "family": "PARSEC",
+      "R_V": 3.1,
+      "alpha": 2.6,
+      "incumbent_false_positive_rate": 0.06025,
+      "replacement_false_positive_rate": 0.0515,
+      "min_expected_count": 24.293723155539322
+    },
+    {
+      "subgroup": "CygOB2-C",
+      "family": "PARSEC",
+      "R_V": 3.5,
+      "alpha": 2.0,
+      "incumbent_false_positive_rate": 0.0575,
+      "replacement_false_positive_rate": 0.05675,
+      "min_expected_count": 7.334051940162649
+    },
+    {
+      "subgroup": "CygOB2-C",
+      "family": "PARSEC",
+      "R_V": 3.5,
+      "alpha": 2.3,
+      "incumbent_false_positive_rate": 0.056,
+      "replacement_false_positive_rate": 0.05225,
+      "min_expected_count": 8.012262270729297
+    },
+    {
+      "subgroup": "CygOB2-C",
+      "family": "PARSEC",
+      "R_V": 3.5,
+      "alpha": 2.6,
+      "incumbent_false_positive_rate": 0.05675,
+      "replacement_false_positive_rate": 0.04575,
+      "min_expected_count": 8.449081961806325
+    }
+  ]
+}

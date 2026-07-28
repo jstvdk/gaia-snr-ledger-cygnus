@@ -1,7 +1,18 @@
 #!/usr/bin/env python3
-"""WP5 figures, tables, blocked-gate report, and provenance narrative."""
+"""WP5 figures, tables, gate report, and provenance narrative.
+
+Two paths, deliberately separated (issue #2):
+
+* **no ``--wp5-version``** -- the frozen pre-repair run.  Its products and its
+  blocked-gate narrative are a historical record and are reproduced verbatim.
+* **``--wp5-version repair_vN``** -- reads the versioned WP5 products and
+  writes versioned outputs.  Every statement in that report is derived from
+  the data and from the fit's own gate record; nothing about pass or failure
+  is hardcoded.
+"""
 from __future__ import annotations
 
+import argparse
 import json
 from datetime import datetime, timezone
 
@@ -22,7 +33,7 @@ COLORS = {
 }
 
 
-def completeness_figure(curves: pd.DataFrame) -> None:
+def completeness_figure(curves: pd.DataFrame, suffix: str = "") -> None:
     base = curves[curves["family"].eq("PARSEC") & curves["R_V"].eq(3.1)]
     figure, axes = plt.subplots(1, 3, figsize=(14, 4.8), sharey=True)
     for axis, subgroup in zip(axes, w.SUBGROUPS, strict=True):
@@ -81,13 +92,13 @@ def completeness_figure(curves: pd.DataFrame) -> None:
         y=0.98,
     )
     figure.tight_layout(rect=(0.0, 0.10, 1.0, 0.93))
-    path = w.FIGURES / "wp5_completeness_curves.png"
+    path = w.FIGURES / f"wp5_completeness_curves{suffix}.png"
     figure.savefig(path, dpi=180, bbox_inches="tight")
     plt.close(figure)
 
 
 def mass_function_figure(
-    normalization: pd.DataFrame, bins: pd.DataFrame
+    normalization: pd.DataFrame, bins: pd.DataFrame, suffix: str = ""
 ) -> None:
     base_n = normalization[
         normalization["family"].eq("PARSEC")
@@ -149,12 +160,12 @@ def mass_function_figure(
         y=0.99,
     )
     figure.tight_layout()
-    path = w.FIGURES / "wp5_mass_function.png"
+    path = w.FIGURES / f"wp5_mass_function{suffix}.png"
     figure.savefig(path, dpi=180, bbox_inches="tight")
     plt.close(figure)
 
 
-def association_mass_figure(association: pd.DataFrame) -> None:
+def association_mass_figure(association: pd.DataFrame, suffix: str = "") -> None:
     figure, axis = plt.subplots(figsize=(10, 5.5))
     families = {"PARSEC": "o", "MIST": "s"}
     rv_offset = {3.0: -0.12, 3.1: 0.0, 3.5: 0.12}
@@ -199,7 +210,7 @@ def association_mass_figure(association: pd.DataFrame) -> None:
     axis.grid(alpha=0.2)
     axis.legend(ncol=2, fontsize=8, frameon=False)
     figure.tight_layout()
-    path = w.FIGURES / "wp5_association_mass.png"
+    path = w.FIGURES / f"wp5_association_mass{suffix}.png"
     figure.savefig(path, dpi=180, bbox_inches="tight")
     plt.close(figure)
 
@@ -559,7 +570,240 @@ but it has no downstream authority.
     )
 
 
+def write_versioned_reports(
+    version: str,
+    curves: pd.DataFrame,
+    normalization: pd.DataFrame,
+    bins: pd.DataFrame,
+    association: pd.DataFrame,
+    fit_record: dict,
+) -> list:
+    """Data-driven WP5 report for a repair version.
+
+    Every pass/fail statement is read from ``fit_record['gate']`` and from the
+    tables themselves, so this function is correct whichever way the gate went.
+    """
+    suffix = f"_{version}"
+    gate = fit_record["gate"]
+    baseline_norm = normalization[
+        normalization["family"].eq("PARSEC")
+        & normalization["R_V"].eq(3.1)
+        & normalization["alpha"].eq(2.3)
+    ]
+    baseline_assoc = association[
+        association["family"].eq("PARSEC")
+        & association["R_V"].eq(3.1)
+        & association["alpha"].eq(2.3)
+    ].iloc[0]
+    baseline_bins = bins[
+        bins["family"].eq("PARSEC")
+        & bins["R_V"].eq(3.1)
+        & bins["alpha"].eq(2.3)
+    ]
+    passing = int(normalization["residual_gate_pass"].sum())
+    total = int(len(normalization))
+    accepted = bool(gate.get("G3_pass", gate.get("baseline_all_subgroups_residual_gate")))
+
+    normalization.to_csv(w.TABLES / f"wp5_imf_norm{suffix}.csv", index=False)
+    (w.TABLES / f"wp5_imf_norm{suffix}.md").write_text(
+        f"# WP5 IMF-normalization branch table ({version})\n\n"
+        + markdown_table(
+            normalization,
+            [
+                "subgroup", "family", "R_V", "alpha", "k_median", "k_lo68",
+                "k_hi68", "poisson_chi_square_p", "max_abs_pearson_residual",
+                "residual_gate_pass",
+            ],
+        )
+        + "\n",
+        encoding="utf-8",
+    )
+    association.to_csv(w.TABLES / f"wp5_association_mass{suffix}.csv", index=False)
+
+    residual_rows = []
+    for subgroup in w.SUBGROUPS:
+        data = baseline_bins[baseline_bins["subgroup"].eq(subgroup)].sort_values(
+            "bin_index"
+        )
+        summary = baseline_norm[baseline_norm["subgroup"].eq(subgroup)].iloc[0]
+        residual_rows.append(
+            {
+                "subgroup": subgroup,
+                **{
+                    f"bin{index}": value
+                    for index, value in enumerate(data["pearson_residual"])
+                },
+                "chi2_p": summary["poisson_chi_square_p"],
+                "trend_p": summary["residual_trend_p"],
+                "max_abs_residual": summary["max_abs_pearson_residual"],
+                "pass": summary["residual_gate_pass"],
+            }
+        )
+    residuals = pd.DataFrame(residual_rows)
+    residuals.to_csv(w.TABLES / f"wp5_baseline_residuals{suffix}.csv", index=False)
+
+    age_rows = [
+        row
+        for row in fit_record.get("truth_age_posteriors", [])
+        if row["family"] == "PARSEC" and row["R_V"] == 3.1 and row["alpha"] == 2.3
+    ]
+    age_table = "\n".join(
+        f"| {row['subgroup']} | {len(row['nodes_Myr'])} | "
+        + " · ".join(
+            f"{age:.3f}: {weight:.3f}"
+            for age, weight in zip(row["nodes_Myr"], row["prior_weights"])
+        )
+        + " | "
+        + " · ".join(
+            f"{age:.3f}: {weight:.3f}"
+            for age, weight in zip(row["nodes_Myr"], row["posterior_weights"])
+        )
+        + f" | {row['posterior_mean_Myr']:.3f} |"
+        for row in age_rows
+    )
+
+    verdict = "ACCEPTED AT THE BASELINE GATE" if accepted else "BLOCKED AT THE VALIDATION GATE"
+    report = f"""# WP5 — IMF normalization and completeness ({version})
+
+**Status: {verdict}.**
+
+Generated by `scripts/wp5_report.py --wp5-version {version}` from
+`provenance/wp5_imf_fit_execution_{version}.json`. Every number below is read
+from the versioned products; none is hardcoded.
+
+## 1. Model
+
+{fit_record.get('model_change_vs_repair_v3', 'see the fit provenance record')}
+
+Truth-age node rule: {fit_record.get('node_rule', 'n/a')}.
+{fit_record.get('single_node_equivalence', '')}
+
+## 2. Baseline branch (PARSEC, R_V = 3.1, alpha = 2.3)
+
+{markdown_table(baseline_norm, ["subgroup", "k_median", "k_lo68", "k_hi68", "poisson_chi_square_p", "residual_trend_p", "max_abs_pearson_residual", "residual_gate_pass"])}
+
+Per-bin Pearson residuals:
+
+{markdown_table(residuals, list(residuals.columns))}
+
+Fitted truth-age posteriors on this branch:
+
+| subgroup | nodes | WP4 prior weights | fitted posterior weights | posterior mean (Myr) |
+|---|---:|---|---|---:|
+{age_table}
+
+## 3. Branch grid
+
+{passing} of {total} subgroup x family x R_V x alpha fits pass the residual
+gate (chi2 p >= 0.01, trend p >= 0.05, max abs Pearson residual <= 3.0).
+All-branch pass: {gate.get('all_branch_subgroups_residual_gate')}.
+A/C per-branch regressions against the previous version:
+{len(gate.get('A_or_C_regressions', []))}.
+
+## 4. Association mass
+
+Baseline multiplicity-adjusted stellar mass
+{baseline_assoc['multiplicity_adjusted_mass_median_Msun']:.0f}
+[{baseline_assoc['multiplicity_adjusted_mass_lo68_Msun']:.0f},
+{baseline_assoc['multiplicity_adjusted_mass_hi68_Msun']:.0f}] Msun against the
+Wright+15 scale of {w.LITERATURE_MASS_MSUN:.0f} Msun; within a factor two:
+{bool(baseline_assoc['within_factor_two_literature'])}. Across all 18
+association branches the medians span
+{association['multiplicity_adjusted_mass_median_Msun'].min():.0f}--{association['multiplicity_adjusted_mass_median_Msun'].max():.0f} Msun, with
+{int(association['within_factor_two_literature'].sum())}/18 inside the band.
+
+## 5. Gate record
+
+{markdown_table(pd.DataFrame([{"criterion": key, "result": str(value)} for key, value in gate.items() if not isinstance(value, list)]), ["criterion", "result"])}
+
+## 6. Carried limitations
+
+- No absolute 95% completeness edge exists anywhere on this field; the
+  `corrected_no_absolute95_edge` fallback is in force (issue #4, closed as a
+  documented supersession of CUTS_AND_THRESHOLDS.md 7.1).
+- Bright-mass completeness plateaus near 0.8, not 1.0. WP6's closure test must
+  divide by the injection response (open issue #3).
+- The completeness curve shipped with this version is the PRIOR-weighted node
+  mixture: the calibration window is fixed before the fit, never from the
+  outcome.
+"""
+    (w.ROOT / f"wp5_imf_norm{suffix}.md").write_text(report, encoding="utf-8")
+
+    return [
+        w.TABLES / f"wp5_imf_norm{suffix}.csv",
+        w.TABLES / f"wp5_imf_norm{suffix}.md",
+        w.TABLES / f"wp5_association_mass{suffix}.csv",
+        w.TABLES / f"wp5_baseline_residuals{suffix}.csv",
+        w.ROOT / f"wp5_imf_norm{suffix}.md",
+    ]
+
+
+def run_versioned(version: str) -> None:
+    suffix = f"_{version}"
+    w.FIGURES.mkdir(parents=True, exist_ok=True)
+    w.TABLES.mkdir(parents=True, exist_ok=True)
+    curves = pd.read_parquet(w.PROC / f"wp5_completeness_curves{suffix}.parquet")
+    normalization = pd.read_parquet(w.PROC / f"wp5_imf_normalization{suffix}.parquet")
+    bins = pd.read_parquet(w.PROC / f"wp5_mass_function_bins{suffix}.parquet")
+    association = pd.read_parquet(w.PROC / f"wp5_association_mass{suffix}.parquet")
+    fit_record = json.loads(
+        (w.PROVENANCE / f"wp5_imf_fit_execution_{version}.json").read_text(
+            encoding="utf-8"
+        )
+    )
+    completeness_figure(curves, suffix)
+    mass_function_figure(normalization, bins, suffix)
+    association_mass_figure(association, suffix)
+    outputs = write_versioned_reports(
+        version, curves, normalization, bins, association, fit_record
+    )
+    outputs += [
+        w.FIGURES / f"wp5_completeness_curves{suffix}.png",
+        w.FIGURES / f"wp5_mass_function{suffix}.png",
+        w.FIGURES / f"wp5_association_mass{suffix}.png",
+    ]
+    record = {
+        "created_utc": datetime.now(timezone.utc).isoformat(),
+        "script": "scripts/wp5_report.py",
+        "wp5_version": version,
+        "status": "SUCCESS",
+        "frozen_unversioned_products_overwritten": False,
+        "inputs": {
+            str(path.relative_to(w.ROOT)): w.sha256(path)
+            for path in [
+                w.PROC / f"wp5_completeness_curves{suffix}.parquet",
+                w.PROC / f"wp5_imf_normalization{suffix}.parquet",
+                w.PROC / f"wp5_mass_function_bins{suffix}.parquet",
+                w.PROC / f"wp5_association_mass{suffix}.parquet",
+                w.PROVENANCE / f"wp5_imf_fit_execution_{version}.json",
+            ]
+        },
+        "outputs": {
+            str(path.relative_to(w.ROOT)): {
+                "sha256": w.sha256(path),
+                "bytes": path.stat().st_size,
+            }
+            for path in outputs
+        },
+    }
+    w.write_json(w.PROVENANCE / f"wp5_report_execution_{version}.json", record)
+    print(f"wrote versioned WP5 report products for {version}")
+
+
 def main() -> None:
+    parser = argparse.ArgumentParser()
+    parser.add_argument(
+        "--wp5-version",
+        default=None,
+        help=(
+            "report a versioned WP5 run (for example repair_v4).  Omit to "
+            "reproduce the frozen pre-repair report verbatim."
+        ),
+    )
+    args = parser.parse_args()
+    if args.wp5_version:
+        run_versioned(args.wp5_version)
+        return
     w.FIGURES.mkdir(parents=True, exist_ok=True)
     w.TABLES.mkdir(parents=True, exist_ok=True)
     curves = pd.read_parquet(w.PROC / "wp5_completeness_curves.parquet")

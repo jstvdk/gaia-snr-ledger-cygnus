@@ -1,6 +1,6 @@
 {
-  "repair_version": "repair_v1",
-  "created_utc": "2026-07-24T08:53:06.495068+00:00",
+  "repair_version": "repair_v5",
+  "created_utc": "2026-07-28T10:07:36.850558+00:00",
   "trigger": {
     "brief": "tasks/wp3_extinction_repair_brief.md",
     "preserved_blocking_manifest": "provenance/wp5_manifest.json",
@@ -103,17 +103,17 @@
     "templates": 2688
   },
   "outputs": {
-    "data/processed/wp3_extinction_posterior_summary_repair_v1.parquet": {
-      "sha256": "b9aacf6da214057265bbeb4fd4d9a6aa8293b48ce6653b891195198df6f4d976",
-      "bytes": 476106
+    "data/processed/wp3_extinction_posterior_summary_repair_v5.parquet": {
+      "sha256": "cc075178bff5ca49f64ef3979e9c221012418d009d8e316e63d46c6f56e850c3",
+      "bytes": 615925
     },
-    "data/processed/wp3_extinction_posterior_repair_v1.npz": {
-      "sha256": "e8a5cc27b7e2db3e89a58d462d28f12e408d6fa88f8c094413f3907c87ecac45",
-      "bytes": 3536796
+    "data/processed/wp3_extinction_posterior_repair_v5.npz": {
+      "sha256": "36f9bd9849cb6c1d3168004ccc53fed294293d55dd67f4dca5eeac3b157af19c",
+      "bytes": 3912136
     },
-    "data/processed/wp3_extinction_repair_v1.parquet": {
-      "sha256": "9a2a323b2b4ae420059c4c11e3a902c276b5175d3ebc051837adb209a231fd80",
-      "bytes": 680122
+    "data/processed/wp3_extinction_repair_v5.parquet": {
+      "sha256": "76a3c3df1e754b9846a2401ce898aad50f8de28b90a11725687af0e7cc4524fc",
+      "bytes": 680116
     }
   },
   "frozen_outputs_overwritten": false

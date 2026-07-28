@@ -1,0 +1,48 @@
+{
+  "created_utc": "2026-07-28T11:10:35.132154+00:00",
+  "script": "scripts/wp5_report.py",
+  "wp5_version": "repair_v5",
+  "status": "SUCCESS",
+  "frozen_unversioned_products_overwritten": false,
+  "inputs": {
+    "data/processed/wp5_completeness_curves_repair_v5.parquet": "faf9886b59ffc40e4bd641cacd37bd44042946e9be5e6c4361f4ace693edd07c",
+    "data/processed/wp5_imf_normalization_repair_v5.parquet": "1f982eb5539065d8df4c800b5790a494e4db05f02a8246fbfcc1f8f9e057831b",
+    "data/processed/wp5_mass_function_bins_repair_v5.parquet": "fb6ea24ee9e987888e6f7edaa8001ae6beb4aa92365afc3166298b935e2a5d8b",
+    "data/processed/wp5_association_mass_repair_v5.parquet": "dc1e23e665a58766c4dcfdeff17feb66908b51c5a8fad8f3268a3d2de6659cfa",
+    "provenance/wp5_imf_fit_execution_repair_v5.json": "833ccebaf2d8a420dde0b86430f9eddf7dad4bc7ca44dfa725bd624feafb34c1"
+  },
+  "outputs": {
+    "tables/wp5_imf_norm_repair_v5.csv": {
+      "sha256": "7330964cb34a6ea7d5db0c6b0df7d1aeded114024bd970d3a3411047aa1de111",
+      "bytes": 28553
+    },
+    "tables/wp5_imf_norm_repair_v5.md": {
+      "sha256": "89f00f0162d2b491708adc5f5700ae53923b54e2ac1988eff101a96e2c625d54",
+      "bytes": 4937
+    },
+    "tables/wp5_association_mass_repair_v5.csv": {
+      "sha256": "528f56e5dd6177f773f572a1f4b622dd24b7a46d0cbe9cb679919dce3221d19c",
+      "bytes": 4167
+    },
+    "tables/wp5_baseline_residuals_repair_v5.csv": {
+      "sha256": "bcd73a09afd33f698c4462ac313a9b54ebbada727c4f156d2c98a67868e964aa",
+      "bytes": 642
+    },
+    "wp5_imf_norm_repair_v5.md": {
+      "sha256": "da51ca0297420f9587deeca02864ce5326dc9be5a1adcaf105c1bd9990197ba6",
+      "bytes": 3782
+    },
+    "figures/wp5/wp5_completeness_curves_repair_v5.png": {
+      "sha256": "d2f200055afe0cae04905a53303a2ed3ae0c05a1ddf3521d65caa709bcdc94c5",
+      "bytes": 178981
+    },
+    "figures/wp5/wp5_mass_function_repair_v5.png": {
+      "sha256": "a349175b80223b8ecdc421ecb3e9fc979464dad60671b77b4a225ad1d4ca9767",
+      "bytes": 149182
+    },
+    "figures/wp5/wp5_association_mass_repair_v5.png": {
+      "sha256": "2335d049d04b0eb2a1c92b3f8a073195e8887b9cd717f71c5de63dbcaa695cbd",
+      "bytes": 74493
+    }
+  }
+}
