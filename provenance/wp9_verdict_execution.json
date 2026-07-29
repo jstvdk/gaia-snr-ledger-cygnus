@@ -1,0 +1,128 @@
+{
+  "created_utc": "2026-07-29T19:45:28.748420+00:00",
+  "script": "scripts/wp9_verdict.py",
+  "status": "SUCCESS",
+  "work_package": "WP9",
+  "prereg": "provenance/wp9_verdict_prereg.json",
+  "iterations": 2000000,
+  "wp5_version": "repair_v7",
+  "environment": {
+    "python": "3.11.15 | packaged by conda-forge | (main, Jun 11 2026, 03:29:05) [Clang 19.1.7 ]",
+    "platform": "macOS-15.6.1-arm64-arm-64bit",
+    "numpy": "2.4.6",
+    "pandas": "3.0.3"
+  },
+  "headline_branches": 36,
+  "verdict": {
+    "P_verdict_min": 0.3233,
+    "P_verdict_median": 0.5335,
+    "P_verdict_max": 0.7355,
+    "P_verdict_permissive_median": 0.842,
+    "outcome": "INCONCLUSIVE",
+    "framing": "regular article",
+    "rule_applied": "SUPPORTED if P >= 0.5 on every headline branch, DISFAVOURED if P <= 0.1 on every headline branch, INCONCLUSIVE otherwise.  Applied mechanically to the numbers as computed."
+  },
+  "terms": {
+    "C1_age": {
+      "window_kyr": [
+        10.0,
+        100.0
+      ],
+      "min": 0.3786,
+      "median": 0.6247,
+      "max": 0.8612,
+      "permissive_median": 0.986
+    },
+    "C3_progenitor_type": {
+      "threshold_Msun": 30.0,
+      "min": 1.0,
+      "median": 1.0
+    },
+    "C4_in_situ": {
+      "value": 0.854,
+      "nature": "a bound from the WP7 runaway fraction, not a distribution"
+    },
+    "C2_energy": "NOT computed and NOT multiplied in.  Haerer requires 3-5e51 erg, which is above the canonical 1e51 erg and needs an energetic stripped-envelope event.  This project measures progenitor masses, not explosion energies.  C2 is reported as a conditional: the verdict below is the probability that a supernova of the right AGE, TYPE and LOCATION was available, GIVEN that such an event can reach the required energy."
+  },
+  "sensitivity": [
+    {
+      "axis": "alpha",
+      "n_levels": 2,
+      "P_verdict_min": 0.4351,
+      "P_verdict_max": 0.6995,
+      "spread": 0.2644,
+      "levels": {
+        "2.0": 0.6995,
+        "2.3": 0.4351
+      }
+    },
+    {
+      "axis": "R_V",
+      "n_levels": 3,
+      "P_verdict_min": 0.5187,
+      "P_verdict_max": 0.5839,
+      "spread": 0.0652,
+      "levels": {
+        "3.0": 0.5812,
+        "3.1": 0.5839,
+        "3.5": 0.5187
+      }
+    },
+    {
+      "axis": "family",
+      "n_levels": 2,
+      "P_verdict_min": 0.5335,
+      "P_verdict_max": 0.5784,
+      "spread": 0.0449,
+      "levels": {
+        "MIST": 0.5335,
+        "PARSEC": 0.5784
+      }
+    },
+    {
+      "axis": "sf_duration_Myr",
+      "n_levels": 3,
+      "P_verdict_min": 0.5335,
+      "P_verdict_max": 0.576,
+      "spread": 0.0425,
+      "levels": {
+        "0.0": 0.5335,
+        "1.0": 0.534,
+        "2.0": 0.576
+      }
+    }
+  ],
+  "dominant_driver": "alpha",
+  "excluded_branches_reported_not_deleted": {
+    "alpha_2p6": {
+      "P_verdict_median": 0.2151,
+      "why_excluded": "the WP5 calibration-window evidence alone rejects it -- best in 1 of 18 cells, worst median chi-square.  Excluding it does not spend the census closure."
+    },
+    "islands_explodability": "excluded by WP8: PSR J2032+4127 is a neutron star inside the association and the islands branch predicts exactly zero supernovae.  Not run here; its verdict would be identically zero."
+  },
+  "predictions": [
+    {
+      "id": "V1",
+      "outcome": "PASS",
+      "statement": "C3 > 0.95 on every headline branch",
+      "min_C3": 1.0
+    },
+    {
+      "id": "V2",
+      "outcome": "PASS",
+      "statement": "the verdict is driven mainly by C1, the age term",
+      "C1_spread": 0.4826,
+      "C3_spread": 0.0
+    },
+    {
+      "id": "V3",
+      "outcome": "PASS",
+      "statement": "the outcome is INCONCLUSIVE, so a regular article",
+      "actual_outcome": "INCONCLUSIVE"
+    }
+  ],
+  "outputs": {
+    "tables/wp9_verdict.csv": "8d8f5d781b8e153aab6e98d206eee966084f709002235244920b18a2922357b5",
+    "tables/wp9_sensitivity.csv": "60aac4e2f670862a027524fde398391932d35ad816343d44f1638939b53124ac"
+  }
+}
