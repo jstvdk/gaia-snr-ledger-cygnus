@@ -1,0 +1,8 @@
+check,rank,marker,ledger_value,comparison,verdict
+pulsar_existence,1,PSR J2032+4127,0.9997,"P(>=1 SN), all-explode baseline",PASS
+pulsar_excludes_islands,1,PSR J2032+4127,0.0,"P(>=1 SN), islands branch",PASS
+pulsar_age,1,PSR J2032+4127,0.9599,P(last SN within 401 kyr),PASS
+snr_absence,4,Green 2024 catalogue,0.801,"expected visible remnants, generous lifetime",WEAK_EVIDENCE
+gamma_cygni_allowed,2,"G078.2+02.1 (gamma Cygni, DR4)",0.077,P(SN within 10 kyr),ALLOWED
+gamma_cygni_distance,2,"G078.2+02.1 (gamma Cygni, DR4)",1.62,ours 1.62 kpc vs Leahy+2013 1.7-2.6 kpc,UNSETTLED
+al26_consistency,3,INTEGRAL 1809 keV,0.00084,Cyg OB2 SN-only 26Al vs ~1 Msun complex-wide,CONSISTENT_BAND

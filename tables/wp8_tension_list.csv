@@ -1,0 +1,4 @@
+id,severity,statement,resolution
+T1,"reported, not resolvable here","gamma Cygni's distance (1.7-2.6 kpc, Leahy+2013) overlaps our 1.62 kpc only at its extreme low end",left unsettled by design; the older ~1.5 kpc literature class is carried as an explicit branch
+T2,"degeneracy, not disagreement",the pulsar cannot distinguish high-mass explodability from binary stripping of a lower-mass progenitor,both are reported; WP7 already names binary mass transfer as its largest unmodelled effect
+T3,acknowledged systematic,"the pulsar's Pdot is contaminated by line-of-sight acceleration in its decades-long eccentric orbit, so the characteristic age carries an unremovable systematic","the comparison is made against a systematics-widened age range, never the point value"

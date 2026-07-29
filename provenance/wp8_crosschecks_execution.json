@@ -1,0 +1,142 @@
+{
+  "created_utc": "2026-07-29T15:12:31.033466+00:00",
+  "script": "scripts/wp8_crosschecks.py",
+  "status": "SUCCESS",
+  "work_package": "WP8",
+  "prereg": "provenance/wp8_crosschecks_prereg.json",
+  "environment": {
+    "python": "3.11.15 | packaged by conda-forge | (main, Jun 11 2026, 03:29:05) [Clang 19.1.7 ]",
+    "platform": "macOS-15.6.1-arm64-arm-64bit",
+    "numpy": "2.4.6",
+    "pandas": "3.0.3"
+  },
+  "ledger_inputs": {
+    "baseline_branch": [
+      "PARSEC",
+      3.1,
+      2.3,
+      0.0
+    ],
+    "P_at_least_one_all_explode": 0.99965,
+    "P_at_least_one_islands": 0.0,
+    "N_SN_mean": 8.435,
+    "present_day_rate_per_Myr": 8.009,
+    "one_SN_per_kyr": 124.9,
+    "active_span_Myr": 1.3
+  },
+  "check_1_pulsar": {
+    "characteristic_age_yr": 200738.4,
+    "systematics_widened_age_range_yr": [
+      150551.2,
+      401469.9
+    ],
+    "range_recipe": "braking index n in [2.0, 3.0], birth period P0/P in [0.0, 0.5]",
+    "P_last_SN_within_upper_age": 0.9599,
+    "P_last_SN_inside_the_range": 0.2593,
+    "peculiar_proper_motion_mas_yr": 3.588,
+    "peculiar_transverse_velocity_km_s": 27.6,
+    "systemic_reference_mas_yr": [
+      -2.7067,
+      -4.3168
+    ],
+    "kick_interpretation": "the system is a BOUND binary with a decades-long orbit, which a large natal kick would have disrupted.  A small peculiar velocity is therefore expected on physical grounds and is what is measured; it is consistent with the pulsar having been born in Cyg OB2 rather than having drifted in.",
+    "progenitor_mass_argument": "MT91 213 is B0V, 17 Msun.  The neutron star's progenitor evolved FIRST and so began more massive than its companion.  If it was coeval with CygOB2-A (4.00 Myr, turnoff 57.9 Msun) it must have exceeded 57.9 Msun -- precisely the regime where the islands prescription predicts a black hole, not a neutron star.  This is the crux of the three-way reading."
+  },
+  "check_2_gamma_cygni": {
+    "age_kyr": [
+      6.8,
+      10.0
+    ],
+    "P_SN_within_age_window": 0.077,
+    "separation_deg": 2.27,
+    "projected_separation_pc": 64,
+    "distance_ours_kpc": 1.62,
+    "distance_leahy_kpc": [
+      1.7,
+      2.6
+    ],
+    "verdict": "ALLOWED but not expected, and association UNSETTLED.  A supernova in the last 10 kyr has probability 7.7% on the baseline branch -- comfortably non-zero, so the ledger does not forbid gamma Cygni, but far from a prediction of it.  The distance evidence is genuinely ambiguous and WP8 does not resolve it."
+  },
+  "check_3_al26": {
+    "assumed_yield_per_SN_Msun": 0.0001,
+    "implied_steady_state_26Al_from_CygOB2_SNe_Msun": 0.00084,
+    "literature_complex_wide_Msun": 1.0,
+    "reading": "the ledger's supernovae alone sustain about 0.0008 Msun of 26Al in steady state, some 1189x below the ~1 Msun inferred for the whole Cygnus complex.  This is the EXPECTED ordering and not a tension: the measurement is complex-wide rather than Cyg OB2-only, and Wolf-Rayet winds dominate 26Al production in a region this young.  The comparison is a consistency band and is NOT inverted into a supernova count."
+  },
+  "check_4_snr_absence": {
+    "expected_visible_remnants": {
+      "20_kyr": 0.16,
+      "100_kyr": 0.801
+    },
+    "nearest_catalogued_remnants": [
+      {
+        "SNR": "G078.2+02.1",
+        "names": "DR4, gamma Cygni SNR",
+        "separation_deg": 2.27,
+        "projected_pc_at_1p62kpc": 64.2
+      },
+      {
+        "SNR": "G083.0-00.3",
+        "names": null,
+        "separation_deg": 3.13,
+        "projected_pc_at_1p62kpc": 88.6
+      },
+      {
+        "SNR": "G076.9+01.0",
+        "names": null,
+        "separation_deg": 3.18,
+        "projected_pc_at_1p62kpc": 89.9
+      }
+    ],
+    "reading": "no catalogued remnant lies within 2.3 deg of the association centroid.  But at 8.0 supernovae per Myr, even a generous 100 kyr visible lifetime and NO cavity predict only 0.80 visible remnants.  The non-detection is therefore consistent with the Haerer cavity scenario and equally consistent with ordinary Poisson luck, and cannot discriminate between them.  Reporting that it is weak evidence IS the result."
+  },
+  "check_5_neighbours": {
+    "scope": "COARSE, literature-based, no pipeline run",
+    "reading": "Cyg OB1 and Cyg OB9 are older and less massive than Cyg OB2 but non-negligible, so a cavity supernova need not have come from Cyg OB2.  Two of the nine catalogued remnants in the wide box sit within 5 deg of the association, which is a reminder that the field is not empty.  No quantitative budget is claimed here."
+  },
+  "predictions": [
+    {
+      "id": "X1",
+      "outcome": "PASS",
+      "value": 0.9997,
+      "threshold": 0.5
+    },
+    {
+      "id": "X2",
+      "outcome": "PASS",
+      "value": 0.0
+    },
+    {
+      "id": "X3",
+      "outcome": "PASS",
+      "value": 0.9599,
+      "threshold": 0.2
+    },
+    {
+      "id": "X4",
+      "outcome": "PASS",
+      "value": 0.801,
+      "threshold": 1.0
+    },
+    {
+      "id": "X5",
+      "outcome": "PASS",
+      "value": 0.077,
+      "range": [
+        0.03,
+        0.12
+      ]
+    }
+  ],
+  "gate": {
+    "G8a_pulsar_resolved": true,
+    "G8b_gamma_cygni_reported_unsettled": true,
+    "G8c_al26_not_inverted": true,
+    "G8d_tension_list_produced": true
+  },
+  "the_headline": "PSR J2032+4127 is a neutron star inside Cyg OB2, beside a star this project's own census counts.  Neutron stars require successful explosions.  The ledger's all-explode branch gives P(>=1 supernova) = 0.9997; the islands branch gives exactly zero.  The pulsar therefore rules out the branch that would have made the entire supernova budget vanish -- provided the progenitor was not a binary-stripped lower-mass star, which no observable available here can exclude.",
+  "outputs": {
+    "tables/wp8_crosschecks.csv": "634d08f77b905a5f747715fb24ff70615a88ad84923ac3480648b81f90bc7e81",
+    "tables/wp8_tension_list.csv": "9245889d0b93bd86d243a8581106abf8996d87abe1078677da0776efd2e6510b"
+  }
+}
