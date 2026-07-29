@@ -1,0 +1,164 @@
+{
+  "created_utc": "2026-07-29T13:28:08.015678+00:00",
+  "script": "scripts/wp7_ledger_prereg.py",
+  "status": "PREREGISTERED",
+  "work_package": "WP7",
+  "objective": "N_SN posterior, R_SN(t) explosion timeline, and time-since-last-SN posterior, per branch and as explicit functions of assumed age",
+  "environment": {
+    "python": "3.11.15 | packaged by conda-forge | (main, Jun 11 2026, 03:29:05) [Clang 19.1.7 ]",
+    "platform": "macOS-15.6.1-arm64-arm-64bit",
+    "numpy": "2.4.6",
+    "pandas": "3.0.3"
+  },
+  "inputs_are_frozen": {
+    "normalization": "data/processed/wp5_imf_normalization_repair_v7.parquet",
+    "paired_posterior_draws": "data/processed/wp5_imf_posterior_draws_repair_v7.npz -- 10000 PAIRED (k, truth_age) draws per (subgroup, family, R_V, alpha).  Pairing matters: k and the age are correlated through the WP5 fit, and drawing them independently would break that correlation and misstate the N_SN interval.",
+    "turnoff": "wp6_mass_extension_decision.turnoff_mass, the SAME relation WP4 and WP6 use.  Lifetimes tau(m) are obtained by inverting it rather than by importing an external lifetime table, so the ledger cannot disagree with the closure test for the trivial reason of a different tau(m).",
+    "nothing_is_refitted": "WP7 reads frozen artifacts only.  In particular alpha is NOT refitted -- the closure test is the analysis's only out-of-sample check and converting it into a fitted slope would destroy it (PROJECT_TRACE section 10c item 2)."
+  },
+  "design_finding_measured_before_preregistration": {
+    "what": "the execution plan's 'missing = dead' route is not well-posed with the normalization this project has",
+    "arithmetic": {
+      "turnoff_route_N_SN": 8.46,
+      "census_route_vs_labelled_246p4": 17.4,
+      "census_route_vs_full_ledger_380p6": -116.8,
+      "branch": "PARSEC, R_V=3.1, alpha=2.3, k_median, posterior-mean ages"
+    },
+    "why": "each k_sg is fitted from that subgroup's own 2-8 Msun members, so sum_sg k_sg * integral predicts the LABELLED clustered population (246.4).  The ledger's 380.6 adds 49 unlabelled members, 27 orphan anchors and 54.9 runaways that no per-subgroup normalization predicted.  WP5 never fitted an association-wide k.",
+    "honesty_note": "this was computed BEFORE this pre-registration was written and is recorded as a measured design finding, NOT dressed up as a prediction.  The predictions below are restricted to things the Monte Carlo has not yet been asked.",
+    "reconciliation_of_the_two_living_totals": "246.4 (WP6 closure census, per subgroup) + 49.0 (members with no subgroup label) = 295.4 (ledger member channel).  The closure test filters on subgroup membership; the ledger filters on having a finite P(M>8).  Both are correct for their own purpose and they are not interchangeable."
+  },
+  "decisions_fixed_here": {
+    "measurement_route": "turnoff",
+    "census_route_status": "reported as a consistency check on the LABELLED population only, with its residual attributed to the WP6 closure excess rather than to supernovae",
+    "runaways_do_not_enter_N_SN": "runaways are living stars below the turnoff.  They change neither k (fitted from 2-8 Msun) nor the turnoff, so they cannot change a number that is an integral of the IMF above the turnoff.  This SUPERSEDES execution-plan WP7 step 2, whose subtraction is correct only for an association-wide normalization that does not exist.",
+    "what_runaways_DO_bound": "the fraction of supernovae that occurred OUTSIDE the association.  Stars ejected before their death exploded elsewhere.  With 54.9 runaways against 322.4 retained living stars above 8 Msun, at most 14.6% of the ledger's supernovae were not in-situ.  Reported as a bound on location, carried into WP8's cavity argument; NOT subtracted from N_SN.",
+    "runaway_systematic_still_carried": "the clipped/unclipped runaway totals (58.18 vs 54.9) differ by 3.3, which moves the out-of-association bound by under a percentage point.  Carried, but immaterial.",
+    "birth_time_convention": "the WP4 age is treated as the MIDPOINT of the formation interval, so stars are born uniformly in [t_age - delta/2, t_age + delta/2].  This keeps the mean age equal to the fitted age and makes the star-formation duration a pure spread rather than a systematic shift.  The alternative convention (t_age = formation start) would make every non-zero duration reduce N_SN by construction, confounding the branch with a bias.",
+    "death_test_avoids_inverting_tau": "a star of mass m born at look-back t_b is dead iff m > turnoff(t_b).  This needs no lifetime inversion and is exactly consistent with WP4/WP6 by construction.  tau(m) is inverted ONLY to date the explosion of stars already known to have died, where the turnoff relation is single-valued and well inside its validity range.",
+    "sampling_is_discrete": "N_born above the minimum turnoff is drawn as Poisson, and individual masses are drawn from the IMF.  At N ~ 8 the posterior is asymmetric and expectation values alone would misrepresent it.  Only stars above the minimum turnoff over the birth window are drawn, which is exact -- no star below it can have died -- and keeps the engine cheap."
+  },
+  "branch_grid": {
+    "families": [
+      "PARSEC",
+      "MIST"
+    ],
+    "R_V": [
+      3.0,
+      3.1,
+      3.5
+    ],
+    "alpha": [
+      2.0,
+      2.3,
+      2.6
+    ],
+    "sf_duration_Myr": [
+      0.0,
+      1.0,
+      2.0
+    ],
+    "explodability": [
+      "all_explode",
+      "islands"
+    ],
+    "n_branches": 108,
+    "subgroups": [
+      "CygOB2-A",
+      "CygOB2-B",
+      "CygOB2-C"
+    ],
+    "alpha_2p6_is_disfavoured": "carried, but the WP6 census disfavours it.  Reported per branch and never averaged across alpha."
+  },
+  "explodability": {
+    "all_explode": "every star that has died and exceeds 8 Msun explodes",
+    "islands": "no supernova above 25.0 Msun (direct collapse to a black hole); explodes below it",
+    "why_the_fine_island_structure_is_omitted": "Sukhbold et al. 2016 and Ertl et al. 2016 give an interleaved pattern of explodable and non-explodable ZAMS masses between roughly 15 and 25 Msun.  That structure is IRRELEVANT here: the smallest turnoff anywhere on the branch grid is about 52 Msun, so every star that has died in Cyg OB2 is far above the island region.  Rendering the islands in detail would be fake precision.  The branch reduces to a single question -- do stars well above 40 Msun explode -- and that is what is varied.",
+    "sensitivity_is_scanned_not_hidden": "N_SN is reported against a black-hole threshold scanned over [20.0, 25.0, 30.0, 40.0, 60.0, 80.0, 120.0] Msun, so the reader sees the dependence directly instead of a binary branch label"
+  },
+  "monte_carlo": {
+    "iterations": 40000,
+    "convergence_split": 20000,
+    "seed": 20260723,
+    "posterior_draws_available": 10000,
+    "resampling": "iterations beyond the 10000 available posterior draws resample the (k, age) pairs with replacement.  This adds no posterior information -- it only reduces Monte Carlo noise from the Poisson and IMF sampling, which is the intended effect, and it is stated so no one reads 40000 as 40000 independent posterior samples."
+  },
+  "predictions": [
+    {
+      "id": "L1",
+      "statement": "CygOB2-C contributes exactly zero supernovae on every PARSEC branch and a non-zero number on every MIST branch.  The two families disagree about C's age (2.51 vs 3.16 Myr) and that disagreement straddles the age at which the PARSEC turnoff falls below the 120 Msun IMF limit.",
+      "falsifies_if": "any PARSEC-C iteration yields N_SN > 0, or the MIST-C posterior median is zero",
+      "if_falsified": "the family branch is behaving differently from what the point-estimate turnoffs imply and the age-to-turnoff mapping must be re-examined before N_SN is reported",
+      "why_it_matters": "for CygOB2-C the isochrone family is not a minor systematic -- it is the difference between 'C has produced no supernovae' and 'C has produced some'.  This must be reported as a branch disagreement, never averaged away."
+    },
+    {
+      "id": "L2",
+      "statement": "the islands branch yields N_SN = 0 in EVERY iteration of every branch, because the smallest turnoff on the grid is about 52 Msun and nothing below the 25.0 Msun black-hole threshold has had time to die",
+      "falsifies_if": "any islands iteration yields N_SN > 0",
+      "if_falsified": "some branch is reaching ages far older than the WP4 posteriors support, which would indicate an error in the star-formation-duration handling",
+      "why_it_matters": "it means the entire supernova budget of Cyg OB2 is conditional on whether stars above 40 Msun explode at all.  That is a genuine, publishable conditional -- and it sets up WP8's strongest test, because PSR J2032+4127 is a neutron star, and a neutron star requires a SUCCESSFUL explosion.  Its existence is evidence against the pure islands branch, or evidence that its progenitor was less massive than the present turnoff implies."
+    },
+    {
+      "id": "L3",
+      "statement": "N_SN INCREASES with star-formation duration.  N_SN is a convex function of age near the turnoff, so spreading births symmetrically about a fixed mean age raises the mean count by Jensen's inequality.",
+      "falsifies_if": "the baseline-branch N_SN median at delta = 2 Myr is below the value at delta = 0",
+      "if_falsified": "either the convexity argument is wrong in this regime or the midpoint birth-time convention was not implemented as specified; both require diagnosis before reporting"
+    },
+    {
+      "id": "L4",
+      "statement": "the N_SN posterior is right-skewed: mean > median at the baseline branch, from Poisson sampling plus turnoff convexity",
+      "falsifies_if": "median >= mean at the baseline branch",
+      "if_falsified": "the small-number stochasticity is behaving unexpectedly and the interval reporting must be re-derived"
+    },
+    {
+      "id": "L5",
+      "statement": "P(last SN < 100 kyr) lies between 0.30 and 0.70 for the association total on the all-explode baseline branch.  Order-of-magnitude: about 8.5 supernovae spread over the roughly 1 Myr since the turnoff first fell below 120 Msun gives a rate near 8/Myr, so 1 - exp(-0.85) ~ 0.57.",
+      "falsifies_if": "the value falls outside [0.30, 0.70]",
+      "if_falsified": "the explosion-epoch distribution is not approximately uniform over the recent past as the rate argument assumes, which is itself worth reporting"
+    },
+    {
+      "id": "L6",
+      "statement": "the Monte Carlo is converged: every reported N_SN quantile moves by less than 1% between the first 20000 iterations and all 40000",
+      "falsifies_if": "any reported quantile moves by 1% or more",
+      "if_falsified": "iterations are increased until it passes"
+    }
+  ],
+  "gate_criteria": {
+    "G7a": "Monte Carlo converged -- posteriors stable under doubling iterations (prediction L6)",
+    "G7b": "the branch spread is documented and no branch is averaged away, with the family disagreement on CygOB2-C reported explicitly",
+    "G7c": "the Knoedlseder+2002 / Martin+2010 comparison is written, with any factor-level difference explained by input differences (census size, ages, mass range) rather than hand-waved",
+    "G7d": "the census route is reported with its failure diagnosed, not silently dropped"
+  },
+  "external_anchors_for_G7c": {
+    "Knoedlseder_2002": "models Cyg OB2 as 1-4 Myr old with the first supernovae near 4 Myr in the coeval picture.  Our A and B sit at 4.00 and 4.09 Myr and produce a small non-zero count; C at 2.52 Myr (PARSEC) produces none.  Qualitative agreement is expected and its absence would be a tension.",
+    "Martin_2010": "uses 120 stars in 20-120 Msun at 1584 pc and 2.5 Myr for the Cyg OB2 row, and reports 10-20 supernovae over the last Myr for the WHOLE Cygnus complex.  Not directly comparable: that is a complex-wide figure over a different volume.  The comparison must be made on rate per association, and the distance and age differences stated."
+  },
+  "what_wp7_cannot_do": [
+    "it cannot measure N_SN independently of the WP4 ages -- everything inherits them, which is why the age-sensitivity scan is mandatory rather than optional",
+    "it cannot locate the explosions; the turnoff route counts supernovae from the association's stellar population wherever they occurred, and the in-situ fraction is bounded, not computed",
+    "it does not model binary mass transfer, which can both strip envelopes and rejuvenate accretors; acknowledged as unmodelled",
+    "it cannot distinguish a failed supernova from a successful one -- that is the explodability branch, and the branch spread is the honest answer"
+  ],
+  "age_sensitivity": {
+    "scan_Myr": [
+      2.0,
+      2.25,
+      2.5,
+      2.75,
+      3.0,
+      3.25,
+      3.5,
+      3.75,
+      4.0,
+      4.25,
+      4.5,
+      4.75,
+      5.0,
+      5.25,
+      5.5,
+      5.75,
+      6.0
+    ],
+    "mandatory": "N_SN and P(last SN < 100 kyr) are reported as explicit FUNCTIONS of assumed age in addition to the marginalized values.  This is the honesty plot for the age sensitivity and is not optional."
+  }
+}
