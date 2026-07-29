@@ -1,0 +1,117 @@
+{
+  "created_utc": "2026-07-29T19:40:14.799153+00:00",
+  "script": "scripts/wp9_verdict_prereg.py",
+  "status": "PREREGISTERED",
+  "work_package": "WP9",
+  "objective": "compute the exact statement the paper leads with, and choose the framing by a rule fixed before the number is known",
+  "environment": {
+    "python": "3.11.15 | packaged by conda-forge | (main, Jun 11 2026, 03:29:05) [Clang 19.1.7 ]",
+    "platform": "macOS-15.6.1-arm64-arm-64bit",
+    "numpy": "2.4.6",
+    "pandas": "3.0.3"
+  },
+  "partial_preregistration_disclosure": {
+    "what_is_already_known": "the AGE component is published: WP7 gives a rate of 8.01/Myr and P(last SN < 100 kyr) = 0.552; WP8 gives P(SN within 7 kyr) = 0.055.  The thresholds below are therefore set with approximate knowledge of one of the three computable terms.",
+    "why_this_is_still_disciplined": "the thresholds are anchored to EXTERNAL conventional meanings -- 0.5 is 'more likely than not', 0.1 is 'strongly disfavoured' -- rather than being chosen relative to a measured value.  What is NOT yet known is the joint verdict, its spread across branches, and the in-situ and progenitor-type terms, and the framing rule turns on those.",
+    "what_would_have_been_illegitimate": "setting the threshold at, say, 0.45 after seeing 0.552, so that the verdict clears it.  The values 0.5 and 0.1 are fixed points that would have been chosen identically before WP7 ran."
+  },
+  "the_four_conditions": {
+    "C1_age": {
+      "requirement": "H25 prefers about 50 kyr, with a floor near 10-20 kyr because an older remnant should have faded, and allows an event within the last few hundred kyr in its conclusion",
+      "primary_window_kyr": [
+        10.0,
+        100.0
+      ],
+      "permissive_window_kyr": [
+        10.0,
+        500.0
+      ],
+      "statistic": "P(at least one supernova with look-back time inside the window), computed from the WP7 explosion epochs -- NOT P(the LAST supernova is in the window), because any event in the window can power the PeVatron",
+      "computable": true
+    },
+    "C2_energy": {
+      "requirement": "3e+51 to 5e+51 erg",
+      "statistic": null,
+      "computable": false,
+      "how_it_is_handled": "this project does not compute explosion energies and will NOT invent a probability for them.  WP0 requires that the energy be REPORTED and COMPARED against the inferred progenitor mass and type, and that the simulation energy is not silently equated with a measured supernova energy.  C2 therefore enters the verdict as a stated CONDITIONAL, not as a multiplied factor."
+    },
+    "C3_progenitor_type": {
+      "requirement": "H25 argues type-Ic explosions are the most likely outcome at 3-5 Myr and that their energies may exceed the canonical 1e51 erg",
+      "statistic": "the fraction of the ledger's supernovae whose progenitor exceeded 30 Msun, above which envelope loss makes a stripped-envelope (Ib/c) outcome the expected one",
+      "computable": true,
+      "expected_to_be_near_unity": "the smallest turnoff anywhere on the branch grid is about 52 Msun, so every star that has died in Cyg OB2 is already far above the stripping threshold.  If this term is not near 1 the progenitor bookkeeping is wrong."
+    },
+    "C4_location": {
+      "requirement": "a low-density superbubble roughly 150 pc across associated with Cyg OB2, explicitly distinguished from the offset gamma Cygni remnant",
+      "statistic": "the WP7 in-situ bound: at most 14.6% of the ledger's supernovae occurred outside the association, from the runaway fraction",
+      "computable": "as a bound, not a distribution",
+      "geometry_note": "the three subgroups span about 1 deg, roughly 28 pc at 1.62 kpc, comfortably inside a 150 pc superbubble.  gamma Cygni sits 2.27 deg away, about 64 pc projected, which is why H25 distinguishes it."
+    }
+  },
+  "verdict_statistic": {
+    "definition": "P_verdict = P(C1) x P(C3) x P(C4), evaluated per branch.  C2 is carried as a stated conditional and is NOT multiplied in.",
+    "why_a_product": "the three terms are near-independent: the age of an event, the mass of its progenitor and whether it stayed in the association are set by different physics.  Any residual correlation is small against the branch spread, and treating them as independent is the conservative direction for C4, which is a bound rather than a probability.",
+    "reported_both_ways": "marginalized over the headline branch set AND per branch, never only marginalized"
+  },
+  "framing_decision_rule": {
+    "source": "paper1_execution_plan.md WP9 step 3, written at planning time before any result existed",
+    "verbatim": "if the marginalized verdict is stable across branches and its 68% interval does not straddle 'plausible/implausible' -- Letter framing (lead with the verdict).  Otherwise -- regular article framing (lead with the ledger + constraints + DR4 forecast).",
+    "operationalization_fixed_here": {
+      "SUPPORTED": "P_verdict >= 0.5 on EVERY branch in the headline set",
+      "DISFAVOURED": "P_verdict <= 0.1 on EVERY branch in the headline set",
+      "INCONCLUSIVE": "otherwise -- the branch range straddles a boundary",
+      "framing": "Letter if SUPPORTED or DISFAVOURED, because either is a clean verdict worth leading with.  Regular article if INCONCLUSIVE."
+    },
+    "threshold_justification": "0.5 is 'more likely than not' and 0.1 is 'strongly disfavoured'.  Both are conventional fixed points, not values tuned to the answer.",
+    "binding": "the rule is applied mechanically to whatever the numbers are.  If the outcome is INCONCLUSIVE the paper is a regular article, and that is not a failure -- it is what the evidence supports."
+  },
+  "branch_set": {
+    "headline_alphas": [
+      2.0,
+      2.3
+    ],
+    "excluded_alpha": 2.6,
+    "exclusion_justification": "the WP5 calibration-window evidence alone rejects alpha = 2.6: best in 1 of 18 cells and worst median chi-square.  That evidence is internal to WP5 and free, so the exclusion does NOT spend the census closure, which remains available as the out-of-sample validation of the IMF.  alpha = 2.6 is REPORTED in the sensitivity table as tested-and-excluded, never deleted.",
+    "primary_explodability": "all_explode",
+    "explodability_justification": "WP8: PSR J2032+4127 is a neutron star inside the association, and neutron stars require successful explosions.  The islands branch predicts exactly zero supernovae and is therefore observationally excluded.  It is REPORTED in the sensitivity table with that reason attached.",
+    "families_R_V_duration": "all carried, none excluded"
+  },
+  "sensitivity_table_required": {
+    "axes": [
+      "age treatment",
+      "IMF slope",
+      "explodability",
+      "isochrone family"
+    ],
+    "requirement": "identify the DOMINANT driver of the verdict, which need not be the dominant driver of N_SN",
+    "note": "N_SN's spread is 91.9% alpha, but the VERDICT depends on a probability that saturates: once the rate is high enough that P(C1) approaches 1, further increases in N_SN stop moving the verdict.  The dominant driver may therefore differ, and this is flagged in advance as something to look for rather than discovered afterwards."
+  },
+  "predictions": [
+    {
+      "id": "V1",
+      "statement": "C3, the progenitor-type term, exceeds 0.95 on every branch, because every star that has died in Cyg OB2 is above 52 Msun and therefore far above the 30 Msun stripping threshold",
+      "falsifies_if": "C3 < 0.95 on any headline branch",
+      "if_falsified": "the progenitor mass bookkeeping disagrees with the turnoff argument and must be reconciled before the verdict stands"
+    },
+    {
+      "id": "V2",
+      "statement": "the verdict is driven mainly by C1, the age term, and not by C3 or C4, which are both near their ceilings",
+      "falsifies_if": "C3 or C4 contributes more variation across branches than C1",
+      "if_falsified": "the verdict is being set by a term this project measures less well than the age, which weakens the result and must be said plainly"
+    },
+    {
+      "id": "V3",
+      "statement": "the outcome is INCONCLUSIVE under the framing rule, so the paper is a regular article.  The reasoning: P(C1) over the 10-100 kyr window is near 0.5 at the baseline rate, and the alpha = 2.0 branches roughly triple the rate while CygOB2-C contributes 0 or 7 supernovae depending on isochrone family, so the branch range should straddle the 0.5 boundary",
+      "falsifies_if": "the verdict is SUPPORTED or DISFAVOURED on every headline branch",
+      "if_falsified": "a Letter is justified and the framing rule says to write one -- a better outcome than expected, and the rule is followed either way"
+    }
+  ],
+  "devils_advocate_required": "the gate requires the strongest referee objection to be written and answered.  It is to be written as the objection a hostile expert would actually raise, not a soft one that is easy to rebut, and the answer must concede whatever cannot be defended.",
+  "dr4_forecast_required": "quote what Gaia DR4 improves -- age precision from better astrometry and photometry, and 3D runaway traceback once radial velocities are available -- and the expected sharpening of the verdict, so the paper says what would settle what it cannot.",
+  "what_wp9_cannot_do": [
+    "it cannot evaluate C2, the explosion energy, which this project does not compute; C2 is a stated conditional",
+    "it cannot bound the alternative-source probability quantitatively -- WP8's neighbouring-association check is explicitly COARSE",
+    "it cannot resolve whether gamma Cygni is associated with Cyg OB2",
+    "it cannot distinguish high-mass explodability from binary stripping as the origin of the pulsar"
+  ]
+}
