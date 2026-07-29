@@ -26,6 +26,28 @@ accepted WP5 result, so it is the principal investigator's call.*
 > brightness shift converts directly into a large probability of crossing, which
 > is exactly what G2 predicted and what the 25× ratio between D2 and D1 shows.
 >
+> **EXECUTED 2026-07-29.** Both stages ran with the extended truth-side f_bin —
+> WP5 base grid and WP6 mass extension, 162 nodes each. G3 re-passed with no
+> A-or-C regressions; V1 confirms the accepted `repair_v6` artifacts are still
+> byte-identical. `k` moved **+0.54% ± 0.25%** against the discriminator's
+> out-of-sample prediction of **+0.54% ± 0.19%**. The closure grid median moved
+> **1.105 → 1.067** and the closing slope **2.230 → 2.254**, with all 18 cells
+> now inside the carried branch grid. Full numbers in
+> [CUTS §18.8](../CUTS_AND_THRESHOLDS.md).
+>
+> **§3's ~8 h costing was too high.** WP3 and WP4 never needed re-running: the
+> f_bin change lives entirely in the WP5 injection truth model, and the WP4 ages
+> and per-star masses are bit-identical across the two versions. Actual scope was
+> WP5 injections + fit + WP6 extension + closure, about 6 h.
+>
+> **§7's advice to carry both f_bin models as a Class E branch was not followed,
+> and the reason should be on the record.** The discriminator showed the constant
+> 0.40 is not a defensible alternative above ~10 M☉ — it lies outside the
+> measured literature range entirely (CUTS §18.0) — so carrying it as a branch
+> would have given equal weight to a value already known to be wrong. `repair_v6`
+> is preserved byte-for-byte as the prior accepted result, which is a different
+> thing from carrying it as a live branch.
+>
 > Everything below is retained unedited as the pre-test reasoning.
 
 ---

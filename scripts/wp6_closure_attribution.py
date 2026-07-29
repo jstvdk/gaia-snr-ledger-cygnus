@@ -43,6 +43,7 @@ Run:
 """
 from __future__ import annotations
 
+import argparse
 import json
 import platform
 import sys
@@ -72,8 +73,19 @@ def closing_alpha(alphas: np.ndarray, ratios: np.ndarray) -> float:
     )
 
 
+WP5_VERSION = "repair_v6"
+
+
 def main() -> None:
-    closure = pd.read_csv(w.TABLES / "wp6_closure.csv")
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--wp5-version", default=WP5_VERSION)
+    args = parser.parse_args()
+    version = args.wp5_version
+    # repair_v6 is the accepted artifact and keeps the unsuffixed filenames.
+    suffix = "" if version == WP5_VERSION else f"_{version}"
+
+    closure_csv = w.TABLES / f"wp6_closure{suffix}.csv"
+    closure = pd.read_csv(closure_csv)
     census = pd.read_csv(w.TABLES / "wp6_massive_census.csv")
     runaways = json.loads(
         (w.PROVENANCE / "wp6_runaways_execution.json").read_text(encoding="utf-8")
@@ -100,7 +112,7 @@ def main() -> None:
             }
         )
     table = pd.DataFrame(rows)
-    out_csv = w.TABLES / "wp6_closure_attribution.csv"
+    out_csv = w.TABLES / f"wp6_closure_attribution{suffix}.csv"
     table.to_csv(out_csv, index=False)
 
     # ---- A4: contamination bound -------------------------------------------
@@ -162,7 +174,7 @@ def main() -> None:
         "inputs": {
             str(path.relative_to(w.ROOT)): w.sha256(path)
             for path in [
-                w.TABLES / "wp6_closure.csv",
+                closure_csv,
                 w.TABLES / "wp6_massive_census.csv",
             ]
         },
@@ -278,7 +290,9 @@ def main() -> None:
         ),
         "outputs": {str(out_csv.relative_to(w.ROOT)): w.sha256(out_csv)},
     }
-    w.write_json(w.PROVENANCE / "wp6_closure_attribution_execution.json", record)
+    w.write_json(
+        w.PROVENANCE / f"wp6_closure_attribution_execution{suffix}.json", record
+    )
 
     print("WP6 step 2 — attribution of the closure discrepancy\n")
     print("  closure ratio vs IMF slope (grid medians):")
@@ -294,7 +308,7 @@ def main() -> None:
     print("\n  alternatives:")
     for key, block in record["alternatives_tested"].items():
         print(f"    {key:20s} {block['verdict']}")
-    print("\nwrote provenance/wp6_closure_attribution_execution.json")
+    print(f"\nwrote provenance/wp6_closure_attribution_execution{suffix}.json")
 
 
 if __name__ == "__main__":

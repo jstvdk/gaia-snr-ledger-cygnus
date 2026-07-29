@@ -1,0 +1,241 @@
+{
+  "created_utc": "2026-07-29T13:15:47.764518+00:00",
+  "script": "scripts/wp6_multiplicity_subsumption.py",
+  "status": "SUCCESS",
+  "work_package": "WP6 bookkeeping",
+  "question": "does repair_v7 already contain the multiplicity correction that issue #15 directed be carried separately, and would applying both double-count it?",
+  "environment": {
+    "python": "3.11.15 | packaged by conda-forge | (main, Jun 11 2026, 03:29:05) [Clang 19.1.7 ]",
+    "platform": "macOS-15.6.1-arm64-arm-64bit",
+    "numpy": "2.4.6",
+    "pandas": "3.0.3"
+  },
+  "truth_side_fbin_above_threshold": [
+    {
+      "mass_Msun": 8.0,
+      "repair_v6_constant": 0.4,
+      "issue_15_treatment": 0.4,
+      "repair_v7_extended": 0.55
+    },
+    {
+      "mass_Msun": 8.5,
+      "repair_v6_constant": 0.4,
+      "issue_15_treatment": 0.426,
+      "repair_v7_extended": 0.563
+    },
+    {
+      "mass_Msun": 9.0,
+      "repair_v6_constant": 0.4,
+      "issue_15_treatment": 0.451,
+      "repair_v7_extended": 0.575
+    },
+    {
+      "mass_Msun": 9.5,
+      "repair_v6_constant": 0.4,
+      "issue_15_treatment": 0.474,
+      "repair_v7_extended": 0.587
+    },
+    {
+      "mass_Msun": 10.0,
+      "repair_v6_constant": 0.4,
+      "issue_15_treatment": 0.497,
+      "repair_v7_extended": 0.598
+    },
+    {
+      "mass_Msun": 10.5,
+      "repair_v6_constant": 0.4,
+      "issue_15_treatment": 0.518,
+      "repair_v7_extended": 0.609
+    },
+    {
+      "mass_Msun": 11.0,
+      "repair_v6_constant": 0.4,
+      "issue_15_treatment": 0.538,
+      "repair_v7_extended": 0.619
+    },
+    {
+      "mass_Msun": 11.5,
+      "repair_v6_constant": 0.4,
+      "issue_15_treatment": 0.557,
+      "repair_v7_extended": 0.629
+    },
+    {
+      "mass_Msun": 12.0,
+      "repair_v6_constant": 0.4,
+      "issue_15_treatment": 0.575,
+      "repair_v7_extended": 0.638
+    },
+    {
+      "mass_Msun": 13.0,
+      "repair_v6_constant": 0.4,
+      "issue_15_treatment": 0.61,
+      "repair_v7_extended": 0.655
+    },
+    {
+      "mass_Msun": 14.0,
+      "repair_v6_constant": 0.4,
+      "issue_15_treatment": 0.642,
+      "repair_v7_extended": 0.671
+    },
+    {
+      "mass_Msun": 15.0,
+      "repair_v6_constant": 0.4,
+      "issue_15_treatment": 0.672,
+      "repair_v7_extended": 0.686
+    },
+    {
+      "mass_Msun": 16.0,
+      "repair_v6_constant": 0.4,
+      "issue_15_treatment": 0.7,
+      "repair_v7_extended": 0.7
+    },
+    {
+      "mass_Msun": 17.0,
+      "repair_v6_constant": 0.4,
+      "issue_15_treatment": 0.7,
+      "repair_v7_extended": 0.7
+    },
+    {
+      "mass_Msun": 18.0,
+      "repair_v6_constant": 0.4,
+      "issue_15_treatment": 0.7,
+      "repair_v7_extended": 0.7
+    },
+    {
+      "mass_Msun": 20.0,
+      "repair_v6_constant": 0.4,
+      "issue_15_treatment": 0.7,
+      "repair_v7_extended": 0.7
+    },
+    {
+      "mass_Msun": 23.0,
+      "repair_v6_constant": 0.4,
+      "issue_15_treatment": 0.7,
+      "repair_v7_extended": 0.7
+    },
+    {
+      "mass_Msun": 27.0,
+      "repair_v6_constant": 0.4,
+      "issue_15_treatment": 0.7,
+      "repair_v7_extended": 0.7
+    },
+    {
+      "mass_Msun": 31.0,
+      "repair_v6_constant": 0.4,
+      "issue_15_treatment": 0.7,
+      "repair_v7_extended": 0.7
+    },
+    {
+      "mass_Msun": 36.0,
+      "repair_v6_constant": 0.4,
+      "issue_15_treatment": 0.7,
+      "repair_v7_extended": 0.7
+    },
+    {
+      "mass_Msun": 42.0,
+      "repair_v6_constant": 0.4,
+      "issue_15_treatment": 0.7,
+      "repair_v7_extended": 0.7
+    },
+    {
+      "mass_Msun": 48.0,
+      "repair_v6_constant": 0.4,
+      "issue_15_treatment": 0.7,
+      "repair_v7_extended": 0.7
+    },
+    {
+      "mass_Msun": 56.0,
+      "repair_v6_constant": 0.4,
+      "issue_15_treatment": 0.7,
+      "repair_v7_extended": 0.7
+    },
+    {
+      "mass_Msun": 65.0,
+      "repair_v6_constant": 0.4,
+      "issue_15_treatment": 0.7,
+      "repair_v7_extended": 0.7
+    },
+    {
+      "mass_Msun": 75.0,
+      "repair_v6_constant": 0.4,
+      "issue_15_treatment": 0.7,
+      "repair_v7_extended": 0.7
+    },
+    {
+      "mass_Msun": 87.0,
+      "repair_v6_constant": 0.4,
+      "issue_15_treatment": 0.7,
+      "repair_v7_extended": 0.7
+    },
+    {
+      "mass_Msun": 100.0,
+      "repair_v6_constant": 0.4,
+      "issue_15_treatment": 0.7,
+      "repair_v7_extended": 0.7
+    },
+    {
+      "mass_Msun": 115.0,
+      "repair_v6_constant": 0.4,
+      "issue_15_treatment": 0.7,
+      "repair_v7_extended": 0.7
+    }
+  ],
+  "generation_evidence": {
+    "wp5_base_grid": {
+      "provenance": "provenance/wp5_injections_agenodes_execution_repair_v7.json",
+      "truth_binary_fraction_model": "(not recorded)"
+    },
+    "wp6_mass_extension": {
+      "provenance": "provenance/wp6_massive_injections_execution_repair_v7.json",
+      "truth_binary_fraction_model": "extended",
+      "grid_Msun": [
+        20.0,
+        23.0,
+        27.0,
+        31.0,
+        36.0,
+        42.0,
+        48.0,
+        56.0,
+        65.0,
+        75.0,
+        87.0,
+        100.0,
+        115.0
+      ]
+    },
+    "note": "both the base grid and the extension ran with the extended model, so the repair_v7 chain carries mass-dependent f_bin over the full 0.5-115 Msun range rather than only below 18"
+  },
+  "result": {
+    "subsumed": true,
+    "repair_v7_is_strictly_stronger_at_Msun": [
+      8.0,
+      8.5,
+      9.0,
+      9.5,
+      10.0,
+      10.5,
+      11.0,
+      11.5,
+      12.0,
+      13.0,
+      14.0,
+      15.0
+    ],
+    "why_not_identical": "issue #15 anchored 0.40 at 8 Msun rising to 0.70 at 16; repair_v7 anchors 0.55 at 8 rising to the same 0.70 at 16, because its below-8 rise has to join continuously at the threshold.  The two models agree at and above 16 Msun and repair_v7 is HIGHER in between.  So repair_v7 contains not merely as much multiplicity above 8 Msun as issue #15's treatment arm, but slightly more."
+  },
+  "consequence": {
+    "carried_correction_now_internal": {
+      "grid_median_shift": 0.0038,
+      "fraction_of_excess_absorbed": 0.0373,
+      "direction": "lowers the closure ratio"
+    },
+    "instruction": "the grid-median REDUCTION of 0.0038 recorded in wp6_multiplicity_closure_execution.json must NOT be applied on top of any repair_v7 closure ratio.  It is already inside the repair_v7 response matrices.  It remains applicable to the repair_v6 numbers, which were generated under a constant 0.40.",
+    "size_in_context": "0.0038 against a repair_v7 grid median of 1.067 is 0.36% -- small enough that it would not have changed a conclusion, and recorded here because a bookkeeping error that happens to be small is still a bookkeeping error",
+    "what_is_NOT_subsumed": "issue #15's M1/M2/M3 SCORES are unaffected.  They were a paired differential measurement of how much multiplicity above 8 Msun explains the excess, and the answer -- 3.7%, so not the explanation -- stands independently of which chain version is reported.  What is subsumed is the numerical correction, not the finding."
+  },
+  "inputs": {
+    "provenance/wp6_massive_injections_execution_repair_v7.json": "4c630a202012a708f570c5ee78ec0058f95060976bf5687f7673b6c3f90ad7eb",
+    "provenance/wp6_multiplicity_closure_execution.json": "ca5b4e6cb0ca07ce81dfb973b9a3e6929028b29823f5cc2345da66d8bff90a7f"
+  }
+}

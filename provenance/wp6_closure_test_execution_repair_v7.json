@@ -1,10 +1,10 @@
 {
-  "created_utc": "2026-07-29T13:12:10.145386+00:00",
+  "created_utc": "2026-07-29T13:12:35.019446+00:00",
   "script": "scripts/wp6_closure_test.py",
   "status": "SUCCESS",
   "work_package": "WP6 steps 1-2",
-  "wp5_version": "repair_v6",
-  "truth_binary_fraction_model": "constant",
+  "wp5_version": "repair_v7",
+  "truth_binary_fraction_model": "extended",
   "integration_floor_Msun": 4.0,
   "estimator": "predicted observed = k * integral[4, M_turnoff] dM M^-alpha R(observed above 8 | M), per subgroup, with R from the WP5 injection response extended above 18 Msun.  Nothing is divided by a scalar completeness (CUTS section 16.2).",
   "issue_17_lower_bound": "the lower bound is an INTEGRATION bound, not the supernova threshold.  The observed side counts every member's P(M > 8) whatever that member's true mass is, so the predicted side must integrate over every true mass the response can push above 8.  Truncating at 8 omitted that up-scatter entirely and made the two sides different quantities.  Floor chosen on convergence of the integral (provenance/wp6_closure_floor_prereg.json).",
@@ -18,7 +18,7 @@
     "pandas": "3.0.3"
   },
   "inputs": {
-    "data/processed/wp5_imf_normalization_repair_v6.parquet": "a3111ca512e5838f5e0c86359721921870285b80af3d37033eb3e26d66c7abf8",
+    "data/processed/wp5_imf_normalization_repair_v7.parquet": "edfce6cf9fb72ab1fe0848181041b9d698676841193d1deafebe66706e9b7071",
     "tables/wp6_massive_census.csv": "db572c6a5b4432112d22d993996a9df12e5800fde37a2986c9515f744557fdd3",
     "data/processed/wp4_age_posteriors_repair_v5.parquet": "dc14e923a5dc4ad1336d08059e397bbc007f0f926f91a94f5ac2ddfbdc141ada"
   },
@@ -26,54 +26,54 @@
     {
       "subgroup": "CygOB2-A",
       "turnoff_prior_mean_Msun": 59.7,
-      "predicted_true_living": 82.3,
-      "predicted_observed_living": 66.5,
-      "effective_completeness": 0.808,
+      "predicted_true_living": 82.6,
+      "predicted_observed_living": 68.6,
+      "effective_completeness": 0.831,
       "observed_living": 59.4,
-      "closure_ratio": 0.894,
+      "closure_ratio": 0.865,
       "closure_ratio_68": [
-        0.842,
-        0.947
+        0.817,
+        0.917
       ],
-      "shortfall": 7.1
+      "shortfall": 9.2
     },
     {
       "subgroup": "CygOB2-B",
       "turnoff_prior_mean_Msun": 71.1,
-      "predicted_true_living": 79.3,
-      "predicted_observed_living": 72.0,
-      "effective_completeness": 0.908,
+      "predicted_true_living": 79.7,
+      "predicted_observed_living": 74.5,
+      "effective_completeness": 0.935,
       "observed_living": 79.6,
-      "closure_ratio": 1.106,
+      "closure_ratio": 1.068,
       "closure_ratio_68": [
-        1.031,
-        1.185
+        0.999,
+        1.145
       ],
-      "shortfall": -7.6
+      "shortfall": -5.1
     },
     {
       "subgroup": "CygOB2-C",
       "turnoff_prior_mean_Msun": 120.0,
-      "predicted_true_living": 94.6,
-      "predicted_observed_living": 76.5,
-      "effective_completeness": 0.808,
+      "predicted_true_living": 95.1,
+      "predicted_observed_living": 79.0,
+      "effective_completeness": 0.831,
       "observed_living": 107.4,
-      "closure_ratio": 1.405,
+      "closure_ratio": 1.36,
       "closure_ratio_68": [
-        1.312,
-        1.508
+        1.271,
+        1.458
       ],
-      "shortfall": -31.0
+      "shortfall": -28.4
     }
   ],
   "grid_summary": {
     "cells": 54,
-    "closure_ratio_min": 0.582,
-    "closure_ratio_median": 1.105,
-    "closure_ratio_max": 2.273,
-    "cells_consistent_with_unity_68": 6
+    "closure_ratio_min": 0.566,
+    "closure_ratio_median": 1.067,
+    "closure_ratio_max": 2.192,
+    "cells_consistent_with_unity_68": 9
   },
   "outputs": {
-    "tables/wp6_closure.csv": "53b0ef88652b83b812ad08a583b60bc605b0f618bd7b68dbb882f40e2b051e0b"
+    "tables/wp6_closure_repair_v7.csv": "53e4c412996780bd1ee0d911e1a0dcde82508734d1b08042994007f0181a8c97"
   }
 }

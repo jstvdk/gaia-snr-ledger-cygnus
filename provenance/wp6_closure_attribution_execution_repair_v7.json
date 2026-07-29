@@ -1,5 +1,5 @@
 {
-  "created_utc": "2026-07-29T13:13:40.744749+00:00",
+  "created_utc": "2026-07-29T13:13:47.071015+00:00",
   "script": "scripts/wp6_closure_attribution.py",
   "status": "SUCCESS",
   "work_package": "WP6 step 2",
@@ -12,14 +12,14 @@
     "pandas": "3.0.3"
   },
   "inputs": {
-    "tables/wp6_closure.csv": "53b0ef88652b83b812ad08a583b60bc605b0f618bd7b68dbb882f40e2b051e0b",
+    "tables/wp6_closure_repair_v7.csv": "53e4c412996780bd1ee0d911e1a0dcde82508734d1b08042994007f0181a8c97",
     "tables/wp6_massive_census.csv": "db572c6a5b4432112d22d993996a9df12e5800fde37a2986c9515f744557fdd3"
   },
   "alpha_dependence": {
     "grid_median_ratio": {
-      "2.0": 0.722,
-      "2.3": 1.105,
-      "2.6": 1.677
+      "2.0": 0.701,
+      "2.3": 1.067,
+      "2.6": 1.618
     },
     "interpretation": "k is refitted per alpha inside 2-8 Msun, so a steeper slope predicts proportionally fewer stars above 8 Msun for the same calibration counts.  The closure test is therefore a direct constraint on the high-mass slope, and it is the constraint the branch grid was carried in order to receive.",
     "not_circular": "k is fitted from 2-8 Msun counts alone; the >8 Msun census never enters the WP5 likelihood, so testing it against the extrapolation is an out-of-sample test."
@@ -27,30 +27,30 @@
   "closing_alpha": {
     "by_subgroup": {
       "CygOB2-A": {
-        "median": 2.314,
-        "min": 2.248,
-        "max": 2.379
+        "median": 2.336,
+        "min": 2.269,
+        "max": 2.402
       },
       "CygOB2-B": {
-        "median": 2.23,
-        "min": 2.198,
-        "max": 2.239
+        "median": 2.254,
+        "min": 2.222,
+        "max": 2.262
       },
       "CygOB2-C": {
-        "median": 2.031,
-        "min": 2.0,
-        "max": 2.073
+        "median": 2.056,
+        "min": 2.022,
+        "max": 2.095
       }
     },
-    "grid_median": 2.23,
-    "inside_branch_grid": 17,
+    "grid_median": 2.254,
+    "inside_branch_grid": 18,
     "cells": 18,
     "caveat": "values below 2.0 are extrapolations beyond the carried branch grid (2.0 / 2.3 / 2.6) and are reported as a direction, not as a measured slope.  The project has not run a branch there."
   },
   "closure_ratio_at_salpeter": {
-    "CygOB2-A": 0.983,
-    "CygOB2-B": 1.105,
-    "CygOB2-C": 1.44
+    "CygOB2-A": 0.953,
+    "CygOB2-B": 1.067,
+    "CygOB2-C": 1.389
   },
   "alternatives_tested": {
     "A1_mass_scale": {
@@ -103,6 +103,6 @@
   "conclusion": "The census does not close at the Salpeter branch.  It closes near alpha ~ 2.0 and is strongly inconsistent with alpha = 2.6.  Because alpha is a Class E branch carried in parallel and never averaged, the correct statement is that WP6 DISCRIMINATES between the branches rather than that WP5 was wrong: the alpha = 2.6 branch should be reported as disfavoured by the massive-star census, and N_SN quoted per branch with that noted.  This is an out-of-sample test and it should not be quietly converted into a preferred slope without a dedicated branch run.",
   "what_this_does_not_license": "It does not license refitting alpha to make the census close.  That would convert an independent test into a fitted parameter and destroy the only out-of-sample check the analysis has.",
   "outputs": {
-    "tables/wp6_closure_attribution.csv": "44930091cca49270cd0b2da9be9ff89d55dc68fd861dd9c1eaa1ddb259a4da44"
+    "tables/wp6_closure_attribution_repair_v7.csv": "8c69375fe62189f38594860cc32413918c7bda764ceed1d78e8da526ac5a9df6"
   }
 }
