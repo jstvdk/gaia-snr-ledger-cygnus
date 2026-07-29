@@ -241,6 +241,12 @@ def main() -> None:
             "masses are consumed from repair_v3 unchanged"
         ),
         "seed": w.SEED,
+        "truth_binary_fraction_model": (
+            "constant F_BINARY at every mass (repair_v1..v6)"
+            if args.fbin_model == "constant"
+            else "mass-dependent, extended below and above 8 Msun "
+                 "(repair_v7); see provenance/wp5_fbin_discriminator_prereg.json"
+        ),
         "seed_recipe": (
             "fresh default_rng(SEED) per node, so every node of a branch shares "
             "its donor, binary and extinction realization and differs only in "

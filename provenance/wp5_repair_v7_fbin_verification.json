@@ -1,0 +1,64 @@
+{
+  "created_utc": "2026-07-29T11:50:41.346349+00:00",
+  "script": "scripts/wp5_repair_v7_fbin_verification.py",
+  "status": "SUCCESS",
+  "purpose": "the repair_v7 injection driver did not record which truth-side f_bin model it used: the --fbin-model flag was added in the same commit that launched the run, and the provenance field was omitted.  This verifies from the OUTPUTS that the pre-registered extended model was applied.  The driver has since been patched to record it directly for future runs.",
+  "environment": {
+    "python": "3.11.15 | packaged by conda-forge | (main, Jun 11 2026, 03:29:05) [Clang 19.1.7 ]",
+    "platform": "macOS-15.6.1-arm64-arm-64bit",
+    "numpy": "2.4.6",
+    "pandas": "3.0.3"
+  },
+  "method": "realized binary fraction per true mass from one repair_v7 node, tested against the pre-registered extended_binary_fraction under binomial sampling with n = N_INJECT_PER_MASS per mass",
+  "why_one_node_not_an_average": "every node is generated from a fresh default_rng(SEED) on the same MASS_GRID, so the binary draws are IDENTICAL across nodes of a branch -- verified here.  Averaging over nodes therefore does not reduce sampling noise, and a tolerance derived as if it did would be far too tight.  An earlier version of this check used a flat 0.03 tolerance on that mistaken assumption and reported a spurious FAIL.",
+  "node_realizations_identical": true,
+  "n_per_mass": 400,
+  "expected_binomial_sigma": 0.0245,
+  "realized_vs_expected": {
+    "2": {
+      "expected": 0.4,
+      "realized_v7": 0.4125,
+      "realized_v6_control": 0.4125
+    },
+    "4": {
+      "expected": 0.475,
+      "realized_v7": 0.4725,
+      "realized_v6_control": 0.4025
+    },
+    "6": {
+      "expected": 0.5189,
+      "realized_v7": 0.5225,
+      "realized_v6_control": 0.4075
+    },
+    "8": {
+      "expected": 0.55,
+      "realized_v7": 0.5625,
+      "realized_v6_control": 0.42
+    },
+    "12": {
+      "expected": 0.6377,
+      "realized_v7": 0.6225,
+      "realized_v6_control": 0.4175
+    },
+    "16": {
+      "expected": 0.7,
+      "realized_v7": 0.6925,
+      "realized_v6_control": 0.4
+    },
+    "18": {
+      "expected": 0.7,
+      "realized_v7": 0.6775,
+      "realized_v6_control": 0.38
+    }
+  },
+  "goodness_of_fit": {
+    "chi2": 41.2,
+    "dof": 45,
+    "p_value": 0.632,
+    "max_abs_z": 3.17,
+    "mean_z": 0.134,
+    "interpretation": "chi2 = 41.2 on 45 masses with p = 0.63, and the mean z of +0.13 shows no systematic offset.  The largest single deviation, |z| = 3.17, is the expected maximum over 45 independent binomial draws.  The extended model was applied exactly as pre-registered."
+  },
+  "control_check": "repair_v6 nodes realize a flat ~0.41 at every mass, confirming the constant model there and that the two versions differ only in f_bin",
+  "pass": true
+}

@@ -40,6 +40,7 @@ import wp5_common as w
 import wp5_injections_repair as R
 import wp5_joint_age_fit as J
 from wp3_repair_common import ANCHOR_PRIOR_MODE, REPAIR_VERSION, AnchorMap, load_template_library
+from wp5_fbin_discriminator_prereg import extended_binary_fraction
 from wp6_mass_extension_decision import (
     IMF_UPPER_LIMIT,
     WP6_MASS_EXTENSION,
@@ -58,15 +59,24 @@ def stem(subgroup: str, family: str, rv: float, age: float) -> str:
     )
 
 
-def response_path(subgroup: str, family: str, rv: float, age: float) -> Path:
+def response_path(
+    subgroup: str, family: str, rv: float, age: float, version: str = "repair_v6"
+) -> Path:
     label = subgroup.replace("CygOB2-", "")
     rv_tag = f"{rv:.1f}".replace(".", "p")
     age_tag = f"{age:.3f}".replace(".", "p")
-    return w.PROC / f"wp6_massext_{label}_{family}_rv{rv_tag}_age{age_tag}_response.parquet"
+    # repair_v6 keeps the original unsuffixed name so every accepted artifact
+    # and every hash already recorded against it stays valid.
+    tag = "" if version == "repair_v6" else f"_{version}"
+    return w.PROC / (
+        f"wp6_massext_{label}_{family}_rv{rv_tag}_age{age_tag}{tag}_response.parquet"
+    )
 
 
-def curve_path(subgroup: str, family: str, rv: float, age: float) -> Path:
-    return Path(str(response_path(subgroup, family, rv, age)).replace(
+def curve_path(
+    subgroup: str, family: str, rv: float, age: float, version: str = "repair_v6"
+) -> Path:
+    return Path(str(response_path(subgroup, family, rv, age, version)).replace(
         "_response.parquet", "_curve.parquet"
     ))
 
@@ -79,7 +89,16 @@ def extension_masses(family: str, age: float) -> np.ndarray:
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--dry-run", action="store_true")
+    parser.add_argument("--wp5-version", default=WP5_VERSION)
+    parser.add_argument(
+        "--fbin-model", choices=["constant", "extended"], default="constant",
+        help="truth-side binary fraction; 'extended' is repair_v7",
+    )
     args = parser.parse_args()
+    version = args.wp5_version
+    fbin_model = (
+        extended_binary_fraction if args.fbin_model == "extended" else None
+    )
     if (REPAIR_VERSION, ANCHOR_PRIOR_MODE) != ("repair_v5", "kriging"):
         raise RuntimeError(
             "WP6 consumes the accepted repair_v6 WP5, whose upstream is "
@@ -97,7 +116,7 @@ def main() -> None:
             for subgroup in w.SUBGROUPS:
                 nodes = J.truth_age_nodes(
                     age_posterior, subgroup, family, rv, native[family],
-                    snap=not J.uses_age_interpolation(WP5_VERSION),
+                    snap=not J.uses_age_interpolation(version),
                 )
                 for age, weight in nodes.items():
                     masses = extension_masses(family, age)
@@ -110,7 +129,7 @@ def main() -> None:
                             ),
                             "extension_masses": [float(m) for m in masses],
                             "already_generated": response_path(
-                                subgroup, family, rv, age
+                                subgroup, family, rv, age, version
                             ).exists(),
                         }
                     )
@@ -167,9 +186,14 @@ def main() -> None:
             truth_age_override=age,
             interpolate_truth_age=True,
             mass_grid=masses,
+            truth_binary_fraction=fbin_model,
         )
-        response.to_parquet(response_path(subgroup, family, rv, age), index=False)
-        curve.to_parquet(curve_path(subgroup, family, rv, age), index=False)
+        response.to_parquet(
+            response_path(subgroup, family, rv, age, version), index=False
+        )
+        curve.to_parquet(
+            curve_path(subgroup, family, rv, age, version), index=False
+        )
         generated.append(
             {
                 **entry,
@@ -185,7 +209,8 @@ def main() -> None:
         "status": "SUCCESS",
         "work_package": "WP6 step 0a",
         "decision_record": "provenance/wp6_mass_extension_decision.json",
-        "wp5_version_consumed": WP5_VERSION,
+        "wp5_version_consumed": version,
+        "truth_binary_fraction_model": args.fbin_model,
         "upstream_repair_version": REPAIR_VERSION,
         "anchor_prior_mode": ANCHOR_PRIOR_MODE,
         "frozen_and_not_touched": (
@@ -220,7 +245,11 @@ def main() -> None:
             "V3 — no extension mass exceeds its node's turnoff (enforced here)",
         ],
     }
-    w.write_json(w.PROVENANCE / "wp6_massive_injections_execution.json", record)
+    name = (
+        "wp6_massive_injections_execution.json" if version == "repair_v6"
+        else f"wp6_massive_injections_execution_{version}.json"
+    )
+    w.write_json(w.PROVENANCE / name, record)
     print(f"\ngenerated {len(generated)} extension responses")
     print("wrote provenance/wp6_massive_injections_execution.json")
 

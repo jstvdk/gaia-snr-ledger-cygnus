@@ -1,0 +1,1845 @@
+Astronomy & Astrophysics manuscript no. main ©ESO 2025
+January 20, 2025
+Mass and wind luminosity of young Galactic open clusters in Gaia
+DR2
+S. Celli1, 2, A. Specovius3, S. Menchiari4, A. Mitchell3, and G. Morlino4
+1 Sapienza Università di Roma, Physics Department, P.le Aldo Moro 5, 00185, Rome, Italy
+e-mail: silvia.celli@uniroma1.it
+2 Istituto Nazionale di Fisica Nucleare, Sezione di Roma, P.le Aldo Moro 5, 00185, Rome, Italy
+3 Friedrich-Alexander Universität Erlangen-Nürnberg, Erlangen Centre for Astroparticle Physics, Nikolaus-Fiebiger-Str. 2, 91058
+Erlangen, Germany
+4 Istituto Nazionale di Astrofisica, Osservatorio Astrofisico di Arcetri, L.go E. Fermi 5, Firenze, Italy
+January 20, 2025
+ABSTRACT
+Context. Star clusters constitute a significant part of the stellar population in our Galaxy. The feedback processes they exert on the
+interstellar medium impact multiple physical processes from the chemical to the dynamical evolution of the Galaxy. In addition,
+young and massive stellar clusters might act as efficient particle accelerators and contribute to the production of cosmic rays.
+Aims. We aim at evaluating the wind luminosity driven by the young (< 30 Myr) Galactic open stellar clusters observed by the Gaia
+space mission. This is crucial for determining the energy channeled into accelerated particles.
+Methods. To do this, we developed a method relying on the number, magnitude, and line-of-sight extinction of the stars observed
+per cluster. Assuming that the stellar mass function follows a Kroupa mass distribution and accounting for the maximum stellar mass
+allowed by the age and mass of the parent cluster, we conservatively estimated the mass and wind luminosity of 387 local clusters
+within the second data release of Gaia.
+Results. We compared the results of our computation with recent estimates of young cluster masses. With respect to these, our
+sample is three times more abundant, particularly above a few thousand solar masses. This is of the utmost relevance for predicting
+the gamma-ray emission resulting from the interaction of accelerated particles. The cluster wind luminosity distribution we obtained
+extends up to 3 × 1038 erg/s. This is a promising feature in terms of potential particle acceleration scenarios.
+Key words. stars: luminosity function, mass function – stars: mass loss – stars: winds, outflows – open clusters and associations:
+general – open clusters and associations: individual
+1. Introduction
+Stellar clusters belonging to the disk of the Galaxy are usually re-
+ferred to as open clusters. They consist of homogeneous groups
+of stars with the same age and initial chemical composition. As
+star formation occurs primarily in clusters, they constitute ideal
+laboratories for tracing the star formation and evolution in our
+Galaxy (see Krumholz et al. 2019, for a recent review). The dy-
+namical evolution of clusters is a result of several processes, in-
+cluding stellar evolution, two-body relaxation, tidal interactions,
+and shocks. During their lifetime, clusters tidally interact with
+their parent giant molecular clouds and with the Galactic struc-
+ture. They eventually dissolve after a few relaxation times.
+Young clusters, in particular, are key to understanding star
+formation processes because they enable the initial mass func-
+tion (IMF) to be traced. The most massive of these objects,
+so-called young and massive stellar clusters (YMSCs), have re-
+cently received attention in the high-energy astroparticle physics
+community because they have been detected in very high-energy
+(VHE, ≳ 100 GeV) gamma rays (Aharonian et al. 2019) with
+the High Energy Stereoscopic System (H.E.S.S.). Morphological
+measurements of this emission have enabled the derivation of the
+spatial distribution of accelerated particles in the surroundings of
+several Galactic clusters (including Westerlund 1 and the Cygnus
+Cocoon). The gamma-ray profiles and intensities suggest a con-
+tinuous injection that may be powered by the stellar winds of
+massive stars provided that ∼ 1% of the wind power is con-
+verted into accelerated particles. The Cygnus Cocoon has even
+been observed at the highest energies ever achieved in gamma-
+ray astronomy: two photons with an energy above 1 PeV (1 PeV
+= 1015 eV) have been detected from the Large High Altitude
+Air Shower Observatory (LHAASO) (LHAASO Collaboration
+2023). These observations probed the capabilities of stellar clus-
+ters to operate as PeV-particle accelerators (i.e., PeVatrons) and
+beyond.
+Explaining the origin of cosmic rays (CRs) in the PeV do-
+main remains one of the challenges in astroparticle physics to-
+day. While supernova remnants (SNRs) are often addressed to
+explain their energetics, the maximum energy that can be pro-
+duced by these sources remains unclear (Celli et al. 2019; Cristo-
+fari et al. 2020; Diesing 2023). On the other hand, the power
+provided by stellar winds can be ≳ 10% of the power provided
+by SNRs (Cesarsky & Montmerle 1983; Morlino et al. 2023).
+Moreover, YMSCs have favorable conditions in terms of shock
+size and duration, so that it is plausible that energies up to∼PeV
+can be obtained (Morlino et al. 2021). For these reasons, YM-
+SCs were suggested as candidate sources of Galactic CRs up
+the knee region, complementary to SNRs. In addition to ener-
+getic considerations, acceleration of particles from the wind of
+massive stars appears to be a necessary component to explain
+the 22Ne/20Ne anomaly in CR composition (Casse & Paul 1982;
+Article number, page 1 of 19
+arXiv:2311.09089v3  [astro-ph.GA]  17 Jan 2025
+
+=== PAGE BREAK ===
+
+A&A proofs: manuscript no. main
+Prantzos 2012; Tatischeffet al. 2021): the enhancement observed
+with respect to solar abundances requires an acceleration from a
+carbon-enriched medium rather than from the standard interstel-
+lar medium (ISM), such as from the winds of massive stars. The
+relative contribution of these different source populations, SNRs
+and YMSCs, to the observed CRs is yet to be clarified, as is their
+role in energy, and in particular, in the region of about a few
+PeVs (Vieu & Reville 2023; Morlino et al. 2023).
+Furthermore, the exact location where particle acceleration
+would take place in YMSCs is a topic of active debate in the
+community. Several proposals have been put forward, based ei-
+ther on the acceleration in wind-wind collision regions (Bykov
+et al. 2020), on stochastic second-order acceleration in the highly
+turbulent medium of the cluster core (Klepach et al. 2000), or on
+acceleration at the wind termination shock (WTS) (Morlino et al.
+2021). When a cluster is older than a few million years, super-
+nova (SN) explosions start to dominate the dynamics (Vieu et al.
+2022), but for younger clusters, the energy input available for
+particle acceleration can only come from stellar winds. Under-
+standing their exact kinetic luminosity is therefore of paramount
+importance. It is therefore necessary to characterize the cluster
+physical properties, in particular, their mass and wind luminos-
+ity. This is the objective of this work, while in two accompanying
+papers, we will explore the acceleration model and its radiative
+signatures. In all of the three works, we focus on young clusters
+for the reasons explained above.
+The Gaia satellite has recently performed the most accurate
+astrometric and photometric survey of the Milky Way. This ex-
+tended our knowledge about the Galaxy structure and evolution.
+The application of advanced classification algorithms based on
+machine-learning techniques to its second data release (DR2)
+has resulted in the identification of an extended sample of clus-
+ters (Cantat-Gaudin et al. 2020). Even though this catalog does
+not correspond to the latest available data release, it nevertheless
+contains detailed information concerning cluster member stars
+and their physical parameters, which are crucial (in the context
+of the WTS particle acceleration model) to evaluate the luminos-
+ity of the collective wind.
+This paper is organized as follows. In Sec. 2, we introduce
+and characterize the properties of the open cluster data sample
+we adopted for this study, which is devoted to systems younger
+than 30 Myr. We aim to provide all the necessary ingredients
+for the computation of the particle acceleration spectrum pro-
+duced at the cluster WTS. We therefore describe the method we
+developed for estimating the mass and wind power of each clus-
+ter, for which we relied on the properties of the observed clus-
+ter star members reported by Gaia. In particular, we obtain in
+Sec. 3 a lower limit to the values of cluster masses by assuming
+the same stellar mass distribution function for all young clusters
+and normalizing it to reproduce the Gaia observations in terms
+of the number of stars within a given magnitude range. We fur-
+ther account for the optical extinction in the cluster direction.
+We compare this result with existing cluster mass estimates in
+Sec. 4. A fraction of the cluster sample investigated here was
+also reported in the Milky Way Stellar Cluster (MWSC) cata-
+log and mass values derived by Just et al. (2023) through their
+tidal parameters. Moreover, the recent study by Almeida et al.
+(2023) yielded mass values for some of the clusters belonging
+to the same Gaia data release we investigated from an approach
+based on a Monte Carlo method. We hence discuss the compat-
+ibility of the different results. In Sec. 5, we present a procedure
+to evaluate the related mass uncertainties based on the number
+of observed WR stars in Galactic open clusters. By including the
+contribution of observed WRs, we further derive the cluster wind
+luminosities in Sec. 6. Finally, we conclude in Sec. 7 and addi-
+tionally provide three appendices that discuss technical aspects
+of our cluster mass estimation approach, the energetic contribu-
+tion of SNe occurring in the cluster sample under investigation,
+and details about the online supplementary data file.
+2. Data sample and methods
+In its DR2, 2017 open clusters have been identified in the Gaia
+data (Cantat-Gaudin et al. 2020). For 1867 of these, cluster pa-
+rameters such as the distance modulus, extinction, and age were
+obtained through artificial neural network techniques. Compared
+to previous surveys, such as the MWSC catalog (Kharchenko
+et al. 2013), the sample of open clusters from Gaia DR2 reports
+detailed 3D information that is only allowed by astrometric mea-
+surements (proper motions and parallaxes). Therefore, we de-
+cided to adopt the Gaia DR2 open cluster catalog as a reference
+for our study, and to complete missing information about clus-
+ters that is required by the physical modeling from the MWSC
+survey.
+An important feature of the Gaia release is that it provides
+values for the cluster age. This is a crucial parameter for the
+application of acceleration models because the main source of
+energy in these systems changes as they evolve. The energetics
+of star clusters is dominated by stellar winds for the first few mil-
+lion years and subsequently by SNR shocks (Vieu et al. 2022).
+Therefore, we applied a selection criterion to the initial clus-
+ter sample and only retained those younger than 30 Myr, which
+roughly corresponds to the main-sequence (MS) lifetime of stars
+with M ≃ 8M⊙, that is, the minimum mass value for stellar evo-
+lution to terminate with an SN explosion. This reduced the num-
+ber of considered clusters to 390.
+For each cluster in the selected sample, we derived the wind
+luminosity, which strongly depends on the cluster evolutionary
+stage and composition in terms of its member stars. However, be-
+cause of the limitations due to instrumental sensitivity and light
+extinction, the actual stellar population of each cluster had to be
+inferred from the observed one.
+Our approach is based on the assumption of a stellar mass
+distribution inside the cluster, ξ(M) ≡ dN/dM, for which we de-
+rived the correct normalization to reproduce the number of de-
+tected stars per cluster, N∗, in the given magnitude range of the
+observations (for further details, see Sec. 3). To do this,
+i) we first extracted the number and magnitude of the observed
+member stars for every young cluster reported by Cantat-
+Gaudin et al. (2020), as well as the extinction toward the
+corresponding direction;
+ii) we then obtained the observed minimum and maximum G-
+band magnitude of its member stars through a kernel density
+fit of the stellar magnitude distribution of each cluster;
+iii) we converted these values into the maximum and minimum
+intrinsic luminosity of member stars, respectively, through
+both bolometric and extinction corrections;
+iv) we later assumed the mass-luminosity relation of MS stars
+to derive the expected maximum and minimum stellar mass
+observed per cluster, which we labeled M∗
+max and M∗
+min, re-
+spectively;
+v) we finally derived the normalization of the stellar mass func-
+tion for each cluster to reproduce the observed number of
+stars N∗ in the derived mass range [M∗
+min; M∗
+max].
+Since the correction for G-band extinction is based on the
+measured stellar effective temperature, the lack of this parame-
+ter in three clusters of the sample (i.e., IC 2948, NGC 1333, and
+Article number, page 2 of 19
+
+=== PAGE BREAK ===
+
+S. Celli et al.: Mass and wind luminosity of young Galactic open clusters in Gaia DR2
+Pismis 16) reduced the size of the final cluster sample to 387.
+The distribution of their age and distance from Earth are shown
+in Figure 1, with median values of 14.5 Myr and 2.3 kpc, respec-
+tively. The spatial distribution of our sample (panel b) is almost
+flat up to ∼ 3 kpc with large fluctuations, while it decreases at
+larger distances. This likely indicates that the sample is com-
+plete up to this distance. The fluctuations are probably due to the
+local inhomogeneities. The actual distance up to which the Gaia
+sample can be considered complete is not known with accuracy:
+The analysis of the extinction maps (Lallement et al. 2022) sug-
+gests that clusters should be detectable up to 3 kpc, even though
+there are directions in the Galactic plane where the extinction is
+high even at closer distances.
+Figure 1 also reports the number of stars associated with
+each cluster, from which we derived the correct normalization
+of the mass distribution. After this was obtained, we derived the
+current stellar mass function of each cluster by accounting for
+stellar luminosities beyond the Gaia sensitivity following the-
+oretical considerations. In particular, we fixed an absolute mini-
+mum stellar mass Mmin to 0.08 M⊙, corresponding to the limiting
+mass value in brown dwarfs for which nuclear burning is inhib-
+ited (see Richer et al. 2006). The determination of the current
+maximum stellar mass was more involved. We fixed the abso-
+lute maximum stellar mass in the Milky Way to ∼ 150 M⊙ as
+inferred from former analyses of the Arches cluster (Figer 2005;
+Kroupa 2005). More recent works investigating the cluster R 136
+inferred a maximum stellar mass as high as∼ 300 M⊙ (Crowther
+et al. 2010). However, we here adopted the conservative value
+of 150 M⊙, also because higher values do not change our results
+significantly given the very low number of young and massive
+star clusters in the sample that might in principle host very mas-
+sive stars. However, it is reasonable to assume that the maximum
+stellar mass depends on the total mass of the parent cluster. Even
+though this connection is still a matter of debate, we relied on
+the relation found by Weidner & Kroupa (2006), where the max-
+imum stellar mass roughly corresponds to ∼ 10% of the cluster
+mass (see also Yan et al. (2023) for a more recent study of the
+correlation between the maximum stellar mass and the parent
+cluster mass).
+Stellar evolution a ffects the high-mass tail of the distribu-
+tion, which becomes progressively depleted because of SN ex-
+plosions. In other words, the older the cluster, the lower the mass
+of the currently most massive member star (Buzzoni 2002). For
+the sake of completeness, we mention that the number of mas-
+sive stars may also be reduced because of dynamical effects that
+may result in the ejection of stars from the cluster. (Oh et al.
+2015) have estimated that clusters more massive than ∼ 103 M⊙
+may eject a fraction of O-type stars up to ∼ 20% with a velocity
+≳ 10 km/s. We neglected this complication, which may lower
+the final estimate of the cluster kinetic luminosity by a few tens
+of percent. For the purposes of our computations, we constrained
+Mmax to be the lower of these values. Further details about the
+specific values obtained per cluster are given in Sec. 3. Because
+the mass estimation procedure defined here strongly relies on the
+capabilities of a single star identification, our result should rather
+be interpreted as a lower bound to the actual cluster mass, and
+hence mass-loss rate and wind power, as further discussed in the
+following sections.
+3. Estimating cluster masses
+The details of the steps undertaken in the mass estimation
+procedure are explained here.
+Out[]=
+(a)
+Out[]=
+(b)
+Out[]=
+(c)
+Fig. 1. Distributions of physical parameters regarding the selected clus-
+ter sample from Gaia DR2 (i.e. younger than 30 Myr). (a) Cluster ages
+in units of Myr. (b) Cluster distances in units of pc. (c) Number of ob-
+served member stars per cluster.
+(i) First, we evaluated individual cluster masses by assuming
+a broken power law functional form with four components for
+the stellar mass function ξ(M). Following Weidner & Kroupa
+Article number, page 3 of 19
+
+=== PAGE BREAK ===
+
+A&A proofs: manuscript no. main
+(2004), we set
+ξ(M) = k ×
+
+ M
+Mmin
+−β1
+Mmin ≤ M < M0
+ M0
+MH
+−β1  M
+M0
+−β2
+M0 ≤ M < M1
+ M0
+MH
+−β1  M1
+M0
+−β2  M
+M1
+−β3
+M1 ≤ M < Mmax
+(1)
+with β1 = 1.30, β2 = 2.30, β3 = 2.35, Mmin = 0.08 M⊙,
+M0 = 0.50 M⊙, and M1 = 1.00 M⊙, M⊙ being the mass of the
+Sun.
+(ii) Next, we applied to each cluster a kernel fit procedure to
+the G-band magnitude distribution of all its stellar members. The
+fit was applied to extract both the minimum MG
+min and the maxi-
+mum MG
+max magnitudes of stars detected per cluster. In place of
+the maximum magnitude, we considered the mode of the stellar
+magnitude distribution per cluster, as it corresponds to the mag-
+nitude value up to which the Gaia survey data can be considered
+complete, as detailed in Appendix A.
+Then, we derived the corresponding bolometric magnitudes
+Mbol via the bolometric correction factor BCG. For a stellar G-
+band magnitude MG, this conversion is
+Mbol = MG + BCG , (2)
+where BCG is obtained considering the observed e ffective tem-
+perature Teffof the stars within the cluster
+BCG(Teff) =
+4X
+i=0
+αi
+Teff− Teff,⊙
+i , (3)
+with the parameters αi given by Gaia FLAME1.
+(iii) We converted the apparent bolometric magnitudes into
+intrinsic magnitudes by extracting line-of-sight extinction values
+AG from the v6 Gaia Starhorse catalog 2. From these, the stellar
+luminosities were computed as
+Ls = 100.4(M⊙,bol−Mbol+AG) L⊙ . (4)
+(iv) These luminosities were used to derive the corre-
+sponding stellar mass Ms(Ls) by inverting the following mass-
+luminosity relation, in the form of a broken power law,
+Ls(M) =
+
+Lb1
+ M
+Mb1
+γ1
+
+1
+2 + 1
+2
+ M
+Mb1
+1/∆1
+∆1(−γ1+γ2)
+M/M⊙ < 12
+ϵLb2
+ M
+Mb2
+γ2
+
+1
+2 + 1
+2
+ M
+Mb2
+1/∆2
+∆2(−γ2+γ3)
+M/M⊙ ≥ 12
+(5)
+This relation was derived in Menchiari (2023) from merging ex-
+isting parameterizations from Yungelson et al. (2008) and Eker
+et al. (2018), and it can be applied to the MS evolution in a broad
+mass range (extending even beyond 100 M⊙). In Eq. (5) Lb1 =
+3191 L⊙, Lb2 = 368874 L⊙, Mb1 = 7M⊙, Mb2 = 36.089M⊙,
+γ1 = 3.97, γ2 = 2.86, γ3 = 1.34, ∆1 = 0.01, ∆2 = 0.15, and
+ϵ = 0.817. We further assumed that all member stars were lo-
+cated at the same distance as the cluster: Hence, the minimum
+1 https://gea.esac.esa.int/archive/documentation/GDR2/
+Data_analysis/chap_cu8par/sec_cu8par_process/ssec_
+cu8par_process_flame.html
+2 https://doi.org/10.17876/gaia/dr.2/52
+magnitude member star per cluster allowed us to infer the maxi-
+mum mass M∗
+max, while the mode magnitude determines the min-
+imum stellar mass M∗
+min. The distributions of these values for the
+clusters we analyzed are also provided in Appendix A.
+The number of member stars N∗ between the minimum in-
+ferred stellar mass M∗
+min and the maximum inferred stellar mass
+M∗
+max is known from observations and shown in Figure 1c. The
+distribution of the number of stars per cluster has a median value
+of 58, which is in line with typical values of open clusters. Fi-
+nally, the normalization k of Equation (1) was obtained by in-
+verting the following expression:
+N∗ =
+Z M∗
+max
+M∗
+min
+ξ(M) dM . (6)
+After normalizing the mass distribution of each cluster to
+match the Gaia number of observed stars, we obtained the to-
+tal number of stars expected per cluster according to theoreti-
+cal considerations, that is, we extended the following integral to
+compute the cluster mass in
+Mc =
+Z Mmax
+Mmin
+ξ(M)M dM (7)
+between a minimum Mmin and maximum Mmax stellar mass, in
+accordance with both stellar and cluster evolutionary theory. In
+particular, Mmin was assumed to be an absolute minimum mass
+of ∼ 0.08 M⊙, related to the formation of brown dwarfs, while
+Mmax was determined by the following considerations. On one
+hand, the age of the cluster a ffects the highest value of the stel-
+lar mass that has not yet exploded into SN (Buzzoni 2002), under
+the hypothesis that the stellar formation process is instantaneous,
+such that the cluster age corresponds to the stellar age. In order
+to derive the relation of the maximum stellar mass allowed by its
+age, we adopted data from figure 3 of Buzzoni (2002), collecting
+the turn-over time of a sample of MS stars with solar metallicity
+(representing the reference time for SN explosion) as a function
+of their mass. We parameterized and inverted the analytical re-
+lation describing the data of Buzzoni (2002) according to the
+following expression:
+log10[Mmax/M⊙] = −C ∗ ln
+h
+log10[Tage/yr]/A − B
+i
+, (8)
+where the parameter values resulting from the fit are provided in
+Appendix A.
+On the other hand, the maximum mass of a member star
+is determined in the first instance by the parent cluster mass,
+namely since the time of its formation (see Figure 1 in Weid-
+ner & Kroupa 2004), most likely as a result of the interplay be-
+tween the stellar feedback and the binding energy of the cluster-
+forming molecular cloud core. The latter effect naturally embeds
+the highest stellar mass observed. However, in order to deter-
+mine the maximum stellar mass expected per cluster with the
+Weidner & Kroupa (2006) approach, knowledge of the cluster
+mass is required, which (by definition) is unknown. We hence
+proceeded iteratively by first computing a zeroth-order estimate
+of the cluster mass Mc,0, which we call seed cluster mass, which
+is obtained through Eq. (7) takingMmax as the minimum between
+150 M⊙ and the highest stellar mass allowed by stellar evolution
+given the cluster age Tage (according to Eq. (8)). We hence pro-
+ceeded by iterations aiming at refining the prediction aboutMmax
+by accounting for the relation with the parental cluster mass, as
+derived by Weidner & Kroupa (2004).
+Article number, page 4 of 19
+
+=== PAGE BREAK ===
+
+S. Celli et al.: Mass and wind luminosity of young Galactic open clusters in Gaia DR2
+Fig. 2. Maximum expected stellar mass as a function of cluster age. The
+gray markers refer to the sample of selected young clusters from the
+Gaia catalog, whose maximum masses are evaluated from the iterative
+procedure described in the text. The solid blue line shows the result
+from Eq. (8), and the dashed red line represents the highest stellar mass
+value observed in the Milky Way at ≃ 150M⊙.
+Namely, for the clusters where Mmax(Tage) > Mmax(Mc,0),
+we implemented an iterative approach based on the seed clus-
+ter mass values: We first derived the maximum stellar mass ex-
+pected at the time of cluster formation according to Weidner &
+Kroupa (2006), and then adopted this value to recompute an up-
+dated cluster mass through Eq. (7), repeating the calculation to
+obtain the corresponding Mmax and so on, until after a few itera-
+tions, the procedure converged with an accuracy below 5% with
+respect to the cluster masses evaluated in the previous step. The
+values of Mmax obtained with this procedure are shown in Fig. 2
+as filled markers, in comparison with the age-limited model from
+Buzzoni (2002). In Fig. 3a, we compare these values to those we
+inferred from Gaia observations (M∗
+max). The latter are clearly al-
+ways lower than what is expected from theory, except for a few
+cases in which the adopted cluster ages are doubtful, as we dis-
+cuss further in the next section. We additionally compared the
+maximum stellar mass values determined for each cluster with
+the mass values of observed star members that are available from
+the StarHorse routine. We found systematically lower values in
+the latter case, as expected.
+The resulting cluster mass distribution is shown in Fig. 3b,
+with a median value of ∼ 413M⊙ and a standard deviation
+of ∼ 1472M⊙. The highest value estimated in the sample is
+Mmax
+c ≃ 2.2 × 104 M⊙ and corresponds to Westerlund 1. We note
+that the distribution of the logarithm of young cluster masses has
+a bell-like shape, which is expected to be induced by the com-
+pleteness limit of the survey. The distribution can be fit with a
+Gaussian function with a mean value of log 10[Mµ/M⊙] = 2.6
+and a standard deviation of σlog[Mµ/M⊙] = 0.45. In the next sec-
+tion, we compare our mass estimates with other results in the
+literature, while in Sec. 5, we describe how the mass uncertainty
+of our method was quantified based on the observed number of
+WR stars per cluster.
+4. Comparison with existing cluster mass
+calculations
+In this section, we compare our estimate of cluster masses with
+recent results from other works. In particular, Just et al. (2023)
+explored the latest MWSC data release that provided the so-
+called tidal radius rt, a spatial parameter first introduced by King
+0 5 10 15 200
+10
+20
+30
+40
+50
+60
+M*
+max[Msun]
+Mmax[Msun]
+(a)
+(b)
+Fig. 3. Estimated stellar and cluster masses from the Gaia DR2 young
+cluster sample. (a) Comparison of the maximum stellar mass per cluster
+obtained in our calculation (ordinate) and that inferred from the Gaia
+observation (abscissa). (b) Distribution of cluster masses in units of so-
+lar masses for the selected young clusters.
+(1962) to empirically describe the radial profile of the projected
+surface density of a star cluster, specifically the point where the
+projected density drops to zero. The set of three King’s param-
+eters was later found to fully describe the density profile of a
+spherical system in a quasi-equilibrium configuration. The tidal
+radius is therefore commonly adopted to compute the mass of
+virialized systems, such as the long-lived globular clusters. The
+application to open clusters is in turn more uncertain because
+their dynamics is dominated by the the tidal forces of the Galaxy
+rather than by their internal potential. Nonetheless, Just et al.
+(2023) have computed tidal masses of 2227 clusters, regardless
+of their nature. Of these, 505 are younger than 30 Myr, but only
+149 star clusters are in common with the Gaia sample we in-
+vestigated. By comparing the masses of the common clusters,
+we found that the tidal approach yields masses that are system-
+atically lower than those based on star counts used here. This
+behavior might be due to mass segregation e ffects (Portegies
+Zwart et al. 2010; Kirk & Myers 2011), inducing smaller esti-
+mates of the cluster radius that might strongly bias the results
+toward lower masses (Ernst et al. 2010).
+A more proper comparison can be performed with a recent
+analysis by Almeida et al. (2023) that included a cluster mass
+evaluation for 773 open clusters from Gaia DR2. The authors de-
+Article number, page 5 of 19
+
+=== PAGE BREAK ===
+
+A&A proofs: manuscript no. main
+1.5 2.0 2.5 3.0
+2.0
+2.5
+3.0
+3.5
+Log10[Mc
+Gaia+MWSC/Msun]
+Log10[Mc
+Almeida/Msun]
+Fig. 4. Comparison of the cluster masses estimated in this work (ab-
+scissa) and by Almeida et al. (2023) (ordinate) for the common sample
+of 102 young clusters from Gaia DR2. The dashed red line shows the
+identity.
+veloped a novel strategy based on the simulation of a synthetic
+cluster population followed by an isochrone fitting procedure
+that enabled them to constrain cluster ages, distances, masses,
+and binary fractions. This time, the common cluster sample
+(younger than 30 Myr) contains 102 objects, for which we in-
+vestigated the differences not only in mass, but also in the other
+parameters derived by the authors. With respect to the parame-
+ters provided by the Gaia /MWSC catalogs, the distances found
+by Almeida et al. (2023) agree well for cluster distances smaller
+than 2 kpc. In contrast, for farther clusters Almeida et al. (2023)
+obtained significantly smaller distances than Gaia/MWSC cata-
+logs. More interestingly, the revised age estimates largely dis-
+agree with the values provided by Gaia /MWSC given that the
+age distribution in the Almeida et al. (2023) sample is quite nar-
+row and peaked around (7.2 ± 0.30) Myr. These results indicate
+that the age values provided by the Gaia /MWS catalogs might
+be underestimated in the case of younger clusters (<6 Myr), but
+overestimated for the older ones. This behavior is also supported
+by the investigation of the observed versus expected WR stars in
+clusters that we present in Sec. 5.
+The masses of single clusters agree overall within the uncer-
+tainties, but the average mass estimated by Almeida et al. (2023)
+is higher by ∼ 40% than ours, as shown in Figure 4. This is
+expected because the two methods often rely on di fferent clus-
+ter physical parameters to determine their masses. In particular,
+the method developed by Almeida et al. (2023) also accounts
+for binary stars, which we neglected. However, our sample is
+larger than that used by Almeida et al. (2023), and even more
+importantly, it includes stellar clusters with higher masses. This
+is crucial for the computation of gamma-ray emission from these
+objects, providing us with a more realistic estimate of their role
+as particle accelerators at the highest energies.
+Finally, in Table 1 we compare our results for a few of the
+most massive star clusters of our sample with the mass and age
+values found in other works. The cited works usually estimated
+the cluster masses by evaluating their stellar content with a joint
+analysis of optical and near-infrared imaging. Our estimates are
+in general lower (by a factor ∼ 2 in three out of seven cases
+and a factor ∼ 15 in one case), with the exception of one case
+(Danks 2). We show in the next section that the number of WR
+stars also suggests that we underestimate the masses of the most
+Cluster Mc Tage Mc Tage Ref.
+[103M⊙] [Myr] [103M⊙] [Myr]
+Wd 1 22.2 7.9 49 4 .0 ± 0.5 [1]
+Danks 2 7.8 1.0 3.0 ± 0.8 3 .0+3.0
+−1.0 [2]
+NGC 3603 4.8 1.0 13 ± 3 1-2 [3]
+Danks 1 4.4 1.0 8.0 ± 1.5 1 .5+1.5
+−0.5 [2]
+NGC 6231 3.2 13.8 3.75 ± 0.45 2–7 [4]
+Wd 2 2.2 4.0 3.6 2.5 [5]
+NGC 6611 1.7 2.14 25 2-5 [5]
+Table 1. Comparison of our estimates of mass (second column) and the
+values provided by other works (fourth column) for a subset of clus-
+ters. The cluster ages are also reported, namely the values we consid-
+ered from Gaia /MWSC catalog (third column) and the values usually
+adopted in the literature (fifth column). The references are indicated
+in the last column and correspond to [1] = Gennaro et al. (2011); [2] =
+Davies et al. (2012); [3] = Harayama et al. (2008); [4] = Kuhn et al.
+(2017); [5]= Pfalzner (2009).
+massive stellar clusters by a factor ∼ 3 at least, as demonstrated
+below.
+5. Estimating the cluster mass uncertainty using
+WR stars
+The cluster masses estimated in Sec. 3 should be taken as a lower
+limit for two reasons. First, we neglected the stellar component
+in binary systems, which may cause us to underestimate the clus-
+ter mass by a few tens of percent. For instance, the recent esti-
+mate by Hunt & Re ffert (2023) (see also Hunt 2023) suggested
+that the fraction of unresolved binaries can increase the cluster
+mass by 10%-30%. Second, the identification of cluster mem-
+bers by Cantat-Gaudin et al. (2020) was achieved through a spe-
+cific neural network algorithm. However, techniques based on
+machine learning strongly depend on the initial set used to train
+the neural network. Other works that were based on di fferent
+neural network architectures and had different training sets iden-
+tified more stars (even up to a factor of 2; see, e.g., Mahmudun-
+nobe et al. 2021; Van Groeningen et al. 2023), which clearly
+would impact any mass estimation method based on the star
+count. Moreover, Buckner et al. (2023) applied single star iden-
+tification criteria to mock clusters, showing that for distances
+≳ 1 kpc, they missed up a fraction> 50% of the cluster members.
+Therefore, it would be highly desirable to have an independent
+estimate of the cluster masses. This can be obtained by compar-
+ing the number of WR stars associated with star clusters with
+those expected from theory, as explained below.
+To provide a theoretical estimate for the number of WR stars,
+we assumed that at the end of the MS phase, all stars with a
+mass above MWR,min experience the WR phase. This minimum
+mass was estimated from stellar evolution codes to be between
+22 and 37 M ⊙ (Eldridge & Vink 2006). The average duration
+of the WR phase was estimated from stellar evolution models
+to be ≈ [0.1 − 1] Myr, depending on several parameters such as
+the initial mass, metallicity, and stellar rotation (Meynet et al.
+1994; Meynet & Maeder 2005). Because of the large theoret-
+ical uncertainties, we adopted the range inferred from the ob-
+served WR stars, that is, ∆tWR = [0.25 − 0.40] Myr (Rosslowe
+& Crowther 2015). Hence, under the assumption that the star
+formation process in the cluster is instantaneous and that the du-
+ration of the MS phase is regulated by Eq. (8), the number of
+WR stars is given by all stars whose MS phase lasted between
+t − ∆tWR and t (t being the cluster age). This translates into a
+Article number, page 6 of 19
+
+=== PAGE BREAK ===
+
+S. Celli et al.: Mass and wind luminosity of young Galactic open clusters in Gaia DR2
+mass interval between MWR,min(t) = min[MWR,min, M(tMS = t)]
+and MWR,max(t) = M(tMS = t − ∆tWR). In reality, the star for-
+mation (SF) process is not instantaneous, but lasts for a time
+∆TSF that mainly depends on the structure of the parent molecu-
+lar cloud from which the cluster is born. Numerical simulations
+showed that this time can last up to∼ 3 Myr (Krause et al. 2020)
+and that the star formation rate is not constant during this time.
+Here, we accounted for the delayed SF process, while assuming
+that the star formation rate (SFR) remained constant during the
+entire period. Under these assumptions, the total number of WR
+stars as a function of cluster mass and age is
+NWR(Mc, t) = 1
+∆TSF
+Z ∆TSF
+0
+dt′
+Z MWR,max(t−t′)
+MWR,min(t−t′)
+ξ(Mc, M) dM , (9)
+where we explicitly introduce the dependence of ξ on the total
+cluster mass Mc. Fig. 5 shows the result of solving Eq. (9) for
+different cluster masses, fixing MWR,min = 25M⊙ and using two
+different values for ∆TSF, namely 0 (instantaneous star forma-
+tion), and 1 Myr. In the former case, NWR(t) shows a peak close
+to the threshold age when the most massive star in the cluster en-
+ters the WR phase, while in the latter case, this peak is smoothed
+out. The cutoffat t ≃ 6.5 Myr corresponds to the MS duration of
+stars with a mass of 25 M⊙.
+At the time of writing, the Galactic WR catalog (Rosslowe
+& Crowther 2015)3 counts 669 WRs, 49 of which are assumed
+to be associated with 14 of the young clusters in our sample,
+namely Ruprecht 44, Westerlund 1 and 2 (Wd 1 and Wd 2),
+Trumpler 16, Sher 1, NGC 3603, Hogg 15, Danks 1 and 2,
+NGC 6231, Dolidze 3, Markarian 50, and Berkley 86 and 87. In
+descending order, Wd 1 is associated with 24 WRs (second only
+to the Galactic center), followed by Danks 1 with 6 WR stars,
+NGC 3603 with 5 WRs, and Wd 2 with 2 WRs. The remaining
+clusters are associated with a single WR.
+We compared the predicted number of WRs by applying
+Eq. (9) to the cluster sample using the lower limits of the masses
+estimated in Sec. 3 and the associated ages. This procedure re-
+sulted in a predicted number of WRs equal to zero, regardless of
+the value of ∆TSF. This result may be due to both an underesti-
+mated value of the cluster masses and/or an incorrect estimate of
+their ages. The latter, in particular, is supported by several pieces
+of evidence, including Fig. 5 and the discussion in the previous
+section. As shown in Fig. 5, the clusters would be expected to
+host WR stars in the age range between ∼ 2.5 and 6.5 Myr, de-
+pending on their total mass. By assuming the catalog ages, we
+should not observe WRs in some cases in which they are re-
+ported. The only solution to this problem is a revision of their
+age estimate. However, an incorrect age estimate cannot entirely
+justify the discrepancy. Even when we assume that all clusters
+have an age of ∼ 4 Myr (to maximize the number of WR stars),
+the theoretical number of WRs expected in our cluster sample
+would be 11 (3 of which lie in Wd 1) compared to 49 (24 of
+which lie in Wd 1). We interpret this result as further evidence
+that the cluster masses evaluated in Sec. 3 are underestimated.
+While confirming that the total cluster masses are underes-
+timated, the observed number of WR stars provides us with a
+method for quantifying the mass uncertainty. By assuming that
+the actual cluster masses are a factor χ higher than the value es-
+timated in Sec. 3, we aim at reproducing the observed WR num-
+ber. However, before proceeding with a quantitative estimate of
+χ, we note that neither the star cluster catalog nor the WR cata-
+log are complete. We evaluated the completeness of the former
+3 See the online catalog at http://pacrowther.staff.shef.ac.
+uk/WRcat/, last update from June 2023.
+in Sec. 2 to be about 2-3 kpc. The WR catalog can in turn be
+considered complete up to magnitude 8 in Ks band (Rosslowe &
+Crowther 2015, see § 4.3.1 and references therein). This roughly
+corresponds to a distance of 3 kpc in the Galactic plane (see, e.g.,
+Kanarek et al. 2015). To be conservative, we restricted our anal-
+ysis to WR/cluster associations closer than 2.5 kpc. Within this
+distance range there are five associations with a total of seven
+WRs.
+Fig. 6 reports the predicted number of WR stars in clusters
+within 2.5 kpc as a function ofχ and for different values of∆TSF.
+To evaluate the impact of different assumptions, we show three
+sets of curves corresponding to different assumptions,
+– Case A: ∆tWR = 0.25 Myr and MWR,min = 37 M⊙;
+– Case B: ∆tWR = 0.40 Myr and MWR,min = 22 M⊙;
+– Case C: as case B, but with all clusters with estimated ages
+younger than 10 Myr set to be equal to 4 Myr.
+Case C was included to account for the uncertainty in the age
+estimate for very young clusters to maximize the number of WRs
+with respect to the cluster age. It should therefore be considered
+an extreme case. The result for case A suggests that our method
+underestimates the cluster masses by a factor ≳ 5, while for case
+B, we have χ ≃ 2.8 − 3.3, depending on the value of ∆TSF. The
+most optimistic of all cases, case C, requires χ ≃ 1.6 − 2.0. In
+addition to the total number of WR stars, we also compared the
+mocked distribution of clusters with at least one WR with the
+observed one by performing a Kolmogorov-Smirnov test. The
+estimated p-value is ≲ 0.4 for both cases A and C, and it is≳ 0.6
+for case B, suggesting that the latter is more compatible with the
+observed distribution than cases A or C. Finally, we note that
+when we neglected the completeness issue and applied the same
+analysis to the whole star cluster and WR samples, we obtained
+similar conclusions to those shown in Fig. 6.
+A few additional comments are in order. The analysis dis-
+cussed above may be a ffected by several additional uncertain-
+ties. From an observational point of view, WR stars might erro-
+neously be associated with star clusters, as discussed, for exam-
+ple, in Rate et al. (2020). However, it seems unlikely that these
+misassociations apply to the majority of clusters, especially to
+those closer than 2.5 kpc where the parallax estimate is reliable.
+On the other hand, the theoretical approach we developed is quite
+simplified, especially concerning the physics of WR stars. The
+stars that undergo a WR phase and how long this phase lasts
+remain highly debated questions. However, the assumed inter-
+vals for MWR,min and ∆TWR cover the ranges usually adopted in
+the literature. A further increase in the number of the WR stars
+would require either MWR,min < 22 M⊙ or ∆TWR > 0.4 Myr. An-
+other possibility to obtain a larger number of WRs is to change
+the IMF into a top-heavy distribution for high masses (i.e., harder
+than the Salpeter scaling M−2.3 assumed here), which would re-
+sult in a higher number of massive stars. This may be the case for
+very massive star clusters such as those observed in the Galactic
+center, for instance, Arches (Hosek et al. 2019) and even Wd1
+(Lim et al. 2013), but not in general because the IMF of local
+clusters agrees well with a Salpeter distribution (Bastian et al.
+2010). Most likely, the less well-constrained parameter that also
+affects our mass estimate is the value of cluster ages, which
+is difficult to obtain by isochrone fitting alone, particularly for
+young clusters. As we showed in Sec. 4, the age values avail-
+able in the literature di ffer significantly from the values quoted
+by Cantat-Gaudin et al. (2020) for at least some massive clus-
+ters. Nonetheless, even when this uncertainty was completely re-
+moved (as for case C), the cluster masses would still need to be
+increased by at least 60%.
+Article number, page 7 of 19
+
+=== PAGE BREAK ===
+
+A&A proofs: manuscript no. main
+Mc =5⨯10 4 M⊙
+Mc =10 4 M⊙
+Mc =5⨯10 3 M⊙
+Mc =10 3 M⊙
+2 3 4 5 6 7 8
+0
+5
+10
+15
+20
+25
+30
+35
+SC age[Myr]
+105 M⊙/Mc ⨯N WR
+Fig. 5. Theoretical prediction for the number of WR stars,NWR, inside a
+cluster as a function of its age and for different cluster masses as labeled.
+The duration of the SF process is assumed to be 0 and 1 Myr for the solid
+and dashed lines, respectively. NWR is divided by Mc/(105 M⊙).
+Case A
+Case B
+Case C
+ΔTSF =1 Myr
+ΔTSF =2 Myr
+ΔTSF =3 Myr
+ΔTSF =4 Myr
+2 4 6 8 10 12
+0
+5
+10
+15
+20
+Mass multiplication factorχ
+Total number of WR stars
+Fig. 6. Comparison of the observed number of WR stars in our cluster
+sample and the theoretical predictions where the cluster mass is mul-
+tiplied by an arbitrary factor. The di fferent line styles refer to di ffer-
+ent values of the duration of the star formation process, as indicated in
+the legend, and for three di fferent cases: A (green), B (orange), and C
+(blue). The horizontal line corresponds to the number of observed WRs
+in the cluster sample, restricted to systems closer than 2.5 kpc, where
+both the Gaia and WR catalogs are assumed to be complete. See text for
+details.
+Overall, we estimate an uncertainty for the cluster mass
+lower limits derived above of at least a factor∼ 3 towards higher
+values.
+6. A lower limit to cluster wind luminosities
+Based on the above considerations, we proceeded to compute the
+cluster mass-loss rate by summing the mass-loss rates of all its
+member stars ˙Ms(M) as
+˙Mc =
+Z Mmax
+Mmin
+ξ(M) ˙Ms(M) dM . (10)
+For the stellar mass-loss rate, we relied on the analytical and em-
+pirical prescription given by Nieuwenhuijzen & de Jager (1990)
+relative to MS stars, depending on stellar luminosity Ls(M) and
+radius Rs(M),
+˙Ms(M) ≃ 9.55 × 10−15
+ Ls(M)
+L⊙
+!1.24  M
+M⊙
+!0.16  Rs(M)
+R⊙
+!0.81 M⊙
+yr ,
+(11)
+while the dependence of the stellar radius on mass was taken
+from Demircan & Kahraman (1991), resulting in
+Rs(M) = 0.85 R⊙ (M/M⊙)0.67. (12)
+The prescription adopted for the stellar mass-loss rate in Eq. (11)
+was chosen because its empirically driven nature fits the pur-
+poses of a statistical study, however it does not account for the
+possible clumpiness of stellar winds. Clumps can enhance the
+strength of the emission lines, which depends on the density
+squared (e.g., H α lines), implying a lower value of the inferred
+mass-loss rate (Renzo et al. 2017). However, if the clumps are
+dense enough, they could become optically thick to the emit-
+ted radiation, suppressing the emission (see discussion in Vink
+2022). The dominant effect remains unclear so far, and more in-
+vestigation of the topic is required. For instance, in a combined
+analysis of the Hα and P v doublet lines detected from ζ Puppis,
+Oskinova et al. (2007) found that the two effects compensate al-
+most perfectly and that the inferred mass-loss rate is very close
+to the rate predicted without accounting for clumpiness. Hence,
+in the following discussion, we simply rely on the empirical pre-
+scription for the mass-loss rate given in Eq. (11) and do not ac-
+count for clumpiness.
+The other important parameter is the wind speed, vw,s(M),
+whose value is related to the escape velocity from the star,
+vesc(M) =
+s
+2GM
+Rs(M) , (13)
+G being the gravitational constant. With respect to vesc, the
+wind speed includes two additional e ffects. One is the pres-
+ence of metals, which increases the e ffect of photon pressure
+(line-driven winds), and the second e ffect depends on the den-
+sity of the wind itself, which acts by reducing the radiation
+pressure. These e ffects are taken into account by introducing a
+multiplication factor C and the Eddington luminosity of the star
+LEdd(M) = 4πGmpMc/σT, with the Thomson cross section σT
+and proton mass mp, such that the stellar wind speed is given by
+(Kudritzki & Puls 2000)
+vw,s(M) = C(Teff)
+s
+2GNM
+Rs(M)
+ 
+1 − Ls(M)
+LEdd(M)
+!
+. (14)
+The coefficient C depends on the physical mechanism determin-
+ing the wind pressure and is a function of the stellar e ffective
+temperature Teff,
+C(Teff) =
+
+1.0 Teff/K < 104
+1.4 10 4 ≤ Teff/K < 2.1 × 104
+2.65 Teff/K ≥ 2.1 × 104 .
+(15)
+To avoid sharp discontinuities, we adopted a linear interpolation
+between C=1 an C= 2.65. The latter value represents line-driven
+stellar winds, for example, where metal deexcitation contributes
+to the wind pressure such that the wind speed is expected to be
+higher than the escape speed at infinity.
+Article number, page 8 of 19
+
+=== PAGE BREAK ===
+
+S. Celli et al.: Mass and wind luminosity of young Galactic open clusters in Gaia DR2
+(a)
+(b)
+Fig. 7. Distribution of the cluster mass-loss rates (panel a) in units of so-
+lar masses per year and of the wind luminosity (panel b) in units of erg/s
+for the selected young clusters. The latter shows the cluster wind lumi-
+nosity computed both with (blue) and without (red) the contribution of
+observed WRs. The shaded part of the histogram represents overlapping
+values.
+Finally, it is possible to derive the cluster wind luminosity
+Lw,c through momentum conservation,
+˙Mcvw,c =
+Z Mmax
+Mmin
+ξ(M) ˙Ms(M)vw,s(M) dM , (16)
+which, once inserted in the expression for the cluster wind lumi-
+nosity, gives
+Lc,w = 1
+2
+˙Mcv2
+w,c = 1
+2
+R Mmax
+Mmin
+ξ(M) ˙Ms(M)vw,s(M)dM
+2
+R Mmax
+Mmin
+ξ(M) ˙Ms(M)dM
+. (17)
+In addition to MS stars, we included the contribution of the
+observed WR stars to the mass-loss rate and wind luminosities of
+clusters accounting for the 49 observed WR stars associated with
+the clusters of our sample. Since the catalog also provides infor-
+mation concerning the spectral class of each star (WN, WC, WO,
+and their subclasses), we defined the values of the mass-loss rate
+and speed of their winds. Following Crowther (2007), we as-
+sumed an average mass-loss rate of 10 −4.9 M⊙/yr, regardless of
+the spectral type, and wind speeds amounting to 1 .6 × 108 cm/s
+and 2.3 × 108 cm/s for WN and WC/WO types, respectively. We
+assigned these values to the observed WRs associated with our
+cluster sample, obtaining wind luminosities of 9 .3 × 1036 erg/s
+and 2 .3 × 1037 erg/s for WN and WC /WO types, respectively,
+which we include in the luminosity computation of the clusters.
+As a result, we found that the most luminous open cluster of our
+sample is Westerlund 1.
+The resulting cluster mass-loss rate and wind luminosity dis-
+tributions are shown in Figs. 7a and 7b. The median values are
+1.3 × 10−8 M⊙ yr−1 and 3 × 1034 erg s−1, but the high-energy tail
+extends up to ∼ 3 × 1038 erg s−1. For clarity, the panel with the
+wind luminosity shows histograms obtained both with and with-
+out the contribution of the observed WRs, indicating the crucial
+role of this stellar population in achieving higher energetics of
+the system. We additionally note that this result should be taken
+with the caveat that the star cluster and the WR samples are
+not complete at the same level. We may therefore have missed
+some WR stars associated with clusters in principle, especially
+for those located at distances ≳ 3 kpc. Based on the discussion
+about the cluster masses, we stress that the result for the wind
+luminosity should also be regarded as a lower limit.
+As a final comment, we note that the above expressions
+for the wind speed and mass-loss rate assume solar metallicity.
+Young stellar clusters, however, presumably have a higher metal
+content than the Sun. It might therefore be wondered how the
+wind luminosity is affected. A proper description of the metallic-
+ity dependence goes beyond the aim of the present work because
+it is a nontrivial task to determine this. The metallicity has only
+been measured for a few star clusters, and this measure often
+only relied on one star or a few stars. We limit ourselves to com-
+ment on its possible impact. Both ˙M and vw depend on metal-
+licity. Vink & Sander (2021) found that massive O stars have a
+mass-loss rate ∝ Z0.42, while the wind speed is vw ∝ Z0.19, im-
+plying that the final wind luminosity is Lw ∝ Z0.8. For the less
+massive B-type stars, the dependence is far weaker. Considering
+that O-type stars dominate the wind power, we can state that if
+the average metallicity of YMSCs were ∼ 50% higher than in
+the Sun, the total luminosity would increase by ∼ 40%.
+The full compilation of cluster masses, mass-loss rates, and
+wind luminosities is reported in Table C.1 for further use.
+7. Conclusions
+Very high-energy and ultra high-energy gamma-ray observations
+of stellar clusters to date only enumerate a few bright systems
+in our Galaxy, which include Wd 1 and 2, the Cygnus Cocoon,
+and W43 (Aharonian et al. 2019; Cao et al. 2023). The nature of
+their energetic emission is still unclear, even though the hadronic
+scenario is preferred (Aharonian et al. 2019; Mestre et al. 2021).
+In a few cases, the reported emission requires protons and nuclei
+to be accelerated up to ∼PeV energies.
+From a theoretical perspective, assessing the role of star clus-
+ters as extreme particle accelerators at a population level relies
+on the estimation of their masses and wind luminosities because
+they affect the energetics of non-thermal particles. Nonetheless,
+obtaining mass estimates of open clusters is a very difficult task,
+particularly for the young systems we are interested in, to probe
+the effectiveness of the WTS scenario. Young clusters are indeed
+more uncertain than older clusters, both in the use of stellar pop-
+ulation synthesis models and observationally because velocity
+dispersion measurements are frequently lacking. Hence, finding
+the most reliable technique for estimating their mass remains an
+open issue in the astronomical community that is very much de-
+bated and often dependent on the system parameters.
+Article number, page 9 of 19
+
+=== PAGE BREAK ===
+
+A&A proofs: manuscript no. main
+We have developed a mass estimation method for star clus-
+ters based on the properties of their individual member stars.
+We applied it to the Gaia DR2 open cluster catalog and ob-
+tained cluster masses ranging from ∼ 10 to ∼ 104 solar masses,
+in agreement with the expectations for the disk population of
+the Milky Way. The highest mass value obtained for the sys-
+tems in our sample is for Wd 1, with a lower limit of MWd1 ≥
+2.2 × 104 M⊙. Literature studies with a completeness-corrected
+IMF reported its mass to be 4 .91+1.79
+−1.49 × 104 M⊙ (Gennaro et al.
+2011), which is higher by a factor ∼ 2 than our estimate. It is
+worth highlighting that strong evidence of mass segregation was
+found in this cluster, despite its young age of 4.0±0.5 Myr (Gen-
+naro et al. 2011).
+We have further explored the usage of WR stars to quantify
+the uncertainty on the estimated masses. By developing a simpli-
+fied model for WR occurrence in the star clusters of our Galaxy
+and comparing it to observations, we conclude that at least a fac-
+tor 3 toward higher values should be considered for a realistic
+estimate of the cluster masses. This factor encloses several limi-
+tations of our procedure, which neglects binary systems as well
+as unresolved stars and cluster members that might belong to the
+cluster, but were not identified by the membership algorithms
+(Buckner et al. 2023). This possibility is further supported by the
+comparison with alternative mass estimation methods available
+in the literature, which are restricted to a smaller cluster sam-
+ple and lower cluster mass range, however. From both the WR
+estimation method and the comparison with cluster masses avail-
+able in the literature, evidence is given that some of the cluster
+ages claimed in the catalogs are also unsuitable to describe their
+properties.
+The estimated masses were used to also calculate the total
+wind luminosity, which is the most important parameter for es-
+tablishing the gamma-ray luminosity for young stellar clusters,
+and which will be used in two companion papers to evaluate the
+detection prospects of known clusters in the gamma-ray band.
+Acknowledgements. We thank G. Sacco and R. Crocker for useful discussions
+about cluster properties. SC gratefully acknowledges partial funding from the
+Bavarian State Ministry of Science and the Arts under the 2022 Visiting Pro-
+fessor Programme at the Erlangen Centre for Astroparticle Physics. AM is sup-
+ported by the Deutsche Forschungsgemeinschaft (DFG, German Research Foun-
+dation) – Project Number 452934793. SM and GM are partially supported by the
+INAF Theory Grant 2022 “Star Clusters As Cosmic Ray Factories” and INAF
+Mini Grant 2023 “Probing Young Massive Stellar Cluster as Cosmic Ray Facto-
+ries”.
+References
+Aharonian, F., Yang, R., & de Oña Wilhelmi, E. 2019, Nature Astronomy, 3, 561
+Almeida, A., Monteiro, H., & Dias, W. S. 2023, MNRAS, 525, 2315
+Bastian, N., Covey, K. R., & Meyer, M. R. 2010, ARA&A, 48, 339
+Buckner, A. S. M., Naylor, T., Dobbs, C. L., Rieder, S., & Bending, T. J. R. 2023,
+MNRAS[arXiv:2310.20413]
+Buzzoni, A. 2002, AJ, 123, 1188
+Bykov, A. M., Marcowith, A., Amato, E., et al. 2020, Space Sci. Rev., 216, 42
+Cantat-Gaudin, T., Anders, F., Castro-Ginard, A., et al. 2020, A&A, 640, A1
+Cao, Z., Aharonian, F., An, Q., et al. 2023, arXiv e-prints, arXiv:2305.17030
+Casse, M. & Paul, J. A. 1982, ApJ, 258, 860
+Celli, S., Morlino, G., Gabici, S., & Aharonian, F. A. 2019, MNRAS, 490, 4317
+Cesarsky, C. J. & Montmerle, T. 1983, Space Science Reviews, 36, 173
+Cristofari, P., Blasi, P., & Amato, E. 2020, Astroparticle Physics, 123, 102492
+Crowther, P. A. 2007, ARA&A, 45, 177
+Crowther, P. A., Schnurr, O., Hirschi, R., et al. 2010, MNRAS, 408, 731
+Davies, B., Clark, J. S., Trombley, C., et al. 2012, MNRAS, 419, 1871
+Demircan, O. & Kahraman, G. 1991, Ap&SS, 181, 313
+Diesing, R. 2023, arXiv e-prints, arXiv:2305.07697
+Eker, Z., Bakı¸ s, V ., Bilir, S., et al. 2018, MNRAS, 479, 5491
+Eldridge, J. J. & Vink, J. S. 2006, A&A, 452, 295
+Ernst, A., Just, A., Berczik, P., & Petrov, M. I. 2010, A&A, 524, A62
+Figer, D. F. 2005, Nature, 434, 192
+Gennaro, M., Brandner, W., Stolte, A., & Henning, T. 2011, MNRAS, 412, 2469
+Harayama, Y ., Eisenhauer, F., & Martins, F. 2008, ApJ, 675, 1319
+Hosek, Matthew W., J., Lu, J. R., Anderson, J., et al. 2019, ApJ, 870, 44
+Hunt, E. L. 2023, PhD thesis, The Faculty of Physics and Astronomy, Heidelberg
+University
+Hunt, E. L. & Reffert, S. 2023, submitted to A&A
+Just, A., Piskunov, A. E., Klos, J. H., Kovaleva, D. A., & Polyachenko, E. V .
+2023, A&A, 672, A187
+Kanarek, G., Shara, M., Faherty, J., Zurek, D., & Moffat, A. 2015, MNRAS, 452,
+2858
+Kharchenko, N. V ., Piskunov, A. E., Schilbach, E., Röser, S., & Scholz, R. D.
+2013, A&A, 558, A53
+King, I. 1962, AJ, 67, 471
+Kirk, H. & Myers, P. C. 2011, ApJ, 727, 64
+Klepach, E. G., Ptuskin, V . S., & Zirakashvili, V . N. 2000, Astroparticle Physics,
+13, 161
+Krause, M. G. H., Offner, S. S. R., Charbonnel, C., et al. 2020, Space Sci. Rev.,
+216, 64
+Kroupa, P. 2005, Nature, 434, 148
+Krumholz, M. R., McKee, C. F., & Bland-Hawthorn, J. 2019, ARA&A, 57, 227
+Kudritzki, R.-P. & Puls, J. 2000, ARA&A, 38, 613
+Kuhn, M. A., Getman, K. V ., Feigelson, E. D., et al. 2017, AJ, 154, 214
+Lallement, R., Vergely, J. L., Babusiaux, C., & Cox, N. L. J. 2022, A&A, 661,
+A147
+LHAASO Collaboration. 2023, arXiv e-prints, arXiv:2310.10100
+Lim, B., Chun, M.-Y ., Sung, H., et al. 2013, AJ, 145, 46
+Mahmudunnobe, M., Hasan, P., Raja, M., & Hasan, S. N. 2021, European Phys-
+ical Journal Special Topics, 230, 2177
+Menchiari, S. 2023, Probing star clusters as cosmic ray factories
+Mestre, E., de Oña Wilhelmi, E., Torres, D. F., et al. 2021, MNRAS, 505, 2731
+Meynet, G. & Maeder, A. 2005, A&A, 429, 581
+Meynet, G., Maeder, A., Schaller, G., Schaerer, D., & Charbonnel, C. 1994,
+A&AS, 103, 97
+Morlino, G., Blasi, P., Peretti, E., & Cristofari, P. 2021, MNRAS, 504, 6096
+Morlino, G., Menchiari, S., Amato, E., & Bucciantini, N. 2023, arXiv e-prints,
+arXiv:2310.15640
+Nieuwenhuijzen, H. & de Jager, C. 1990, A&A, 231, 134
+Oh, S., Kroupa, P., & Pflamm-Altenburg, J. 2015, ApJ, 805, 92
+Oskinova, L. M., Hamann, W. R., & Feldmeier, A. 2007, A&A, 476, 1331
+Pfalzner, S. 2009, A&A, 498, L37
+Portegies Zwart, S. F., McMillan, S. L. W., & Gieles, M. 2010, ARA&A, 48, 431
+Prantzos, N. 2012, A&A, 538, A80
+Rate, G., Crowther, P. A., & Parker, R. J. 2020, MNRAS, 495, 1209
+Renzo, M., Ott, C. D., Shore, S. N., & de Mink, S. E. 2017, A&A, 603, A118
+Richer, H. B., Anderson, J., Brewer, J., et al. 2006, Science, 313, 936
+Rosslowe, C. K. & Crowther, P. A. 2015, MNRAS, 447, 2322
+Tatischeff, V ., Raymond, J. C., Duprat, J., Gabici, S., & Recchia, S. 2021, MN-
+RAS, 508, 1321
+Van Groeningen, M. G. J., Castro-Ginard, A., Brown, A. G. A., Casamiquela, L.,
+& Jordi, C. 2023, A&A, 675, A68
+Vieu, T., Gabici, S., Tatische ff, V ., & Ravikularaman, S. 2022, MNRAS, 512,
+1275
+Vieu, T. & Reville, B. 2023, MNRAS, 519, 136
+Vink, J. S. 2022, ARA&A, 60, 203
+Vink, J. S. & Sander, A. A. C. 2021, MNRAS, 504, 2051
+Weidner, C. & Kroupa, P. 2004, MNRAS, 348, 187
+Weidner, C. & Kroupa, P. 2006, MNRAS, 365, 1333
+Yan, Z., Jerabkova, T., & Kroupa, P. 2023, A&A, 670, A151
+Yungelson, L. R., van den Heuvel, E. P. J., Vink, J. S., Portegies Zwart, S. F., &
+de Koter, A. 2008, A&A, 477, 223
+Article number, page 10 of 19
+
+=== PAGE BREAK ===
+
+S. Celli et al.: Mass and wind luminosity of young Galactic open clusters in Gaia DR2
+Appendix A: Normalization of the cluster stellar
+mass function
+As discussed throughout the text, the method developed here for
+estimating cluster masses relies on the assumption of a stellar
+mass distribution within the clusters that is normalized to re-
+produce the number of stars observed by Gaia in each cluster.
+To do this, it is necessary to define the mass range of the de-
+tected stars as integration limits of Eq. (6). We inferred these
+values from available observations as described in Sec. 3, re-
+lying on the measured G-band stellar magnitudes, and convert-
+ing them into bolometric magnitudes first, to then obtain stellar
+absolute luminosities after correction for the G-band extinction
+along the line of sight. We finally adopted the mass-luminosity
+relation in Eq. (5) relatively to the MS evolution to obtain stellar
+masses. The highest magnitude star per cluster hence determines
+the minimum stellar mass M∗
+min, while the lowest magnitude star
+determines the maximum stellar mass observed M∗
+max. In reality,
+the magnitude distribution of stars within clusters does not show
+a sharp drop at the highest magnitude, but it rather appears as
+a peaked distribution, whose mode is determined by the limit-
+ing magnitude of the observation in the given direction. Hence,
+we adopted the mode of the magnitude distribution rather that
+its highest value to infer the minimum stellar mass, shown in
+Fig. A.1. The maximum stellar mass per cluster is in turn repre-
+sented in Fig. A.2, its highest value amounting to ∼ 18M⊙. The
+scatter plot among the two is shown in Fig. A.3.
+After fixing M∗
+min and M∗
+max, the normalization constant k of
+the cluster stellar mass function was obtained. We then deter-
+mined the expected cluster masses and luminosities by extending
+the mass range of stars populating these systems, as suggested
+by theoretical arguments rather than being limited by instrument
+detection capabilities. To do this, we simply extended the inte-
+gration mass range between 0.08 M⊙ and a maximum value, de-
+termined by either the cluster mass or its age, whichever yielded
+the lower value.
+Older clusters are expected to host less massive stars than
+younger clusters because of the occurrence of SN explosions.
+The stellar lifetimes depend inversely on their mass. Af 10 M⊙
+star will explode in an SN after about 10 Myr, while a 100 M⊙
+star will explode after only ∼ 1 Myr. We parameterized this rela-
+tion through Eq. (8), which we fit to stellar evolution data from
+Buzzoni (2002) in the mass range −0.2 ≤ log10[M/M⊙] ≤ 2.1,
+as shown in Fig. A.4. The result is shown in Fig. A.4, where
+the red curve was obtained for the following set of values:
+A = 4.35 ± 0.07, B = 1.30 ± 0.04, and C = 1.101 ± 0.035,
+with a χ2 of 0.5.
+For the e ffects of the parent cluster mass on the maximum
+stellar mass that might form within it, we followed the descrip-
+tion from Weidner & Kroupa (2006), represented in Fig. A.5 as
+the solid black line. Because of the non -linearity intrinsic to the
+application of this constraint, which would require knowing the
+cluster mass to determine the maximum stellar mass hosted, we
+implemented an iterative technique that took as input the seed
+cluster mass, evaluated with a maximum stellar mass limited by
+either the cluster age (Buzzoni 2002) or by 150 M⊙. From this
+seed mass, we computed the expected Mmax following Weid-
+ner & Kroupa (2006). For all clusters of our sample for which
+the Mmax previously evaluated through the age-limited maxi-
+mum stellar mass was higher than the masses evaluated based
+on the seed cluster mass, we first corrected Mmax with the latter
+value. As a consequence, we computed the updated cluster mass
+value Mc from Eq. (7), which would now correspond to a dif-
+ferent maximum stellar mass according to Weidner & Kroupa
+Fig. A.1. Distribution of the minimum stellar masses as inferred from
+Gaia observations, described in Sec. 3, for the clusters in the selected
+sample.
+Out[]=
+Fig. A.2. Distribution of the maximum stellar masses as inferred from
+Gaia observations, described in Sec. 3, for the clusters in the selected
+sample.
+(2006). We proceeded with these iterations until convergence
+was achieved on the cluster mass values. The final Mmax ver-
+sus Mc values are shown as dots in Fig. A.5 for the entire young
+cluster sample we analyzed. The markers closely following the
+theoretical line refer to the clusters for which the iterative pro-
+cedure was effective. As visible, the parent cluster mass strongly
+constraints the maximum stellar mass that will be formed in low-
+mass clusters.
+Appendix B: Energetic considerations about the
+contributions of SNe and stellar winds
+The methods developed here for estimating the mass and wind
+luminosity of star clusters further allowed us to infer the tempo-
+ral evolution of the stellar population of which individual stellar
+clusters are composed. Namely, we can trace the number of stars
+that have undergone SN explosions since cluster formation by
+computing the integral of the mass distribution function between
+the maximum stellar mass ever hosted by the cluster Mmax,0, as
+dictated by the relation to the parent cluster mass, and the maxi-
+Article number, page 11 of 19
+
+=== PAGE BREAK ===
+
+A&A proofs: manuscript no. main
+0 1 2 3 4 5 6 70
+5
+10
+15
+M*
+min[Msun]
+M*
+max[Msun]
+Fig. A.3. Scatter plot between the minimum and maximum stellar mass
+values inferred from Gaia observations as described in Sec. 3 for the
+clusters in the selected sample. The dashed red line represents the bi-
+sector.
+0.0
+0.5 1.0 1.5 2.0 )
+sun/Mmax(M10
+Log6.0
+6.5
+7.0
+7.5
+8.0
+8.5
+9.0
+9.5
+10.0
+10.5
+11.0
+/yr) age (T 10 Log  / ndf 
+2χ 0.4331 / 72 A        
+ 0.07008 ±  4.35 B        
+ 0.03766 ±   1.3 C        
+ 0.03464 ± 1.101  / ndf 
+2χ 0.4331 / 72 A        
+ 0.07008 ±  4.35 B        
+ 0.03766 ±   1.3 C        
+ 0.03464 ± 1.101 
+Fig. A.4. Mass-age relation for main-sequence stars with data from
+Buzzoni (2002). The functional form of the red line, obtained through a
+minimum residual technique, is provided in Eq. (8).
+mum mass expected at the current age Mmax(Tage) as
+NSN =
+Z Mmax,0
+Mmax(Tage)
+ξ(M) dM . (B.1)
+By assuming an energy release of ESN = 1051 erg per SN, we
+can compute the total energetics channeled into SNe explosions
+as Etot
+SN = NSNESN. For the total energetics transferred to stellar
+winds, we estimate
+Ew,c = 1
+2
+Z Mmax
+Mmin
+˙Ms(M) v2
+w,c(M) τs(M) ξ(M) dM , (B.2)
+where τs(M) represents the MS duration for a star of mass M,
+as shown in Fig. A.4. The total energy transferred into SNe and
+winds resulting from this computation is shown in Fig. B.1. The
+obtained median values amount to 7 × 1050 erg and 5 × 1048 erg
+for SNe and winds, respectively. This illustrates the relevance
+of SNe in the energetics considerations of stellar clusters, and
+therefore also the relevance for particle acceleration and re-
+lated gamma-ray emission. We note, however, that Eq. (B.2)
+is expected to be higher when the contribution of WRs is in-
+cluded. Nonetheless, this simplified estimate already suggests
+0 500 1000 1500 2000 2500
+0
+5
+10
+15
+20
+25
+30
+35
+Mc[Msun]
+Mmax[Msun]
+Fig. A.5. Maximum stellar masses Mmax as a function of the seed clus-
+ter masses, shown on the abscissa. The solid line represents the numer-
+ical solution we derived following Weidner & Kroupa (2006). The gray
+markers refer to the selected young cluster sample.
+44 46 48 50 520
+5
+10
+15
+20
+25
+Log10[E/erg]
+N
+Fig. B.1. Comparison of the expected energetics injected by cluster
+winds (blue histogram) and SN explosions (red histogram) in the se-
+lected sample of young stellar clusters.
+that the energy injected into winds throughout the cluster history
+is higher than 1051 erg for some systems, namely Wd1, Danks1,
+Danks2, Patchick94, UBC344, and NGC3603.
+Appendix C: Content of accompanying data
+Online material supplements the content of this manuscript: a
+text file is provided in a machine-readable format, whose content
+corresponds to Tab. C.1.
+Article number, page 12 of 19
+
+=== PAGE BREAK ===
+
+S. Celli et al.: Mass and wind luminosity of young Galactic open clusters in Gaia DR2
+Table C.1. Cluster name (Gaia DR2 label), age in Myr, estimated mass in M⊙, mass-loss rate in M⊙/yr, wind luminosity in erg/s, normalization
+constant k of its stellar mass function according to Eq. (1), and the inferred minimum and maximum stellar mass observed by Gaia as described in
+Sec. 3, M∗
+min and M∗
+max respectively.
+Name Tage [Myr] Mc [M⊙] ˙Mc [M⊙/yr] Lw,c [erg/s] k M∗
+min [M⊙] M∗
+max [M⊙]
+ASCC_107 17.0 216.9 6 .67 × 10−9 1.39 × 1034 3093.9 1.25 6.07
+ASCC_127 18.2 108.7 1 .14 × 10−9 2.09 × 1033 1616.2 0.43 2.78
+ASCC_16 13.5 161.4 3 .91 × 10−9 7.94 × 1033 2323.5 0.42 3.10
+ASCC_19 10.5 181.2 5 .63 × 10−9 1.18 × 1034 2584.6 0.96 4.28
+ASCC_21 8.9 45.6 5 .39 × 10−11 5.90 × 1031 736.6 0.36 3.28
+ASCC_32 25.1 559.6 7 .83 × 10−9 1.49 × 1034 8226.4 1.04 3.25
+ASCC_79 18.6 670.9 1 .71 × 10−8 3.49 × 1034 9637.9 1.53 4.54
+ASCC_9 29.5 594.8 6 .04 × 10−9 1.11 × 1034 8852.6 2.71 6.90
+Alessi_18 5.1 310.7 2 .63 × 10−8 6.17 × 1034 4278.7 2.25 4.07
+Alessi_19 25.7 125.9 1 .68 × 10−9 3.19 × 1033 1853.3 0.88 5.26
+Alessi_20 9.3 130.5 2 .04 × 10−9 3.95 × 1033 1909.2 1.07 3.36
+Alessi_43 11.5 574.3 4 .10 × 10−8 9.41 × 1034 7955.4 1.12 6.58
+Alessi_59 10.0 201.1 7 .81 × 10−9 1.67 × 1034 2844.9 2.69 3.47
+Alessi_Teutsch_5 18.6 316.0 8 .05 × 10−9 1.64 × 1034 4539.8 1.08 3.70
+Andrews_Lindsay_5 1.0 1029.7 6 .79 × 10−7 2.02 × 1036 13356.9 3.06 5.62
+Antalova_2 12.0 143.4 2 .73 × 10−9 5.39 × 1033 2083.3 1.54 2.17
+Aveni_Hunter_1 10.5 93.3 7 .08 × 10−10 1.25 × 1033 1404.4 1.22 2.80
+BDSB30 3.5 43.2 4 .53 × 10−11 4.68 × 1031 702.1 1.63 3.18
+BDSB91 14.1 136.1 2 .32 × 10−9 4.52 × 1033 1985.4 1.51 2.54
+BDSB93 15.8 61.9 1 .64 × 10−10 2.39 × 1032 969.6 1.41 5.23
+BDSB96 7.9 99.3 8 .67 × 10−10 1.56 × 1033 1487.4 1.33 5.50
+BH_121 2.6 1251.8 1 .07 × 10−6 3.27 × 1036 16117.6 1.80 12.30
+BH_150 21.9 581.7 1 .07 × 10−8 2.11 × 1034 8459.6 2.82 7.29
+BH_151 15.8 417.5 1 .48 × 10−8 3.15 × 1034 5925.2 3.43 10.21
+BH_205 6.2 452.3 7 .56 × 10−8 1.91 × 1035 6099.2 1.84 4.76
+BH_221 10.7 515.5 4 .30 × 10−8 1.01 × 1035 7103.6 1.29 6.64
+BH_23 28.8 79.3 4 .03 × 10−10 6.71 × 1032 1211.8 0.43 5.71
+BH_245 4.7 543.2 1 .27 × 10−7 3.33 × 1035 7254.8 4.07 9.08
+BH_54 8.7 508.3 6 .92 × 10−8 1.71 × 1035 6897.3 2.84 7.42
+BH_56 17.8 311.4 8 .71 × 10−9 1.80 × 1034 4457.7 1.05 4.47
+Basel_18 27.5 211.8 2 .47 × 10−9 4.60 × 1033 3136.0 1.26 5.09
+Berkeley_14A 9.3 97.0 8 .04 × 10−10 1.43 × 1033 1456.0 1.41 1.60
+Berkeley_15 18.6 1089.5 2 .77 × 10−8 5.67 × 1034 15651.0 1.71 4.62
+Berkeley_4 21.4 473.4 9 .12 × 10−9 1.81 × 1034 6872.9 2.55 8.95
+Berkeley_47 21.9 631.2 1 .16 × 10−8 2.29 × 1034 9180.3 2.69 6.86
+Berkeley_59 1.3 1323.8 1 .21 × 10−6 3.75 × 1036 17007.6 2.51 9.58
+Berkeley_62 14.8 660.5 2 .71 × 10−8 5.85 × 1034 9324.2 1.63 5.78
+Berkeley_63 18.2 621.8 1 .66 × 10−8 3.41 × 1034 8917.3 2.53 6.77
+Berkeley_86 11.0 180.1 1 .20 × 10−5 9.25 × 1036 2569.0 1.74 5.16
+Berkeley_87 8.3 1279.1 1 .36 × 10−5 2.28 × 1037 17298.2 2.62 10.86
+Berkeley_90 5.1 817.2 3 .82 × 10−7 1.09 × 1036 10704.6 2.59 13.93
+Berkeley_94 15.5 440.0 1 .64 × 10−8 3.50 × 1034 6233.8 2.31 8.35
+Berkeley_95 12.0 313.0 2 .01 × 10−8 4.57 × 1034 4349.8 2.28 7.63
+Berkeley_97 15.1 534.0 2 .09 × 10−8 4.48 × 1034 7552.1 1.70 7.22
+Bica_3 15.8 749.0 2 .66 × 10−8 5.64 × 1034 10629.5 3.75 7.47
+Biurakan_2 9.3 297.5 2 .32 × 10−8 5.39 × 1034 4108.6 1.48 6.42
+Bochum_11 6.3 357.9 3 .92 × 10−8 9.44 × 1034 4890.0 2.12 10.95
+Bochum_13 8.9 494.2 6 .36 × 10−8 1.56 × 1035 6718.0 2.36 9.91
+Bochum_6 6.5 497.9 9 .91 × 10−8 2.56 × 1035 6679.9 1.68 7.57
+COIN-Gaia_16 25.7 135.3 1 .81 × 10−9 3.43 × 1033 1992.5 1.49 3.49
+COIN-Gaia_21 28.2 169.3 1 .89 × 10−9 3.50 × 1033 2511.4 1.40 4.08
+Collinder_106 24.5 454.7 6 .66 × 10−9 1.28 × 1034 6671.6 1.42 3.87
+Collinder_107 18.2 579.0 1 .55 × 10−8 3.17 × 1034 8303.4 1.43 6.01
+Table continues in the next page
+Article number, page 13 of 19
+
+=== PAGE BREAK ===
+
+A&A proofs: manuscript no. main
+Table continues from the previous page
+Name Age [Myr] Mc [M⊙] ˙Mc [M⊙/yr] Lw,c [erg/s] k M∗
+min [M⊙] M∗
+max [M⊙]
+Collinder_132 24.5 196.2 2 .87 × 10−9 5.51 × 1033 2879.6 0.83 3.37
+Collinder_135 26.3 305.4 3 .90 × 10−9 7.35 × 1033 4505.3 0.38 4.40
+Collinder_140 26.9 134.8 1 .64 × 10−9 3.08 × 1033 1991.7 0.40 5.12
+Collinder_197 14.1 491.2 2 .22 × 10−8 4.85 × 1034 6910.5 1.20 7.21
+Collinder_205 4.6 563.6 1 .41 × 10−7 3.72 × 1035 7513.7 1.58 5.89
+Collinder_419 19.5 143.4 2 .71 × 10−9 5.36 × 1033 2083.3 1.40 9.94
+Collinder_469 9.5 379.6 4 .14 × 10−8 9.98 × 1034 5186.6 2.56 5.00
+Collinder_69 12.6 564.1 3 .28 × 10−8 7.36 × 1034 7868.1 1.00 3.75
+Collinder_95 19.1 156.8 3 .56 × 10−9 7.19 × 1033 2262.1 1.26 5.72
+Czernik_31 29.5 466.9 4 .74 × 10−9 8.70 × 1033 6949.1 1.43 4.86
+Czernik_40 25.1 901.0 1 .26 × 10−8 2.40 × 1034 13244.7 2.68 5.07
+Czernik_41 12.9 2035.1 1 .12 × 10−7 2.51 × 1035 28432.7 2.92 7.93
+Czernik_6 28.2 193.1 2 .15 × 10−9 3.99 × 1033 2863.7 2.40 4.51
+DB2001_22 17.2 164.4 4 .12 × 10−9 8.40 × 1033 2362.8 2.87 8.26
+DBSB_101 11.2 334.5 2 .51 × 10−8 5.81 × 1034 4624.7 1.77 4.06
+DBSB_104 26.9 67.4 2 .22 × 10−10 3.41 × 1032 1047.6 1.17 2.73
+DBSB_21 9.5 119.9 1 .57 × 10−9 2.96 × 1033 1766.8 2.39 4.18
+DBSB_3 3.8 331.7 3 .17 × 10−8 7.53 × 1034 4550.7 1.90 5.35
+DBSB_43 24.5 256.9 3 .76 × 10−9 7.21 × 1033 3769.1 1.88 4.82
+DBSB_60 5.6 252.5 1 .48 × 10−8 3.31 × 1034 3521.3 2.03 5.58
+DC_5 1.1 1885.2 2 .42 × 10−6 7.87 × 1036 23961.6 2.74 5.35
+Danks_1 1.0 4358.2 8 .53 × 10−5 7.76 × 1037 54214.2 5.57 7.13
+Danks_2 2.0 7811.8 3 .85 × 10−5 7.01 × 1037 96204.2 5.37 6.03
+Dias_5 9.5 297.9 2 .33 × 10−8 5.41 × 1034 4113.7 1.38 3.38
+Dolidze_11 22.4 310.7 5 .46 × 10−9 1.07 × 1034 4526.3 2.34 3.93
+Dolidze_16 16.6 215.8 6 .96 × 10−9 1.46 × 1034 3072.6 1.39 4.16
+Dolidze_3 8.9 131.2 1 .34 × 10−5 2.31 × 1037 1918.9 1.68 3.94
+Dolidze_53 6.9 194.5 7 .05 × 10−9 1.50 × 1034 2757.3 2.31 4.29
+Dolidze_8 15.5 77.9 3 .82 × 10−10 6.33 × 1032 1192.1 1.43 4.47
+FSR_0158 10.2 150.2 3 .15 × 10−9 6.30 × 1033 2174.1 2.59 3.60
+FSR_0165 15.5 1043.0 3 .89 × 10−8 8.29 × 1034 14775.7 3.27 5.53
+FSR_0198 4.7 451.0 7 .51 × 10−8 1.90 × 1035 6082.4 1.48 5.83
+FSR_0398 18.2 211.6 5 .65 × 10−9 1.16 × 1034 3034.3 1.32 4.29
+FSR_0451 13.5 1230.5 6 .15 × 10−8 1.36 × 1035 17251.4 1.63 9.87
+FSR_0534 25.7 567.3 7 .58 × 10−9 1.44 × 1034 8354.1 2.32 5.67
+FSR_0551 13.5 203.7 8 .10 × 10−9 1.74 × 1034 2878.7 1.13 3.37
+FSR_0826 4.6 229.3 1 .13 × 10−8 2.50 × 1034 3215.7 1.98 6.26
+FSR_0833 16.6 230.3 7 .43 × 10−9 1.56 × 1034 3279.8 2.31 6.42
+FSR_0904 21.9 515.7 9 .49 × 10−9 1.87 × 1034 7500.7 1.58 11.17
+FSR_1117 15.5 47.7 6 .30 × 10−11 7.26 × 1031 767.4 1.21 3.14
+FSR_1297 5.0 147.5 3 .00 × 10−9 5.97 × 1033 2136.4 1.72 2.84
+FSR_1335 11.2 151.0 3 .20 × 10−9 6.40 × 1033 2185.0 2.20 4.99
+FSR_1342 25.7 636.8 8 .51 × 10−9 1.61 × 1034 9377.4 2.03 4.51
+FSR_1352 3.5 145.9 2 .92 × 10−9 5.80 × 1033 2115.6 1.89 4.85
+FSR_1435 1.0 401.7 5 .46 × 10−8 1.35 × 1035 5451.6 2.38 5.56
+Graham_1 15.5 261.8 9 .75 × 10−9 2.08 × 1034 3708.6 3.55 7.65
+Gulliver_10 9.3 79.3 4 .12 × 10−10 6.87 × 1032 1211.8 1.03 2.76
+Gulliver_2 6.6 229.8 1 .14 × 10−8 2.51 × 1034 3222.2 1.15 7.25
+Gulliver_29 10.7 1590.8 1 .33 × 10−7 3.10 × 1035 21921.7 1.35 5.18
+Gulliver_46 11.7 698.8 4 .74 × 10−8 1.08 × 1035 9695.9 2.66 13.71
+Gulliver_48 18.2 640.0 1 .71 × 10−8 3.51 × 1034 9178.5 1.96 3.22
+Gulliver_6 16.6 353.0 1 .14 × 10−8 2.39 × 1034 5027.1 0.99 4.65
+Gulliver_8 21.4 102.7 9 .51 × 10−10 1.72 × 1033 1534.7 1.24 5.89
+Gulliver_9 17.8 276.3 7 .73 × 10−9 1.60 × 1034 3956.0 0.45 5.05
+Haffner_13 20.4 231.6 4 .90 × 10−9 9.79 × 1033 3350.8 0.42 5.23
+Haffner_15 25.7 1233.1 1 .65 × 10−8 3.12 × 1034 18158.1 2.01 9.57
+Haffner_18 14.1 702.3 3 .18 × 10−8 6.94 × 1034 9880.4 2.83 6.19
+Havlen_Moffat_1 8.9 666.1 8 .57 × 10−8 2.10 × 1035 9054.4 4.24 11.11
+Table continues in the next page
+Article number, page 14 of 19
+
+=== PAGE BREAK ===
+
+S. Celli et al.: Mass and wind luminosity of young Galactic open clusters in Gaia DR2
+Table continues from the previous page
+Name Age [Myr] Mc [M⊙] ˙Mc [M⊙/yr] Lw,c [erg/s] k M∗
+min [M⊙] M∗
+max [M⊙]
+Hogg_10 6.1 120.1 1 .58 × 10−9 2.99 × 1033 1768.8 1.97 3.35
+Hogg_15 2.2 1064.0 1 .27 × 10−5 8.84 × 1036 13784.9 2.84 10.66
+Hogg_19 18.6 333.2 8 .48 × 10−9 1.73 × 1034 4786.4 1.95 5.28
+IC_1396 12.0 614.2 3 .95 × 10−8 8.97 × 1034 8537.3 1.10 7.10
+IC_1442 19.5 1018.6 2 .36 × 10−8 4.78 × 1034 14684.6 2.41 4.99
+IC_1590 6.2 567.2 1 .43 × 10−7 3.79 × 1035 7558.5 1.97 9.38
+IC_1805 7.6 891.2 1 .71 × 10−7 4.39 × 1035 11971.2 2.34 13.82
+IC_1848 15.8 1846.8 6 .56 × 10−8 1.39 × 1035 26207.5 1.58 8.28
+IC_2391 28.8 159.7 1 .70 × 10−9 3.13 × 1033 2372.1 0.28 3.43
+IC_2395 20.4 388.9 8 .22 × 10−9 1.64 × 1034 5626.5 0.51 5.85
+IC_2581 10.2 541.4 5 .03 × 10−8 1.19 × 1035 7435.0 1.71 9.19
+IC_348 11.7 101.3 9 .17 × 10−10 1.66 × 1033 1514.8 1.52 2.53
+IC_4996 11.2 436.6 3 .28 × 10−8 7.58 × 1034 6037.4 1.55 7.56
+IC_5146 1.0 77.0 3 .79 × 10−10 6.27 × 1032 1178.2 1.29 5.57
+Juchert_18 24.5 213.3 3 .12 × 10−9 5.98 × 1033 3129.2 1.72 4.42
+Juchert_19 8.1 215.0 9 .47 × 10−9 2.06 × 1034 3027.7 2.52 9.33
+Juchert_3 1.0 2157.7 3 .16 × 10−6 1.05 × 1037 27306.8 4.95 5.42
+Juchert_9 11.5 334.6 2 .39 × 10−8 5.48 × 1034 4635.2 1.97 6.03
+King_10 17.4 1848.8 5 .42 × 10−8 1.13 × 1035 26419.9 2.33 9.21
+King_12 18.6 675.3 1 .72 × 10−8 3.51 × 1034 9700.9 2.65 7.35
+Koposov_53 16.2 485.1 1 .64 × 10−8 3.46 × 1034 6895.8 2.25 4.96
+Kronberger_1 6.0 321.2 2 .89 × 10−8 6.81 × 1034 4415.6 2.11 6.07
+LDN_988e 4.7 14.8 1 .02 × 10−12 2.79 × 1029 276.7 1.70 2.97
+LP_403 26.3 978.4 1 .25 × 10−8 2.36 × 1034 14433.7 1.64 4.73
+L_1641S 4.2 118.4 1 .52 × 10−9 2.87 × 1033 1746.1 1.93 3.24
+Lynga_6 3.1 454.1 7 .68 × 10−8 1.95 × 1035 6122.4 2.62 5.65
+Mamajek_1 9.8 26.9 7 .96 × 10−12 4.47 × 1030 462.4 1.09 2.68
+Markarian_38 15.8 66.3 2 .10 × 10−10 3.21 × 1032 1031.2 1.42 3.22
+Markarian_50 11.5 307.3 1 .20 × 10−5 9.24 × 1036 4256.0 1.66 5.59
+Mayer_1 28.8 230.3 2 .45 × 10−9 4.52 × 1033 3422.2 1.63 5.62
+Muzzio_1 7.8 265.2 1 .68 × 10−8 3.82 × 1034 3688.3 2.26 6.55
+NGC_1444 9.8 132.3 2 .13 × 10−9 4.13 × 1033 1934.0 1.86 5.55
+NGC_1502 10.5 887.9 7 .81 × 10−8 1.84 × 1035 12214.5 1.70 6.12
+NGC_1579 3.8 234.9 1 .21 × 10−8 2.69 × 1034 3289.7 2.24 2.79
+NGC_1624 4.5 312.4 2 .68 × 10−8 6.28 × 1034 4300.8 3.05 3.98
+NGC_1893 4.4 1205.1 9 .57 × 10−7 2.91 × 1036 15548.1 2.14 8.23
+NGC_1960 28.2 886.1 9 .87 × 10−9 1.83 × 1034 13142.7 1.18 5.90
+NGC_1980 13.2 130.4 2 .03 × 10−9 3.92 × 1033 1908.9 0.95 2.85
+NGC_2129 16.6 466.7 1 .51 × 10−8 3.16 × 1034 6646.3 1.63 12.97
+NGC_2169 12.3 198.9 7 .52 × 10−9 1.61 × 1034 2815.6 1.20 4.77
+NGC_2183 17.4 72.9 3 .00 × 10−10 4.81 × 1032 1123.2 1.00 2.91
+NGC_2232 17.8 179.0 5 .01 × 10−9 1.03 × 1034 2561.8 0.40 4.59
+NGC_2244 12.6 2096.9 1 .22 × 10−7 2.73 × 1035 29244.9 1.45 8.62
+NGC_2264 27.5 291.5 3 .40 × 10−9 6.34 × 1033 4316.0 1.03 4.22
+NGC_2362 5.8 591.7 1 .61 × 10−7 4.30 × 1035 7868.7 1.14 5.29
+NGC_2367 14.1 194.0 6 .94 × 10−9 1.47 × 1034 2751.6 1.53 7.33
+NGC_2414 17.8 1242.5 3 .48 × 10−8 7.18 × 1034 17786.3 2.20 6.35
+NGC_2439 11.7 2711.8 1 .84 × 10−7 4.19 × 1035 37625.5 1.42 17.13
+NGC_2453 25.1 720.1 1 .01 × 10−8 1.92 × 1034 10585.0 1.80 13.74
+NGC_2571 26.9 460.0 5 .61 × 10−9 1.05 × 1034 6798.4 0.99 5.82
+NGC_2645 25.7 196.1 2 .62 × 10−9 4.97 × 1033 2887.3 1.49 6.19
+NGC_3105 21.9 909.0 1 .67 × 10−8 3.29 × 1034 13220.9 2.94 11.39
+NGC_3293 10.2 2051.5 1 .90 × 10−7 4.50 × 1035 28173.4 1.52 14.35
+NGC_3324 10.7 443.5 3 .70 × 10−8 8.65 × 1034 6112.1 2.76 10.42
+NGC_3572 4.8 542.8 1 .26 × 10−7 3.32 × 1035 7249.3 1.51 7.38
+NGC_3590 26.3 906.5 1 .16 × 10−8 2.18 × 1034 13372.3 1.48 10.70
+NGC_3603 1.0 4808.4 7 .21 × 10−5 4.60 × 1037 59700.4 3.09 13.31
+Table continues in the next page
+Article number, page 15 of 19
+
+=== PAGE BREAK ===
+
+A&A proofs: manuscript no. main
+Table continues from the previous page
+Name Age [Myr] Mc [M⊙] ˙Mc [M⊙/yr] Lw,c [erg/s] k M∗
+min [M⊙] M∗
+max [M⊙]
+NGC_366 25.7 1024.4 1 .37 × 10−8 2.60 × 1034 15085.4 1.83 8.43
+NGC_3766 22.9 2427.6 4 .08 × 10−8 7.94 × 1034 35431.2 1.36 14.35
+NGC_4103 20.9 1483.2 2 .99 × 10−8 5.96 × 1034 21495.8 1.39 12.33
+NGC_4463 28.8 304.5 3 .24 × 10−9 5.97 × 1033 4524.3 1.37 13.22
+NGC_457 20.9 2938.2 5 .93 × 10−8 1.18 × 1035 42582.2 1.37 14.66
+NGC_4755 12.0 3290.4 2 .12 × 10−7 4.81 × 1035 45732.7 1.41 12.13
+NGC_5606 18.2 307.6 8 .21 × 10−9 1.69 × 1034 4411.5 1.80 6.80
+NGC_581 27.5 725.0 8 .45 × 10−9 1.58 × 1034 10734.0 2.29 12.97
+NGC_6178 16.6 176.3 5 .13 × 10−9 1.07 × 1034 2520.7 1.49 4.65
+NGC_6193 5.1 1733.4 9 .16 × 10−7 2.65 × 1036 22626.8 1.31 8.12
+NGC_6231 13.8 3198.8 3 .75 × 10−5 4.15 × 1037 44922.7 1.64 12.58
+NGC_6249 20.4 336.9 7 .12 × 10−9 1.42 × 1034 4874.4 1.34 3.66
+NGC_6250 24.0 293.6 4 .50 × 10−9 8.67 × 1033 4301.0 1.21 5.51
+NGC_6318 9.8 2205.2 2 .28 × 10−7 5.46 × 1035 30181.0 2.67 7.37
+NGC_6322 14.8 325.4 1 .34 × 10−8 2.88 × 1034 4593.8 1.50 7.70
+NGC_6357 1.0 1387.8 1 .34 × 10−6 4.18 × 1036 17800.2 3.61 11.86
+NGC_6383 4.0 724.0 2 .78 × 10−7 7.75 × 1035 9534.7 1.24 5.51
+NGC_6396 15.1 899.1 3 .52 × 10−8 7.54 × 1034 12714.7 2.84 6.16
+NGC_6451 25.7 1633.0 2 .18 × 10−8 4.14 × 1034 24046.7 2.86 9.63
+NGC_6531 12.9 670.0 3 .70 × 10−8 8.26 × 1034 9359.9 1.27 5.61
+NGC_654 9.8 2547.7 2 .63 × 10−7 6.31 × 1035 34868.0 1.67 13.97
+NGC_6561 18.6 297.8 7 .58 × 10−9 1.55 × 1034 4278.3 1.39 6.22
+NGC_659 15.5 1486.7 5 .54 × 10−8 1.18 × 1035 21061.4 2.83 7.58
+NGC_6611 2.1 1697.0 1 .98 × 10−6 6.34 × 1036 21637.2 2.28 8.58
+NGC_6613 18.2 130.7 2 .04 × 10−9 3.94 × 1033 1913.7 1.41 4.24
+NGC_663 29.5 3820.9 3 .88 × 10−8 7.12 × 1034 56872.5 2.63 13.39
+NGC_6823 2.4 1369.6 1 .30 × 10−6 4.06 × 1036 17574.7 2.19 7.03
+NGC_6834 19.1 1733.4 4 .21 × 10−8 8.56 × 1034 24945.5 1.84 12.87
+NGC_6871 5.5 2822.3 1 .25 × 10−6 3.53 × 1036 37026.6 1.63 10.75
+NGC_6910 13.5 1193.8 5 .97 × 10−8 1.32 × 1035 16736.5 2.40 10.93
+NGC_6913 21.9 686.9 1 .26 × 10−8 2.49 × 1034 9990.0 2.15 6.35
+NGC_7039 21.9 215.2 3 .96 × 10−9 7.80 × 1033 3129.6 1.07 5.12
+NGC_7067 6.2 822.1 2 .68 × 10−7 7.34 × 1035 10876.5 2.94 9.51
+NGC_7128 26.3 1236.5 1 .58 × 10−8 2.98 × 1034 18240.8 2.38 13.43
+NGC_7129 21.4 95.6 7 .59 × 10−10 1.35 × 1033 1436.9 1.61 2.60
+NGC_7160 14.5 211.8 9 .05 × 10−9 1.96 × 1034 2986.1 1.51 5.82
+NGC_7235 9.3 1551.8 1 .79 × 10−7 4.34 × 1035 21165.0 2.36 15.22
+NGC_7261 11.2 706.7 5 .31 × 10−8 1.23 × 1035 9772.1 2.50 9.54
+NGC_7380 4.2 810.7 3 .74 × 10−7 1.07 × 1036 10622.2 2.20 8.85
+NGC_7510 19.5 2567.7 5 .96 × 10−8 1.20 × 1035 37016.4 1.90 12.33
+NGC_7788 17.4 941.2 2 .76 × 10−8 5.73 × 1034 13450.3 1.49 5.75
+NGC_869 15.1 3678.7 1 .44 × 10−7 3.09 × 1035 52022.7 2.31 14.41
+NGC_884 17.8 2293.3 6 .42 × 10−8 1.32 × 1035 32828.8 2.31 7.91
+Negueruela_1 17.0 421.7 1 .30 × 10−8 2.71 × 1034 6015.2 2.08 14.98
+Patchick_94 3.5 3692.3 4 .75 × 10−6 1.54 × 1037 46930.1 4.84 5.19
+Pismis_1 29.5 540.1 5 .49 × 10−9 1.01 × 1034 8039.5 1.91 5.38
+Pismis_11 3.3 590.5 1 .60 × 10−7 4.29 × 1035 7852.2 2.64 8.19
+Pismis_17 25.1 143.3 2 .00 × 10−9 3.82 × 1033 2106.2 1.57 2.92
+Pismis_27 5.4 212.4 9 .18 × 10−9 1.99 × 1034 2992.5 1.67 5.89
+Pismis_5 10.0 276.1 1 .88 × 10−8 4.30 × 1034 3830.4 1.78 6.22
+Pismis_Moreno_1 8.9 162.2 3 .99 × 10−9 8.11 × 1033 2333.4 1.28 7.52
+Pozzo_1 9.5 342.7 3 .45 × 10−8 8.25 × 1034 4693.5 0.42 5.91
+RSG_8 26.9 204.6 2 .50 × 10−9 4.68 × 1033 3023.1 0.82 5.78
+Riddle_4 26.9 392.1 4 .78 × 10−9 8.97 × 1033 5794.1 2.20 12.13
+Roslund_2 11.5 730.1 5 .21 × 10−8 1.20 × 1035 10112.5 2.11 9.91
+Roslund_4 17.0 314.9 9 .69 × 10−9 2.02 × 1034 4492.8 2.35 6.82
+Ruprecht_127 13.5 715.9 3 .58 × 10−8 7.90 × 1034 10037.1 2.42 8.05
+Table continues in the next page
+Article number, page 16 of 19
+
+=== PAGE BREAK ===
+
+S. Celli et al.: Mass and wind luminosity of young Galactic open clusters in Gaia DR2
+Table continues from the previous page
+Name Age [Myr] Mc [M⊙] ˙Mc [M⊙/yr] Lw,c [erg/s] k M∗
+min [M⊙] M∗
+max [M⊙]
+Ruprecht_138 9.5 1086.9 1 .19 × 10−7 2.86 × 1035 14849.9 2.60 4.42
+Ruprecht_32 5.0 257.0 1 .55 × 10−8 3.49 × 1034 3579.5 2.76 5.03
+Ruprecht_44 14.5 731.1 1 .20 × 10−5 9.23 × 1036 10303.4 2.58 7.25
+Ruprecht_47 29.5 334.6 3 .40 × 10−9 6.23 × 1033 4979.7 1.46 3.57
+Ruprecht_65 22.9 237.2 3 .98 × 10−9 7.76 × 1033 3461.8 1.55 5.61
+Ruprecht_71 21.4 229.7 4 .43 × 10−9 8.76 × 1033 3334.6 1.34 3.92
+Ruprecht_77 12.3 192.0 6 .73 × 10−9 1.43 × 1034 2725.4 2.28 4.91
+Ruprecht_78 17.8 1250.3 3 .50 × 10−8 7.22 × 1034 17898.9 3.11 4.70
+Ruprecht_94 24.5 351.2 5 .14 × 10−9 9.85 × 1033 5152.8 1.70 6.40
+SAI_113 8.9 560.8 7 .22 × 10−8 1.77 × 1035 7623.0 2.06 6.32
+SAI_24 6.9 627.1 1 .52 × 10−7 4.01 × 1035 8367.3 1.93 10.29
+SAI_25 1.6 490.5 9 .58 × 10−8 2.47 × 1035 6584.9 3.20 4.79
+Schuster_1 6.3 84.5 5 .15 × 10−10 8.81 × 1032 1282.4 2.66 5.59
+Sher_1 13.2 702.4 1 .20 × 10−5 9.22 × 1036 9830.3 3.56 14.92
+Shorlin_1 3.2 211.2 9 .08 × 10−9 1.97 × 1034 2976.8 3.15 3.45
+Sigma_Ori 1.3 113.4 1 .34 × 10−9 2.50 × 1033 1677.5 1.16 4.58
+Skiff_J2330+60.2 20.4 354.4 7 .49 × 10−9 1.50 × 1034 5127.5 2.72 7.75
+Stephenson_1 28.2 89.5 6 .11 × 10−10 1.06 × 1033 1352.5 0.41 5.57
+Stock_16 6.0 340.2 3 .40 × 10−8 8.10 × 1034 4661.1 2.59 6.78
+Stock_17 10.0 80.1 4 .25 × 10−10 7.11 × 1032 1221.9 1.80 2.59
+Stock_18 13.2 245.3 1 .29 × 10−8 2.86 × 1034 3432.4 2.07 5.43
+Stock_20 19.1 254.1 6 .17 × 10−9 1.25 × 1034 3656.3 2.27 8.50
+Stock_8 14.5 1778.7 7 .67 × 10−8 1.66 × 1035 25066.0 1.59 10.28
+Teutsch_1 27.5 378.2 4 .41 × 10−9 8.22 × 1033 5599.7 2.29 3.88
+Teutsch_125 8.7 247.3 1 .39 × 10−8 3.10 × 1034 3452.6 2.41 4.35
+Teutsch_127 11.5 352.9 2 .52 × 10−8 5.78 × 1034 4887.5 2.42 6.40
+Teutsch_13 7.9 252.2 1 .47 × 10−8 3.29 × 1034 3517.8 2.46 4.46
+Teutsch_23 5.6 537.3 1 .23 × 10−7 3.22 × 1035 7180.1 3.18 5.13
+Teutsch_30 28.8 217.4 2 .31 × 10−9 4.26 × 1033 3230.6 2.04 9.60
+Teutsch_42 1.3 480.0 9 .02 × 10−8 2.31 × 1035 6451.7 6.39 7.12
+Teutsch_8 4.0 236.6 1 .24 × 10−8 2.74 × 1034 3311.6 2.04 4.79
+Teutsch_85 4.0 760.3 3 .17 × 10−7 8.91 × 1035 9990.8 3.29 14.30
+Trumpler_1 28.8 572.4 6 .09 × 10−9 1.12 × 1034 8504.6 2.43 5.24
+Trumpler_11 27.5 437.2 5 .10 × 10−9 9.50 × 1033 6473.1 1.42 5.12
+Trumpler_15 8.9 925.4 1 .19 × 10−7 2.92 × 1035 12578.7 2.03 7.16
+Trumpler_16 13.5 1106.9 1 .20 × 10−5 9.21 × 1036 15518.1 2.64 7.19
+Trumpler_17 20.0 1001.2 2 .22 × 10−8 4.46 × 1034 14459.0 1.46 6.59
+UBC_101 28.2 525.0 5 .84 × 10−9 1.08 × 1034 7785.7 2.36 5.47
+UBC_103 22.4 883.0 1 .55 × 10−8 3.04 × 1034 12865.6 2.69 5.51
+UBC_10a 14.1 205.4 8 .31 × 10−9 1.79 × 1034 2901.5 1.39 5.77
+UBC_126 20.0 434.4 9 .62 × 10−9 1.93 × 1034 6273.1 1.89 4.37
+UBC_130 27.5 605.8 7 .06 × 10−9 1.32 × 1034 8969.1 1.79 13.10
+UBC_135 24.0 654.5 1 .00 × 10−8 1.93 × 1034 9586.0 2.66 12.33
+UBC_159 14.5 112.1 1 .26 × 10−9 2.34 × 1033 1662.3 1.02 4.10
+UBC_167 21.9 224.6 4 .13 × 10−9 8.14 × 1033 3266.6 1.42 3.50
+UBC_173 13.2 2024.1 1 .06 × 10−7 2.36 × 1035 28327.4 2.47 6.03
+UBC_174 10.0 1724.5 1 .69 × 10−7 4.02 × 1035 23641.9 2.41 7.31
+UBC_176 6.9 1082.9 2 .62 × 10−7 6.92 × 1035 14448.0 1.88 5.23
+UBC_177 27.5 184.0 2 .14 × 10−9 4.00 × 1033 2724.1 1.21 6.29
+UBC_178 10.2 307.9 2 .56 × 10−8 5.97 × 1034 4244.0 1.90 7.69
+UBC_17a 18.6 228.3 5 .81 × 10−9 1.19 × 1034 3279.6 1.00 4.28
+UBC_17b 11.5 173.7 4 .91 × 10−9 1.02 × 1034 2485.0 0.95 3.65
+UBC_182 13.5 151.5 3 .22 × 10−9 6.45 × 1033 2191.4 1.24 2.52
+UBC_186 23.4 3003.5 4 .82 × 10−8 9.33 × 1034 43915.4 1.37 12.97
+UBC_187 17.8 115.6 1 .38 × 10−9 2.59 × 1033 1709.5 1.07 2.58
+UBC_188 26.3 363.0 4 .63 × 10−9 8.74 × 1033 5354.4 1.39 4.60
+UBC_19 6.9 142.8 2 .71 × 10−9 5.36 × 1033 2075.0 1.99 3.05
+UBC_190 18.6 624.7 1 .59 × 10−8 3.25 × 1034 8973.9 2.14 5.78
+Table continues in the next page
+Article number, page 17 of 19
+
+=== PAGE BREAK ===
+
+A&A proofs: manuscript no. main
+Table continues from the previous page
+Name Age [Myr] Mc [M⊙] ˙Mc [M⊙/yr] Lw,c [erg/s] k M∗
+min [M⊙] M∗
+max [M⊙]
+UBC_191 18.2 677.6 1 .81 × 10−8 3.72 × 1034 9717.3 2.27 14.64
+UBC_204 14.8 322.6 1 .32 × 10−8 2.86 × 1034 4553.9 1.70 3.96
+UBC_207 15.1 122.7 1 .68 × 10−9 3.19 × 1033 1805.2 0.88 1.35
+UBC_224 14.8 1135.3 4 .66 × 10−8 1.01 × 1035 16026.3 1.47 13.12
+UBC_236 18.2 477.8 1 .28 × 10−8 2.62 × 1034 6851.7 2.85 5.24
+UBC_238 19.5 1395.5 3 .24 × 10−8 6.54 × 1034 20117.6 2.50 15.16
+UBC_261 18.6 861.4 2 .19 × 10−8 4.48 × 1034 12374.7 1.73 4.74
+UBC_263 25.1 384.6 5 .38 × 10−9 1.03 × 1034 5653.5 1.49 6.17
+UBC_266 12.9 949.5 5 .25 × 10−8 1.17 × 1035 13266.1 1.69 8.83
+UBC_267 12.9 695.0 3 .84 × 10−8 8.57 × 1034 9709.4 1.71 8.02
+UBC_287 23.4 513.9 8 .24 × 10−9 1.60 × 1034 7513.2 1.67 5.67
+UBC_291 25.1 416.8 5 .83 × 10−9 1.11 × 1034 6127.2 1.75 4.91
+UBC_293 20.0 648.4 1 .44 × 10−8 2.89 × 1034 9364.3 1.67 4.88
+UBC_31 26.3 278.7 3 .56 × 10−9 6.71 × 1033 4111.6 1.53 2.55
+UBC_318 11.2 1944.4 1 .46 × 10−7 3.38 × 1035 26886.0 1.84 7.65
+UBC_320 17.8 1135.3 3 .18 × 10−8 6.56 × 1034 16252.9 2.43 5.61
+UBC_323 8.9 1694.8 2 .18 × 10−7 5.36 × 1035 23037.2 1.54 12.74
+UBC_334 20.0 2375.6 5 .26 × 10−8 1.06 × 1035 34307.6 2.56 5.57
+UBC_341 21.9 992.8 1 .83 × 10−8 3.60 × 1034 14438.6 2.24 5.08
+UBC_342 14.1 464.8 2 .11 × 10−8 4.59 × 1034 6539.0 1.66 5.58
+UBC_343 20.0 762.3 1 .69 × 10−8 3.39 × 1034 11009.2 1.61 5.05
+UBC_344 3.5 3715.1 5 .02 × 10−6 1.65 × 1037 47141.1 2.63 10.01
+UBC_345 14.5 477.1 2 .06 × 10−8 4.46 × 1034 6724.1 2.55 8.34
+UBC_352 6.9 1227.5 2 .97 × 10−7 7.85 × 1035 16376.7 2.74 4.56
+UBC_353 29.5 416.7 4 .23 × 10−9 7.76 × 1033 6202.9 2.17 3.61
+UBC_355 24.5 675.6 9 .89 × 10−9 1.90 × 1034 9913.6 2.53 4.65
+UBC_357 6.6 1270.1 3 .46 × 10−7 9.27 × 1035 16888.0 2.63 5.02
+UBC_367 21.9 269.3 4 .96 × 10−9 9.76 × 1033 3916.2 2.50 7.15
+UBC_368 22.4 245.9 4 .32 × 10−9 8.46 × 1033 3582.6 1.49 4.80
+UBC_379 18.2 431.0 1 .15 × 10−8 2.36 × 1034 6181.1 2.50 4.30
+UBC_385 19.5 141.6 2 .61 × 10−9 5.14 × 1033 2059.4 1.50 4.74
+UBC_386 6.5 153.9 3 .41 × 10−9 6.85 × 1033 2222.5 1.65 6.13
+UBC_388 15.5 1002.4 3 .73 × 10−8 7.97 × 1034 14200.5 2.17 10.36
+UBC_393 8.5 1116.9 1 .61 × 10−7 4.00 × 1035 15130.2 1.76 6.15
+UBC_412 21.4 533.9 1 .03 × 10−8 2.04 × 1034 7751.1 2.64 4.51
+UBC_414 29.5 215.1 2 .19 × 10−9 4.01 × 1033 3202.1 1.59 6.11
+UBC_415 23.4 57.1 1 .20 × 10−10 1.65 × 1032 901.2 1.11 6.95
+UBC_418 22.9 1361.2 2 .29 × 10−8 4.45 × 1034 19867.3 2.54 8.10
+UBC_423 16.6 207.3 6 .69 × 10−9 1.40 × 1034 2951.8 2.09 4.67
+UBC_438 4.4 525.3 1 .15 × 10−7 3.01 × 1035 7027.3 2.85 5.54
+UBC_455 13.2 158.9 3 .73 × 10−9 7.55 × 1033 2289.9 2.02 5.32
+UBC_464 14.1 456.5 2 .07 × 10−8 4.51 × 1034 6422.5 2.34 9.44
+UBC_468 11.0 462.3 3 .66 × 10−8 8.51 × 1034 6381.1 2.33 7.06
+UBC_479 20.4 247.7 5 .24 × 10−9 1.05 × 1034 3583.6 1.44 2.80
+UBC_482 26.9 498.6 6 .08 × 10−9 1.14 × 1034 7368.5 1.38 5.12
+UBC_487 26.3 205.2 2 .62 × 10−9 4.94 × 1033 3026.8 1.66 13.36
+UBC_489 10.5 622.7 5 .48 × 10−8 1.29 × 1035 8566.5 1.60 5.90
+UBC_504 11.2 294.1 2 .21 × 10−8 5.10 × 1034 4066.2 1.54 3.74
+UBC_51 10.0 193.2 6 .88 × 10−9 1.46 × 1034 2740.9 1.36 3.10
+UBC_510 15.5 252.1 9 .39 × 10−9 2.00 × 1034 3571.6 1.72 3.92
+UBC_515 8.1 284.2 2 .04 × 10−8 4.70 × 1034 3935.3 1.81 3.62
+UBC_517 22.4 413.5 7 .27 × 10−9 1.42 × 1034 6023.8 1.56 3.13
+UBC_522 15.1 512.2 2 .00 × 10−8 4.30 × 1034 7243.7 1.93 5.36
+UBC_525 11.7 413.8 2 .80 × 10−8 6.40 × 1034 5742.0 1.72 7.54
+UBC_526 18.2 143.8 2 .74 × 10−9 5.41 × 1033 2088.5 1.95 5.64
+UBC_535 17.8 305.0 8 .53 × 10−9 1.76 × 1034 4366.0 1.82 3.80
+UBC_541 21.9 860.1 1 .58 × 10−8 3.12 × 1034 12509.4 2.91 4.96
+UBC_547 15.1 1897.3 7 .42 × 10−8 1.59 × 1035 26830.2 2.47 6.61
+Table continues in the next page
+Article number, page 18 of 19
+
+=== PAGE BREAK ===
+
+S. Celli et al.: Mass and wind luminosity of young Galactic open clusters in Gaia DR2
+Table continues from the previous page
+Name Age [Myr] Mc [M⊙] ˙Mc [M⊙/yr] Lw,c [erg/s] k M∗
+min [M⊙] M∗
+max [M⊙]
+UBC_552 11.2 515.2 3 .87 × 10−8 8.94 × 1034 7124.2 2.68 7.02
+UBC_553 13.2 255.8 1 .34 × 10−8 2.98 × 1034 3579.9 1.84 6.77
+UBC_558 7.2 2244.1 4 .83 × 10−7 1.26 × 1036 30041.9 2.56 5.45
+UBC_559 11.5 1460.6 1 .04 × 10−7 2.39 × 1035 20231.6 2.58 9.08
+UBC_562 11.7 815.5 5 .53 × 10−8 1.26 × 1035 11315.5 2.71 6.35
+UBC_564 25.7 702.7 9 .39 × 10−9 1.78 × 1034 10347.3 2.82 9.88
+UBC_565 9.1 1223.7 1 .49 × 10−7 3.64 × 1035 16662.4 2.83 5.93
+UBC_568 5.6 766.9 3 .19 × 10−7 8.97 × 1035 10078.7 3.32 12.28
+UBC_578 21.9 272.9 5 .02 × 10−9 9.89 × 1033 3969.7 2.63 4.20
+UBC_584 14.1 144.9 2 .81 × 10−9 5.57 × 1033 2103.0 1.97 3.89
+UBC_587 14.5 604.3 2 .61 × 10−8 5.65 × 1034 8516.5 3.13 6.07
+UBC_590 11.7 259.7 1 .59 × 10−8 3.58 × 1034 3616.6 2.54 4.66
+UBC_604 15.5 393.0 1 .46 × 10−8 3.12 × 1034 5567.0 2.52 5.27
+UBC_608 20.4 701.9 1 .48 × 10−8 2.97 × 1034 10154.4 2.48 6.44
+UBC_609 5.6 2886.6 1 .20 × 10−6 3.38 × 1036 37933.3 2.17 7.89
+UBC_612 16.2 152.7 3 .29 × 10−9 6.60 × 1033 2207.1 2.48 12.64
+UBC_633 13.8 227.9 1 .08 × 10−8 2.38 × 1034 3199.9 3.36 8.04
+UBC_646 22.9 165.9 2 .79 × 10−9 5.42 × 1033 2420.9 2.13 12.59
+UBC_652 10.0 123.0 1 .70 × 10−9 3.23 × 1033 1808.6 1.79 5.62
+UBC_654 8.9 1458.8 1 .88 × 10−7 4.61 × 1035 19830.0 2.63 4.65
+UBC_659 27.5 209.6 2 .44 × 10−9 4.56 × 1033 3103.7 1.96 4.13
+UBC_672 10.5 287.7 2 .11 × 10−8 4.86 × 1034 3981.0 2.00 2.53
+UBC_80 29.5 219.4 2 .23 × 10−9 4.09 × 1033 3265.2 1.42 2.65
+UBC_9 26.3 33.5 1 .77 × 10−11 1.32 × 1031 560.5 0.71 3.77
+UPK_126 13.5 55.4 1 .09 × 10−10 1.47 × 1032 877.5 1.47 2.65
+UPK_150 25.7 353.8 4 .73 × 10−9 8.96 × 1033 5209.9 1.54 3.72
+UPK_166 26.9 434.2 5 .30 × 10−9 9.93 × 1033 6416.4 0.89 4.57
+UPK_169 13.8 255.1 1 .21 × 10−8 2.66 × 1034 3582.2 1.53 7.93
+UPK_201 15.8 130.8 2 .05 × 10−9 3.95 × 1033 1914.0 1.73 4.31
+UPK_38 14.5 57.7 1 .27 × 10−10 1.76 × 1032 910.3 1.40 6.49
+UPK_385 11.7 19.8 2 .67 × 10−12 1.02 × 1030 354.3 0.36 2.00
+UPK_398 10.7 56.8 1 .20 × 10−10 1.66 × 1032 897.5 1.03 1.96
+UPK_402 7.2 27.9 9 .27 × 10−12 5.51 × 1030 478.2 1.08 1.81
+UPK_422 19.5 94.7 7 .38 × 10−10 1.31 × 1033 1424.8 0.39 5.45
+UPK_436 25.7 337.2 4 .51 × 10−9 8.54 × 1033 4965.4 1.29 2.97
+UPK_445 12.9 116.6 1 .43 × 10−9 2.68 × 1033 1722.2 1.10 3.20
+UPK_599 19.5 151.9 3 .24 × 10−9 6.48 × 1033 2197.3 0.71 3.68
+UPK_607 15.5 118.0 1 .48 × 10−9 2.78 × 1033 1741.3 1.13 2.66
+UPK_621 26.3 149.9 1 .91 × 10−9 3.61 × 1033 2211.6 0.87 2.92
+UPK_640 25.1 413.5 5 .78 × 10−9 1.10 × 1034 6078.2 0.35 3.62
+Waterloo_1 16.6 633.6 2 .04 × 10−8 4.29 × 1034 9023.4 2.40 6.29
+Westerlund_1 7.9 22227.1 3 .01 × 10−4 3.15 × 1038 299575.2 5.51 6.67
+Westerlund_2 4.0 2172.3 2 .61 × 10−5 1.75 × 1037 27841.0 3.26 9.19
+vdBergh_80 6.5 128.9 1 .97 × 10−9 3.80 × 1033 1887.3 1.35 5.61
+vdBergh_85 4.4 127.0 1 .89 × 10−9 3.64 × 1033 1861.6 1.72 3.72
+vdBergh_92 7.8 363.3 4 .08 × 10−8 9.86 × 1034 4959.4 1.22 6.56
+Table ends from the previous page
+Article number, page 19 of 19
