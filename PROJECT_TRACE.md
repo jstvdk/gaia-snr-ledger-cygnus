@@ -949,10 +949,32 @@ between them is exactly what prediction G2 anticipated.
    response matrix. D2 is direct evidence that mass estimates shift enough to
    move stars across a threshold; nothing makes that stop at 8 M☉. Scope is the
    full chain.
-3. **It does not block WP7**, which is pure computation on frozen inputs and
-   consumes `k`, the WP4 ages and the runaway correction — none of which D1
-   suggests will move materially. WP7 and `repair_v7` can run in parallel
-   provided WP7's inputs are re-checked before publication.
+3. **It does not block WP7 — now measured, not assumed**
+   ([wp5_fbin_k_impact_execution.json](provenance/wp5_fbin_k_impact_execution.json)).
+   D1 was a recovery fraction and did not capture mass migration, so the
+   k-relevant quantity was computed directly: P(estimated mass lands inside the
+   2–8 M☉ window | true M), IMF-weighted. Result: **k and therefore N_SN shift
+   by +0.54% ± 0.19%**. Against a Class E branch spread on N_SN of **2.33 to
+   27.42, a factor of 11.8**, the correction is ~2000× smaller than the
+   uncertainty WP7 must report regardless. **WP4 ages, per-star masses, the
+   runaway correction and the lifetimes are bit-identical** — the injection
+   truth model plays no part in fitting real stars. Of WP7's four inputs, only
+   `k` moves, by 0.54%.
+
+   This is categorically different from issues #16 and #17, which were defects
+   of **unknown** size that turned out to be large. Proceeding on a bounded,
+   quantified perturbation is legitimate; proceeding on an unknown one is what
+   produced the two withdrawn results. WP7 results remain **provisional** until
+   re-checked against `repair_v7`, which is cheap because WP7 is pure
+   computation on frozen inputs.
+4. **`repair_v7` is a WP6 fix, not a WP7 fix.** It moves WP6's closure ratio
+   1.099 → ~1.074, removing ~23% of the 9.9% still unexplained. **The same
+   physical error is 0.54% on a window-integrated normalization and 9.87% on a
+   threshold-crossing probability** — an 18× asymmetry produced purely by one
+   quantity being an average and the other a boundary.
+5. **Cost estimate corrected: ~6 h, not 8.** The f_bin change lives entirely in
+   the WP5 injection truth model, so the WP3 and WP4 stages are unnecessary. The
+   `repair_v7` label is a misnomer for what is really a WP5/WP6 re-run.
 
 **The CygOB2-C argument still stands** and was not the part that was wrong: a
 uniform truth-model change moves all subgroups the same way, so `repair_v7`

@@ -1,0 +1,81 @@
+{
+  "created_utc": "2026-07-29T08:15:02.534433+00:00",
+  "script": "scripts/wp5_fbin_k_impact.py",
+  "status": "SUCCESS",
+  "post_hoc": "NOT part of the pre-registered discriminator.  Written after it returned 'repair_v7 JUSTIFIED', to answer a scoping question it did not address: is it safe to run WP7 before the repair?",
+  "parent": "provenance/wp5_fbin_discriminator_execution.json",
+  "environment": {
+    "python": "3.11.15 | packaged by conda-forge | (main, Jun 11 2026, 03:29:05) [Clang 19.1.7 ]",
+    "platform": "macOS-15.6.1-arm64-arm-64bit",
+    "numpy": "2.4.6",
+    "pandas": "3.0.3"
+  },
+  "why_D1_was_not_enough": "D1 measured the RECOVERY FRACTION over the calibration window, which does not capture mass migration: a star can be recovered in both arms while being assigned a different mass.  k is fitted to the COUNTS in the 2-8 Msun observed bins, so the k-relevant quantity is P(estimated mass lands INSIDE the window | true mass), which does capture migration.",
+  "calibration_window_Msun": [
+    2.0,
+    8.0
+  ],
+  "per_node": [
+    {
+      "node": "wp5_fbindisc_ctl_A_age3p713_response.parquet",
+      "window_counts_ctl": 0.71028,
+      "window_counts_trt": 0.70833,
+      "count_shift_fraction": -0.00275,
+      "implied_k_shift_fraction": 0.00275
+    },
+    {
+      "node": "wp5_fbindisc_ctl_B_age3p293_response.parquet",
+      "window_counts_ctl": 0.55654,
+      "window_counts_trt": 0.55284,
+      "count_shift_fraction": -0.00664,
+      "implied_k_shift_fraction": 0.00664
+    },
+    {
+      "node": "wp5_fbindisc_ctl_C_age2p445_response.parquet",
+      "window_counts_ctl": 0.48136,
+      "window_counts_trt": 0.47806,
+      "count_shift_fraction": -0.00686,
+      "implied_k_shift_fraction": 0.00686
+    }
+  ],
+  "result": {
+    "mean_count_shift_fraction": -0.00542,
+    "node_spread": 0.00189,
+    "implied_k_shift_fraction": 0.00542,
+    "implied_N_SN_shift_fraction": 0.00542,
+    "note": "estimated masses migrate OUT of the calibration window under the treatment model -- brighter stars are assigned higher masses and some cross above 8 Msun -- so k must RISE slightly to reproduce the same observed counts.  N_SN is linear in k."
+  },
+  "branch_spread_context": {
+    "N_SN_by_branch": {
+      "PARSEC_alpha2.0": 16.67,
+      "PARSEC_alpha2.3": 6.3,
+      "PARSEC_alpha2.6": 2.33,
+      "MIST_alpha2.0": 27.42,
+      "MIST_alpha2.3": 10.47,
+      "MIST_alpha2.6": 3.91
+    },
+    "min": 2.33,
+    "max": 27.42,
+    "factor": 11.8,
+    "comparison": "the Class E branch spread on N_SN is a factor of 11.8, against a repair_v7 correction of 0.54%.  The branches are carried in parallel by design and cannot be reduced; the correction is about 1988x smaller than the uncertainty WP7 must report regardless."
+  },
+  "what_repair_v7_does_and_does_not_touch": {
+    "untouched": [
+      "WP3 per-star extinctions \u2014 the injection truth model plays no part in fitting real stars",
+      "WP4 ages and per-star masses \u2014 same reason; WP7 depends on these heavily and they are bit-identical",
+      "the WP6 runaway correction \u2014 the traceback uses astrometry, not injections",
+      "stellar lifetimes tau(m) \u2014 from the isochrone families"
+    ],
+    "moved": [
+      "the WP5 normalization k, by +0.54%",
+      "the WP6 closure ratio, 1.099 -> ~1.074, because the 4-8 Msun up-scatter segment carries 23.5% of the predicted observable count and its response shifts by +9.87%"
+    ],
+    "cost_estimate_corrected": "tasks/repair_v7_recommendation.md section 3 costed ~8 h including WP3 and WP4 stages.  Those are unnecessary: the f_bin change lives entirely in the WP5 injection truth model.  Actual scope is WP5 injections (~3 h) + fit + verdict stability + WP6 re-run, about 6 h.  The 'repair_v7' label is a misnomer for what is really a WP5/WP6 re-run."
+  },
+  "conclusion": {
+    "safe_to_run_wp7_first": true,
+    "reasoning": "the perturbation to WP7's only affected input is measured at +0.54%, some three orders of magnitude below the Class E branch spread WP7 must report anyway, and its other inputs are bit-identical.  This is categorically different from issues #16 and #17, which were defects of UNKNOWN size that turned out to be large.  Proceeding on a bounded, quantified perturbation is legitimate; proceeding on an unknown one is what produced the two withdrawn results.",
+    "why_repair_v7_is_still_needed": "it is a WP6 fix, not a WP7 fix.  WP6's residual excess is 9.9% and the repair removes about 23% of what remains unexplained.  The same physical error is 0.54% on a window-integrated normalization and 9.87% on a threshold-crossing probability \u2014 an 18x asymmetry produced purely by one quantity being an average and the other a boundary.",
+    "obligation": "WP7 results computed on the accepted chain are PROVISIONAL until re-checked against repair_v7.  WP7 is pure computation on frozen inputs, so the re-check is cheap."
+  }
+}

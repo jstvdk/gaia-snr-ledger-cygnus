@@ -1,0 +1,2220 @@
+Astronomy &Astrophysics 
+A&A, 703, A111 (2025)
+https://doi.org/10.1051/0004-6361/202555531
+© The Authors 2025
+Deciphering the gamma-ray emission in the Cygnus region
+L. Härer1,⋆
+ , T. Vieu1,⋆, F. Schulze1
+ , C. J. K. Larkin1,2,3
+ , and B. Reville1
+1 Max-Planck-Institut für Kernphysik, Saupfercheckweg 1, 69117 Heidelberg, Germany
+2 Zentrum für Astronomie der Universität Heidelberg, Astronomisches Rechen-Institut, Mönchhofstr. 12-14, 69120 Heidelberg,
+Germany
+3 Max-Planck-Institut für Astronomie, Königstuhl 17, 69117 Heidelberg, Germany
+Received 15 May 2025 / Accepted 29 August 2025
+ABSTRACT
+The Cygnus region is a vast star-forming complex harbouring a population of powerful objects, including massive star clusters and
+associations, Wolf–Rayet stars, pulsars, and supernova remnants. The multi-wavelength picture is far from understood, particularly the
+recent LHAASO detection of multi-degree scale diffuse γ-ray emission up to PeV energies. We aim to model the broadband γ-ray
+data, discriminating plausible scenarios amongst all candidate accelerators. We consider in particular relic hadronic emission from a
+supernova remnant expanding in a low-density environment and inverse Compton emission from stellar-wind termination shocks in
+the Cygnus OB2 stellar association. We first estimated the maximum particle energy from a 3D hydrodynamical simulation of the
+supernova remnant scenario. The transport equation was then solved numerically to determine the radial distribution of non-thermal
+protons and electrons. In order to compute syntheticγ-ray spectra and emission maps, we developed a 3D model of the gas distribution.
+This includes, firstly, a HI component with a low-density superbubble around Cygnus OB2 and, secondly, molecular clouds lying at
+the edge of the superbubble and in the foreground. We find that a powerful ∼50 kyr-old supernova remnant can account for both the
+morphology and spectrum from10 TeV–PeV. At PeV energies, the microquasar Cygnus X-3 and diffuse galactic cosmic rays might also
+contribute to the flux. Below about 10 TeV, hadronic models are incompatible with the expected existence of a superbubble centred on
+Cygnus OB2. Instead, the spectrum is well fitted with inverse Compton emission from electrons accelerated at stellar-wind termination
+shocks in Cygnus OB2, which is in line with existing multi-wavelength limits.
+Key words. acceleration of particles – magnetohydrodynamics (MHD) – ISM: bubbles –
+open clusters and associations: individual: Cygnus OB2 – gamma rays: stars
+1. Introduction
+The Cygnus region is the most massive star-forming complex
+in the Local Arm. It displays rich multi-wavelength emission
+features from radio to ultra-high-energy ( >100 TeV) γ-rays,
+revealing a highly structured environment shaped by the feed-
+back of numerous stellar objects. Unfortunately, the region lies
+in a high extinction patch of the sky, hidden behind a dark lane
+of gas and dust called the Cygnus Rift (see Reipurth & Schneider
+2008, for a review). At a galactic longitude of about 80◦, it is also
+seen tangentially to the direction of galactic rotation, which com-
+plicates distance estimations and makes it difficult to disentangle
+superimposed features along the line of sight. Despite decades of
+extensive studies, the observations remain poorly understood, in
+particular the nature and origin of the structures visible on large
+scales.
+Cygnus was first detected as a diffuse radio source by
+Piddington & Minnett (1952), who named it Cygnus-X (‘X’
+stands for ‘extended’). In addition to the diffuse emission,
+Downes & Rinehart (1966) identified 20 individual HII regions,
+later assigned as DR4–DR23, which appear as prominent radio
+hotspots. The only source of non-thermal (synchrotron) radio
+emission is the supernova remnant γ-Cygni (Xu et al. 2013a).
+The diffuse thermal component comes from material ionised by
+massive stars, especially the stellar association Cygnus OB2,
+which is thought to be responsible for the diffuse emission
+⋆ Corresponding authors: lucia.haerer@mpi-hd.mpg.de;
+thibault@mpi-hd.mpg.de
+in a Strömgren sphere of 2 ◦ in radius. In addition to the dif-
+fuse emission, the compact radio hotspots coincident with dense
+clumps originate from massive stars and protostars within the
+surrounding clusters and star-forming clouds (Knödlseder et al.
+2002; Knödlseder 2004). Enclosing the diffuse radio emission
+is a large ( 18◦ × 13◦) elliptic ring of soft X-rays (0.5–2 keV,
+Cash et al. 1980). This X-ray shell, historically referred to as
+the ‘Cygnus Superbubble’, is thought to have been created by
+the collective feedback of massive stars and past supernovae in
+Cygnus X over the past tens of millions of years (Kimura et al.
+2013; Bluem et al. 2020), though the possibility of a chance coin-
+cidence of X-ray emission along the line of sight is not excluded
+(Uyanıker et al. 2001). Another hint of large-scale feedback in
+Cygnus is the presence of a ring of H α filaments (Dickel et al.
+1969) coincident with the X-ray shell. These observations are
+consistent with the existence of an ionised low-density cavity of
+radius 100–150 pc roughly centred on Cygnus OB2, which could
+act as the source of ionising radiation and mechanical power.
+This notion is consistent with the current stellar-wind power in
+Cygnus OB2 ( 2–3 × 1038 erg s−1, Vieu et al. 2024b) integrated
+over several Myr of stellar activity. Detection of diffuse X-ray
+emission in the close vicinity of Cygnus OB2 at 1–3 keV sug-
+gests that stellar winds are indeed interacting close to the centre
+of the association (Albacete-Colombo et al. 2023). Despite its
+relevance, the relation between the small-scale stellar feedback
+and the large-scale features is still not settled and has received
+scarce attention in the recent literature.
+Stellar feedback in such a complex environment is not
+expected to produce spherically symmetric bubbles but rather
+A111, page 1 of 20
+Open Access article, published by EDP Sciences, under the terms of the Creative Commons Attribution License (https://creativecommons.org/licenses/by/4.0),
+which permits unrestricted use, distribution, and reproduction in any medium, provided the original work is properly cited.
+This article is published in open access under the Subscribe to Open model. Open access funding provided by Max Planck Society.
+
+=== PAGE BREAK ===
+
+Härer, L., et al.: A&A, 703, A111 (2025)
+intricate, asymmetric structures. Critical factors include the wind
+properties of the most massive stars, the inhomogeneous inter-
+stellar medium, and the past activity of supernovae and older
+star clusters in the region (e.g. NGC6913 and NGC6910; see
+Almeida et al. 2023). Mid-infrared observations of Cygnus X
+reveal a rich morphology in the warm dust emission with bright
+photodissociation regions, molecular ridges, extended pillars,
+filaments, and parsec-scale globules (Schneider et al. 2006).
+Most likely, these structures were heated and shaped by the
+Cygnus OB2 association. Far-infrared imaging (Schneider et al.
+2016) shows a complex web of colder molecular clouds inter-
+acting with multiple HII regions, including nascent star clusters
+close to Cygnus OB2, which hints at triggered star-formation
+events. These infrared observations correlate well with the CO
+intensity, which traces molecular hydrogen. The molecular com-
+plex is usually divided between the northern ( l > 80◦) and the
+southern (l < 80◦) clouds. In Cygnus North lies the well-studied
+dense star-forming molecular ridge DR21 (e.g. Hennemann et al.
+2012; Bonne et al. 2023). In Cygnus South, the CO emission
+is more diffuse yet tends to coincide with bright mid-infrared
+emission, particularly at the location of the molecular cloud
+L889 and radio hotspots (e.g. DR9, DR12, DR13, and DR15;
+see Schneider et al. 2006). It is possible that the molecular
+material was shaped by interacting superbubble cavities blown
+by Cygnus OB2, NGC 6913 (or the more extended Cygnus
+OB9 association), and NGC 6910 (e.g. Schneider et al. 2007),
+although the difficulty in measuring accurate distances to both
+cloud material and star clusters complicates any such interpre-
+tation. Recent progress has been made by Zhang et al. (2024),
+who applied an extinction jump method to high resolution CO
+data and concluded that the molecular gas is organised in mul-
+tiple layers between 0.8 and 2 kpc from the Sun. In particular,
+the method successfully disentangles the foreground rift com-
+ponent, which appears to extend out to approximately 1.1 kpc
+and seems to contain more gas than previously anticipated in
+earlier work by Schneider et al. (2006). An intermediate layer
+at 1.3 kpc, with counterparts both in Cygnus North (W75N and
+DR17, see also Gottschalk et al. 2012) and Cygnus South, also
+appears in the foreground of the active star-forming complex,
+the latter being located around 1.6–1.8 kpc. Unfortunately the
+extinction is too high in Cygnus to track extinction jumps out
+to 2 kpc. It is not presently possible to precisely disentangle the
+foreground clouds from the molecular web interacting with the
+star-forming complex at larger distances.
+Finally, identifying coherent stellar groups is not straightfor-
+ward. The stellar population is scattered and diverse, with a large
+age-spread and possible past supernova events (e.g. Reipurth
+& Schneider 2008; Comerón & Pasquali 2012; Comerón et al.
+2020; Berlanas et al. 2020). Modern clustering algorithms do
+not identify Cygnus OB1, OB8, and OB9 as genuine associations
+(Quintana & Wright 2021), andGaia measurements indicate that
+even Cygnus OB2, the largest and most powerful group of stars,
+is not a single coherent group but a superposition of several
+groups along the line of sight (Berlanas et al. 2019; Orellana et al.
+2021), the most massive being located at about 1.6–1.7 kpc. The
+latter is what we refer to as ‘Cygnus OB2’ in the remainder of
+the present work (see Section 2.1).
+It might be unsurprising that such a complex region with
+a long history of star-forming activity is a bright source in the
+γ-ray sky. Extended GeV sources in Cygnus were first detected
+by Thompson et al. (1995) and later associated with the γ-Cygni
+supernova remnant (Brazier et al. 1996) and the Dragonfly
+pulsar wind nebula (around PSR J2021+3651, Roberts et al.
+2002). An extended TeV source coincident with Cygnus OB2
+was discovered by HEGRA Collaboration (2002) and Abdo
+et al. (2007) and later associated with the pulsar wind nebula
+powered by PSR J2032+4127 (Camilo et al. 2009).
+In addition to these three identified γ-ray sources, the
+Fermi-LAT collaboration discovered an extended diffuse γ-ray
+source coincident with the radio emission in Cygnus X, filling
+a region delimited by bright infrared photodissociation regions
+(Ackermann et al. 2011). They demonstrated that in-situ particle
+acceleration was necessary to account for the observation. This
+breakthrough revived the high-energy community’s interest in
+star-forming regions as cosmic-ray accelerators and was fol-
+lowed up with detections by ARGO-YBJ Collaboration (2014),
+Abeysekara et al. (2018), Tibet ASγ Collaboration (2021),
+Abeysekara et al. (2021), and LHAASO Collaboration (2024a).
+The centroid of the diffuse emission lies at the heart of
+Cygnus X, is approximately coincident with the position of
+Cygnus OB2 below 1 TeV, and is loosely correlated with the
+northern and southern molecular clouds at ultra-high-energy.
+The spectrum is hard in the GeV band ( dN/dE ∼ E−2) but
+turns over around 1 TeV (dN/dE ∼ E−3). The steep component
+measured by LHAASO Collaboration (2024a) extends up to
+2 PeV with a flux substantially above the estimate for the galactic
+diffuse background, which suggests the presence of an extreme
+particle accelerator in the region. This accelerator is unlikely
+to be related to PSR J2032+4127 or γ-Cygni at their current
+stages of evolution, as the spectra of these sources cut off at
+energies ≲100 TeV, and their integrated flux is subdominant
+with respect to the extended diffuse component (Fleischhack
+2019; Abeysekara et al. 2021; MAGIC Collaboration 2023;
+LHAASO Collaboration 2024a).
+The nature of candidate PeV accelerators in Cygnus has been
+debated in recent years. Bykov & Kalyashova (2022) proposed
+a scenario of particle acceleration in supersonic turbulence
+excited by the wind feedback in Cygnus OB2. They modeled a
+cavity of radius 55 pc filled with a turbulent plasma of average
+velocity 1500 km s−1, though this requires an energy budget
+that cannot be supplied by the massive stars in Cygnus OB2
+alone for any reasonable plasma density. Such a scenario also
+fails to account for the ultra-high-energy detection by LHAASO
+because of fundamental limitations of second-order acceleration
+mechanisms (Vieu et al. 2022b, 2024a). Menchiari et al. (2024)
+postulated the existence of a large-scale wind termination shock
+around Cygnus OB2 and applied a particle acceleration and
+transport model in spherical symmetry (Morlino et al. 2021),
+showing good agreement withFermi-LAT and HAWC data. This
+mechanism, however, is unlikely to produce multi-PeV protons
+(see Sect. 2), and it has been shown that Cygnus OB2, as a loose
+association, is not compact enough to produce a large-scale
+cluster wind (Vieu et al. 2024b). In addition, hadronic models
+for γ-ray emission in star-forming environments generally suffer
+from the fundamental caveat that they simultaneously need i)
+a low-density environment, which allows for the persistence
+of strong shocks and inside which particles are confined,
+and ii) a high-density environment for efficient proton-proton
+interactions. This is why leptonic scenarios were previously
+favoured in star-forming regions (see Härer et al. 2023, for the
+case of Westerlund 1). A leptonic origin for the γ-ray emission
+in Cygnus was excluded by Abeysekara et al. (2021), who argue
+that in a magnetic field of 20 µG and a density of 30 cm −3, one
+would expect a detection of synchrotron and bremsstrahlung
+radiation beyond the limits set by radio and X-ray observations
+(see also Guevel et al. 2023). These values for the magnetic
+field and gas density are however far in excess of what one
+would expect in a region dominated by strong stellar feedback.
+A111, page 2 of 20
+
+=== PAGE BREAK ===
+
+Härer, L., et al.: A&A, 703, A111 (2025)
+Magnetohydrodynamic simulations of star clusters show that
+the magnetic field drops rapidly in the cluster wind and is no
+more than a few µG in the wind-blown superbubble (Härer
+et al. 2025). Hydrodynamic simulations, along with analytic
+theory (Weaver et al. 1977) predict a density of at most a few
+0.1 cm−3 within a few tens of parsecs from Cygnus OB2. The
+values quoted by the HAWC collaboration are taken from
+Ackermann et al. (2011), where they were used only to estimate
+the properties of the Cygnus molecular clouds, not those of the
+ionised gas around Cygnus OB2. Unfortunately, the properties
+of this gas remain unknown – though there is a strong theoretical
+argument in favour of a low-density cavity excavated by winds
+from massive stars in Cygnus OB2 (e.g. Bluem et al. 2020; Vieu
+et al. 2024b), in addition to the observational hints outlined
+above. This lack of gas promotes consideration for a leptonic
+origin of the diffuse γ-ray emission, especially given the strong
+photon field in the vicinity of Cygnus OB2 (see Schneider
+et al. 2016, and Sect. 5.1). Such models (e.g. Banik & Ghosh
+2022; Astiasarain et al. 2023), however, cannot account for the
+ultra-high-energy component of the spectrum since the cooling
+time of PeV electrons is much shorter than the acceleration time
+at a non-relativistic shock under usual circumstances.
+The aim of the present work is to clarify the origin of the
+broadband γ-ray emission in Cygnus in light of the current multi-
+wavelength picture. In Sect. 2, we start by reviewing the stellar
+objects observed in the region and conclude that all are dis-
+favoured as the source of the non-thermal PeV radiation at their
+current stages of evolution. In Sect. 3, we make the case for a
+past supernova event in Cygnus OB2 and explore this scenario
+by performing a detailed hydrodynamic simulation of a super-
+nova remnant in a Cygnus-like stellar association. Section 4 is
+devoted to a detailed modelling of the gas and disentangling
+the foreground components. We then proceed with the building
+of a lepto-hadronic model to show how the diffuse γ-ray emis-
+sion can be produced by the joint action of stellar winds and a
+past supernova. Section 5 introduces the methods. The supernova
+remnant model is then discussed in Sect. 6 and the wind model
+in Sect. 7. We present our conclusions in Sect. 8.
+2. Candidate particle accelerators in Cygnus
+The Cygnus region hosts a diverse population of powerful
+objects, including massive star clusters and associations (e.g.
+Comerón et al. 2020; Quintana & Wright 2021), Wolf–Rayet
+stars, pulsars (e.g. Lyne et al. 2015; Jin et al. 2023), super-
+nova remnants (e.g. Leahy et al. 2013) and microquasars (e.g.
+MAGIC Collaboration 2010). In the following section we review
+the extreme objects in Cygnus and discuss possible acceleration
+mechanisms.
+2.1. Cygnus OB2
+The most notable stellar group in Cygnus is the Cygnus OB2
+association, which is by far the most massive and lies roughly at
+the centre of the region of diffuse radio emission (‘Cygnus X’).
+Other OB associations (Quintana & Wright 2021) or young star
+clusters (e.g. Berkeley 86, NGC6913, NGC6910) are substan-
+tially less massive and most likely older according to estimates
+by Cantat-Gaudin et al. (2020). Hosting a rich population of
+more than 70 O stars and three Wolf–Rayet stars, Cygnus OB2
+has a mechanical wind luminosity of2–3 × 1038 erg s−1 (see Vieu
+et al. 2024b for a review of the main properties of the asso-
+ciation). It is worth noting that Cygnus OB2 is not a compact
+star cluster but a rather loose OB association, with a half-mass
+72747678808284
+Galactic Longitude [ ]
+8
+6
+4
+2
+0
+2
+4
+6
+Galactic Latitude [ ]
+10 pc
+100 pc
+-Cygni
+Cygnus Loop SNR
+W63 SNR
+10 pc
+100 pc
+< 1.0 kpc
+1.3 - 1.6 kpc
+1.6 - 1.8 kpc
+1.8 - 2.0 kpc
+2.0 - 3.0 kpc
+> 3.0 kpc or unknown
+WR146, 1.1 or 1.6 kpc
+Cyg X-3, ~ 9 kpc
+-Cygni/PSR J2021+4026, 0.98 to 2.3 kpc
+Fig. 1. Powerful objects in the Cygnus region. Stars represent Wolf–
+Rayet stars from Rosslowe & Crowther (2015, http://pacrowther.
+staff.shef.ac.uk/WRcat/index.php). Diamonds indicate pulsars.
+The distance to PSR J2032+4127 has been revised to 1.76 kpc by asso-
+ciation with its Be star companion MT91 213. Rings show the location
+of supernova remnants from Green (2024, 2025, https://www.mrao.
+cam.ac.uk/surveys/snrs). Different methods give distances to
+γ-Cygni between 0.98 to 2.3 kpc. The circles labelled ‘10 pc’ and
+‘100 pc’ are centred on Cygnus OB2, assuming a distance of 1.65 kpc to
+the association.
+radius of about 15 pc (Wright et al. 2015). As such, the stellar
+population is heterogeneous and likely not coeval, with star ages
+ranging between 3 and 7 Myr and hints of multiple star-forming
+episodes (e.g. Berlanas et al. 2020). Part of the heterogeneity is
+due to the superposition of several stellar groups along the line-
+of-sight at about 1.3, 1.5 and 1.7 kpc (Orellana et al. 2021). This
+complication can also explain some earlier confusion in distance
+estimates (see Appendix A). In light of Gaia DR2, it seems that
+the main group is located at about 1.6–1.7 kpc, the uncertainty
+being mostly due to the Gaia zero-point offset (e.g. Lindegren
+et al. 2018). We stress that the distance of 1.4 kpc inferred by Rygl
+et al. (2012) employing maser measurements, which is frequently
+quoted in the high-energy community, is no longer believed to be
+the distance to Cygnus OB2, but rather the distance to the molec-
+ular complex in Cygnus North, which lies in the foreground of
+the association.
+2.2. Other objects
+A map showing the location of the powerful objects in the
+Cygnus region is provided in Fig. 1. Tens of Wolf–Rayet
+stars are scattered throughout the region, either clustered or
+isolated (Rosslowe & Crowther 2015). The most powerful are
+WR144 (most likely a member of Cygnus OB2), WR142 (likely
+a member of Berkeley 87) and WR147, each one having a
+mechanical power of about 1038 erg s−1 (Sander et al. 2019;
+Hamann et al. 2019). In addition, over 20 red supergiants are
+observed (Comerón et al. 2020). Three pulsars have been
+A111, page 3 of 20
+
+=== PAGE BREAK ===
+
+Härer, L., et al.: A&A, 703, A111 (2025)
+detected in the region: PSR J2021+3651 (spin-down power
+∼3 × 1036 erg s−1), which powers the Dragonfly pulsar wind
+nebula, PSR J2021+4026 (spin-down power ∼1035 erg s−1), and
+finally PSR J2032+4127 (spin-down power∼1035 erg s−1), which
+likely lies within the Cygnus OB2 association and suggests past
+supernova activity at the heart of the star-forming complex.
+However, only two supernova remnants are observed in the
+1–3 kpc range in the direction of Cygnus: the bright source
+γ-Cygni and the supernova remnant W63.
+In the following we address whether any of these objects
+could potentially accelerate particles beyond 1 PeV, as required
+to explain the recent LHAASO detection of ultra-high-energy
+(>100 TeV) photons from the region. A contribution from PSR
+J2021+3651 is excluded as the Dragonfly nebula is masked
+from the LHAASO analysis. A source coincident with PSR
+J2032+4127 in Cygnus OB2 is detected as a subdominant com-
+ponent with a low-energy (30 TeV) cut-off and is therefore
+unlikely to significantly contribute to the integrated diffuse
+γ-ray emission, although it might contaminate the significance
+map around Cygnus OB2.
+Of the three supernova remnants observed within 2 kpc
+towards the Cygnus region, W63 and the Cygnus Loop are
+older remnants that, while perhaps efficient accelerators in the
+distant past, are too far away from the centre of emission to
+account for the integrated flux. γ-Cygni is a younger rem-
+nant (about 5 kyr, Lozinskaya et al. 2000) which is bright in
+radio, X-rays, and γ-rays. It expands in a low-density environ-
+ment (about 0.1 cm −3) to a present size of about 15 pc with a
+shock velocity of nearly 1000 km s−1 (Lozinskaya et al. 2000).
+This low-density environment could be part of the superbubble
+blown by Cygnus OB2 or the cavity from NGC 6910 (depend-
+ing on its position along the line-of-sight). The γ-ray spectrum
+associated with γ-Cygni extends to tens of TeV (Fleischhack
+2019) and is thought to originate from proton-proton interac-
+tions with a nearby cloud (MAGIC Collaboration 2023). This
+component is already subtracted in the data analysis of Fermi-
+LAT, HAWC, and LHAASO. It is, however, not excluded that
+ultra-high-energy γ-ray emitting particles were accelerated in
+the early expansion phase of the remnant, have already escaped
+the γ-Cygni region to fill a network of cavities in the Cygnus
+star-forming complex, and have eventually reached the molecular
+clouds on its edge.
+Finally, the microquasar Cygnus X-3 is seen in coincidence
+with Cygnus OB2 and therefore lies in the centre of the dif-
+fuse γ-ray emission. Similar microquasars have been recently
+recognised as efficient particle accelerators up to 100s of TeV
+(LHAASO Collaboration 2024b). At an estimated distance of
+9 kpc, Cygnus X-3 is unlikely to contribute to the bulk of the
+emission. Particles accelerated in the system would have to be
+confined in a physical radius of over 300 pc to reproduce the 2 ◦
+extent of the diffuse emission. However, a subdominant contri-
+bution at ultra-high energies appears plausible, as we discuss in
+Sect. 6. Given these details, the best accelerator candidates in the
+Cygnus region are most likely linked to the energy input from
+massive stars, including the possibility of a supernova remnant
+in the low-density cavity around the association.
+2.3. Particle acceleration
+Winds from massive stars or star clusters are thought only able
+to accelerate PeV particles if they are exceptionally powerful
+and strongly magnetised. The physical requirements are detailed
+in Vieu et al. (2022b) and Härer et al. (2025). A key limitation in
+wind acceleration models comes from the necessity to overcome
+adiabatic losses when accelerated particles propagate in the
+radially expanding region upstream of the wind termination
+shock. We note that the argument applies both in the case of
+an isolated massive star or a compact star cluster powering
+a collective outflow. Disregarding the downstream residence
+time, which might be shortened by field amplification, shock
+induced turbulence or wind-wind collisions, the acceleration
+rate at a strong shock reads ˙pacc ≈ V2
+w p/(4D), where Vw is
+the wind speed and D is the upstream diffusion coefficient
+(Lagage & Cesarsky 1983; Drury 1983). This must always be
+larger than the adiabatic loss rate in the upstream, which reads
+˙ploss ≥ 2Vw p/(3RWTS), where RWTS is the radius of the wind
+termination shock. The particle energy is therefore bounded as
+D(E) < 3RWTSVw/8. The most efficient acceleration is reached
+when the diffusion is in the Bohm limit in a magnetic field of
+strength B: D(E) = Ec/(ξqB) with q the charge of the particle,
+c the speed of light and ξ ≤ 3. The maximum energy is then
+limited as Emax < qBRWTSVw/c, which is recognised as the
+Hillas limit in the upstream region (Hillas 1984).
+Independently of the assumption made for the generation or
+amplification of the magnetic field, the magnetic field strength is
+limited by the requirement that the wind must be super-Alfvénic
+for acceleration to proceed. This sets a loose limit on B as B =p
+4πρVw/MA, where ρ is the gas density and efficient particle
+acceleration requires MA substantially exceeds unity. Conserva-
+tion of mass in a spherical wind satisfies ρ = ˙M/(4πR2
+WTSVw),
+which leads to Emax ≪ q √VwLw/c, where Lw = 0.5 ˙MV 2
+w is
+the mechanical power and ˙M the mass-loss rate of the central
+source. Remarkably, this upper limit only depends on the prop-
+erties of the star and is in particular independent of the geometry
+of the shock. The limit barely reaches 1 PeV for the most
+powerful stars in the heart of Cygnus OB2 (WR144, WR146,
+Schulte 7). In practice, this limit is most likely never reached
+as it requires unreasonable assumptions for the amplification of
+magnetic fields.
+The background magnetic field can be more accurately
+estimated from a standard model of stellar magnetic fields,
+that is, a dipolar structure below the Alfvén point and a
+primarily toroidal structure at large distances (e.g. Usov &
+Melrose 1992). The most powerful O stars in Cygnus OB2 (e.g.
+Schulte 7, Schulte 11) have wind terminal velocities around
+2500–3000 km s−1, mass-loss rates around 5 × 10−6 M⊙ yr−1,
+stellar radii around 15–20 R⊙ and projected rotational velocities
+around 100–150 km s−1 (Berlanas et al. 2020). Assuming a
+strong surface field ∼1 kG, the limit on the maximum energy
+is at most 300 TeV. To reach energies above 1 PeV requires a
+surface field higher than 10 kG which is arguably not realistic,
+in particular since high magnetic fields are correlated with low
+rotational velocities (e.g. Grunhut et al. 2017). For Wolf–Rayet
+stars, the mass-loss rate is typically enhanced by a factor ten
+but the stellar radius is only a few solar radii (Sander et al.
+2019). Single Wolf–Rayet stars seem also to be slow rotators
+(Meynet & Maeder 2003). Assuming a stellar rotation velocity
+∼200 km s−1, surface magnetic field ∼1 kG and stellar radius
+∼5 R⊙, the limit on the maximum energy is 200 TeV. In the
+case of the very powerful star WR144, which dominates the
+power output in Cygnus OB2 with a mechanical luminosity over
+9 × 1037 erg s−1, but whose radius is only about 1 R⊙ (Sander
+et al. 2019), the maximum energy falls short of the PeV regime
+even for extremely large surface fields or rotational velocities.
+In addition to the background field, cosmic-ray-induced
+instabilities are believed to amplify magnetic field fluctua-
+tions upstream of strong shocks (e.g. Bell & Lucek 2001; Bell
+2004). However, the efficiency of these instabilities is limited in
+A111, page 4 of 20
+
+=== PAGE BREAK ===
+
+Härer, L., et al.: A&A, 703, A111 (2025)
+low-density environments. For instance, the non-resonant
+streaming instability at saturation is argued to generate a tur-
+bulent field δB2
+sat ≈ 4πξcr ρV3
+w/c which, for an acceleration effi-
+ciency ξcr = 0.1, a density ρ = 0.01mp cm−3 and a wind velocity
+Vw = 3000 km s−1, gives δBsat = 4 µG which falls short of what
+would be necessary to accelerate PeV particles. These arguments
+dismiss individual stellar winds as well as compact clusters
+(NGC 6910, NGC 6913) as sources of the ultra-high-energy
+photons observed from Cygnus. We stress that these fundamen-
+tal arguments apply independently of the boundary conditions
+downstream of the stellar wind and therefore cannot be circum-
+vented by invoking downstream confinement effects (e.g. via
+wind-wind collisions, Bykov et al. 2013). Based on the argument
+in the previous paragraph, only Cygnus OB2, with a mechani-
+cal power well above 1038 erg s−1, could conceivably accelerate
+PeV particles, though this requires the association as a whole is
+able to generate a collective large-scale wind termination shock.
+However, Cygnus OB2 is not a compact cluster: its stellar dis-
+tribution extends over a diameter of 30 pc with no clear sign of
+mass segregation. The mechanical power is therefore diluted in
+a large region and direct wind–wind interactions are not efficient
+enough to generate a large-scale cluster wind termination shock,
+as demonstrated by Vieu et al. (2024b). As such, Cygnus OB2
+should be seen as a loose collection of individual stellar winds
+embedded in a low-density superbubble powered by thermali-
+sation of these stellar winds. The only possible sites of particle
+acceleration are the individual wind termination shocks around
+the most powerful O and Wolf–Rayet stars, and these cannot
+accelerate PeV particles, at least not within our current under-
+standing of microphysical processes near non-relativistic shocks.
+In summary, the most likely sources of high-energy
+(100 MeV < E < 100 GeV) to very-high-energy ( 100 GeV <
+E < 100 TeV) diffuse γ-ray emission in the Cygnus region are
+the stellar winds of the most powerful O and Wolf–Rayet stars,
+in particular stars lying at the heart of Cygnus OB2, which can
+provide a stationary supply of non-thermal particles over mil-
+lions of years. On the other hand, at their current stages of
+evolution, none of the known sources can reasonably account
+for the ultra-high-energy ( E > 100 TeV) emission observed by
+LHAASO. The ultra-high-energy accelerator must therefore be
+either hidden or transient.
+3. Particle acceleration in a past supernova
+remnant
+3.1. The case for a recent supernova in Cygnus OB2
+Cygnus OB2 is likely not coeval. Age estimates for its sub-
+populations range from 3 to 7 Myr (see e.g. Wright et al. 2015,
+and references therein). The presence of three Wolf–Rayet stars,
+24 supergiants and one pulsar is evidence that late phases of
+stellar evolution have already been reached and it is likely
+that supernovae have exploded in the past. To make this argu-
+ment more quantitative, we show an example calculation of
+the expected supernova rate using the Hoki package (Stevance
+et al. 2020), which is an interface for models computed with
+the Binary Populations and Spectral Synthesis (BPASS) code
+(Stanway & Eldridge 2018). The BPASS models calculate stel-
+lar evolution tracks for a wide range of initial parameters, include
+binary evolution effects, and allow for the calculation of transient
+rates such as supernovae. For the calculation of supernova event
+rates, we assumed Solar metallicity and a single stellar popu-
+lation with a total initial mass of 1.65 × 104 M⊙ (Wright et al.
+2015). We assumed an initial mass function indexα = −2.0. This
+2.5 5 7.5 10
+Age (Myr)
+0.25
+0.5
+1
+2
+Event Rate (events/100 kyr)
+T otal CCSNe
+IIP
+II
+Ib
+Ic
+Fig. 2. Event rates for different types of core-collapse supernovae for
+a cluster with a total initial mass of 1.65 × 104 M⊙, as appropriate for
+Cygnus OB2, computed using Hoki.
+is steeper than that suggested for the massive stellar population
+by Wright et al. (2015), but given that the known OB popula-
+tion has increased by ∼25% since that estimate (Berlanas et al.
+2018) this value is reasonable. The calculated rates are shown in
+Fig. 2. For an age of 3–5 Myr, type Ic supernovae are by far the
+most likely type of supernova, and the rate is consistent with sev-
+eral supernovae per Myr. Type Ic supernovae are likely to exceed
+the canonical supernova power of 1051 erg by a factor of a few
+(Fryer et al. 2018). The assumption that a powerful supernova
+has occurred in the last few tens of kiloyears in Cygnus OB2 is
+thus well motivated.
+Despite indirect hints of past explosions (e.g. the pulsar PSR
+J2032+4127 located in Cygnus OB2, Lyne et al. 2015, or runaway
+stars, Comerón & Pasquali 2007) no supernova remnant signa-
+ture has been confirmed in the close vicinity of Cygnus OB2, as
+discussed in Sect. 2. This is perhaps unsurprising. A supernova
+remnant expanding in the low-density environment carved by
+the stellar winds around the core of Cygnus OB2 would quickly
+reach a radius of several tens of parsec and fade below the detec-
+tion capabilities of radio, optical, and X-ray observatories after a
+few ten-thousand years (Chu 1997). Moreover, the shock is never
+expected to enter the radiative phase but rather slow down to
+subsonic velocities after a few hundred thousand years (Parizot
+et al. 2004). For these reasons, old supernova remnants expand-
+ing in hot bubbles are only expected to leave extended, diffuse,
+and faint signatures. These would be difficult to detect, in partic-
+ular in a complex, inhomogeneous environment with, as in the
+case of Cygnus, a superposition of extended multi-wavelength
+signals along the line-of-sight.
+Assuming a supernova exploded a few tens of thousands of
+years ago in the Cygnus OB2 association, the maximum energy
+of particles accelerated at the forward shock is estimated as (Vieu
+et al. 2022a,b)
+Emax ≈
+ B
+5 µG
+! VSN
+104 km s−1
+ Mej
+1 M⊙
+! 1
+3  nSB
+0.01 cm−3
+− 1
+3
+PeV .
+(1)
+This estimate assumes that the remnant expands in a low-density
+cavity powered by a loose OB association (in contrast to the
+case of a compact star cluster). For loose associations, the max-
+imum energy reaches at most a few PeV for powerful supernova
+A111, page 5 of 20
+
+=== PAGE BREAK ===
+
+Härer, L., et al.: A&A, 703, A111 (2025)
+remnants (see also Vieu & Reville 2023). Yet, we show in the
+following that this can be sufficient to account for the steep
+component of the ultra-high-energy γ-ray spectrum.
+3.2. Hydrodynamic simulation of a supernova remnant in
+Cygnus OB2
+To estimate quantitatively the maximum energy of particles
+accelerated by a supernova remnant shock in Cygnus OB2, we
+require a prescription for the dynamical evolution of the remnant,
+accounting for the inhomogeneous superbubble properties ahead
+of the shock. To this end, we explode a supernova in the previ-
+ously published hydrodynamic simulation of a Cygnus OB2-like
+association (Vieu et al. 2024b). The simulation is resumed at
+1.3 Myr, at which point the high-mass supernova progenitor
+is turned into a Wolf–Rayet star with ˙M = 10−5 M⊙ yr−1 and
+Vw = 2500 km s−1. The supernova is then initialised at 1.6 Myr
+with a linear radial velocity profile and a flat density profile
+with a power-law cut-off ρ ∝ r−9, as described in Whalen &
+Norman (2008) and Badmaev et al. (2024). The explosion energy
+is set to 5 × 1051 erg and the core velocity to 16 000km s−1, val-
+ues consistent with a powerful type Ic supernova (Fryer et al.
+2018; Barbarino et al. 2021). We neglect thermal conduction
+and cooling, which are not expected to affect the early phases
+of expansion.
+The forward shock of the simulated supernova remnant
+expands beyond the inner core of Cygnus OB2, as shown in
+Fig. 3, and is progressively decelerated. Interaction with the
+pre-supernova medium, in particular with powerful Wolf–Rayet
+winds, slows down the expansion further along some direc-
+tions, producing asymmetries, though the shock expansion is
+not blocked by the stellar winds. The remnant expands well-
+beyond the inner core after several thousand years. As the density
+of the background medium is low (about 0.01 cm −3), the free-
+expansion phase proceeds for a long time, up to about 2 kyr,
+providing favourable conditions for particle acceleration.
+3.3. Maximum energy of accelerated particles
+The simulation was analysed to track the properties of the for-
+ward shock as a function of time. The top row of Fig. 4 illustrates
+how the properties are distributed across the shock surface at
+2 kyr. At this point, the shock has reached a radius of about
+15 pc and the velocity has decreased to about 3000 km s−1, such
+that diffusive shock acceleration is no longer effective at the
+required energies. In order to infer the maximum energy of par-
+ticles accelerated up to this time, we integrate the acceleration
+rate in time. Since the upstream magnetic field is not calcu-
+lated in the hydrodynamic simulation, we assume that 10% of
+the kinetic energy in the superbubble goes into turbulent mag-
+netic energy, defining Beq = u
+p
+4πηBρ with ηB = 0.1 and u
+the pre-supernova velocity field in the superbubble. Cosmic-ray
+induced instabilities are further expected to enhance the turbu-
+lent component of the background magnetic field and generate a
+flat turbulence spectrum, although these instabilities grow slowly
+in a low-density medium. In particular, the non-resonant stream-
+ing instability operates only if the cosmic-ray current is strong
+enough to overcome the magnetic field tension. This condition
+reads (Bell 2004)
+ξcru3 > v2
+Ac, (2)
+where u is the shock velocity, vA is the upstream background
+Alfvén speed, and ξcr is the acceleration efficiency that we set to
+10%. The background field, Beq, inferred from the simulation is
+typically about 1–10 µG. These values are consistent with those
+we inferred from magnetohydrodynamic simulations in Härer
+et al. (2025). For such Beq, the condition 2 is satisfied most of
+the time upstream of the supernova remnant shock. Provided the
+streaming instabilities operate, the saturated magnetic field can
+be estimated as (e.g. Bell & Lucek 2001; Bell 2004; Matthews
+et al. 2017)
+δB2
+sat ≈
+(
+2ξcru
+p
+4πρ Beq RSI
+4πξcr ρu3/c NRSI , (3)
+where RSI denotes the resonant and NRSI the non-resonant
+streaming instability. In all cases, we assumed that diffusive
+shock acceleration operates at maximum efficiency (Bohm dif-
+fusion), in which case the acceleration rate is written as (Lagage
+& Cesarsky 1983)
+dp
+dt ≈ u2 p
+20κ , κ = pc/(3qB), (4)
+where B is the turbulent magnetic field. We repeat the calcu-
+lation assuming first that streaming instabilities do not operate
+(B = Beq), then that RSI operates ( B = δBsat,RSI) and finally that
+NRSI operates ( B = δBsat,NRSI if the left hand-side of Eq. (2) is
+ten times the right hand-side, B = Beq otherwise). We integrate
+the acceleration rate as function of time along a large number
+of independent lineouts, reading the local shock velocity, den-
+sity and inferred magnetic field at every timestep. An implicit
+assumption of this procedure is that particles do not propa-
+gate along azimuthal directions from one lineout to another.
+This is a reasonable assumption if the magnetic field is paral-
+lel to the shock normal. At every time-step we check that the
+Hillas confinement limit, E < qBRu/c, where R is the distance
+travelled by the forward shock, is not violated, otherwise integra-
+tion is not performed. Efficient particle acceleration stops after
+about 2 kyr when the supernova remnant enters the Sedov-Taylor
+phase and the highest energy particles are no longer effectively
+confined.
+The second row of Fig. 4 shows the maximum energy
+obtained for protons at the end of the phase of efficient parti-
+cle acceleration. Without streaming instabilities, the supernova
+remnant shock is overall able to accelerate efficiently up to
+about 500 TeV. With streaming instabilities, a maximum pro-
+ton energy of a few PeV is reached. We note that we naively
+expect the maximum energy to scale as the square root of the
+explosion energy such that a nominal supernova ( 1051 erg) is
+expected to accelerate protons up to 0.5–1 PeV with streaming
+instabilities.
+In the approach adopted above, we chose optimal parameters
+for confinement and acceleration of the highest energy particles,
+as required to reach the Hillas limit. This is usually motivated
+by the fact that cosmic rays self-excite the turbulence. Inde-
+pendently of this mechanism, studies by Bell et al. (2025) (see
+also Lazarian & Xu 2021) find that particle mirroring in large-
+scale fields – those larger than the gyroscale of the accelerating
+particles – can exceed quasi-linear theory estimates of particle
+confinement near shocks, even with moderate (sub-Bohm) scat-
+tering rates. Large-scale field structures naturally result from
+the turbulent interactions of magnetised stellar winds within
+superbubbles (see e.g. Härer et al. 2025). These findings pro-
+vide confidence that the Hillas limit could be achieved without
+resorting to the Bohm scattering limit.
+A111, page 6 of 20
+
+=== PAGE BREAK ===
+
+Härer, L., et al.: A&A, 703, A111 (2025)
+Fig. 3. Density slices from the simulation of a supernova remnant expanding in Cygnus OB2. (For details, see Sect. 3.2.)
+A111, page 7 of 20
+
+=== PAGE BREAK ===
+
+Härer, L., et al.: A&A, 703, A111 (2025)
+2000 4000 6000
+Shock Velocity [km/s]
+0
+10
+20
+30
+40
+10 1
+ 100 101 102
+Beq [µG]
+0
+10
+20
+30
+40
+10 12 14 16
+Shock radius [pc]
+0
+10
+20
+30
+10 1
+ 100
+Emax without SI [PeV]
+0
+10
+20
+10 1
+ 100
+Emax with RSI [PeV]
+0
+10
+20
+30
+10 1
+ 100
+Emax with NRSI [PeV]
+0
+10
+20
+30
+Fig. 4. Top: supernova remnant properties
+across the forward shock surface at 2 kyr,
+extracted from the hydrodynamical simulation
+shown in Fig. 3. Bottom: integrated maxi-
+mum energy at 2 kyr for the resonant and non-
+resonant streaming instabilities (RSI and NRSI,
+respectively) and without streaming instabili-
+ties. Beq was computed assuming that 10% of
+the kinetic energy in the superbubble goes into
+a turbulent magnetic field.
+4. Molecular gas
+In this section, we reconstruct the 3D molecular gas distribution
+in the Cygnus region from previous studies. This is subsequently
+used to compute the γ-ray emission (see Sects. 5 and 6).
+The CO intensity maps reveal a huge molecular complex
+from about 76 ◦ to about 85 ◦ in longitude and from about –
+3◦ to about +4 ◦ in latitude. Within this complex, five regions
+are especially prominent: the cloud in the far-north that sepa-
+rates the North America and the Pelican nebulae, the northern
+complex between 80–83◦ (Cygnus-X North), the southern com-
+plex between 77–80◦ (Cygnus-X South), the north-west clouds
+at high latitudes, and the lane extending in the far-south, includ-
+ing the S106 region. It has been established that this molecular
+complex is not a coherent structure but a superposition of clouds
+along the line-of-sight, including the well-known Cygnus Rift in
+the foreground (e.g. Reipurth & Schneider 2008).
+Schneider et al. (2006) established the first comprehensive
+census of the molecular clouds in Cygnus-X, using 12CO and
+13CO emission lines. Because the Cygnus region is seen tan-
+gentially to the galactic rotation, kinematic velocities do not
+translate into reliable distance measurements. Restricting veloc-
+ities to the range (−20, 30) km s−1 allows to exclude the Perseus
+Arm and beyond; however, the 3D distribution of the gas in the
+Local Arm (within 3 kpc) cannot be directly modelled. Neverthe-
+less, scanning the intensity map along the velocity axis can give
+some information about superimposed components, at least at
+the qualitative level. The underlying assumption is that coherent
+structures correlate in position-position-velocity space.
+After carefully scanning all prominent structures in the CO
+map, Schneider et al. (2006) extracted four seemingly coher-
+ent groups, in addition to the foreground Rift. Group I is a
+filamentary cloud north of Cygnus which hosts several dense
+clumps forming protoclusters seen as radio sources, for example
+DR21, DR20, DR22, and DR23 around l = 81◦ in the veloc-
+ity range (−7, 1) km s−1. In the following we refer to this group
+as the ‘North Filament’. Group II partly overlaps with the fila-
+ment but is significantly decorrelated in velocity space with a
+range (6, 20) km s−1, and was placed in the foreground by early
+absorption studies (Dickel & Wendker 1978). Parallax measure-
+ments of masers (Rygl et al. 2012) place DR20 and DR21 (North
+Filament) at about 1.5 kpc, and group II, which includes in par-
+ticular W75N and DR17, in the foreground at about 1.3 kpc (see
+also Gottschalk et al. 2012). Group III gathers compact clumps
+and globules around Cygnus OB2, notably DR18 and the south-
+ern arm of DR20. The star-forming region AFGL 2591 was
+originally included in this group; however it has since been rele-
+gated to the background (about 3.3 kpc) by a maser measurement
+(Rygl et al. 2012). Finally, most of the southern clouds were
+gathered in a single Group IV, and the remaining unassociated
+features were attributed to the foreground Cygnus Rift (Group V)
+between 0.6–0.8 kpc. Schneider et al. (2007) completed the cen-
+sus in the southernmost part up to the S106 HII region and
+showed that several substructures in this area are shaped by stel-
+lar feedback in a star-forming region at1.6–1.7 kpc, which hosts
+notably the compact star clusters NGC 6913, Berkeley 86 and
+Berkeley 87.
+The groups identified by Schneider et al. (2006) can serve
+as a basis to identify substructures in Cygnus; however, the rel-
+ative masses of the groups are highly uncertain, and accurate
+distances cannot be directly inferred. In addition, the assumption
+that coherent structures in three-dimensional space correlate in
+position-position-velocity space is doubtful. Turbulence can dra-
+matically spread the velocity component across a given molec-
+ular cloud, especially near active star-forming-regions, which
+leads to over-decomposition of coherent clouds. On the other
+hand, overlapping clouds can have similar velocities by coinci-
+dence, which leads to confusion between the various components
+along the line-of-sight. The advent of theGaia era, enabling pre-
+cise parallax measurements, has shed new light onto the structure
+of the molecular clouds in Cygnus. Zhang et al. (2024) employed
+a clustering algorithm to identify CO clouds and measured their
+distance via extinction jumps along the line-of-sight. This suc-
+cessfully disentangles foreground components, showing that the
+Rift actually extends up to 1.1 kpc and is much more massive
+than thought by Schneider et al. (2006). In particular, it becomes
+clear that the Group IV in Schneider et al. (2006) is largely con-
+fused with the foreground Rift. In addition, Zhang et al. (2024)
+measure a massive cloud in the south with a distance estimate
+of 1.3 kpc, including DR13 and its prominent filament (red tri-
+angular cloud in Fig. 5). This brings a southern counterpart to
+Schneider Group II. We propose to name these two groups in
+A111, page 8 of 20
+
+=== PAGE BREAK ===
+
+Härer, L., et al.: A&A, 703, A111 (2025)
+Fig. 5. Main molecular clouds in the Cygnus region. Red: Cygnus 1.3 North at l > 80◦ (Schneider Group II, 1.3 kpc) and Cygnus 1.3 South
+at l < 80◦ (part of Schneider Group IV, 1.3 kpc). Orange: Cygnus North Filament at l > 80◦ (Schneider Group I, 1.5 kpc) and Cygnus SFR
+South at l < 80◦ (part of Schneider Group IV, unknown distance >1.4 kpc). Pink: Cygnus South Filament (part of Schneider Group IV, unknown
+distance >1.4 kpc). Green: Cygnus Central Clumps (Schneider Group III,1.6–1.8 kpc). Dark blue at high latitude: Cygnus West, unknown distance
+(>1.4 kpc). Turquoise: S106 regions (described in Schneider et al. 2007, 1.6–1.8 kpc). The grey background shows foreground clouds: the North-
+America and Pelican nebulae on the left, the North-West clouds, and the Rift lane extending to the right in the direction to the Galactic Centre.
+the 1.3 kpc layer ‘Cygnus 1.3 North’ and ‘Cygnus 1.3 South’ for
+clarity.
+Cygnus-X North
+Unfortunately, the extinction becomes too high beyond∼1.4 kpc,
+preventing Zhang et al. (2024) to probe more distant molecu-
+lar clouds, and in particular the clouds in the vicinity of the
+star-forming region at ∼1.6–1.8 kpc (including Cygnus OB2). In
+Cygnus North, Zhang et al. (2024) were able to associate a dis-
+tance to about 50% of the total mass, which represents about
+115 thousand solar masses in the foreground of the North Fil-
+ament. On the other hand, Schneider et al. (2006) associated a
+mass of 167 thousand and 55 thousand, respectively for the North
+Filament (Group I) and Cygnus 1.3 North (Group II) which, cor-
+rected for the updated distance measurements, adds up to about
+160 thousand solar masses. Within mass inference uncertainties,
+it is therefore reasonable to assume that the census is complete in
+the north, with Cygnus 1.3 North and the North Filament lying
+behind the Rift. Using the 12CO data from Zhang et al. (2024),
+we extract the shape of the North Filament and Cygnus 1.3 North
+in the velocity ranges (−7, 1) km s−1 and (7, 15) km s−1, respec-
+tively. These are shown in red and orange in Fig. 5. We note
+that the most recent distance estimates place Cygnus OB2 at
+about 1.65 kpc, which is behind the North Filament (1.5 kpc).
+The North Filament might actually lie at the edge of the
+putative Cygnus OB2 superbubble, which could explain its
+peculiar shape (Li et al. 2023).
+Cygnus-X South
+The situation is less clear in the south. Zhang et al. (2024)
+were able to associate a distance to approximately 150 thousand
+solar masses, corresponding to only 36% of the total mass. The
+missing mass most likely lies beyond 1.4 kpc, possibly embed-
+ded in the interfaces of photodissociation regions at the distance
+where several active star-forming regions are located, beyond the
+reach of the extinction jump method ( >1.3 kpc). We suggest to
+call this hidden group ‘Cygnus SFR South’ (SFR standing for
+‘star-forming region’). In order to extract this group, we iden-
+tify regions of the position-position-velocity space which do not
+correspond to the clouds catalogued by Zhang et al. (2024).
+These regions appear in the velocity ranges (−10, −5) km s−1,
+(2.2, 4.5) km s−1 and (4, 8.5) km s−1 around 78–79◦ in longi-
+tude. The result defines the ‘Cygnus SFR South’ region shown
+in orange at l < 80◦ and −1◦ ≲ b ≲ 1◦ in Fig. 5. In the
+range (12, 20) km s−1, a filamentary cloud appears, which we
+call the ‘South Filament’ (shown in pink in Figure 5). Finally,
+another region at high latitude, b ≈ 4◦ in the velocity range
+(−5, 3) km s−1 is extracted and labelled ‘Cygnus West’. We
+assume in the following that all these southern clouds beyond the
+reach of the extinction jump method are located within the active
+A111, page 9 of 20
+
+=== PAGE BREAK ===
+
+Härer, L., et al.: A&A, 703, A111 (2025)
+Table 1. Molecular clouds in the Cygnus region.
+Name l [ ◦] Distance [kpc] Distance ref
+A Foreground Rift 74–86 0.7–1.1 Zhang et al. (2024)
+B Cygnus North-West 79.5–81 ∼1 Zhang et al. (2024)
+C Cygnus 1.3 North 80–83.5 1.3–1.4 Zhang et al. (2024)
+D Cygnus 1.3 South 77–80 1.2–1.3 Zhang et al. (2024)
+E Cygnus North Filament 80.5–82 1.4–1.5 Rygl et al. (2012)
+F Cygnus Central Clumps 79–81 1.6–1.8 Orellana et al. (2021); Xu et al. (2013b)
+G Cygnus West 78–80 >1.4
+H Cygnus SFR South 77–80 >1.4
+J Cygnus South Filament 77–79 >1.4
+K Cygnus Far South 76–78 1.6–1.8 Schneider et al. (2007)
+Notes. Section 4 describes the procedure by which the clouds were identified. Figure 5 shows a map of the clouds. The specific distance and mass
+estimates assumed in the calculation of the γ-ray flux are provided in https://doi.org/10.17617/3.G9LUS1.
+star-forming region at about 1.7 kpc, loosely coincident with
+the photodissociation regions. This aligns with a plausible sce-
+nario where these clouds are at the intersections of multiple
+cavities that were carved in the past by the joint feedback of
+Cygnus OB2, NGC 6913, NGC 6910, and possibly other clusters
+and associations (see Sect. 1).
+Central clumps
+In addition to the massive molecular clouds in the north and
+south, a number of clumps, sometimes called ‘globules’ or ‘con-
+densations’, are seen around Cygnus OB2, with hints of direct
+interaction with the radiative feedback from the association (e.g.
+Schneider et al. 2016). A number of these clumps are listed
+in Table 3 of Zhang et al. (2024), to which we further add
+the prominent regions DR18 and DR20 in the velocity range
+(−11, 1) km s−1 around l = 81◦. We group these clumps under the
+common label ‘Cygnus Central Clumps’ and assume a distance
+similar to that of Cygnus OB2 (1.6–1.8 kpc).
+Other groups
+The remaining foreground groups (North-West, 1.3 South) can
+be directly identified from the distance measurements given
+in Zhang et al. (2024). Finally, Cygnus Far-South can be
+extracted manually according to its well-defined shape described
+in Schneider et al. (2007). Table 1 summarises our census of
+the molecular cloud complexes in the Cygnus region. The listed
+masses are inferred by assuming a XCO factor of 4 × 1020 H/cm2
+(K km s−1)−1. For later convenience, we introduce shorthands
+A–K to refer to the clouds.
+5. Modelling particle propagation and γ-ray
+emission
+In the previous sections, we motivated that a powerful past
+supernova in Cygnus is a plausible source of very-high-energy
+particles. We estimated the maximum energy of particles accel-
+erated at the forward shock and discussed the 3D distribution
+of target material in molecular clouds. Here, we outline our
+approach to model particle transport and γ-ray emission. We
+construct both hadronic and leptonic models and apply them to
+supernova and stellar-wind scenarios in Sects. 6 and 7.
+10 1
+ 100 101 102 103 104 105
+Energy [GeV]
+104
+105
+106
+107
+108
+109
+Time [yrs]
+sum losses
+dust diffuse
+stars diffuse
+CMB
+UV from Cyg OB2
+Synch. 5 G
+Brems. 0.05 cm 3
+Coulomb ion.
+Fig. 6. Loss timescales for electrons in the putative superbubble sur-
+rounding Cygnus OB2. The photon field from stars in Cygnus OB2 is
+evaluated at 20 pc. Diffuse dust and starlight are taken from the model
+by Popescu et al. (2017) and enhanced by a factor of two. Coulomb
+losses are shown for a hot, low-density, ionised medium ( T = 106 K,
+nSB = 0.05 cm−3) following Schlickeiser 2002 (Sect. 4.5). All other
+timescales are computed with the GAMERA code (Hahn et al. 2022).
+5.1. Losses, photon fields, and magnetic field
+Knowledge of ambient photon fields and the magnetic field
+is required to compute leptonic losses and inverse Compton
+emission. We model galactic diffuse starlight and dust-scattered
+starlight following the axisymmetric model of Popescu et al.
+(2017), with an enhancement factor of two for both photon fields,
+to reflect increased activity within the spiral arm (cf. Breuhaus
+et al. 2021). The cosmic microwave background is included as
+a blackbody with a temperature of 2.7 K and energy density of
+0.26 eV cm−3. We model the photon fields of individual massive
+stars in Cygnus OB2 with blackbody spectra, taking luminosi-
+ties and temperatures from Wright et al. (2015). The total photon
+field is obtained by summing all spectra. The energy density at a
+distance R is obtained from the luminosity,L, as L/(4πR2c). At a
+distance of 20 pc, the energy density of the cluster photon field is
+25 eV cm−3, which is comparable to the model value obtained by
+Schneider et al. (2016), who take into account the spatial distri-
+bution of stars. Figure 6 shows cooling time-scales for electrons,
+A111, page 10 of 20
+
+=== PAGE BREAK ===
+
+Härer, L., et al.: A&A, 703, A111 (2025)
+74767880828486
+l [deg]
+6
+4
+2
+0
+2
+4
+6
+8
+b [deg]
+Rift
+74767880828486
+l [deg]
+SFR
+74767880828486
+l [deg]
+Rift + SFR
+1
+2
+3
+4
+5
+6
+71e21
+0.5
+1.0
+1.5
+2.0
+2.5
+3.0
+1e21
+2
+4
+6
+8
+column density [cm 2]
+1e21
+Fig. 7. Neutral gas model. The model consists of two 3D-Gaussian components, the Cygnus Rift (left) and the Cygnus SFR (middle), with a
+spherical (radius 150 pc), low-density (0.05 cm−3) cavity around Cygnus OB2. The total mass is set to match the mass obtained from integrating
+the neutral hydrogen column density obtained by Astiasarain et al. (2023). For model parameters, see Table 2.
+for a magnetic field of 5 µG and a density of 0.05 cm−3, which
+is representative of the superbubble interior. We assume that the
+magnetic field is constant over the superbubble interior. In the
+GeV range, the dominating photon field is the cluster photon
+field. At higher energies, losses are dominated by synchrotron
+cooling. Losses for nuclei are neglected as their timescales are
+large in the low-density superbubble environment.
+5.2. Target material
+We consider proton-proton interactions in molecular clouds and
+neutral gas. The distances of clouds A–B and C–D in Table 1 are
+fixed to 1 pc and 1.3 kpc respectively. We note that, assuming
+a distance of 1.6 kpc for Cygnus OB2, the density of parti-
+cles at clouds A–D is too low to materially contribute to the
+flux. These clouds however contribute to diffuse emission from
+galactic cosmic rays. Beyond 1.4 kpc, extinction introduces con-
+siderable uncertainty in cloud positions (see Sect. 4). Clouds
+E–K are initially assumed to be equidistant to Cygnus OB2 and
+close to the superbubble edge. This is a plausible scenario: den-
+sity increases in the superbubble shell, which is likely to be thin
+and fragmented due to cooling (see Weaver et al. 1977). Such a
+scenario is also plausible considering the CO data (see Sect. 4).
+We construct a neutral gas model based on measurements
+of the column density of atomic hydrogen (HI) by Astiasarain
+et al. 2023 (see their Fig. 2). We associate the neutral gas with
+known molecular cloud complexes: the Cygnus Rift at a dis-
+tance of about 1 kpc and the Cygnus SFR at about 1.6–1.8 kpc.
+Each component is modelled as an ellipsoid with parameters
+listed in Table 2. Column density maps are shown in Fig. 7.
+Model parameters and total masses were chosen to account for
+the total column density. Thus the model assumes that all mass
+is contained in the two components mentioned above.
+As discussed in Sect. 1, there are a number of observations
+hinting at the existence of a low-density ionised cavity around
+Cygnus OB2, which shapes the nearby molecular clouds (e.g.
+Li et al. 2023). The shape and full extent of this cavity can-
+not be directly inferred from observations. According to Weaver
+et al. (1977), assuming a continuous injection of energy and a
+homogeneous ambient medium, the radius of such a wind blown
+bubble is expected to be
+Rb = 183
+ ξbLw
+1038 erg s−1
+!1/5  nISM
+1 cm−3
+−1/5  t
+5 Myr
+!3/5
+pc, (5)
+Table 2. Parameters of the neutral gas model.
+Parameter Rift SFR
+centre d [kpc] 1.0 1.7
+centre l [◦] 78 79
+centre b [◦] 0.5 2
+total mass [106 M⊙] 4.2 3.4
+σl [pc] 200 200
+σb [pc] 50 80
+σd [pc] 200 200
+rotation [radian] 0.05 6
+Notes. The components are modelled as 3D Gaussians with standard
+deviations σl, σb, and σd in galactic longitude, latitude, and distance.
+The rotation is measured with respect to the galactic plane. Figure 7
+shows column density maps of the model.
+where Lw is the wind power, nISM the ambient density, t the age
+of the system, and ξb an empirical correction factor (see Vieu
+et al. 2022a). Modelling a spherical superbubble is a necessary
+simplification given the difficulty to observationally determine
+its real boundaries. Based on the current power, past stellar activ-
+ity (see Sect. 2.1) and observational hints, we set the superbubble
+radius to 150 pc from the centre of Cygnus OB2 ( l = 80.2◦,
+b = 0.8◦). Inside the superbubble, we set the density to a constant
+value of 0.05 cm−3. This value lies in the range typical for super-
+bubbles (Weaver et al. 1977, see also Sect. 1). We note that the
+density obtained in the hydrodynamical simulation (see Sect. 3)
+is lower because thermal conduction is not included, and hence
+evaporation at the shell is omitted.
+5.3. Particle injection and propagation
+We assume that at the end of the efficient particle acceleration
+phase, particles are released into the low-density superbubble
+carved by the winds from massive stars in Cygnus OB2. In the
+resulting turbulent environment, the diffusion coefficient, DSB,
+is expected to be smaller than its average interstellar value. We
+assume DSB = 1025 p1/2
+GeV cm2 s−1 which, in the framework of
+quasi-linear theory, is expected for a magnetic field around 10µG
+and a coherence length of a couple of pc. Beyond the low-density
+A111, page 11 of 20
+
+=== PAGE BREAK ===
+
+Härer, L., et al.: A&A, 703, A111 (2025)
+superbubble, the diffusion coefficient is increased to its fiducial
+value in the interstellar medium, DISM = 1028 p0.4
+GeV cm2 s−1.
+We model large-scale advection in a mean r−2 wind pro-
+file with a speed of 100 km s−1 at 10 pc. We note that advection
+is only relevant at low energies, especially for our chosen ini-
+tial velocity, which is appropriate for loose associations such
+as Cygnus OB2 (see Vieu et al. 2024b). For electrons, we take
+inverse Compton, synchrotron, and bremsstrahlung losses into
+account, as described in Sect. 5.1. The resulting inhomogeneous
+transport equation for the particle distribution function f (r, p, t)
+reads
+∂t f + u∂r f − 1
+r2 ∂r
+
+r2D∂r f
+
+− 1
+p2 ∂p
+ 
+p2 dp
+dt f
+!
+= Q(r, p, t), (6)
+where we adopt spherical symmetry. Adiabatic losses vanish
+for our adopted r−2 radial velocity profile. Q(r, p, t) is a source
+term that can represent, for instance, impulsive injection from a
+supernova remnant or stationary injection from wind termination
+shocks. The transport equation is an example of a advection-
+diffusion-reaction equation. We solve it with a finite element
+discontinuous Galerkin method, adapting the method presented
+in Di Pietro & Ern (2012, Sect. 4.6) for time-dependent prob-
+lems, using a Crank-Nicolson integrator and an upwind-flux for
+the advection term. For efficient computations, we use logarith-
+mic p and r variables. We use zero Dirichlet boundary conditions
+everywhere, suppressing the diffusion term below 10 pc to avoid
+propagation to the centre. We made sure that the solution was
+not impacted by the choice of boundary conditions, especially
+checking that the outer r boundary was far enough away for the
+solution to sufficiently decay.
+The solver was implemented in C++ using the open-source
+finite-element library deal.II (Africa et al. 2024; Arndt et al.
+2021). The code was validated against a number of tests for
+which analytic solutions are known, including homogeneous
+synchrotron losses in a box, advection-diffusion without losses,
+and an impulsive Gaussian profile with homogeneous diffusion
+coefficient. The code provides the solution for f (r, p, t) which
+can be post-analysed to determine the non-thermal emission.
+5.4. Gamma-ray emission
+We computed non-thermal emission using the GAMERA code
+(Hahn et al. 2022) 1. In Sect. 4, we provide the details of our
+model for the 3D distribution of target material, which includes
+both the molecular clouds and neutral medium. Convolving
+this with f (r, p, t) yields both the full spectra integrated over
+the region and synthetic γ-ray emission maps. For the leptonic
+model, we evaluate the UV photon field from Cygnus OB2 as
+a function of radius and keep all other photon fields and the
+magnetic field strength constant.
+We fitted the γ-ray morphology by adjusting the positions of
+clouds E–J. Parameters of the neutral gas model were kept fixed,
+including the superbubble interior density of 0.05 cm−3. Emis-
+sion from proton-proton interactions in molecular clouds was
+evaluated at the barycentre of each individual cloud. We evalu-
+ated the neutral gas distribution on a 3D grid with cell size 16.8′
+by 16.8′ in l and b and 24 pc in distance.
+The diffuse galactic cosmic-ray background is modelled fol-
+lowing Schwefer et al. (2023). We evaluate their model for
+atomic and molecular hydrogen and increase the resulting flux
+1 http://libgamera.github.io/GAMERA/docs/main_page.
+html
+by a factor of 1.7 to account for contributions from heavier
+nuclei (Kafexhiu et al. 2014). We assume a distance of 1.6 kpc
+to Cygnus OB2 to convert luminosity to flux.
+6. Hadronic emission from a supernova remnant
+6.1. Set-up and results
+In Sect. 3, we concluded that, despite the absence of a detectable
+remnant, a supernova likely occurred in Cygnus OB2 in the
+past 10–100 kyr and inferred the maximum energy of acceler-
+ated particles from a hydrodynamic simulation. Based on this
+estimate (see Fig. 4), we assume a maximum energy of 2 PeV
+for the following calculation. To model the γ-ray spectrum of
+protons accelerated at the forward shock of the remnant, we
+follow the approach outlined in Sect. 5, assuming an exponen-
+tial cut-off power-law injection, Q ∝ p−s exp(−p/pmax), where
+pmax = 2 PeVc−1, the injection momentum is set to 10 MeVc−1
+and s = 4. Particles are impulsively injected over a sphere of
+radius 20 pc around the centre of Cygnus OB2.
+Figure 8 shows the region-integrated spectra for a supernova
+remnant age of 50 kyr and Fig. 9 the particle flux map, smoothed
+using a Gaussian kernel of width σ = 0.3◦ to compare to the
+data. To reproduce the morphology, we place clouds F–K at a
+distance of 137 pc behind Cygnus OB2 and the North Filament
+(cloud E) 140 pc in front of Cygnus OB2. For this distribution of
+target material, the model requires a total energy of 3 × 1050 erg
+in non-thermal protons above 0.01 GeV. At 100 TeV–PeV, the
+spectrum is steep with slight curvature. In the TeV range, the
+bulk of the emission comes from interactions with gas inside the
+superbubble. At higher energies, contributions from both molec-
+ular clouds and neutral gas become comparable. The molecular
+cloud component shows a low-energy cut-off, which stems from
+the fact that no clouds are located close to the particle injection
+site and that the diffusion length of protons at these energies is
+significantly smaller than the distance to the nearest cloud.
+Overall, the observed morphology with a bright spot in
+the south and an additional weaker bright spot in the north is
+well reproduced (see Fig. 9). In addition, the model reproduces
+the energy dependent morphology between the 25–100 TeV and
+>100 TeV LHAASO bands. The morphology of the emission in
+the upper and middle LHAASO bands is dominated by emission
+from molecular clouds. The bulk of the emission comes from
+the North Filament and Central Clumps in the north. The south
+is dominated by the SFR South, with some contribution from
+the Cygnus Far South and Cygnus West clouds. The neutral gas
+component is required to reproduce the extent and steepness of
+the radial profile of the emission and the diffuse halo surround-
+ing the clouds (see Appendix B). The energy dependence in the
+morphology stems the proton distribution, which, as shown in
+Fig. 10, is more peaked at small radii for 100 TeV particles than
+it is for 1 PeV particles. Consequentially, the brightness of the
+neutral gas emission varies with energy. The brightness change
+is less in molecular cloud emission since the clouds are located
+close to the superbubble edge.
+6.2. Supernova remnant age, energy, and target material
+The energy dependence of the spatial profile of the proton
+distribution function is greater for younger supernova rem-
+nants. Ages >80 kyr produce minimal energy dependence in the
+γ-ray morphology between the 25–100 TeV and>100 TeV bands
+(see Fig. B.2). We note that the parameters tSN and DSB are
+degenerate as the proton distribution scales with √DSBtSN.
+A111, page 12 of 20
+
+=== PAGE BREAK ===
+
+Härer, L., et al.: A&A, 703, A111 (2025)
+10 1
+ 100 101 102 103 104 105 106 107
+Energy [GeV]
+10 14
+10 13
+10 12
+10 11
+10 10
+E2 dN/dE [erg s 1 cm 2]
+Sum
+SNR: PP
+GCR: PP
+Cyg OB2: IC
+ARGO-YBJ (2014)
+HAWC (2021)
+FERMI 4FGL (2020)
+LHAASO (2024)
+10 1
+ 100 101 102 103 104 105 106 107
+Energy [GeV]
+10 14
+10 13
+10 12
+10 11
+10 10
+E2 dN/dE [erg s 1 cm 2]
+SNR: PP
+on HI
+on clouds
+GCR: PP
+10 1
+ 100 101 102 103 104 105 106 107
+Energy [GeV]
+10 14
+10 13
+10 12
+10 11
+10 10
+E2 dN/dE [erg s 1 cm 2]
+Cyg OB2 IC total
+dust diffuse
+stars diffuse
+CMB
+UV from Cyg OB2
+Fig. 8. Preferred model for the region-integrated γ-ray spectrum
+consisting of hadronic emission from a 50 kyr-old supernova remnant
+along with inverse Compton emission from electrons accelerated at
+stellar-wind termination shocks in Cygnus OB2. The top panel shows
+both components in red and yellow as well as emission from diffuse
+galactic cosmic rays in blue. Diffuse galactic cosmic rays are only
+shown above 300 GeV since they are included in the Fermi-LAT
+background model. The middle panel shows hadronic model compo-
+nents. The lower panel shows contributions from inverse Compton
+scattering on individual photon fields. The data are from ARGO-YBJ
+Collaboration (2014), Abeysekara et al. (2021), Abdollahi et al. (2020),
+and LHAASO Collaboration (2024a).
+A different assumption on DSB will therefore affect the age
+estimate.
+The required energy corresponds to a powerful supernova
+with 3 × 1051 erg, if a proton acceleration efficiency of 10% is
+assumed. A powerful supernova is consistent with the assump-
+tion made in Sect. 3 to motivate a cut-off energy of a few
+PeV. The energy requirement can be reduced by assuming a
+superbubble density >0.05 cm−3, a younger supernova remnant,
+or, in principle, a higher cut-off energy. For younger (more
+recent) supernova remnants, particle escape at high energies is
+reduced, which leads to higher normalisations, harder spectra,
+and a cut-off at higher energy. A lower bound for the supernova
+age is probably 10–20 kyr, given that no remnant is detected in
+Cygnus OB2 (see Sect. 3.1).
+In the scenario of higher superbubble density, molecular
+clouds would have to be slightly further embedded in the super-
+bubble to maintain the relative normalisation between the neutral
+gas and molecular cloud component, which is constrained by the
+γ-ray morphology (see Fig. B.1). For typical superbubble densi-
+ties, nSB ≲ 0.1 cm−3, the model predicts the clouds to be within
+∼10–20 pc of the edge. We note that the normalisation of the pro-
+ton distribution changes rapidly across the superbubble edge (see
+Fig. 10). This is a consequence of the inhomogeneous two-zone
+diffusion model. A change in cloud position within a few parsecs
+can therefore produce measurable differences in the γ-ray maps.
+However, we highlight that in fitting the cloud positions, we only
+deviated from the assumption of equiradial clouds in the case of
+the North Filament, which is located at a radius of 140 pc instead
+of 137 pc as is the case for the remaining clouds in the vicinity
+of Cygnus OB2. In other words, except for the North Filament,
+the γ-ray brightness of clouds in our model is well correlated
+with the cloud mass. We remark in addition that cloud masses
+are subject to uncertainty (see Sect. 4). As highlighted in Sect. 5,
+approximately equiradial clouds close to the superbubble edge
+are expected. The fact that this assumption holds well within our
+model supports the validity of the supernova scenario.
+6.3. Origin of the ultra-high-energy γ-rays
+Substantial interest has been taken in the origin of the ultra-
+high-energy γ-rays from the Cygnus region. In the following,
+we explore how well the supernova remnant model describes
+the data up to the highest energies. Figure 11 highlights relevant
+uncertainties in the modelling: age of the supernova remnant
+and cut-off energy, the normalisation of the galactic cosmic
+ray background, and the contribution of Cygnus X-3 to the
+flux above 1 PeV. Our default assumption of Emax = 2 PeV and
+tSN = 50 kyr gives a model within the 1σ uncertainty of the
+two highest-energy data points. Models with a lower cut-off or
+older supernova remnants miss these points (see Fig. 11, left
+panel). Our choice of Emax = 2 PeV is motivated for a powerful
+supernova (cf. Fig. 4). For a nominal supernova, a lower cut-off
+energy might be more appropriate (about 0.5–1 PeV for an explo-
+sion energy of 1051 erg assuming Emax is roughly proportional to
+the square root of the explosion energy). However, as argued in
+Sect. 3.1, the young age of Cygnus OB2 favours Type Ic super-
+novae whose energy likely exceeds 1051 erg (Fryer et al. 2018).
+The background from diffuse galactic cosmic rays and the
+possibility of PeV particle acceleration in Cygnus X-3 introduce
+further uncertainty into the model. The uncertainty in the galac-
+tic cosmic-ray component is about a factor of two (Schwefer et al.
+2023). With an increase in the background within this range, the
+constraints on supernova remnant age and cut-off energy can be
+relaxed slightly. However, models with high galactic cosmic-ray
+background tend to over-predicted the flux at TeV energies if
+the Fermi-LAT data is fit with inverse Compton emission from
+A111, page 13 of 20
+
+=== PAGE BREAK ===
+
+Härer, L., et al.: A&A, 703, A111 (2025)
+7678808284
+l [deg]
+4
+2
+0
+2
+4
+b [deg]
+Model 25 - 100 TeV
+0.2
+0.4
+0.6
+0.8
+1.0
+-ray flux [a.u.]
+7678808284
+l [deg]
+4
+2
+0
+2
+4
+b [deg]
+Model > 100 TeV
+0.2
+0.4
+0.6
+0.8
+1.0
+-ray flux [a.u.]
+7678808284
+l [deg]
+4
+2
+0
+2
+4
+b [deg]
+LHAASO 25 - 100 TeV
+2
+4
+6
+8
+10
+12
+14
+16
+significance
+7678808284
+l [deg]
+4
+2
+0
+2
+4
+b [deg]
+LHAASO > 100 TeV
+2
+4
+6
+8
+10
+12
+14
+16
+significance
+Fig. 9. Synthetic γ-ray emission maps (top row) and significance maps from LHAASO Collaboration (2024a) (bottom row). Both the model and
+data have been smoothed using a Gaussian kernel of σ = 0.3◦. The top of the colour scale is set to the maximum and the bottom to 10% of the
+maximum. The white cross marks the position of the stellar association Cygnus OB2. The figure demonstrates that the model is in good agreement
+with the γ-ray morphology and its energy dependence.
+50 100 150 200 250 300
+radius [pc]
+10 39
+10 38
+10 37
+10 36
+10 35
+10 34
+10 33
+10 32
+10 31
+10 30
+proton distribution function [GeV 3 cm 3]
+ 100 TeV
+1 PeV
+clouds
+SB radius
+Fig. 10. Proton distribution function as a function of radius at 100 TeV
+(blue-dashed line) and 1 PeV (red-solid line). The dash-dotted vertical
+line marks the superbubble radius, which separates the low-diffusion
+and interstellar-medium diffusion zones. The solid vertical lines indi-
+cate the positions of molecular clouds in the model. The relative
+normalisation between the two displayed proton distributions changes
+strongly at small radii, which results in energy dependent morphology
+(see Fig. 9).
+stellar winds in Cygnus OB2 (see Sect. 7) and require enhanced
+synchrotron cooling, B ≳ 10 µG.
+Microquasars have recently received increased attention as
+potential accelerators of PeV particles. While at a larger distance,
+Cygnus X-3 is in spatial coincidence with Cygnus OB2 and two
+out of the eight photons reported in LHAASO Collaboration
+(2024a) above 1 PeV are spatially correlated with its location. In
+the right panel of Fig. 11, we naively scale the flux points above
+1 PeV by a factor 2/8, leaving the error bars unchanged. This
+is meant only to illustrate how attributing some of the detected
+photons to Cygnus X-3 might affect the flux expected from the
+supernova remnant and should not be seen as proper modelling.
+A cut-off of 2 PeV provides the best description of the scaled
+data points (unscaled: 3 PeV). We note, however, that the uncer-
+tainties are large and that the flux from diffuse galactic cosmic
+rays is almost within 1σ.
+In conclusion, considering that an association of at least
+some of the ultra-high-energy photons with Cygnus X-3 is likely
+and that the significance at high energies is low, the supernova
+remnant scenario is conceivable even for a lower cut-off energy.
+With standard assumptions (no contribution from Cygnus X-3
+and standard galactic cosmic-ray background) a cut-off energy
+of 2 PeV is required to remain within the1σ uncertainties of the
+A111, page 14 of 20
+
+=== PAGE BREAK ===
+
+Härer, L., et al.: A&A, 703, A111 (2025)
+105 106
+Energy [GeV]
+10 14
+10 13
+10 12
+E2 dN/dE [erg s 1 cm 2]
+cut-off and SNR age
+2 PeV, 80 kyr
+sum with
+GCR
+1 PeV, 50 kyr
+3 PeV, 50 kyr
+105 106
+Energy [GeV]
+GCR normalisation
+GCR x1
+sum with
+SNR
+GCR x1.5
+GCR x2
+105 106
+Energy [GeV]
+2/8 photons at > 1 PeV from Cyg X-3
+SNR 50 kyr, 2 PeV
+LHAASO (2024)
+x0.75
+Fig. 11. Dependence of the model spectrum on cut-off energy and age of the supernova remnant (left panel) and uncertainty in the flux of galactic
+cosmic rays (middle panel). The right-hand panel shows the spectrum for the case that two of the eight photons with energy>1 PeV can be attributed
+to the microquasar Cygnus X-3. In addition to a change in spectral shape, the energy required to match the normalisation of the data increases for
+lower cut-off energies and older supernova remnants. The displayed models require 4.5, 6, and 2.1 × 1050 erg in non-thermal protons for an age of
+80 kyr and a cut-off energy of 1 PeV and 3 PeV, respectively.
+data above 1 PeV, if the injection spectrum is a p−4 power-law
+with exponential cut-off.
+6.4. Sensitivity to other parameters
+We set DISM = 1028 p0.4
+GeVcm2 s−1 and the superbubble radius to
+150 pc. A change in these parameters within realistic bounds
+only affects the model marginally. Key to the behaviour of the
+model is that DISM ≫ DSB, which remains true even if DISM is
+reduced, for example, by a factor ten. Considering the discussion
+in Sect. 5.2, the superbubble radius might vary by as much as
+20–30%, depending on properties of the environment and star
+cluster. A change of this magnitude does not affect the shape of
+the particle distribution significantly.
+Finally, in our model we fix the spectral index at injection
+to the nominal value s = 4 obtained from test-particle diffu-
+sive shock acceleration theory (e.g. Drury 1983). This parameter
+is degenerate with other model parameters, in particular the
+supernova age, the positions of molecular clouds relative to the
+superbubble edge, and the diffusion coefficient in the superbub-
+ble. If other model parameters are kept fixed, steepening, be
+it from injection or propagation effects, reduces the fit quality
+at ultra-high energies. As discussed in Sect. 6.3, this can be
+compensated for by contributions from Cygnus X-3 or diffuse
+galactic cosmic rays.
+6.5. Leptonic component
+Electrons accelerated by the supernova remnant shock will pro-
+duce inverse-Compton emission. This results in a component
+with a comparatively sharp peak at about 1 TeV, which cuts off
+at higher energies due to synchrotron losses, as shown in pink
+in Fig. 12 for an electron acceleration efficiency of 1% and
+assuming the same photon fields as described in Sect. 5.1. Lep-
+tonic emission from the supernova is subdominant compared to
+the much broader underlying inverse Compton component from
+stellar winds, such that a discernable observational signature in
+γ-rays is not expected.
+7. Leptonic emission from Cygnus OB2
+7.1. Results and discussion
+Cygnus OB2 harbours several early-type and Wolf–Rayet stars,
+whose stellar-wind termination shocks are expected to accel-
+erate particles up to energies of the order of 50 TeV (see
+Sect. 2). We obtain the particle distribution and γ-ray spectrum
+as described in Sect. 5, taking into account the radial depen-
+dence of the cluster photon field for computing losses and γ-ray
+emission. Particles are injected continuously over 3 Myr within
+a sphere of radius 10 pc centred on Cygnus OB2. The injec-
+tion spectrum is a power-law with an exponential cut-off at
+pmax = 50 TeVc−1 and a spectral index s = 4.1. The injection
+momentum is set to 10 MeVc−1, as in the supernova model. The
+choice for the spectral index is motivated by the observation
+of comparatively steep γ-ray spectra from star-forming envi-
+ronments (e.g. H.E.S.S. Collaboration 2021, 2024; LHAASO
+Collaboration 2025). Figure 8 shows the stellar-wind inverse
+Compton component in yellow. The model reproduces the hard-
+ening of the spectrum in the Fermi-LAT band and the softening
+above 100 GeV. The γ-ray morphology is expected to peak at
+Cygnus OB2 and extend to a radius corresponding to the dis-
+tance travelled by electrons within their cooling time (see Fig. 6),
+which is ∼50 pc in our model. This is consistent with the mor-
+phology observed by LHAASO Collaboration (2024a) in the
+2–20 TeV band.
+To reproduce the flux level observed in γ-rays, the required
+power in non-thermal electrons is 3.5 × 1036 erg s−1 across all
+energies, which represents about 1% of the currently inferred
+stellar wind power in Cygnus OB2. While this value is higher
+than that typically inferred from multi-wavelength models of
+supernova remnants (e.g. Berezhko et al. 2009), the shock con-
+ditions at termination shocks of isolated stellar winds are quite
+different to those at the external shocks of young supernova
+A111, page 15 of 20
+
+=== PAGE BREAK ===
+
+Härer, L., et al.: A&A, 703, A111 (2025)
+10 17
+ 10 14
+ 10 11
+ 10 8
+ 10 5
+ 10 2
+ 101 104 107
+Energy [GeV]
+10 13
+10 12
+10 11
+10 10
+10 9
+E2 dN/dE [erg s 1 cm 2]
+Sum
+SNR: PP
+GCR: PP
+Cyg OB2: PP
+on clouds
+on HI
+Cyg OB2: IC
+Cyg OB2: brems
+Cyg OB2: synch
+SNR: IC
+ARGO-YBJ (2014)
+HAWC (2021)
+FERMI 4FGL (2020)
+LHAASO (2024)
+Suzaku (2015)
+CGPS (2003)
+Fig. 12. Spectral energy distribution model showing additional components: synchrotron emission (purple) and bremsstrahlung (cyan) from elec-
+trons accelerated at stellar-wind termination shocks in Cygnus OB2, hadronic emission from the same source (grey), and inverse Compton emission
+from the supernova remnant shock (pink). The latter is normalised assuming a supernova energy of 3 × 1051 erg and an acceleration efficiency of
+electrons of 1%. We show radio upper limits from Abeysekara et al. (2021), which were derived for the entirety of the Cygnus Cocoon. We assume
+uniform B = 5 µG and n = 0.05 cm−3 in the superbubble.
+remnants. For example, they have a rather slow upstream flow
+speed and high upstream temperature compared to supernova
+remnants. Stellar wind termination shocks are also expected to
+show high magnetic field obliquity. Furthermore, since electrons
+are injected continuously over the lifetime of the association, the
+expected flux depends on past stellar wind activity. It is con-
+ceivable that the wind power of Cygnus OB2 was higher in
+the past than the currently inferred 3 × 1038 erg s−1, consider-
+ing the complex star-formation history of the association (see
+Sect. 2.1).
+The bottom panel of Fig. 8 shows the contributions from
+scattering on different photon fields. In theFermi-LAT band, the
+scattering on the cluster photon field dominates. The TeV range
+is dominated by scattering on dust emission. Figure 12 shows
+the multi-wavelength spectrum, including radio upper limits for
+the Cygnus Cocoon (Abeysekara et al. 2021) and X-ray upper
+limits from Suzaku. For our assumption of a homogeneous mag-
+netic field of 5 µG, the synchrotron model remains within the
+upper limits, while bremsstrahlung is always subdominant in the
+low-density superbubble.
+Our choice of parameters provides a good fit to the LHAASO
+and Fermi-LAT data in the ∼1 GeV–10 TeV range while remain-
+ing within the multi-wavelength limits. Considerable uncertainty
+stems from the fact that the magnetic field is not well constrained
+and most certainly varies within the region. Due to the non-
+trivial nature of stellar wind interaction (Vieu et al. 2024b; Härer
+et al. 2025), it is challenging to make an informed choice for a
+prescription for the spatial dependence of the magnetic field. It
+is conceivable that the magnetic field in the inverse Compton
+emission region (radii ≲50 pc) is larger than 5 µG but decreases
+beyond to result in the given radio upper-limits. Increased syn-
+chrotron losses soften the spectrum above 1 TeV. Best-fit models
+for B ≳ 10 µG require either harder injection spectra ( s = 4)
+or increased dust emission. As mentioned we already assume
+that dust emission is enhanced by a factor of two over the model
+by Popescu et al. (2017) as is appropriate in spiral arms. It is
+however conceivable that the enhancement factor is higher in
+the vicinity of Cygnus OB2 due to local dust production in
+the star-forming environment (see Green et al. 2019). Models
+with B < 5 µG provide a good fit for softer particle injection
+spectra, but tend to over-predict the γ-ray flux at 100 MeV–
+1 GeV. Alternatively, the superbubble flow velocity could have a
+profile shallower than r−2, in which case adiabatic losses would
+reduce the flux back within range. This is one of several factors
+that limits the predictive power of the model at low energies. The
+model also depends on the choice of lowest particle momentum
+(10 MeV c−1 here) and the particle injection history over several
+millions of years. Cygnus OB2 harbours several distinct stellar
+populations, with ages in the range of 3–7 Myr (see Vieu et al.
+2024b). Particle injection was almost certainly not continuous.
+Jointly, these factors can lead to a more complex spectral shape
+than predicted by our model. The fact that the bump around
+1 GeV is not captured by the model is therefore not surprising.
+We note that assumptions on the low-energy electron population
+also impact synchrotron emission in the radio.
+7.2. Hadronic component
+The grey lines in Fig. 12 show γ-rays produced in molecu-
+lar clouds and in the neutral medium by protons accelerated at
+stellar-wind termination shocks in Cygnus OB2. We assume a
+hadronic acceleration efficiency of 10%. The model is dominated
+by the flux from hadronic interactions within the superbub-
+ble interior, because particles diffuse away quickly once they
+leave the superbubble and enter the interstellar medium. There-
+fore, they only produce low levels of γ-ray flux within the
+higher-density regions beyond the cavity. Simultaneously, the
+continuous supply of fresh particles from Cygnus OB2 ensures
+that the density of particles inside the superbubble remains high.
+The model is below the measured flux by about one order of
+magnitude. A fit to the data would require an unusually high
+superbubble interior density, nSB>0.5 cm−3. For instance, previ-
+ous claims that Cygnus OB2 produces hadronic γ-rays matching
+the observed flux assume densities of 20–30 cm−3 (Abeysekara
+et al. 2021; Bykov & Kalyashova 2022; Banik & Ghosh 2022;
+Menchiari et al. 2024). Within the framework of Weaver et al.
+A111, page 16 of 20
+
+=== PAGE BREAK ===
+
+Härer, L., et al.: A&A, 703, A111 (2025)
+(1977) nSB > 1 cm−3 is only obtained assuming Cygnus OB2 was
+born in a parent molecular cloud of density >103 cm−3. This is
+two orders of magnitude larger than the mean value estimated
+from the HI column density.
+8. Conclusion
+We have demonstrated that a powerful supernova that exploded
+about 50 kyr ago in the stellar association Cygnus OB2 is the
+best candidate for the origin of the diffuse γ-ray emission at
+∼10 TeV–PeV observed in the Cygnus region. Our model repro-
+duces the observed energy dependence of theγ-ray morphology.
+With an additional inverse Compton component from electrons
+accelerated at stellar-wind termination shocks in Cygnus OB2,
+we modelled the full γ-ray spectrum from 100 MeV–PeV.
+This joint lepto-hadronic scenario is based on the following
+considerations:
+1. Cygnus is a vast, close-by star-forming complex. Multi-
+wavelength observations reveal large-scale structures shaped
+by feedback from generations of massive stars. The main
+source of mechanical power is the loose stellar association
+Cygnus OB2. Even though the connection between large-
+scale structures observed at different wavelengths is far from
+being understood, they support the notion of a low-density
+superbubble about 150 pc in radius around Cygnus OB2;
+2. Cygnus harbours powerful objects, such as Wolf–Rayet stars,
+pulsars, and supernova remnants. None of the detected
+objects stand out as a clear candidate source of ultra-high-
+energy γ-ray emission. We argue that an undetected super-
+nova with above-average power has likely occurred within
+the last few 100 kyr; By extending the 3D hydrodynamical
+simulations presented in Vieu et al. (2024b), we determined
+the maximum particle energy at the forward shock of such a
+supernova remnant to be 1–2 PeV;
+3. We considered a two-zone diffusion model, where the first
+zone represents the highly turbulent superbubble and the sec-
+ond zone represents the interstellar medium; A low-diffusion
+zone is required to confine the non-thermal particles within
+the γ-ray emission region. We obtained the particle distribu-
+tion function by numerically solving the transport equation
+in spherical symmetry. Through reviewing the literature,
+we identified six molecular clouds within 100–200 pc from
+Cygnus OB2, which serve as target material for γ-ray pro-
+duction by non-thermal protons. In our preferred model,
+these clouds are located about equiradially at the edge of the
+Cygnus OB2 superbubble.
+In the proposed scenario, an old supernova remnant would still
+be present at the current time, which due to having reached a size
+of several 10 s of parsecs in a hot low-density superbubble may
+have escaped detection. Nevertheless, its past feedback would
+not only impact the production of very-high-energy cosmic rays
+but would also have implications for our understanding of the
+dynamics of star-forming complexes. In the case of Cygnus, this
+might be key to understanding how the complex was carved up
+to large scales. As mentioned in Sect. 2, it is also not excluded
+that the very-high-energy particles were accelerated during the
+early expansion phase of the γ-Cygni supernova remnant, which
+despite its offset might be embedded in the Cygnus OB2 super-
+bubble. Very-high-energy particles could have leaked out of the
+remnant, filled the superbubble, and reached the complex of
+molecular clouds in Cygnus X. Determining under which con-
+ditions γ-Cygni can contribute to the non-thermal content of
+the Cygnus OB2 superbubble at very-high energy requires a
+detailed, asymmetric propagation model, but constructing such
+a model is beyond the scope of the present work.
+While a powerful supernova can account for the γ-ray pho-
+tons observed at ultra-high energies, an association of all flux
+above 1 PeV with such an event is not the only plausible sce-
+nario. Some ultra-high-energy photons are spatially correlated
+with the microquasar Cygnus X-3, and the contribution from
+diffuse galactic cosmic rays at ultra-high energies is uncertain.
+Taking these factors into account allows for a cut-off in the super-
+nova remnant γ-ray spectrum below 2 PeV; in other words, the
+existence of an extreme accelerator in Cygnus X is not essential
+to explain the observations. At hundreds of TeV, the supernova
+remnant scenario is preferred over the wind termination shock
+scenario since Cygnus OB2 is too extended to form a collec-
+tive cluster wind and the maximum particle energy at individual
+stellar-wind termination shocks is at most 100 TeV. Particles
+accelerated at wind shocks are however the preferred source
+of γ-rays below ∼10 TeV. Because of the continuous supply of
+freshly accelerated particles, strong photon fields, and the low-
+density superbubble environment, inverse Compton dominates
+over hadronic emission and allows to explain the data with an
+electron acceleration efficiency of 1%.
+Given the current statistical uncertainties, future observa-
+tions with LHAASO and CTAO are necessary to constrain the
+origin of ultra-high-energy γ-ray photons observed in Cygnus.
+In addition, a dedicated multi-wavelength effort is needed to
+decipher the connection between large-scale structures across the
+electromagnetic spectrum in the Cygnus region. The relationship
+between measurements in the ultra-high-energy γ-ray regime
+and the role of massive star forming regions in the galactic
+cosmic-ray ecosystem remains an open problem. In this work, we
+have established a connection between an energetic supernova in
+Cygnus OB2 and multi-PeV cosmic rays.
+Data availability
+The column density maps for the ten molecular clouds listed
+in Table 1 are available at https://doi.org/10.17617/
+3.G9LUS1. They were inferred using the CO data and the
+catalogue of cloud distances from Zhang et al. (2024) and
+are available at https://doi.org/10.57760/sciencedb.
+16716 and https://www.doi.org/10.26093/cds/vizier.
+51670220, respectively. The initial conditions and output of
+the hydrodynamic simulation (Sect. 3.2) may be shared on
+reasonable request to TV. Details on the transport equation
+solver (Sect. 5.3) may be shared on reasonable request to FS
+(florian.schulze@mpi-hd.mpg.de) or TV.
+Acknowledgements. This work made use of the MHD code PLUTO. Computa-
+tions were performed on the HPC system Raven at the Max Planck Computing
+and Data Facility. We thank L. Olivera Nieto and Q. Remy for numerous help-
+ful discussions on the γ-ray data and the gas distribution. We acknowledge
+R. Yang for providing LHAASO significance maps and details on the LHAASO
+analysis. CJKL gratefully acknowledges support from the International Max
+Planck Research School for Astronomy and Cosmic Physics at the University
+of Heidelberg in the form of an IMPRS PhD fellowship.
+References
+Abdo, A. A., Allen, B., Berley, D., et al. 2007, ApJ, 658, L33
+Abdollahi, S., Acero, F., Ackermann, M., et al. 2020, ApJS, 247, 33
+Abeysekara, A. U., Archer, A., Aune, T., et al. 2018, ApJ, 861, 134
+Abeysekara, A. U., Albert, A., Alfaro, R., et al. 2021, Nat. Astron., 5, 465
+Ackermann, M., Ajello, M., Allafort, A., et al. 2011, Science, 334, 1103
+Africa, P. C., Arndt, D., Bangerth, W., et al. 2024, J. Numer. Math., 32, 369
+Albacete-Colombo, J. F., Drake, J. J., Flaccomio, E., et al. 2023, ApJS, 269, 14
+Almeida, A., Monteiro, H., & Dias, W. S. 2023, MNRAS, 525, 2315
+A111, page 17 of 20
+
+=== PAGE BREAK ===
+
+Härer, L., et al.: A&A, 703, A111 (2025)
+ARGO-YBJ Collaboration (Bartoli, B., et al.) 2014, ApJ, 790, 152
+Arndt, D., Bangerth, W., Davydov, D., et al. 2021, Comput. Math. Appl., 81, 407
+Astiasarain, X., Tibaldo, L., Martin, P., Knödlseder, J., & Remy, Q. 2023, A&A,
+671, A47
+Badmaev, D. V., Bykov, A. M., & Kalyashova, M. E. 2024, MNRAS, 527, 3749
+Banik, P., & Ghosh, S. K. 2022, ApJ, 931, L30
+Barbarino, C., Sollerman, J., Taddia, F., et al. 2021, A&A, 651, A81
+Bell, A. R. 2004, MNRAS, 353, 550
+Bell, A. R., & Lucek, S. G. 2001, MNRAS, 321, 433
+Bell, A. R., Matthews, J. H., Taylor, A. M., & Giacinti, G. 2025, MNRAS, 539,
+1236
+Berezhko, E. G., Ksenofontov, L. T., & Völk, H. J. 2009, A&A, 505, 169
+Berlanas, S. R., Herrero, A., Comerón, F., et al. 2018, A&A, 612, A50
+Berlanas, S. R., Wright, N. J., Herrero, A., Drew, J. E., & Lennon, D. J. 2019,
+MNRAS, 484, 1838
+Berlanas, S. R., Herrero, A., Comerón, F, et al. 2020, A&A, 642, A168
+Bluem, J., Kaaret, P., Fuelberth, W., et al. 2020, ApJ, 905, 91
+Bonne, L., Bontemps, S., Schneider, N., et al. 2023, ApJ, 951, 39
+Brazier, K. T. S., Kanbach, G., Carramiñana, A., Guichard, J., & Merck, M. 1996,
+MNRAS, 281, 1033
+Breuhaus, M., Hahn, J., Romoli, C., et al. 2021, ApJ, 908, L49
+Bykov, A. M., & Kalyashova, M. E. 2022, Adv. Space Res., 70, 2685
+Bykov, A. M., Gladilin, P. E., & Osipov, S. M. 2013, MNRAS, 429, 2755
+Camilo, F., Ray, P. S., Ransom, S. M., et al. 2009, ApJ, 705, 1
+Cantat-Gaudin, T., Anders, F., Castro-Ginard, A., et al. 2020, A&A, 640, A1
+Cash, W., Charles, P., Bowyer, S., et al. 1980, ApJ, 238, L71
+Chu, Y.-H. 1997, AJ, 113, 1815
+Comerón, F., & Pasquali, A. 2007, A&A, 467, L23
+Comerón, F., & Pasquali, A. 2012, A&A, 543, A101
+Comerón, F., Djupvik, A. A., Schneider, N., & Pasquali, A. 2020, A&A, 644,
+A62
+Di Pietro, D. A., & Ern, A. 2012, Mathématiques et Applications, 69, Mathemati-
+cal Aspects of Discontinuous Galerkin Methods (Berlin, Heidelberg: Springer
+Berlin Heidelberg)
+Dickel, H. R., & Wendker, H. J. 1978, A&A, 66, 289
+Dickel, H. R., Wendker, H., & Bieritz, J. H. 1969, A&A, 1, 270
+Downes, D., & Rinehart, R. 1966, ApJ, 144, 937
+Drury, L. O. 1983, Rep. Prog. Phys., 46, 973
+Fleischhack, H. 2019, in International Cosmic Ray Conference, 36, 36th Interna-
+tional Cosmic Ray Conference (ICRC2019), 675
+Fryer, C. L., Andrews, S., Even, W., Heger, A., & Safi-Harb, S. 2018, ApJ, 856,
+63
+Gottschalk, M., Kothes, R., Matthews, H. E., Landecker, T. L., & Dent, W. R. F.
+2012, A&A, 541, A79
+Green, D. A. 2024, A Catalogue of Galactic Supernova Remnants (2024 October
+version) Cavendish Laboratory, Cambridge, UK
+Green, D. A. 2025, J. Astrophys. Astron., 46, 14
+Green, G. M., Schlafly, E., Zucker, C., Speagle, J. S., & Finkbeiner, D. 2019,
+ApJ, 887, 93
+Grunhut, J. H., Wade, G. A., Neiner, C., et al. 2017, MNRAS, 465, 2432
+Guevel, D., Beardmore, A., Page, K. L., et al. 2023, ApJ, 950, 116
+Hahn, J., Romoli, C., & Breuhaus, M. 2022, GAMERA: Source model-
+ing in gamma astronomy, Astrophysics Source Code Library [ record
+ascl:2203.007]
+Hamann, W. R., Gräfener, G., Liermann, A., et al. 2019, A&A, 625, A57
+Hanson, M. M. 2003, ApJ, 597, 957
+Härer, L. K., Reville, B., Hinton, J., Mohrmann, L., & Vieu, T. 2023, A&A, 671,
+A4
+Härer, L., Vieu, T., & Reville, B. 2025, A&A, 698, A6
+HEGRA Collaboration (Aharonian, F., et al.) 2002, A&A, 393, L37
+Hennemann, M., Motte, F., Schneider, N., et al. 2012, A&A, 543, L3
+H.E.S.S. Collaboration (Mohrmann, L., et al.) 2021, PoS, ICRC2021, 789
+H.E.S.S. Collaboration (Aharonian, F., et al.) 2024, ApJ, 970, L21
+Hillas, A. M. 1984, ARA&A, 22, 425
+Jin, R., Ng, C.-Y., Roberts, M. S. E., & Li, K.-L. 2023, ApJ, 942, 100
+Kafexhiu, E., Aharonian, F., Taylor, A. M., & Vila, G. S. 2014, Phys. Rev. D, 90,
+123014
+Kiminki, D. C., Kobulnicky, H. A., Vargas Álvarez, C. A., Alexander, M. J., &
+Lundquist, M. J. 2015, ApJ, 811, 85
+Kimura, M., Tsunemi, H., Tomida, H., et al. 2013, PASJ, 65, 14
+Knödlseder, J. 2004, arXiv e-prints [arXiv:astro-ph/0407050]
+Knödlseder, J., Cerviño, M., Le Duigou, J. M., et al. 2002, A&A, 390, 945
+Lagage, P. O., & Cesarsky, C. J. 1983, A&A, 125, 249
+Lazarian, A., & Xu, S. 2021, ApJ, 923, 53
+Leahy, D. A., Green, K., & Ranasinghe, S. 2013, MNRAS, 436, 968
+LHAASO Collaboration 2024a, Sci. Bull., 69, 449
+LHAASO Collaboration 2024b, arXiv e-prints [arXiv:2410.08988]
+LHAASO Collaboration 2025, Sci. China Phys. Mech. Astron., 68, 279502
+Li, C., Qiu, K., Li, D., et al. 2023, ApJ, 948, L17
+Lindegren, L., Hernández, J., Bombrun, A., et al. 2018, A&A, 616, A2
+Lozinskaya, T. A., Pravdikova, V. V., & Finoguenov, A. V. 2000, Astron. Lett.,
+26, 77
+Lyne, A. G., Stappers, B. W., Keith, M. J., et al. 2015, MNRAS, 451, 581
+MAGIC Collaboration (Aleksi´c, J., et al.) 2010, ApJ, 721, 843
+MAGIC Collaboration (Acciari, V. A., et al.) 2023, A&A, 670, A8
+Matthews, J. H., Bell, A. R., Blundell, K. M., & Araudo, A. T. 2017, MNRAS,
+469, 1849
+Menchiari, S., Morlino, G., Amato, E., Bucciantini, N., & Beltrán, M. T. 2024,
+A&A, 686, A242
+Meynet, G., & Maeder, A. 2003, A&A, 404, 975
+Morlino, G., Blasi, P., Peretti, E., & Cristofari, P. 2021, MNRAS, 504, 6096
+Orellana, R. B., De Biasi, M. S., & Paíz, L. G. 2021, MNRAS, 502, 6080
+Parizot, E., Marcowith, A., van der Swaluw, E., Bykov, A. M., & Tatischeff, V.
+2004, A&A, 424, 747
+Piddington, J. H., & Minnett, H. C. 1952, Aust. J. Sci. Res. A Phys. Sci., 5, 17
+Popescu, C. C., Yang, R., Tuffs, R. J., et al. 2017, MNRAS, 470, 2539
+Quintana, A. L., & Wright, N. J. 2021, MNRAS, 508, 2370
+Reipurth, B., & Schneider, N. 2008, in Handbook of Star Forming Regions,
+Volume I, 4, ed. B. Reipurth, 36
+Roberts, M. S. E., Hessels, J. W. T., Ransom, S. M., et al. 2002, ApJ, 577, L19
+Rosslowe, C. K., & Crowther, P. A. 2015, MNRAS, 447, 2322
+Rygl, K. L. J., Brunthaler, A., Sanna, A., et al. 2012, A&A, 539, A79
+Sander, A. A. C., Hamann, W. R., Todt, H., et al. 2019, A&A, 621, A92
+Schlickeiser, R. 2002, Cosmic Ray Astrophysics (Springer)
+Schneider, N., Bontemps, S., Simon, R., et al. 2006, A&A, 458, 855
+Schneider, N., Simon, R., Bontemps, S., Comerón, F., & Motte, F. 2007, A&A,
+474, 873
+Schneider, N., Bontemps, S., Motte, F., et al. 2016, A&A, 591, A40
+Schwefer, G., Mertsch, P., & Wiebusch, C. 2023, ApJ, 949, 16
+Stanway, E. R., & Eldridge, J. J. 2018, MNRAS, 479, 75
+Stevance, H., Eldridge, J., & Stanway, E. 2020, J. Open Source Softw., 5,
+1987
+Thompson, D. J., Bertsch, D. L., Dingus, B. L., et al. 1995, ApJS, 101, 259
+Tibet ASγ Collaboration (Amenomori, M., et al.) 2021, Phys. Rev. Lett., 127,
+031102
+Usov, V. V., & Melrose, D. B. 1992, ApJ, 395, 575
+Uyanıker, B., Fürst, E., Reich, W., Aschenbach, B., & Wielebinski, R. 2001,
+A&A, 371, 675
+Vieu, T., & Reville, B. 2023, MNRAS, 519, 136
+Vieu, T., Gabici, S., Tatischeff, V., & Ravikularaman, S. 2022a, MNRAS, 512,
+1275
+Vieu, T., Reville, B., & Aharonian, F. 2022b, MNRAS, 515, 2256
+Vieu, T., Härer, L., & Reville, B. 2024a, MNRAS, 530, 4747
+Vieu, T., Larkin, C. J. K., Härer, L., et al. 2024b, MNRAS, 532, 2174
+Weaver, R., McCray, R., Castor, J., Shapiro, P., & Moore, R. 1977, ApJ, 218, 377
+Whalen, D. J., & Norman, M. L. 2008, ApJ, 672, 287
+Wright, N. J., Drew, J. E., & Mohr-Smith, M. 2015, MNRAS, 449, 741
+Xu, W. F., Gao, X. Y., Han, J. L., & Liu, F. S. 2013a, A&A, 559, A81
+Xu, Y., Li, J. J., Reid, M. J., et al. 2013b, ApJ, 769, 15
+Zhang, S., Su, Y., Chen, X., et al. 2024, AJ, 167, 220
+A111, page 18 of 20
+
+=== PAGE BREAK ===
+
+Härer, L., et al.: A&A, 703, A111 (2025)
+Appendix A: Distance to Cygnus OB2
+Cygnus OB2 is by far the most massive and powerful association of massive stars in the Cygnus region. The determination of its
+distance is critical to understanding feedback processes on nearby molecular clouds and surrounding multi-wavelength emission,
+from radio to ultra-high-energy γ-rays. Spectrophotometric studies usually show a large spread in the distance modulus of the
+association and do not allow positioning of the association accurately within the Cygnus-X region (e.g. Hanson 2003).
+Figure A.1 compiles distance estimates found in the literature. Very long baseline interferometry (VLBI) measurements of masers
+in Cygnus North suggest a distance of 1.3–1.5 kpc for these molecular clouds (Rygl et al. 2012); however, this might not necessarily
+be the distance to Cygnus OB2. VLBI measurements of circumstellar masers around the red hypergiant NML Cyg provide a distance
+of 1.61 ± 0.12 kpc, but NML Cyg, with a latitude of -1.9 ◦, does not exactly correlate with Cygnus OB2; its projected separation is
+about 90 pc.
+Kiminki et al. (2015) measure the distance to four spectroscopic binaries at1.33 ± 0.6 kpc. However,Gaia EDR3 provides com-
+patible parallaxes for three of these binaries, which are consequently no longer considered to be in the main group of Cygnus OB2.
+Only for one binary, MT91 372, there is tension in the distance determination (1765 ± 44 pc according to Gaia EDR3, still placing it
+within Cygnus OB2). A dedicated study of the eclipsing blue-supergiant binary V⋆ V1827 Cyg finds a distance of1.65 ± 0.15 kpc, in
+good agreement with the Gaia EDR3 parallax measurement (1765 ± 70 pc). This star is not close to the centre of Cygnus OB2, but
+at a projected distance of 0.45◦ (13 pc at a distance of 1.7 kpc). Still, it is considered to be part of the association in modern censuses.
+Despite the systematic bias, Gaia parallaxes seem to provide the most direct, robust and accurate distance measurements. The
+latest analyses (Quintana & Wright 2021; Orellana et al. 2021) are compatible with distances of 1.6–1.75 kpc. Three stellar fore-
+ground groups are identified by Orellana et al. (2021), one at around 1.46 kpc, which is associated with the open cluster UBC 585,
+and two at around 1.28 kpc.
+1990 1995 2000 2005 2010 2015 2020
+Publication year
+1200
+1300
+1400
+1500
+1600
+1700
+1800
+1900
+2000Distance estimate [pc]
+Johnson&Morgan
+Reddish+
+Humphreys
+Massey&Thompson
+Comeron&Pasquali
+Kiminki+
+Berlanas+
+Berlanas+
+Lim+
+Orellana+
+Orellana+
+Orellana+
+Rygl+
+Hanson
+Quintana&Wright
+T orres-Dodgen+
+Stroud+
+Zhang+
+Kiminki+
+Negueruela+
+Spectrophotometry
+GAIA parallaxes
+VLBI
+Eclipsing binaries
+Fig. A.1: Distance estimates for Cygnus
+OB2 quoted in the literature. Distances to
+foreground substructures are shown in fad-
+ing colours. A systematic uncertainty of
+0.03 mas is added to quoted Gaia paral-
+laxes.
+Appendix B: Supplementary γ-ray maps
+Figures B.1 and B.2 show the syntheticγ-ray emission for the supernova remnant model (see Sect. 6). Figure B.1 shows components
+of the model presented in Fig. 9. The figure demonstrates that the diffuse neutral gas component (HI) is required to reproduce the
+morphology of the emission, since emission from the clouds alone is too localised. In addition, the figure highlights that the HI
+component is brighter at lower energies. This is discussed in Sect. 6 and also shown in Fig. 10. Figure B.2 shows the model at 80 kyr.
+While the morphology in the >100 TeV band is unchanged compared to the model with tSN = 50 kyr, the 25–100 TeV band shows
+decreased brightness in the northern clouds at l > 80◦. As a consequence, the northern clouds are only marginally brighter in the
+lower-energy band than in the higher-energy band and match the LHAASO observations less well (see Fig. 9).
+A111, page 19 of 20
+
+=== PAGE BREAK ===
+
+Härer, L., et al.: A&A, 703, A111 (2025)
+7678808284
+l [deg]
+4
+2
+0
+2
+4
+b [deg]
+25 - 100 TeV, clouds only
+0.2
+0.4
+0.6
+0.8
+1.0
+-ray flux [a.u.]
+7678808284
+l [deg]
+4
+2
+0
+2
+4
+b [deg]
+25 - 100 TeV, HI only
+0.2
+0.4
+0.6
+0.8
+1.0
+-ray flux [a.u.]
+7678808284
+l [deg]
+4
+2
+0
+2
+4
+b [deg]
+> 100 TeV, clouds only
+0.2
+0.4
+0.6
+0.8
+1.0
+-ray flux [a.u.]
+7678808284
+l [deg]
+4
+2
+0
+2
+4
+b [deg]
+> 100 TeV, HI only
+0.2
+0.4
+0.6
+0.8
+1.0
+-ray flux [a.u.]
+Fig. B.1: Components of the synthetic γ-ray emission maps shown in Fig. 9. The colour-scale is individually normalised to the maximum in each
+energy band. Maps are smoothed using a Gaussian function with a half-width of 0.3◦.
+7678808284
+l [deg]
+4
+2
+0
+2
+4
+b [deg]
+25 - 100 TeV at 80 kyr
+0.2
+0.4
+0.6
+0.8
+1.0
+-ray flux [a.u.]
+7678808284
+l [deg]
+4
+2
+0
+2
+4
+b [deg]
+> 100 TeV at 80 kyr
+0.2
+0.4
+0.6
+0.8
+1.0
+-ray flux [a.u.]
+Fig. B.2: Model at 80 kyr, which shows that older supernova remnants produce less prominent energy dependence in the northern clouds atl > 80◦
+(cf. Fig. 9). The colour-scale is individually normalised to the maximum in each energy band. Maps are smoothed using a Gaussian function with
+a half-width of 0.3◦.
+A111, page 20 of 20
