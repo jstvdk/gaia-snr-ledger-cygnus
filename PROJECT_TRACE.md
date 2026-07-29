@@ -923,17 +923,41 @@ Three points worth carrying into WP7:
 
 | item | why it is open | cost | doc |
 |---|---|---|---|
-| **`repair_v7`** — mass-dependent f_bin below 8 M☉ | issue #15 tested M ≥ 8 only; the 4–8 M☉ up-scatter channel, worth ~24% of the predicted observable count, is untested and is where multiplicity acts hardest | ~8 h + G3 re-acceptance — **but a ~15 min discriminator should decide it first** | [repair_v7_recommendation.md](tasks/repair_v7_recommendation.md) |
+| **`repair_v7`** — mass-dependent f_bin below 8 M☉ | **JUSTIFIED by measurement 2026-07-29.** The discriminator found **D2 = +9.87% ± 1.58%** on the 4–8 M☉ up-scatter channel — five times the pre-declared 2% threshold — while **D1 = +0.16%** on the calibration window. Estimated effect: closure ratio **1.099 → ~1.074** | ~8 h + G3 re-acceptance | [repair_v7_recommendation.md](tasks/repair_v7_recommendation.md) · [wp5_fbin_discriminator_execution.json](provenance/wp5_fbin_discriminator_execution.json) |
 | **parallax-blind membership test** | issue #8's verdict is partly circular: parallax is a WP2 clustering feature | moderate | [berlanas_2019_two_distance.md](cross_checks/berlanas_2019_two_distance.md) |
 | **distance-contamination test for CygOB2-C** | inflates masses and therefore the closure ratio — C's direction; covered by no WP6 alternative | moderate | as above |
 
-**Recommendation on `repair_v7`: defer.** Run the one-node discriminator in §4 of
-the recommendation, with a pre-declared threshold, before committing 8 hours to a
-chain re-run that would move an accepted artifact. The measured analogue above
-8 M☉ was 0.4%, the literature anchors below 8 M☉ are weaker, and — decisively —
-a uniform truth-model change moves all subgroups the same way and therefore
-cannot explain CygOB2-C's *direction* disagreement with A, which is the actual
-open question.
+**~~Recommendation on `repair_v7`: defer.~~ OVERTURNED 2026-07-29 by its own
+test.** The recommendation was to defer, reasoning that the sub-8 M☉ effect
+should be *smaller* than the 0.4% measured above 8 M☉ because the f_bin change
+there is smaller. That reasoning was wrong: it treated the mechanism as a
+smooth response shift when it is a **threshold** effect. Inside the calibration
+window most stars are recovered either way, so recovery is insensitive
+(**D1 = +0.16%**); at the 8 M☉ boundary a small brightness shift converts
+directly into a large crossing probability (**D2 = +9.87%**). The 25× ratio
+between them is exactly what prediction G2 anticipated.
+
+**`repair_v7` is justified and should be scheduled.** Three things follow:
+
+1. **The 15-minute test paid for itself.** It cost ~3 minutes of compute and
+   reversed an 8-hour decision that would otherwise have been made on intuition.
+   Pre-registering a cheap discriminator before an expensive re-run is now a
+   pattern worth repeating.
+2. **Do not take the shortcut D1 appears to offer.** D1 ≈ 0 suggests only WP6
+   needs re-running, but D1 measures the *recovery fraction*, not *mass
+   migration within the window*, and the WP5 likelihood consumes the full
+   response matrix. D2 is direct evidence that mass estimates shift enough to
+   move stars across a threshold; nothing makes that stop at 8 M☉. Scope is the
+   full chain.
+3. **It does not block WP7**, which is pure computation on frozen inputs and
+   consumes `k`, the WP4 ages and the runaway correction — none of which D1
+   suggests will move materially. WP7 and `repair_v7` can run in parallel
+   provided WP7's inputs are re-checked before publication.
+
+**The CygOB2-C argument still stands** and was not the part that was wrong: a
+uniform truth-model change moves all subgroups the same way, so `repair_v7`
+cannot explain C's *direction* disagreement with A. That remains the open
+science question, and `repair_v7` is not its answer.
 
 ## 11. Conventions used throughout
 

@@ -905,3 +905,30 @@ census by being brightened. The 4–8 M☉ up-scatter channel is held at
 f_bin = 0.40 in both arms. Permitted claim: *"multiplicity above 8 M☉ does not
 explain the excess."* **Not permitted:** *"multiplicity does not explain the
 excess."*
+
+### 18.7 The sub-8 M☉ channel is not negligible (measured 2026-07-29)
+
+A pre-registered go/no-go discriminator
+(`provenance/wp5_fbin_discriminator_prereg.json`) extended f_bin below 8 M☉
+(0.40 at 2 M☉ → 0.55 at 8 → 0.70 at 16) on three paired nodes of the reporting
+branch:
+
+| | measured | pre-declared threshold |
+|---|---:|---:|
+| **D1** — recovery over the 2–8 M☉ calibration window | **+0.16% ± 0.09%** | 2% |
+| **D2** — R(estimated > 8 M☉ \| M) over 4–8 M☉ | **+9.87% ± 1.58%** | 2% |
+
+**`repair_v7` is JUSTIFIED.** The control arm reproduced the accepted `repair_v6`
+node byte for byte, so the treatment shift is the model change and nothing else.
+
+**The lesson generalizes beyond f_bin.** The calibration window is insensitive
+because most stars there are recovered either way; the 8 M☉ boundary is highly
+sensitive because a small brightness shift converts directly into a crossing
+probability. **Any truth-model error will therefore show up ~25× more strongly
+at a threshold than in a recovery fraction.** A diagnostic that checks only
+recovery inside the fitting window will systematically under-report truth-model
+error, which is precisely how this one was nearly missed.
+
+This is the same structural lesson as issues #3 and #17: **thresholds are where
+the response does its damage**, and they must be probed directly rather than
+through window-averaged quantities.

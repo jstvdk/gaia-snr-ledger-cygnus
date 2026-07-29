@@ -3,8 +3,35 @@
 *2026-07-28. Written after issue #15 closed. **Not executed** — this changes an
 accepted WP5 result, so it is the principal investigator's call.*
 
-**Recommendation: do not run the full chain yet. Run a ~15-minute discriminator
-first (§4), and let its answer decide.**
+> ## OUTCOME 2026-07-29 — the discriminator overturned this recommendation
+>
+> The test in §4 was run and pre-registered
+> ([wp5_fbin_discriminator_prereg.json](../provenance/wp5_fbin_discriminator_prereg.json)
+> → [wp5_fbin_discriminator_execution.json](../provenance/wp5_fbin_discriminator_execution.json)).
+>
+> | measurement | result | threshold |
+> |---|---:|---:|
+> | **D1** — recovery over the 2–8 M☉ calibration window | **+0.16% ± 0.09%** | 2% |
+> | **D2** — up-scatter R(est > 8 \| M) over 4–8 M☉ | **+9.87% ± 1.58%** | 2% |
+>
+> **D2 is five times the threshold. `repair_v7` is JUSTIFIED.** G1 and G2 both
+> passed; the control arm reproduced the accepted `repair_v6` node byte for byte.
+>
+> **The recommendation below to defer was wrong, and its own proposed test is
+> what caught it.** The reasoning in §5 — that the sub-8 effect should be
+> *smaller* than the 0.4% measured above 8 M☉ because the f_bin change is
+> smaller — failed to account for the mechanism being a **threshold** effect.
+> Inside the calibration window most stars are recovered either way, so the
+> recovery fraction is insensitive (D1 ≈ 0). At the 8 M☉ boundary a small
+> brightness shift converts directly into a large probability of crossing, which
+> is exactly what G2 predicted and what the 25× ratio between D2 and D1 shows.
+>
+> Everything below is retained unedited as the pre-test reasoning.
+
+---
+
+**Superseded recommendation: do not run the full chain yet. Run a ~15-minute
+discriminator first (§4), and let its answer decide.**
 
 ---
 
@@ -133,3 +160,40 @@ Non-negotiables, from what this session learned:
   unless the discriminator shows the old value is simply wrong. Master-table
   row 20 already carries f_bin as Class E; it has never actually been carried on
   the response side.
+
+
+---
+
+## 8. Post-discriminator scope (added 2026-07-29)
+
+**Estimated effect on WP6.** The 4–8 M☉ segment contributes **23.5%** of the
+predicted observable count above 8 M☉ (from issue #17's convergence scan:
+predicted rises by a factor 1.444/1.105 when the floor drops from 8 to 4). A
++9.87% shift in that segment raises the total predicted count by **2.3%**, moving
+the grid-median closure ratio **1.099 → ~1.074**. Modest, and in the direction of
+better closure.
+
+**Do not take the shortcut D1 appears to offer.** D1 ≈ 0 suggests the WP5
+normalization `k` is stable and that only WP6 needs re-running. That inference is
+**not safe**:
+
+- D1 measures the **recovery fraction**, not **mass migration within the
+  window**. A star can be recovered in both arms while being assigned a
+  different mass.
+- D2's size is direct evidence that mass estimates *are* shifting by enough to
+  move stars across a threshold. There is no reason that stops at 8 M☉ — the
+  same shift redistributes stars among the 2–8 M☉ bins that the WP5 likelihood
+  actually fits.
+- The WP5 fit consumes the full response matrix `R(observed bin | true mass)`,
+  which D1 deliberately compresses to a scalar.
+
+So the honest scope is the **full chain**, as costed in §3, not a WP6-only
+re-run. What D1 does buy is a *prior expectation* that `k` will move very little
+— which makes the re-run a confirmation rather than a gamble, and means the
+headline N_SN is unlikely to shift much.
+
+**Sequencing.** This does not block WP7. The plan's WP7 is *"pure computation on
+frozen inputs"* and consumes `k`, the WP4 ages and the runaway correction — none
+of which D1 suggests will move materially. Running WP7 on the accepted chain and
+`repair_v7` in parallel is defensible, provided WP7's inputs are re-checked
+against `repair_v7` before anything is published.

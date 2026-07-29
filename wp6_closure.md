@@ -318,9 +318,36 @@ channel — where unresolved companions would matter most, and which issue #17
 showed carries real weight — is held at f_bin = 0.40 in **both** arms.
 
 The correct reading is **"multiplicity above 8 M☉ does not explain the excess"**,
-not "multiplicity does not explain the excess". Testing the sub-8 channel means
-perturbing the accepted WP5 calibration and requires a full repair_v7 chain
-re-run; it is carried as an open recommendation, not done here.
+not "multiplicity does not explain the excess".
+
+### The sub-8 M☉ channel was then measured — and it is not negligible
+
+*Pre-registered: [wp5_fbin_discriminator_prereg.json](provenance/wp5_fbin_discriminator_prereg.json)
+· scored: [wp5_fbin_discriminator_execution.json](provenance/wp5_fbin_discriminator_execution.json).*
+
+A three-node paired discriminator extended f_bin below 8 M☉ (0.40 at 2 → 0.55 at
+8 → 0.70 at 16):
+
+| | measured | threshold |
+|---|---:|---:|
+| **D1** — recovery over the 2–8 M☉ calibration window | **+0.16% ± 0.09%** | 2% |
+| **D2** — R(estimated > 8 M☉ \| M) over 4–8 M☉ | **+9.87% ± 1.58%** | 2% |
+
+**`repair_v7` is justified.** The control arm reproduced the accepted `repair_v6`
+node byte for byte, so the shift is the model change and nothing else.
+
+The 4–8 M☉ segment carries **23.5%** of the predicted observable count above
+8 M☉, so a +9.87% shift there raises the total predicted count by **2.3%** and
+would move the grid median **1.099 → ~1.074** — in the direction of better
+closure.
+
+**Why the contrast between D1 and D2 matters more than either number.** Inside
+the calibration window most stars are recovered either way, so the recovery
+fraction barely moves. At the 8 M☉ boundary a small brightness shift converts
+directly into a crossing probability. **A truth-model error shows up ~25× more
+strongly at a threshold than in a window-averaged recovery fraction** — the same
+structural lesson as issues #3 and #17, and the reason this one was nearly
+missed.
 
 ## 7. Runaways
 

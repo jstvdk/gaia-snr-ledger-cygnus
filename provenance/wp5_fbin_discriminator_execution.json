@@ -1,0 +1,132 @@
+{
+  "created_utc": "2026-07-29T06:17:11.038716+00:00",
+  "script": "scripts/wp5_fbin_discriminator.py",
+  "status": "SUCCESS",
+  "work_package": "repair_v7 go/no-go discriminator",
+  "prereg": "provenance/wp5_fbin_discriminator_prereg.json",
+  "prereg_created_utc": "2026-07-29T06:10:30.118538+00:00",
+  "instrument_not_result": "a go/no-go test.  It authorizes or declines a repair_v7; it changes no number in the accepted chain either way.",
+  "environment": {
+    "python": "3.11.15 | packaged by conda-forge | (main, Jun 11 2026, 03:29:05) [Clang 19.1.7 ]",
+    "platform": "macOS-15.6.1-arm64-arm-64bit",
+    "numpy": "2.4.6",
+    "pandas": "3.0.3",
+    "scipy": "1.17.1",
+    "sklearn": "1.9.0"
+  },
+  "branch": "PARSEC R_V=3.1",
+  "nodes": [
+    {
+      "subgroup": "CygOB2-A",
+      "truth_age_Myr": 3.713219100134274,
+      "prior_weight": 0.1111111111111111
+    },
+    {
+      "subgroup": "CygOB2-B",
+      "truth_age_Myr": 3.2927503668683684,
+      "prior_weight": 0.1111111111111111
+    },
+    {
+      "subgroup": "CygOB2-C",
+      "truth_age_Myr": 2.445452277012334,
+      "prior_weight": 0.1111111111111111
+    }
+  ],
+  "qmc_validation": {
+    "rows": 760,
+    "covariance_repairs": 0,
+    "decision_agreement": 0.9894736842105263,
+    "false_negative_count": 7,
+    "false_positive_count": 1,
+    "median_abs_probability_difference": 0.0068187499999999845,
+    "p95_abs_probability_difference": 0.02272812500000001
+  },
+  "bit_preservation": {
+    "claim": "the control arm differs from the accepted repair_v6 node response in nothing, so it must reproduce it byte for byte",
+    "checks": [
+      {
+        "subgroup": "CygOB2-A",
+        "accepted_artifact": "data/processed/wp5_agenode_A_PARSEC_rv3p1_age3p713_repair_v6_response.parquet",
+        "control_reproduces_it": true
+      },
+      {
+        "subgroup": "CygOB2-B",
+        "accepted_artifact": "data/processed/wp5_agenode_B_PARSEC_rv3p1_age3p293_repair_v6_response.parquet",
+        "control_reproduces_it": true
+      },
+      {
+        "subgroup": "CygOB2-C",
+        "accepted_artifact": "data/processed/wp5_agenode_C_PARSEC_rv3p1_age2p445_repair_v6_response.parquet",
+        "control_reproduces_it": true
+      }
+    ],
+    "all_match": true
+  },
+  "per_node": [
+    {
+      "subgroup": "CygOB2-A",
+      "truth_age_Myr": 3.713,
+      "prior_weight": 0.1111,
+      "D1_ctl": 0.6527101644950025,
+      "D1_trt": 0.6544229091111592,
+      "D2_ctl": 0.08904788146467957,
+      "D2_trt": 0.09889981350798133,
+      "D1_shift_fraction": 0.0026240507798462875,
+      "D2_shift_fraction": 0.1106363439674809
+    },
+    {
+      "subgroup": "CygOB2-B",
+      "truth_age_Myr": 3.293,
+      "prior_weight": 0.1111,
+      "D1_ctl": 0.5162810053824071,
+      "D1_trt": 0.5167627930682095,
+      "D2_ctl": 0.1326630954262516,
+      "D2_trt": 0.14339110315259154,
+      "D1_shift_fraction": 0.0009331888657138077,
+      "D2_shift_fraction": 0.08086655668534215
+    },
+    {
+      "subgroup": "CygOB2-C",
+      "truth_age_Myr": 2.445,
+      "prior_weight": 0.1111,
+      "D1_ctl": 0.4391218935955281,
+      "D1_trt": 0.4397317713838471,
+      "D2_ctl": 0.09295593500531778,
+      "D2_trt": 0.10269233819642082,
+      "D1_shift_fraction": 0.001388857620660433,
+      "D2_shift_fraction": 0.10474213605130256
+    }
+  ],
+  "results": {
+    "D1_mean_shift_fraction": 0.00165,
+    "D1_node_spread": 0.00087,
+    "D2_mean_shift_fraction": 0.09875,
+    "D2_node_spread": 0.01576,
+    "threshold": 0.02
+  },
+  "predictions": {
+    "G1": {
+      "statement": "Both D1 and D2 shift in the POSITIVE direction: more companions means more flux at fixed true mass, so recovery rises and up-scatter across 8 Msun rises.",
+      "pass": true,
+      "evidence": "D1 +0.0016, D2 +0.0987"
+    },
+    "G2": {
+      "statement": "D2 exceeds D1.  The up-scatter channel is a threshold effect and should be more sensitive to a brightness shift than the recovery fraction inside the calibration window, where most stars are recovered either way.",
+      "pass": true,
+      "evidence": "|D2| 0.0987 vs |D1| 0.0016"
+    }
+  },
+  "decision": {
+    "repair_v7_justified": true,
+    "rule_applied": "if EITHER D1 or D2 shifts by more than 2% in absolute fractional terms, averaged over the three nodes, repair_v7 is JUSTIFIED and should be scheduled.  If both stay below 2%, the effect is recorded as a carried systematic and the accepted chain stands unchanged.",
+    "reasoning": "D1 = +0.16% and D2 = +9.87% against a pre-declared 2% threshold; at least one exceeds it, so repair_v7 is JUSTIFIED and should be scheduled.",
+    "conservatism_note": "the model holds f_bin = 0.40 at 2 Msun where Duchene & Kraus 2013 suggest ~50%, so the measured shifts are LOWER BOUNDS.  This strengthens a positive decision."
+  },
+  "inputs": {
+    "data/processed/wp4_age_posteriors_repair_v5.parquet": "dc14e923a5dc4ad1336d08059e397bbc007f0f926f91a94f5ac2ddfbdc141ada",
+    "provenance/wp5_fbin_discriminator_prereg.json": "432c0ea2d53b120c1ff53f7a39b86aa019efff7b2d1c2af4cc531fabd6fb2364"
+  },
+  "outputs": {
+    "tables/wp5_fbin_discriminator.csv": "c2df6feffb054284abc7ce1283ac775bb08c622171356eb41b8d4c352ee795bf"
+  }
+}

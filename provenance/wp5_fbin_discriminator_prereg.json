@@ -1,0 +1,157 @@
+{
+  "created_utc": "2026-07-29T06:10:30.118538+00:00",
+  "script": "scripts/wp5_fbin_discriminator_prereg.py",
+  "status": "PREREGISTERED",
+  "question": "Does mass-dependent multiplicity BELOW 8 Msun move the WP5 calibration or the 4-8 Msun up-scatter channel enough to justify a repair_v7 full-chain re-run?",
+  "why_issue_15_does_not_answer_it": "issue #15 was scoped to M >= 8 Msun, the range where the mechanism has least room to act, because a star already above the threshold cannot be scattered into the census by being brightened.  It measured 3.7% there.  Below 8 Msun the mechanism acts through two channels it could not touch: the normalization k, and up-scatter across the 8 Msun threshold.",
+  "instrument_not_result": "this is a go/no-go discriminator on three nodes, not a measurement of the effect.  A positive outcome authorizes repair_v7; it does not itself change any number.",
+  "environment": {
+    "python": "3.11.15 | packaged by conda-forge | (main, Jun 11 2026, 03:29:05) [Clang 19.1.7 ]",
+    "platform": "macOS-15.6.1-arm64-arm-64bit",
+    "numpy": "2.4.6",
+    "pandas": "3.0.3"
+  },
+  "design": {
+    "branch": "PARSEC R_V=3.1 (reporting branch)",
+    "subgroups": [
+      "CygOB2-A",
+      "CygOB2-B",
+      "CygOB2-C"
+    ],
+    "node_per_subgroup": "the single highest-prior-weight truth-age node, so the test sits where the age posterior actually concentrates",
+    "mass_grid": "the frozen wp5_common.MASS_GRID, 0.5-18 Msun",
+    "arms": {
+      "ctl": "frozen constant F_BINARY = 0.40 at every mass",
+      "trt": "extended f_bin(M) with the below-8 rise switched on"
+    },
+    "pairing": "both arms run from a fresh default_rng(SEED) on an identical grid, and the per-star binary threshold consumes the same single rng.random(n) draw, so donor, extinction, photometric and QMC realizations are bit-identical.  The arms differ in exactly one thing: which stars got a companion.  Realization noise therefore cancels in the difference, which is why three nodes suffice.",
+    "recovery_side_unchanged": "as in issue #15, the estimator keeps assuming 0.40.  The mismatch between the rate nature makes binaries at and the rate the estimator assumes IS the bias under test."
+  },
+  "model": {
+    "anchors_Msun": [
+      2.0,
+      8.0,
+      16.0
+    ],
+    "anchors_f_bin": [
+      0.4,
+      0.55,
+      0.7
+    ],
+    "interpolation": "linear in log mass, flat outside the anchors",
+    "grid": {
+      "0.5": 0.4,
+      "1": 0.4,
+      "2": 0.4,
+      "3": 0.444,
+      "4": 0.475,
+      "5": 0.499,
+      "6": 0.519,
+      "7": 0.536,
+      "8": 0.55,
+      "12": 0.638,
+      "16": 0.7,
+      "18": 0.7
+    },
+    "deliberately_conservative": "Duchene & Kraus 2013 give ~50% multiplicity already at late-B/A masses (2-5 Msun), so holding 0.40 at the 2 Msun anchor UNDERSTATES the likely change.  The measured effect is a LOWER BOUND, which is the correct direction for a go/no-go test: if even this model clears the threshold, repair_v7 is justified a fortiori.",
+    "relation_to_issue_15": "the 16 Msun anchor of 0.70 is inherited unchanged from wp6_multiplicity_prereg.json, so the two tests are commensurate and differ only below 8 Msun",
+    "relation_to_CUTS_row_20": "row 20 carries f_bin as a Class E branch spanning 0.3-0.5.  Both 0.55 and 0.70 lie outside that range, which is the defect already recorded in CUTS section 18.0."
+  },
+  "measurements": {
+    "D1": {
+      "quantity": "IMF-weighted mean of R(recovered | M) over the 2-8 Msun calibration window, weight proportional to M^-2.3",
+      "window_Msun": [
+        2.0,
+        8.0
+      ],
+      "answers": "does the WP5 normalization k move?  k is fitted so that k * integral M^-alpha R dM reproduces the observed counts in this window, so a fractional shift in this response is the fractional shift k must absorb."
+    },
+    "D2": {
+      "quantity": "IMF-weighted mean of R(estimated > 8 Msun | M) over the 4-8 Msun window",
+      "window_Msun": [
+        4.0,
+        8.0
+      ],
+      "answers": "does the up-scatter channel move?  Issue #17 showed this range contributes ~24% of the predicted observable count above 8 Msun, and it is where unresolved companions matter most because these are the stars that can be pushed ACROSS the threshold."
+    }
+  },
+  "decision_rule": {
+    "threshold": 0.02,
+    "rule": "if EITHER D1 or D2 shifts by more than 2% in absolute fractional terms, averaged over the three nodes, repair_v7 is JUSTIFIED and should be scheduled.  If both stay below 2%, the effect is recorded as a carried systematic and the accepted chain stands unchanged.",
+    "threshold_justification": "2% is not invented for this test: it is the size of the Orellana distance systematic already carried in the project (+2.4% on the closure ratios).  An effect smaller than a systematic we already accept does not warrant re-running an accepted chain; an effect larger than it does.",
+    "either_not_both": "D1 and D2 answer different questions -- k versus up-scatter -- and either alone would matter, so the rule is disjunctive.  Requiring both would let a large effect in one channel be excused by a small one in the other."
+  },
+  "predictions": [
+    {
+      "id": "G1",
+      "statement": "Both D1 and D2 shift in the POSITIVE direction: more companions means more flux at fixed true mass, so recovery rises and up-scatter across 8 Msun rises.",
+      "falsifies_if": "either shifts negative by more than its node-to-node spread",
+      "if_falsified": "the mechanism as reasoned is wrong and the discriminator's sign convention must be re-derived before its magnitude is trusted"
+    },
+    {
+      "id": "G2",
+      "statement": "D2 exceeds D1.  The up-scatter channel is a threshold effect and should be more sensitive to a brightness shift than the recovery fraction inside the calibration window, where most stars are recovered either way.",
+      "falsifies_if": "D1 >= D2",
+      "if_falsified": "the two channels are not separable the way this test assumes, and a repair_v7 decision cannot be delegated to the larger of the two"
+    }
+  ],
+  "what_this_test_cannot_do": [
+    "it cannot measure how much k would actually move -- only whether the response feeding k moves enough to be worth finding out",
+    "it uses three nodes at one branch, so it says nothing about branch-to-branch or age-to-age variation",
+    "a negative outcome does not show multiplicity is unimportant, only that it is smaller than a systematic already carried"
+  ],
+  "frozen_inputs": {
+    "mass_grid_Msun": [
+      0.5,
+      0.75,
+      1.0,
+      1.25,
+      1.5,
+      1.75,
+      2.0,
+      2.25,
+      2.5,
+      2.75,
+      3.0,
+      3.25,
+      3.5,
+      3.75,
+      4.0,
+      4.25,
+      4.5,
+      4.75,
+      5.0,
+      5.25,
+      5.5,
+      5.75,
+      6.0,
+      6.25,
+      6.5,
+      6.75,
+      7.0,
+      7.25,
+      7.5,
+      7.75,
+      8.0,
+      8.5,
+      9.0,
+      9.5,
+      10.0,
+      10.5,
+      11.0,
+      11.5,
+      12.0,
+      13.0,
+      14.0,
+      15.0,
+      16.0,
+      17.0,
+      18.0
+    ],
+    "n_inject_per_mass": 400,
+    "seed": 20260723,
+    "F_BINARY_control": 0.4,
+    "Q_MIN": 0.1
+  },
+  "bit_preservation_obligation": "the control arm must reproduce the accepted repair_v6 node response byte for byte, since it differs from it in nothing.  This is checked before the treatment arm is scored."
+}
