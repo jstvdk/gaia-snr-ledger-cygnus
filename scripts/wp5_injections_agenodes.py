@@ -38,6 +38,7 @@ import sklearn
 
 import wp5_common as w
 import wp5_injections_repair as R
+from wp5_fbin_discriminator_prereg import extended_binary_fraction
 import wp5_joint_age_fit as J
 from wp3_repair_common import ANCHOR_PRIOR_MODE, REPAIR_VERSION, AnchorMap, load_template_library
 
@@ -49,6 +50,18 @@ def main() -> None:
         "--baseline-only",
         action="store_true",
         help="restrict to the PARSEC R_V=3.1 baseline branch",
+    )
+    parser.add_argument(
+        "--fbin-model",
+        choices=["constant", "extended"],
+        default="constant",
+        help=(
+            "truth-side binary fraction.  'constant' is the frozen F_BINARY at "
+            "every mass (repair_v1..v6).  'extended' switches on the "
+            "mass-dependent rise below and above 8 Msun that the pre-registered "
+            "discriminator justified (repair_v7); see "
+            "provenance/wp5_fbin_discriminator_execution.json."
+        ),
     )
     parser.add_argument(
         "--dry-run",
@@ -72,6 +85,11 @@ def main() -> None:
     native = {family: J.native_isochrone_ages(family) for family in w.FAMILIES}
 
     interpolate = J.uses_age_interpolation(version)
+    # repair_v7 only: the truth-side binary fraction becomes mass dependent.
+    # None reproduces repair_v1..v6 bit for bit (verified by V4).
+    fbin_model = (
+        extended_binary_fraction if args.fbin_model == "extended" else None
+    )
     plan = []
     for family in families:
         for rv in rv_branches:
@@ -178,6 +196,7 @@ def main() -> None:
             age_posterior,
             truth_age_override=age,
             interpolate_truth_age=interpolate,
+            truth_binary_fraction=fbin_model,
         )
         response_path = J.node_response_path(subgroup, family, rv, age, version)
         curve_path = J.node_curve_path(subgroup, family, rv, age, version)

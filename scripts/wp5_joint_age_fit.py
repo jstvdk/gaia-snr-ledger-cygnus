@@ -56,7 +56,7 @@ from wp4_repair_common import age_posterior_nodes
 # and therefore does not snap the posterior nodes (issue #13).  Declared once
 # here so the injection runner and the fit runner cannot disagree about which
 # node set a version owns -- they address the same files by age.
-AGE_INTERPOLATED_VERSIONS = frozenset({"repair_v6"})
+AGE_INTERPOLATED_VERSIONS = frozenset({"repair_v6", "repair_v7"})
 
 
 def uses_age_interpolation(version: str) -> bool:
