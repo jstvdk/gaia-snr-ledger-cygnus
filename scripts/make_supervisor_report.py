@@ -4,7 +4,7 @@
 Self-contained: every number is read from the accepted artifacts, so the
 document cannot drift from the pipeline.  Regenerate after any result changes.
 
-Output: reports/cygob2_supervisor_briefing.pdf
+Output: reports/cygob2_WP0-6_briefing.pdf
 
 Run:
   WP_REPAIR_VERSION=repair_v5 WP3_ANCHOR_PRIOR_MODE=kriging \
@@ -120,7 +120,7 @@ def load():
 
 def main() -> None:
     d = load()
-    out = w.ROOT / "reports" / "cygob2_supervisor_briefing.pdf"
+    out = w.ROOT / "reports" / "cygob2_WP0-6_briefing.pdf"
     out.parent.mkdir(exist_ok=True)
     stamp = datetime.now(timezone.utc).strftime("%Y-%m-%d")
 
