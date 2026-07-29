@@ -1,0 +1,84 @@
+{
+  "created_utc": "2026-07-29T15:47:35.199817+00:00",
+  "script": "scripts/wp5_alpha_plausibility_prereg.py",
+  "status": "PREREGISTERED",
+  "work_package": "WP5/WP6/WP7 cross-cutting diagnostic",
+  "question": "how plausible is each of the three carried IMF slope branches, given evidence the project already has?",
+  "motivation": {
+    "variance_decomposition_of_log_N_SN": {
+      "alpha": 0.919,
+      "R_V": 0.04,
+      "family": 0.02,
+      "sf_duration": 0.002
+    },
+    "consequence": "the WP7 spread is one question about alpha, not four questions about four branch axes.  Narrowing R_V or the isochrone family would buy almost nothing."
+  },
+  "environment": {
+    "python": "3.11.15 | packaged by conda-forge | (main, Jun 11 2026, 03:29:05) [Clang 19.1.7 ]",
+    "platform": "macOS-15.6.1-arm64-arm-64bit",
+    "numpy": "2.4.6",
+    "pandas": "3.0.3"
+  },
+  "binding_prohibitions": [
+    "NO branch is removed -- all 54 remain in tables/wp7_ledger.csv",
+    "NO artifact is regenerated, refitted or reweighted",
+    "NO branch weights are applied to any reported number anywhere",
+    "the WP5, WP6 and WP7 results stand exactly as published",
+    "this is a plausibility statement for a later decision, and any such decision requires its own separate pre-registration"
+  ],
+  "evidence_E1_calibration_window": {
+    "range_Msun": [
+      2.0,
+      8.0
+    ],
+    "statistic": "the Poisson chi-square of the WP5 fit, per cell, with 5 degrees of freedom, already recorded in wp5_imf_normalization_repair_v7.parquet",
+    "why_it_is_a_constraint_on_alpha": "k is refitted at every alpha, so the NORMALIZATION is free and cannot absorb a slope error.  What the chi-square measures is whether the assumed SHAPE matches the observed mass function inside the window.",
+    "cost_of_using_it": "none.  It is internal to WP5 and is already a published gate statistic (residual_gate_pass).  Reading it consumes no validation.",
+    "reported_as": [
+      "per-cell chi-square for each alpha, all 18 cells",
+      "which alpha wins in each cell, and the tally",
+      "median delta chi-square relative to the best alpha",
+      "per-subgroup breakdown, because the subgroups may disagree"
+    ]
+  },
+  "evidence_E2_census_closure": {
+    "range_Msun": [
+      8.0,
+      120.0
+    ],
+    "statistic": "the closure ratio and its 68% interval per cell, from tables/wp6_closure_repair_v7.csv, expressed as the number of 68% half-widths between the ratio and unity",
+    "why_it_is_out_of_sample": "k is fitted from 2-8 Msun counts alone; the >8 Msun census never enters the WP5 likelihood.  Testing the extrapolation against it is therefore a genuine out-of-sample test, which is what the branch grid was carried in order to receive.",
+    "THE_COST_OF_USING_IT": "the census closure is currently this analysis's ONLY out-of-sample validation.  If it is used to SELECT alpha, it can no longer also be reported as an independent confirmation of the IMF -- the project would get one or the other, not both.  PROJECT_TRACE section 10c item 2 already records the standing decision that WP7 must not refit alpha for exactly this reason.  This diagnostic MEASURES what E2 says; it does not spend it."
+  },
+  "no_formal_combination": {
+    "rule": "E1 and E2 are reported SEPARATELY and are never multiplied into a joint likelihood or posterior over alpha.",
+    "why": "the 18 cells are not independent -- they share the same stars across families and R_V values -- so multiplying per-cell likelihoods would manufacture significance.  E1 and E2 also share k, so they are not cleanly independent of one another either.  What is legitimate is to report each, note whether they agree, and let the agreement of two different mass ranges carry qualitative rather than numerical weight."
+  },
+  "predictions": [
+    {
+      "id": "A1",
+      "statement": "E1 and E2 agree in DIRECTION: both disfavour alpha = 2.6 relative to alpha = 2.3",
+      "falsifies_if": "either line favours 2.6 over 2.3 on its own statistic",
+      "if_falsified": "the two mass ranges disagree about the slope, which is itself a reportable result and would mean the single power-law assumption is the thing under strain"
+    },
+    {
+      "id": "A2",
+      "statement": "the subgroups DISAGREE about alpha, with CygOB2-C preferring a shallower slope than CygOB2-A on both lines of evidence",
+      "falsifies_if": "C's preferred alpha is greater than or equal to A's on either line",
+      "if_falsified": "the 'C is different' signal that WP6's M2 and the closing alpha both reported would not be reproducing here, and its earlier appearances would need re-examination"
+    },
+    {
+      "id": "A3",
+      "statement": "E2 discriminates more sharply than E1, because the >8 Msun census sits far from the calibration window and a slope error compounds over that lever arm",
+      "falsifies_if": "E1's separation between alpha branches exceeds E2's, measured in each statistic's own units of uncertainty",
+      "if_falsified": "the extrapolation is less sensitive to alpha than the window fit, which would weaken the case for treating the closure test as the primary IMF discriminant"
+    }
+  ],
+  "what_this_diagnostic_cannot_do": [
+    "it cannot measure alpha.  The project carries three values and has never run a branch between them; a plausibility ordering over three grid points is not a fitted slope with an interval",
+    "it cannot justify narrowing N_SN unless the IMF is a SINGLE POWER LAW from 2 to 120 Msun.  E1 constrains the slope at 2-8 Msun and N_SN depends on the slope above 52 Msun; the link between them is the single-power-law assumption, which this diagnostic assumes and does not test",
+    "it cannot resolve the subgroup disagreement, only measure it",
+    "it cannot be used to reweight any published number without a separate pre-registered adoption decision"
+  ],
+  "deliverable": "a plausibility table per alpha, the implied N_SN range under each candidate branch set, and an explicit statement of what adopting each set would cost.  The principal investigator decides later, or not at all."
+}

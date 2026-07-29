@@ -1,0 +1,170 @@
+{
+  "created_utc": "2026-07-29T15:48:42.124619+00:00",
+  "script": "scripts/wp5_alpha_plausibility.py",
+  "status": "SUCCESS",
+  "work_package": "WP5/WP6/WP7 cross-cutting diagnostic",
+  "prereg": "provenance/wp5_alpha_plausibility_prereg.json",
+  "nothing_was_changed": "no branch removed, no artifact regenerated, no weights applied.  All 54 branches remain in tables/wp7_ledger.csv and every published number stands unaltered.  This record is documentation for a later decision that has NOT been taken.",
+  "environment": {
+    "python": "3.11.15 | packaged by conda-forge | (main, Jun 11 2026, 03:29:05) [Clang 19.1.7 ]",
+    "platform": "macOS-15.6.1-arm64-arm-64bit",
+    "numpy": "2.4.6",
+    "pandas": "3.0.3"
+  },
+  "E1_calibration_window": {
+    "cells": 18,
+    "median_chi_square_by_alpha": {
+      "2": 10.3,
+      "2.3": 6.86,
+      "2.6": 10.8
+    },
+    "dof": 5,
+    "wins_by_alpha": {
+      "2": 7,
+      "2.3": 10,
+      "2.6": 1
+    },
+    "reading": "alpha = 2.6 is the best fit in only 1 of 18 cells and is the worst on the median.  alpha = 2.0 and 2.3 are genuinely competitive with each other."
+  },
+  "E2_census_closure": {
+    "cells": 18,
+    "median_unity_distance_sigma_by_alpha": {
+      "2": 6.55,
+      "2.3": 1.65,
+      "2.6": 5.38
+    },
+    "wins_by_alpha": {
+      "2": 6,
+      "2.3": 12
+    },
+    "reading": "the closure ratio is furthest from unity at alpha = 2.6 and closest at alpha = 2.3.  This is the out-of-sample line and it has NOT been spent -- it is reported here, not used."
+  },
+  "per_subgroup": {
+    "CygOB2-A": {
+      "E1_preferred_alpha": 2.3,
+      "E2_preferred_alpha": 2.3,
+      "E1_median_chi_square_by_alpha": {
+        "2": 8.64,
+        "2.3": 5.19,
+        "2.6": 9.38
+      },
+      "E2_median_sigma_by_alpha": {
+        "2": 10.75,
+        "2.3": 1.29,
+        "2.6": 4.88
+      }
+    },
+    "CygOB2-B": {
+      "E1_preferred_alpha": 2.3,
+      "E2_preferred_alpha": 2.3,
+      "E1_median_chi_square_by_alpha": {
+        "2": 11.19,
+        "2.3": 9.42,
+        "2.6": 10.46
+      },
+      "E2_median_sigma_by_alpha": {
+        "2": 6.55,
+        "2.3": 0.91,
+        "2.6": 5.08
+      }
+    },
+    "CygOB2-C": {
+      "E1_preferred_alpha": 2.0,
+      "E2_preferred_alpha": 2.0,
+      "E1_median_chi_square_by_alpha": {
+        "2": 5.6,
+        "2.3": 6.16,
+        "2.6": 14.31
+      },
+      "E2_median_sigma_by_alpha": {
+        "2": 1.17,
+        "2.3": 3.96,
+        "2.6": 6.72
+      }
+    }
+  },
+  "predictions": [
+    {
+      "id": "A1",
+      "statement": "E1 and E2 agree in direction, both disfavouring 2.6",
+      "outcome": "PASS",
+      "E1_median_2p3_vs_2p6": [
+        6.86,
+        10.8
+      ],
+      "E2_median_2p3_vs_2p6": [
+        1.65,
+        5.38
+      ]
+    },
+    {
+      "id": "A2",
+      "statement": "the subgroups disagree, C preferring a shallower slope than A",
+      "outcome": "PASS",
+      "C_preferred": [
+        2.0,
+        2.0
+      ],
+      "A_preferred": [
+        2.3,
+        2.3
+      ]
+    },
+    {
+      "id": "A3",
+      "statement": "E2 discriminates more sharply than E1",
+      "outcome": "PASS",
+      "E1_separation_in_own_units": 1.25,
+      "E2_separation_in_sigma": 4.9
+    }
+  ],
+  "candidate_branch_sets": [
+    {
+      "candidate_set": "as published (all 54 branches)",
+      "n_branches": 54,
+      "N_SN_min": 1.93,
+      "N_SN_max": 28.74,
+      "N_SN_median": 8.79,
+      "factor": 14.93,
+      "evidential_cost": "none -- this is the current reported range"
+    },
+    {
+      "candidate_set": "drop alpha=2.6",
+      "n_branches": 36,
+      "N_SN_min": 5.63,
+      "N_SN_max": 28.74,
+      "N_SN_median": 13.29,
+      "factor": 5.11,
+      "evidential_cost": "E1 only, which is free; E2 agrees but need not be spent"
+    },
+    {
+      "candidate_set": "alpha=2.3 only",
+      "n_branches": 18,
+      "N_SN_min": 5.63,
+      "N_SN_max": 11.16,
+      "N_SN_median": 8.79,
+      "factor": 1.98,
+      "evidential_cost": "spends E2 -- the census could no longer be reported as an independent confirmation of the IMF"
+    },
+    {
+      "candidate_set": "alpha in {2.0, 2.3}, drop R_V=3.5",
+      "n_branches": 24,
+      "N_SN_min": 8.43,
+      "N_SN_max": 28.74,
+      "N_SN_median": 16.7,
+      "factor": 3.41,
+      "evidential_cost": "requires independent extinction evidence for R_V, which this diagnostic does NOT provide"
+    }
+  ],
+  "what_the_PI_is_being_asked_to_decide": {
+    "the_question": "whether to report N_SN over all three alpha branches, or over a subset justified by the evidence measured here",
+    "the_cheapest_defensible_move": "dropping alpha = 2.6.  E1 alone supports it, E1 is internal to WP5 and free, and E2 independently agrees without needing to be spent.  This cuts the reported spread from a factor of 14.93 to 5.11.",
+    "the_move_with_a_price": "restricting to alpha = 2.3.  It cuts the spread to a factor of 1.98, but E1 alone does not support it -- alpha = 2.0 wins in a substantial minority of cells -- so it requires E2, and spending E2 costs the project its only out-of-sample validation of the IMF.",
+    "the_move_not_supported_here": "dropping R_V = 3.5.  This diagnostic provides no extinction evidence and the R_V axis carries only 4% of the variance.  It is listed for completeness, not recommended.",
+    "what_no_choice_can_fix": "CygOB2-C contributes 0 or about 7 supernovae depending on isochrone family, because its fitted age straddles the age at which the turnoff crosses the 120 Msun IMF ceiling.  That is independent of alpha and survives every candidate set."
+  },
+  "outputs": {
+    "tables/wp5_alpha_plausibility.csv": "e3e58006833058dfd71337a72119fdfe93ca3632e0bb15ccb6bdf970b9a9f68a",
+    "tables/wp5_alpha_candidate_sets.csv": "25b87d6b142773953d783031f8a38476be469e791e7faf25b2fe5cb448d6a669"
+  }
+}

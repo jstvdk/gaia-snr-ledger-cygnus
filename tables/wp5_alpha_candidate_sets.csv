@@ -1,0 +1,5 @@
+candidate_set,n_branches,N_SN_min,N_SN_max,N_SN_median,factor,evidential_cost
+as published (all 54 branches),54,1.93,28.74,8.79,14.93,none -- this is the current reported range
+drop alpha=2.6,36,5.63,28.74,13.29,5.11,"E1 only, which is free; E2 agrees but need not be spent"
+alpha=2.3 only,18,5.63,11.16,8.79,1.98,spends E2 -- the census could no longer be reported as an independent confirmation of the IMF
+"alpha in {2.0, 2.3}, drop R_V=3.5",24,8.43,28.74,16.7,3.41,"requires independent extinction evidence for R_V, which this diagnostic does NOT provide"
