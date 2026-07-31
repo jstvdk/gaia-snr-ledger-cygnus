@@ -1,0 +1,67 @@
+{
+ "created_utc": "2026-07-30T07:53:54+00:00",
+ "script": "manual sweep, recorded here; see reports/wp0_dedup_resweep_2026-07-30.md",
+ "item": "S1 of tasks/pre_wp10_assessment_brief.md",
+ "supersedes_sweep_dated": "2026-07-20",
+ "python": "3.11.15",
+ "platform": "macOS-15.6.1-arm64-arm-64bit",
+ "sources": {
+  "arxiv_api": "http://export.arxiv.org/api/query",
+  "semantic_scholar_graph": "https://api.semanticscholar.org/graph/v1"
+ },
+ "arxiv_queries": [
+  "all:\"Cygnus OB2\"",
+  "all:\"Cygnus\" AND all:\"supernova history\"",
+  "all:\"OB association\" AND all:\"supernova\" AND all:\"Gaia\"",
+  "all:\"star cluster\" AND all:\"supernova rate\" AND all:\"Gaia\"",
+  "all:\"IMF\" AND all:\"missing\" AND all:\"massive stars\" AND all:\"association\"",
+  "all:\"Cygnus cocoon\"",
+  "all:\"PSR J2032+4127\""
+ ],
+ "window_inspected": "2025-07-01 to 2026-07-30",
+ "papers_in_window": 14,
+ "citation_sweep": {
+  "Harer_2025_arXiv_2508.21644": {
+   "citing_papers": 3,
+   "any_duplicate": false
+  },
+  "Martin_2010_arXiv_1001.1522": {
+   "citing_papers": 26,
+   "any_duplicate": false
+  },
+  "Berlanas_2020_arXiv_2008.09917": {
+   "citing_papers": 12,
+   "any_duplicate": false
+  }
+ },
+ "duplicate_criterion": "Gaia-era membership AND stellar mass/extinction inference AND IMF normalization or equivalent demographic reconstruction AND a past-supernova history or last-SN posterior AND an explicit test of the Cygnus gamma-ray interpretation.  WP0's criterion, unchanged.",
+ "verdict": "NO DIRECT DUPLICATE",
+ "new_citations_required": [
+  {
+   "arxiv": "2607.07100",
+   "title": "Microquasar Cygnus X-3 as the PeVatron powering the Cygnus Bubble",
+   "action": "cite; widen the introduction from two candidate power sources to three"
+  },
+  {
+   "arxiv": "2606.03881",
+   "title": "Suppressed diffusion and gamma-ray emission from the Cygnus Bubble",
+   "action": "cite in the introduction"
+  },
+  {
+   "arxiv": "2510.15540",
+   "title": "The lack of fast rotators in Cyg OB2. I",
+   "action": "cite where spectroscopic anchors are described; check anchor spectral types against it"
+  },
+  {
+   "arxiv": "2604.11988",
+   "title": "OB runaway stars originating in the Vel OB1 association",
+   "action": "cite where the runaway traceback is described"
+  }
+ ],
+ "not_covered": [
+  "ICRC / TeVPA 2026 proceedings",
+  "theses",
+  "ADS directly (arXiv + Semantic Scholar only)",
+  "the window between this sweep and submission -- MUST be re-run before arXiv posting"
+ ]
+}

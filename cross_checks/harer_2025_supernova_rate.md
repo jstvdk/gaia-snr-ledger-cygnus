@@ -96,26 +96,56 @@ sweeps down through a steeply rising IMF.
 
 ## 3. Association mass — an independent check we had not made
 
+> **Corrected 2026-07-30 (item B1).** The "within 5%" reading below compared
+> *mismatched definitions* and is **withdrawn as stated**. It is kept in place,
+> struck through, because the arithmetic is right and only the pairing was
+> wrong. Full decomposition:
+> [wp5_association_mass_reconciliation.md](../reports/wp5_association_mass_reconciliation.md).
+
 Härer adopt **1.65 × 10⁴ M☉** from Wright et al. 2015. Integrating our own fitted
 normalization over 0.5–120 M☉:
 
-| α | implied association mass |
+| α | implied association mass (primaries, 0.5–120 M☉) |
 |---|---:|
-| 2.0 | 1.99 × 10⁴ M☉ |
-| **2.3** | **1.74 × 10⁴ M☉** |
-| 2.6 | 1.79 × 10⁴ M☉ |
+| 2.0 | 2.01 × 10⁴ M☉ |
+| **2.3** | **1.75 × 10⁴ M☉** |
+| 2.6 | 1.80 × 10⁴ M☉ |
 
-**Within 5% at our baseline**, by a completely different route: they adopt a
+*(repair_v7 values; the published repair_v6 figures were 1.99 / 1.74 / 1.79 ×
+10⁴ M☉ — the +0.4% shift is repair_v7's `k`.)*
+
+~~**Within 5% at our baseline**~~, by a completely different route: they adopt a
 literature mass, we derive one from response-corrected star counts in 2–8 M☉.
 Nothing in WP1–WP5 was tuned toward it and the comparison was not made until
-after WP6 closed.
+after WP6 closed — **but the two sides are not the same integral.**
 
-**Caveat, stated because it matters.** This number is sensitive to the low-mass
-integration limit. We integrate 0.5–120 M☉, the span of the frozen `MASS_GRID`.
-A single α = 2.3 power law continued to 0.1 M☉ would give 3.1 × 10⁴ M☉ — the
-real IMF flattens below ~0.5 M☉, so our cutoff happens to mimic a Kroupa
-turnover. The agreement is therefore good but should not be quoted to better
-than a few tens of percent.
+**What the numbers above are not.** Wright's 16,500 M☉ comes from drawing
+individual masses over **0.01–150 M☉** from a Maschberger (2013) universal IMF
+until the count at 20–40 M☉ matches the observed 36 stars (their §6.3). The
+column above integrates only 0.5–120 M☉ and counts only primaries. The
+like-for-like quantity is our **primary-system mass over the full grid range**,
+0.08–120 M☉ with the Kroupa-like break at 0.5 M☉ — **2.42 × 10⁴ M☉** at the
+baseline, or **1.47×** Wright's value. Adding unresolved companions gives the
+number WP5 reports as *the* association mass, **2.92 × 10⁴ M☉** (1.77×).
+
+| quantity | baseline (α = 2.3) | vs Wright+15 |
+|---|---:|---:|
+| primaries, 0.5–120 M☉ (the row above) | 1.75 × 10⁴ M☉ | 1.06 — **not a valid pairing** |
+| **primaries, 0.08–120 M☉ (like-for-like)** | **2.42 × 10⁴ M☉** | **1.47** |
+| + unresolved companions (WP5 headline) | 2.92 × 10⁴ M☉ | 1.77 |
+
+**The honest verdict is agreement at the factor level**, which is the resolution
+this comparison admits: Wright's own §6.3 notes that a ±0.1 change in the
+high-mass exponent moves their total by +5,600/−3,900 M☉ (±30%), and our own
+α = 2.0–2.6 spread on the same quantity is 2.39–2.96 × 10⁴ M☉. A 5% match was
+never available and is not needed — see §5, where the informative failure mode
+is mass and rate disagreeing in *opposite directions*, a factor-level test.
+
+**Caveat that pointed at this all along.** The number is sensitive to the
+low-mass integration limit. A single α = 2.3 power law continued to 0.1 M☉ would
+give 3.1 × 10⁴ M☉; the cutoff at 0.5 M☉ was described here as happening to mimic
+a Kroupa turnover. It does not: the actual Kroupa-like segment from 0.08 M☉ adds
+**+38%**, not zero. That sentence is the error, now measured.
 
 ---
 
@@ -145,7 +175,7 @@ This check could have failed in three distinguishable ways, and did not:
 
 | failure mode | what we would have seen | actual |
 |---|---|---|
-| normalization wrong | association mass off by ≫2× | 5% |
+| normalization wrong | association mass off by ≫2× | 1.47× like-for-like |
 | turnoff wrong (issue #14 class) | rate off by ≫10× | within ~2× |
 | extrapolation above 8 M☉ invalid | rate and mass disagreeing in *opposite* directions | both agree |
 
@@ -157,9 +187,13 @@ extrapolation would generally break them inconsistently.
 
 ## 6. Verdict
 
-**AGREE.** Two independent quantities — the supernova rate and the association
-stellar mass — match published values computed by unrelated machinery. No
-number was adjusted as a result of this comparison, and none should be.
+**AGREE, at the factor level.** Two independent quantities — the supernova rate
+and the association stellar mass — match published values computed by unrelated
+machinery: the rate within ~2× across the branch grid, the mass within 1.47× on
+the like-for-like definition. No number was adjusted as a result of this
+comparison, and none should be. The earlier "5% on the mass" reading is
+withdrawn (§3): it paired our 0.5–120 M☉ primary integral against a full-range
+literature mass.
 
 Carried forward: our rate is a **lower bound** relative to BPASS because the
 binary-stripped channel is not modelled.

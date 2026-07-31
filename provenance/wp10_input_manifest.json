@@ -1,0 +1,184 @@
+{
+  "created_utc": "2026-07-30T11:13:56+00:00",
+  "script": "scripts/wp10_inputs.py",
+  "item": "S3 of tasks/pre_wp10_assessment_brief.md",
+  "python": "3.11.15",
+  "platform": "macOS-15.6.1-arm64-arm-64bit",
+  "versions": {
+    "wp3_wp4": "repair_v5",
+    "wp5_consumed_downstream": "repair_v7",
+    "wp5_gate_record": "repair_v6"
+  },
+  "authorized_inputs": {
+    "age_reconciliation": {
+      "path": "tables/wp4_wp5_age_reconciliation.csv",
+      "sha256": "62d4c7e710860393dca926cb00b4207800f1dc01618377f2a4a362102b0fb2bd"
+    },
+    "alpha_headline_branch_sets": {
+      "path": "tables/wp7_alpha_headline_branch_sets.csv",
+      "sha256": "ee1d79cbec5f58e3e92661f2f3aff058233bee2ac9c0cf44be8452c4c0304d6e"
+    },
+    "binary_bound": {
+      "path": "tables/wp7_binary_bound.csv",
+      "sha256": "a86a21addb89349676067bc0bf8fc40b5cc7078e4c717601ecceb9fd186e89a4"
+    },
+    "binary_bound_branches": {
+      "path": "tables/wp7_binary_bound_branches.csv",
+      "sha256": "57bf99f7e6802b23f1234e9c6c6dfa70717a191fe0262bf581d237e9c6480196"
+    },
+    "binary_bound_harer_fig2": {
+      "path": "tables/wp7_binary_bound_harer_fig2.csv",
+      "sha256": "4891aa6ffcf30010282e980dfa458ff23e8990490e90e9b64a901b299e206afe"
+    },
+    "wp1_inventory": {
+      "path": "tables/table1_wp1_inventory.md",
+      "sha256": "5b9f657f4e2286dfc1d7443ce1a115ba8bc98c0cfe2556dc0c44e97e4543ae15"
+    },
+    "wp2_gate": {
+      "path": "tables/table2_wp2_gate.md",
+      "sha256": "6d8e86e9d5d8374327901a496992fa222c26899ea9a3cfa190671b6371db75f5"
+    },
+    "wp2_literature_recovery": {
+      "path": "tables/table3_literature_recovery.md",
+      "sha256": "dfcc08098f8f4043bdf9ca4cd50fa14b924671cf28472581847feeaeb39f40de"
+    },
+    "wp2_members": {
+      "path": "data/processed/wp2_members.parquet",
+      "sha256": "5db938b116edd70e8c7af3d2d4bbc8c9273d4e4c9cde76309ffc84d8cdaf90be"
+    },
+    "wp2_subgroup_labels": {
+      "path": "tables/wp2_subgroup_labels.parquet",
+      "sha256": "44a5ee7b9190703dae8dca9540c192757423db293c9ecc1ea123065849800887"
+    },
+    "wp3_extinction": {
+      "path": "data/processed/wp3_extinction_repair_v5.parquet",
+      "sha256": "76a3c3df1e754b9846a2401ce898aad50f8de28b90a11725687af0e7cc4524fc"
+    },
+    "wp4_age_posteriors": {
+      "path": "data/processed/wp4_age_posteriors_repair_v5.parquet",
+      "sha256": "dc14e923a5dc4ad1336d08059e397bbc007f0f926f91a94f5ac2ddfbdc141ada"
+    },
+    "wp4_masses": {
+      "path": "data/processed/wp4_mass_posteriors_repair_v5.parquet",
+      "sha256": "944c495fef8587552a5398cab87a8e9a7eb44b4ebfe566149f4d735ba61dfb38"
+    },
+    "wp5_association_mass": {
+      "path": "data/processed/wp5_association_mass_repair_v7.parquet",
+      "sha256": "db3bce3815166ffd72ea5d7ec28de7f18d6950518ea0f86de5311af60db7f6fd"
+    },
+    "wp5_association_mass_reconciliation": {
+      "path": "tables/wp5_association_mass_reconciliation.csv",
+      "sha256": "f29ba553d8a7f6a722c2c81121b4baf2e55be5ab193f1e614eb4144712f74dac"
+    },
+    "wp5_baseline_residuals": {
+      "path": "tables/wp5_baseline_residuals_repair_v6.csv",
+      "sha256": "881fcf78d67a412adb336f26be47b60b0421011d49b40718a2787011bcf8534b"
+    },
+    "wp5_gate_record": {
+      "path": "provenance/wp5_repair_v6_gate.json",
+      "sha256": "84d58dc41672d81678edeedb11f08c705972d55d32e70488c22ad8c01465cfc6"
+    },
+    "wp5_imf_norm_table": {
+      "path": "tables/wp5_imf_norm_repair_v6.csv",
+      "sha256": "f83c49a143068dd61f3e136244ec9110ce53420da3981382f67f1262cf909368"
+    },
+    "wp5_normalization": {
+      "path": "data/processed/wp5_imf_normalization_repair_v7.parquet",
+      "sha256": "edfce6cf9fb72ab1fe0848181041b9d698676841193d1deafebe66706e9b7071"
+    },
+    "wp5_posterior_draws": {
+      "path": "data/processed/wp5_imf_posterior_draws_repair_v7.npz",
+      "sha256": "f5109380de44ed81ed0ddd8d53f4072f19e2d7f9465a2b5ad5519dd26e27b66d"
+    },
+    "wp6_closure": {
+      "path": "tables/wp6_closure_repair_v7.csv",
+      "sha256": "53e4c412996780bd1ee0d911e1a0dcde82508734d1b08042994007f0181a8c97"
+    },
+    "wp6_closure_attribution": {
+      "path": "tables/wp6_closure_attribution_repair_v7.csv",
+      "sha256": "8c69375fe62189f38594860cc32413918c7bda764ceed1d78e8da526ac5a9df6"
+    },
+    "wp6_external_crosschecks": {
+      "path": "tables/wp6_external_crosschecks.csv",
+      "sha256": "cbe4e07f132c55c67868da74303739886b6f8e3e5b251abf253ddbf11b7f9e2f"
+    },
+    "wp6_massive_census": {
+      "path": "tables/wp6_massive_census.csv",
+      "sha256": "db572c6a5b4432112d22d993996a9df12e5800fde37a2986c9515f744557fdd3"
+    },
+    "wp6_orphan_anchors": {
+      "path": "tables/wp6_orphan_anchors.csv",
+      "sha256": "df5d3e2849f5e4f24b4cf950336ae3408775508e4fbad8ea038a7d848022d315"
+    },
+    "wp6_runaway_crossmatch": {
+      "path": "tables/wp6_runaway_crossmatch.csv",
+      "sha256": "96e41809eb491c679115316f763e51e8c361ae43262c61fe634e1f0c549011b1"
+    },
+    "wp6_runaways": {
+      "path": "tables/wp6_runaways.csv",
+      "sha256": "42f5ebf2a63fe344e9df7cc1977af85746b0100dbf779e16db396c00a6613280"
+    },
+    "wp7_age_sensitivity": {
+      "path": "tables/wp7_age_sensitivity.csv",
+      "sha256": "3a7c19dccea331d9838fd93607bdbeba6f40300cdb95e8ebfa84ad4e249f6f37"
+    },
+    "wp7_bh_threshold_scan": {
+      "path": "tables/wp7_bh_threshold_scan.csv",
+      "sha256": "f5a0b360cbd3f238ee6606606b164150ab7e4a0e580284b1a6c26522c4d4ce31"
+    },
+    "wp7_convergence": {
+      "path": "tables/wp7_convergence.csv",
+      "sha256": "ba6e3203ed21290839961d764f38b1aa9ca78c7bdae41da27fe1d694a481af34"
+    },
+    "wp7_ledger": {
+      "path": "tables/wp7_ledger.csv",
+      "sha256": "4ceda605382ce49622579534f8f8ede9b5d28fa5d700281ed448e61b863cf71a"
+    },
+    "wp7_rsn_curves": {
+      "path": "tables/wp7_rsn_curves.csv",
+      "sha256": "24fe4c63a5f5f699cb3b79d2219adb5232228137eee4192e2176a32a2d15c92a"
+    },
+    "wp8_crosschecks": {
+      "path": "tables/wp8_crosschecks.csv",
+      "sha256": "634d08f77b905a5f747715fb24ff70615a88ad84923ac3480648b81f90bc7e81"
+    },
+    "wp8_tension_list": {
+      "path": "tables/wp8_tension_list.csv",
+      "sha256": "9245889d0b93bd86d243a8581106abf8996d87abe1078677da0776efd2e6510b"
+    },
+    "wp9_sensitivity": {
+      "path": "tables/wp9_sensitivity.csv",
+      "sha256": "60aac4e2f670862a027524fde398391932d35ad816343d44f1638939b53124ac"
+    },
+    "wp9_verdict": {
+      "path": "tables/wp9_verdict.csv",
+      "sha256": "8d8f5d781b8e153aab6e98d206eee966084f709002235244920b18a2922357b5"
+    }
+  },
+  "forbidden_inputs": {
+    "tables/wp5_imf_norm.csv": "issue #2 -- frozen pre-repair WP5 run, 0 of 54 branches passing; contradicts every accepted number.  Use wp5_imf_norm_repair_v6.csv or the repair_v7 normalization parquet.",
+    "tables/wp5_imf_norm.md": "issue #2 -- markdown copy of the same 0/54 run",
+    "wp5_imf_norm.md": "issue #2 -- the pre-repair WP5 report, still headed 'BLOCKED AT THE VALIDATION GATE'",
+    "wp5_completion_report.md": "the pre-repair completion report; WP5 was accepted at repair_v6",
+    "data/processed/wp5_imf_normalization.parquet": "unversioned pre-repair normalization",
+    "data/processed/wp5_association_mass.parquet": "unversioned pre-repair association mass",
+    "data/processed/wp5_imf_posterior_draws.npz": "unversioned pre-repair posterior draws",
+    "tables/wp5_association_mass.csv": "unversioned pre-repair association mass",
+    "tables/wp6_closure.csv": "superseded by wp6_closure_repair_v7.csv; the pre-repair_v7 closure ratios were withdrawn (issues #16, #17)",
+    "tables/wp6_closure_attribution.csv": "superseded by wp6_closure_attribution_repair_v7.csv",
+    "data/processed/wp2_members_failed_20260722.parquet": "the rejected 2026-07-22 membership run"
+  },
+  "audit": {
+    "declared_inputs": 36,
+    "missing_declared_inputs": [],
+    "forbidden_entries": 11,
+    "authorized_forbidden_overlap": [],
+    "files_scanned": [
+      "manuscript/numbers.tex",
+      "manuscript/main.tex",
+      "manuscript/README.md"
+    ],
+    "violations": [],
+    "pass": true
+  }
+}

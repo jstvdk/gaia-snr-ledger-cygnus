@@ -9,6 +9,19 @@ record: [wp5_alpha_plausibility_execution.json](../provenance/wp5_alpha_plausibi
 > plausibility measurement for a decision that has **not been taken**. If it is
 > ever acted on, that adoption requires its own pre-registration.
 
+> **UPDATE 2026-07-30 — the decision was taken (item D1), and this report's §8
+> contains an arithmetic error.** The drop of α = 2.6 was pre-registered
+> separately and adopted; see
+> [wp7_alpha_headline_adoption.md](wp7_alpha_headline_adoption.md). §5 and §8
+> below quote the retained set's median as **≈ 9**. That is the median of the
+> **full 54-branch** set (8.79); the retained 36-branch set's ensemble median is
+> **13.29** — as this report's own machine-readable record
+> ([wp5_alpha_plausibility_execution.json](../provenance/wp5_alpha_plausibility_execution.json),
+> `candidate_branch_sets`) correctly states. **Dropping α = 2.6 raises the
+> ensemble median by about 50%; it does not merely trim a low tail.** The
+> manuscript therefore leads with the baseline branch value, not an ensemble
+> median. Corrected inline below.
+
 ---
 
 ## 1. Why only α matters
@@ -84,10 +97,13 @@ window to the census.
 
 | candidate set | branches | N_SN | factor | what it costs |
 |---|---:|---|---:|---|
-| **as published** | 54 | 1.93 – 28.74 | 14.9 | nothing — current reported range |
-| **drop α = 2.6** | 36 | 5.63 – 28.74 | **5.1** | **nothing** — E1 alone supports it, and E1 is free |
-| α = 2.3 only | 18 | 5.63 – 11.16 | 2.0 | **spends E2** — see below |
-| α ∈ {2.0, 2.3}, drop R_V = 3.5 | 24 | 8.43 – 28.74 | 3.4 | needs extinction evidence this diagnostic does not provide |
+| **as published** | 54 | 1.93 – 28.74 *(ens. median 8.79)* | 14.9 | nothing — current reported range |
+| **drop α = 2.6 — ADOPTED** | 36 | 5.63 – 28.74 *(ens. median **13.29**)* | **5.1** | **nothing** — E1 alone supports it, and E1 is free |
+| α = 2.3 only | 18 | 5.63 – 11.16 *(ens. median 8.79)* | 2.0 | **spends E2** — see below |
+| α ∈ {2.0, 2.3}, drop R_V = 3.5 | 24 | 8.43 – 28.74 *(ens. median 16.70)* | 3.4 | needs extinction evidence this diagnostic does not provide |
+
+*(Ensemble medians added 2026-07-30 from this report's own execution record; the
+prose below previously conflated the 36-branch and 54-branch medians.)*
 
 ### The cheapest defensible move
 
@@ -95,7 +111,11 @@ window to the census.
 the worst median χ² — and E1 is a WP5-internal gate statistic that consumes no
 validation. E2 independently agrees without needing to be spent. This cuts the
 reported spread from a factor of **14.9 to 5.1**, and removes the "maybe only 2
-supernovae" tail.
+supernovae" tail. *(It also raises the ensemble median from 8.79 to 13.29 —
+stated because a move that narrows a range while raising its centre must be
+defended, not glossed. The defence is that the criterion predates the grid and
+the baseline branch does not move: see
+[wp7_alpha_headline_adoption.md §2](wp7_alpha_headline_adoption.md).)*
 
 ### The move with a price
 
@@ -135,7 +155,13 @@ My reading — offered, not applied — is that **dropping α = 2.6 is free and
 worth doing**, and that **restricting further to α = 2.3 is not worth the price
 of the project's only out-of-sample check**. That leaves
 
-> **N_SN = 5.6 – 28.7, median ≈ 9**, with CygOB2-C's contribution ranging 0 to 7
-> depending on isochrone family.
+> **N_SN = 5.6 – 28.7**, ~~median ≈ 9~~ **ensemble median 13.3** *(corrected
+> 2026-07-30 — see the update note at the top; 8.79 is the full 54-branch
+> median)*, with CygOB2-C's contribution ranging 0 to 7 depending on isochrone
+> family. The baseline branch stays at **8.43** and is what the paper leads
+> with.
 
-Nothing in the pipeline has been changed to reflect this.
+~~Nothing in the pipeline has been changed to reflect this.~~ **The decision was
+taken on 2026-07-30** under its own pre-registration
+([wp7_alpha_headline_adoption.md](wp7_alpha_headline_adoption.md)); no stored
+number changed, and α = 2.6 is reported in the sensitivity table.

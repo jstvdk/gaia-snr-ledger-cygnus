@@ -1,0 +1,171 @@
+{
+  "created_utc": "2026-07-30T07:35:12+00:00",
+  "script": "scripts/wp7_binary_bound.py",
+  "item": "T3 of tasks/pre_wp10_assessment_brief.md",
+  "python": "3.11.15",
+  "platform": "macOS-15.6.1-arm64-arm-64bit",
+  "numpy": "2.4.6",
+  "pandas": "3.0.3",
+  "scope": "a labelled literature-scaled bound, reported in the discussion.  NOT a pipeline change: no injection, no fit and no stored WP5, WP6, WP7, WP8 or WP9 product is touched, and the bracket is never marginalized into the headline number.",
+  "iterations_per_branch": 400000,
+  "line_1_empirical_bpass_comparison": {
+    "source": {
+      "reference": "Harer et al. 2025, A&A 703, A111, Fig. 2",
+      "local_copy": "papers/Harer_2025.pdf",
+      "page_index": 4,
+      "cluster_initial_mass_Msun": 16500.0,
+      "imf_index": -2.0,
+      "y_axis_verbatim": "Event Rate (events/100 kyr)",
+      "note": "digitized from the vector paths of the local PDF; the x axis is LOGARITHMIC in age and the step edges fall on BPASS's native 0.1-dex log-age grid (2.512, 3.162, 3.981, 5.012, 6.310, 7.943, 10.0 Myr), which is an independent confirmation that the calibration is right"
+    },
+    "digitization_status": "re-extracted from the local PDF and matches the stored constants",
+    "digitized_total_ccsn_curve": [
+      {
+        "age_lo_Myr": 2.512,
+        "age_hi_Myr": 3.162,
+        "rate_events_per_100kyr": 1.373
+      },
+      {
+        "age_lo_Myr": 3.162,
+        "age_hi_Myr": 3.981,
+        "rate_events_per_100kyr": 1.011
+      },
+      {
+        "age_lo_Myr": 3.981,
+        "age_hi_Myr": 5.012,
+        "rate_events_per_100kyr": 0.99
+      },
+      {
+        "age_lo_Myr": 5.012,
+        "age_hi_Myr": 6.31,
+        "rate_events_per_100kyr": 1.028
+      },
+      {
+        "age_lo_Myr": 6.31,
+        "age_hi_Myr": 7.944,
+        "rate_events_per_100kyr": 1.021
+      },
+      {
+        "age_lo_Myr": 7.944,
+        "age_hi_Myr": 10.0,
+        "rate_events_per_100kyr": 0.95
+      }
+    ],
+    "grid_check": "the six step edges reproduce BPASS's native log-age grid (log age/yr = 6.4 to 7.0 in 0.1 dex) to better than 0.5%, which no accidental calibration would do",
+    "result": {
+      "matched_alpha": 2.0,
+      "alpha_2p3_rows_excluded": "Harer's figure is an alpha = -2.0 calculation, so only our alpha = 2.0 branch is a matched comparison; the alpha = 2.3 rows are tabulated but not used, since their ratio would measure the IMF slope difference rather than the binary physics",
+      "subgroups_compared": [
+        "CygOB2-A",
+        "CygOB2-B"
+      ],
+      "excluded": "CygOB2-C contributes no supernovae on this branch (turnoff above the IMF ceiling), so no ratio is defined for it",
+      "raw_ratio_range": [
+        0.635,
+        0.647
+      ],
+      "imf_range_correction_at_matched_alpha": 1.1304,
+      "corrected_ratio_range": [
+        0.718,
+        0.731
+      ],
+      "reading": "A binary-inclusive population-synthesis rate and our single-star turnoff rate, at matched alpha, matched age and matched population mass, agree to within tens of percent -- and the binary calculation sits BELOW ours, not above.  Whatever the unmodelled binary physics does to N_SN, it is not an order-unity enhancement.",
+      "residual_systematics_not_corrected": [
+        "BPASS's multiplicity fraction at high mass is near unity while our multiplicity-adjusted mass assumes f_bin = 0.40, so their total mass buys fewer primaries than ours; this pushes the corrected ratio further toward 1",
+        "the digitized rate is a step function on 0.1-dex bins, so ages within a bin share one value",
+        "BPASS's IMF below 0.5 Msun is its own, not ours"
+      ]
+    }
+  },
+  "line_2_theoretical_delay_time": {
+    "source": {
+      "reference": "Zapartas et al. 2017, A&A 601, A29 (arXiv:1701.07032)",
+      "title": "Delay-time distribution of core-collapse supernovae with late events resulting from binary interaction",
+      "total_ccsn_increase_from_binarity": 0.14,
+      "total_ccsn_increase_hi": 0.15,
+      "total_ccsn_increase_lo": 0.14,
+      "verbatim_total": "the total number of core-collapse supernovae increases by 14+15-14% because of binarity",
+      "late_fraction": 0.15,
+      "verbatim_late": "a significant fraction, 15+9-8%, of core-collapse supernovae are 'late', occurring 50-200 Myr after birth, when all massive single stars have already exploded",
+      "late_progenitor_masses_Msun": [
+        4.0,
+        8.0
+      ],
+      "verbatim_early": "Both distributions are remarkably similar at early times ... The differences become evident at around 20 Myr, where the binary distribution peaks"
+    },
+    "argument": "Cyg OB2's supernovae all occur at delay times below about 4.1 Myr -- its first explosion was 1.30 Myr ago in a 4.0 Myr population.  Zapartas et al. find the binary and single-star delay-time distributions 'remarkably similar at early times', diverging around 20 Myr, and attribute the +14% integrated enhancement to 50-200 Myr events from 4-8 Msun binaries.  None of that channel can have operated in a 4 Myr association, so the integrated +14% is an OVERESTIMATE of the correction applicable here.",
+    "supporting": {
+      "reference": "de Mink, Sana, Langer, Izzard & Schneider 2014, ApJ 782, 7",
+      "binary_product_fraction_of_massive_MS": 0.3,
+      "binary_product_hi": 0.1,
+      "binary_product_lo": 0.15,
+      "merger_fraction": 0.08,
+      "verbatim": "30+10-15% of massive main-sequence stars are the product of binary interaction ... 8+9-4% of a sample of early type stars to be the product of a merger",
+      "caveat": "quoted for constant star formation, not a coeval burst"
+    },
+    "why_de_mink_does_not_scale_directly": "30% of massive main-sequence stars being binary products does NOT imply 30% more supernovae: accretors and mergers are rejuvenated, so a star pushed above the present turnoff by accretion has had its clock partly reset and has typically NOT yet exploded at 4 Myr.  It adds to the future budget, not the past one."
+  },
+  "what_binaries_do_change_and_it_is_not_the_count": "the supernova TYPE.  Harer's Fig. 2 is essentially pure type Ic from 2.5 to 6.4 Myr, the stripped-envelope channel.  Our WP9 condition C3 already asserts every progenitor above ~30 Msun is stripped and reaches 1.000; binary stripping is one route to that and single-star Wolf-Rayet winds are another, and Cyg OB2 contains three known WR stars.  So C3 does not depend on the binary channel being present, and the binary channel does not change the count it is applied to.",
+  "adopted_bracket": {
+    "multiplicative_on_N_SN": [
+      0.7,
+      1.3
+    ],
+    "justification": "+/-30% on the supernova normalization.  The upper edge is the top of Zapartas et al.'s 14+15% integrated enhancement, rounded up and applied in full even though its dominant channel cannot operate at 4 Myr -- deliberately conservative.  The lower edge is symmetric and covers both their -14% error edge and the empirical finding that the binary-inclusive BPASS rate sits BELOW our single-star rate.",
+    "applied_as": "a scale factor on k, run through wp7_ledger.run_population",
+    "arms": {
+      "low": {
+        "baseline_N_SN": 5.9,
+        "baseline_P_last_SN_within_100kyr": 0.43,
+        "headline_N_SN_range": [
+          3.94,
+          20.13
+        ],
+        "headline_P_last_SN_within_100kyr_range": [
+          0.311,
+          0.785
+        ]
+      },
+      "nominal": {
+        "baseline_N_SN": 8.43,
+        "baseline_P_last_SN_within_100kyr": 0.552,
+        "headline_N_SN_range": [
+          5.62,
+          28.74
+        ],
+        "headline_P_last_SN_within_100kyr_range": [
+          0.41,
+          0.889
+        ]
+      },
+      "high": {
+        "baseline_N_SN": 10.96,
+        "baseline_P_last_SN_within_100kyr": 0.648,
+        "headline_N_SN_range": [
+          7.31,
+          37.36
+        ],
+        "headline_P_last_SN_within_100kyr_range": [
+          0.496,
+          0.942
+        ]
+      }
+    }
+  },
+  "verdict": {
+    "binary_bracket_span_on_baseline_N_SN": 5.06,
+    "headline_branch_span_on_N_SN": 23.12,
+    "ratio_branch_span_over_binary_span": 4.6,
+    "statement": "Unmodelled binary mass transfer moves the baseline supernova count from 5.9 to 10.96, a span of 5.1 supernovae, against a headline branch span of 23.1.  The systematic this project does not model is about 5 times smaller than the model-branch spread it already reports, and it does not change any conclusion."
+  },
+  "inputs": {
+    "papers/Harer_2025.pdf": "e93170d1ef7401f214c239e0c09c12d9c158381faa14a0752e590a05c338f20f",
+    "data/processed/wp5_imf_normalization_repair_v7.parquet": "edfce6cf9fb72ab1fe0848181041b9d698676841193d1deafebe66706e9b7071",
+    "data/processed/wp5_imf_posterior_draws_repair_v7.npz": "f5109380de44ed81ed0ddd8d53f4072f19e2d7f9465a2b5ad5519dd26e27b66d"
+  },
+  "outputs": {
+    "tables/wp7_binary_bound.csv": "a86a21addb89349676067bc0bf8fc40b5cc7078e4c717601ecceb9fd186e89a4",
+    "tables/wp7_binary_bound_harer_fig2.csv": "4891aa6ffcf30010282e980dfa458ff23e8990490e90e9b64a901b299e206afe",
+    "tables/wp7_binary_bound_branches.csv": "57bf99f7e6802b23f1234e9c6c6dfa70717a191fe0262bf581d237e9c6480196"
+  }
+}

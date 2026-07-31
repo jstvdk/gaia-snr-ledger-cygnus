@@ -35,11 +35,22 @@ branches (α ∈ {2.0, 2.3}, all-explode).
 | **P_verdict** | | **0.323 – 0.736** (median 0.533) |
 
 **C3 = 1.000 exactly.** Every supernova in the ledger came from a star above
-52 M☉ — far above the ~30 M☉ envelope-stripping threshold — so *every* event
+**34 M☉ on every branch, and above 52 M☉ on the coeval branches** — above the
+~30 M☉ envelope-stripping threshold everywhere — so *every* event
 Cyg OB2 has produced should have been a stripped-envelope type Ib/c. This is
 precisely the progenitor channel Härer's model requires, and it is not a
 coincidence: the association is young enough that only its most massive stars
 have died. Pre-registered as V1, passed.
+
+> **Qualified 2026-07-30 (item D1).** The original sentence read "above 52 M☉ —
+> far above the ~30 M☉ envelope-stripping threshold". 52 M☉ is exact on the
+> baseline branch and holds to within 6.5% of events on all coeval branches, but
+> on the δ = 2 Myr formation-window branches up to **19%** of supernovae come
+> from progenitors between 34 and 52 M☉. **C3 = 1.000 is unaffected as
+> computed** — the minimum dead progenitor anywhere on the grid is 33.9 M☉,
+> above 30 on every branch — but the margin is a few solar masses on the widest
+> branches, not a factor. Measurement:
+> [wp7_alpha_headline_adoption.md §4.2](wp7_alpha_headline_adoption.md).
 
 ## 3. What is deliberately *not* in the number
 

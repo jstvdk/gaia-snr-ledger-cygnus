@@ -1,0 +1,26 @@
+{
+  "created_utc": "2026-07-30T11:14:14+00:00",
+  "script": "scripts/wp10_figures.py",
+  "item": "WP10",
+  "python": "3.11.15",
+  "platform": "macOS-15.6.1-arm64-arm-64bit",
+  "matplotlib": "3.11.0",
+  "figures": {
+    "fig1_membership_literature": "built at WP2, unchanged",
+    "fig2_control_fields": "built at WP2, unchanged",
+    "fig3_mass_function": "WP5 repair_v7 bins, baseline branch",
+    "fig4_rsn_history": "WP7 R_SN(t), baseline branch, stacked",
+    "fig5_age_sensitivity": "WP7 age scan, the mandatory honesty plot",
+    "fig6_verdict_branches": "WP9 per-branch verdict, all 54"
+  },
+  "outputs": {
+    "figures/paper/fig3_mass_function.pdf": "a59bb591364dd576fdca019b4d2316d93bf5837568a8e92b7b773fe7332c78aa",
+    "figures/paper/fig3_mass_function.png": "60c640760050b68b6dc1e4a410236b275ed289f865f3d5e0c3c06f3c82af6cad",
+    "figures/paper/fig4_rsn_history.pdf": "46dc3c50f68adc3ed8d90a05596fdd76912a56ec02dd6005e201a7f2adb84494",
+    "figures/paper/fig4_rsn_history.png": "4d24966a0f22bbbccbb9da18ae77957c50b1ff54fd2c48e84cf6a0cd8f4e8f6c",
+    "figures/paper/fig5_age_sensitivity.pdf": "a167fe99250fc73464952a2f26327547afe5279092a79e155fff42a97e6d2385",
+    "figures/paper/fig5_age_sensitivity.png": "2d80b0cb8ec08836ddba9efb79ad3cdebc66c8097515891f1f78671b9c7fe6ac",
+    "figures/paper/fig6_verdict_branches.pdf": "921b345c5174e737d5220f7b50159ad18d50d8f2ef94297c319453253ee64147",
+    "figures/paper/fig6_verdict_branches.png": "bfb361d6b4eb42abb954d9e5e7e59d4ca295296c07655750677dd6a7de8e4df4"
+  }
+}

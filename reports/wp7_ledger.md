@@ -31,32 +31,58 @@ without its branch would misrepresent the analysis by more than an order of
 magnitude. The branch spread *is* the uncertainty; the Poisson interval on any
 one branch is the smaller part of it.
 
+> **Headline branch set, adopted 2026-07-30 (item D1).** The manuscript quotes
+> the **36 branches with α ∈ {2.0, 2.3}**, over which the total spans
+> **5.63 – 28.74** (factor 5.1). α = 2.6 (1.93 – 4.24) is disfavoured by the WP5
+> calibration-window χ² and is reported in the sensitivity table, never deleted.
+> The census closure (E2) was **not** spent to make this choice. Baseline
+> unchanged at 8.43. Pre-registration, scoring and the reporting obligations
+> that came with adoption:
+> [wp7_alpha_headline_adoption.md](wp7_alpha_headline_adoption.md).
+
 ## 2. What actually drives the number
 
 | lever | effect on N_SN | can the data settle it? |
 |---|---|---|
 | **IMF slope α** | 2.0 → 15–29 · 2.3 → 5.6–11.2 · 2.6 → 1.9–4.2 | **partly** — WP6's census disfavours 2.6 and closes at α ≈ 2.25 |
 | **assumed age** | 0 below 2.75 Myr → 12.7 at 4.0 → 38.2 at 6.0 Myr | no — inherited from WP4 |
-| **explodability** | 0 for any BH threshold ≤ 40 M☉; 8.4 if all explode | no — theory input |
+| **explodability** | 0 for any BH threshold ≤ 30 M☉ on every branch (≤ 40 M☉ on coeval branches); 8.4 if all explode | no — theory input |
 | **isochrone family** | median 8.4 (PARSEC) vs 10.3 (MIST) | no — carried |
 | **formation duration** | +5% from δ = 0 to 2 Myr | no — carried |
 
 Two of these deserve to be stated as findings rather than as table rows.
 
-### 2a. The entire supernova budget lives above 40 M☉
+### 2a. The entire supernova budget lives above 30 M☉
+
+> **Corrected 2026-07-30 (item D1).** The heading and first sentence of this
+> section previously read *"above 40 M☉ … the smallest turnoff anywhere on the
+> branch grid is about 52 M☉ … for any black-hole threshold at or below 40 M☉
+> the ledger returns exactly zero on every branch."* Measured over all 54
+> branches rather than the baseline alone, **the 40 M☉ form of the claim is
+> false**: under a 1–2 Myr formation window stars are born up to δ/2 before the
+> fitted age, so the lowest turnoff falls to **33.9 M☉** (45.4 M☉ on coeval
+> branches), and 21 of 54 cells place up to **1.8%** of their supernovae below
+> 40 M☉. **Prediction L2 is unaffected** — it was written against the 25 M☉
+> islands cut, where the count is exactly zero everywhere. Evidence and
+> re-derivation:
+> [wp7_alpha_headline_adoption.md §4](wp7_alpha_headline_adoption.md) ·
+> [wp7_alpha_headline_branch_sets.csv](../tables/wp7_alpha_headline_branch_sets.csv).
 
 Panel (b). Every star that has died in Cyg OB2 is massive: the smallest turnoff
-anywhere on the branch grid is about 52 M☉. So for **any** black-hole threshold
-at or below 40 M☉ the ledger returns **exactly zero supernovae**, on every
-branch and in every one of 2,000,000 iterations — pre-registered as L2 and
-confirmed.
+on the **baseline** branch is 52 M☉, and the smallest anywhere on the grid —
+reached only on the widest formation-window branches — is **33.9 M☉**. So for
+**any** black-hole threshold at or below **30 M☉** the ledger returns **exactly
+zero supernovae**, on every branch and in every iteration. At a 40 M☉ threshold
+it is exactly zero on every coeval branch and at most 1.8% of N_SN elsewhere.
+Pre-registered as L2 at the 25 M☉ islands cut and confirmed there exactly.
 
 This is not a marginal systematic. It means the supernova history of Cyg OB2 is
-**entirely conditional on whether stars well above 40 M☉ explode at all**, a
+**entirely conditional on whether stars well above 30 M☉ explode at all**, a
 question the Gaia data cannot address. Sukhbold+2016 and Ertl+2016 give an
 interleaved pattern of explodable and non-explodable ZAMS masses between roughly
 15 and 25 M☉; that structure is irrelevant here, because nothing in that range
-has had time to die. The branch reduces to one question, and it is scanned in
+has had time to die — and the corrected 30 M☉ floor lies above the whole of it,
+so the conclusion does not depend on the branch-dependent part of the claim. The branch reduces to one question, and it is scanned in
 panel (b) rather than hidden behind a label.
 
 **This sets up WP8's sharpest test.** PSR J2032+4127 is a *neutron star*, and a
@@ -118,8 +144,24 @@ exploded somewhere else. With 54.9 runaways against 322.4 retained living stars
 above 8 M☉, at most **14.6%** of the ledger's supernovae were not in-situ. That
 is a bound carried into WP8's cavity argument, not a subtraction here.
 
-The clipped/unclipped runaway totals (58.2 vs 54.9) move this bound by under a
-percentage point.
+**The sum, made exact** (item S2). 322.4 is the retained census — 295.4 in the
+member channel plus 27.0 orphan anchors — and it does *not* sum with 54.9 to the
+380.6 ledger total, because the two runaway figures are different estimators of
+the same quantity ([wp6_ledger_execution.json](../provenance/wp6_ledger_execution.json)):
+
+| | runaway total used | census above 8 M☉ | runaway fraction |
+|---|---:|---:|---:|
+| ledger convention (binned purity, clipped at zero per bin) | **58.2** | 295.4 + 27.0 + 58.2 = **380.6** | 15.3% |
+| bound convention (aggregate false-positive correction, unclipped) | **54.9** | 295.4 + 27.0 + 54.9 = **377.3** | **14.6%** |
+
+Each column is internally exact; the 3.3-star difference is the clipping, which
+forbids a bin from returning a negative count of real runaways. The clipped
+figure is the conservative per-bin estimate and the unclipped one the better
+global estimate, so both are reported — but they must not be mixed inside one
+sum. The in-situ bound above uses 54.9 in **both** numerator and denominator,
+and the ledger total of 380.6 uses 58.2 in both. Using the binned convention
+throughout gives 15.3% instead of 14.6%, which is the "under a percentage point"
+already quoted.
 
 ## 6. The route that does not work, and why it is reported anyway
 

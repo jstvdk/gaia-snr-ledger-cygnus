@@ -1,0 +1,22 @@
+{
+  "created_utc": "2026-07-30T14:31:09+00:00",
+  "script": "scripts/wp10_validate.py",
+  "item": "WP10 gate",
+  "python": "3.11.15",
+  "platform": "macOS-15.6.1-arm64-arm-64bit",
+  "note": "no LaTeX toolchain is installed in this environment, so the manuscript has NOT been compiled; these checks stand in for the failures a compile would surface, and a compile is still required before submission",
+  "V1_undefined_macros": [],
+  "V2_unused_macros": [],
+  "V3_unresolved_refs": [],
+  "V4_missing_citations": [],
+  "V5_missing_figures": [],
+  "V6_forbidden_input_audit": true,
+  "V7_bare_numbers": [],
+  "macros_defined": 117,
+  "macros_used": 117,
+  "bib_entries": 20,
+  "bib_entries_uncited": [],
+  "figures_referenced": 6,
+  "pass": true,
+  "failures": []
+}

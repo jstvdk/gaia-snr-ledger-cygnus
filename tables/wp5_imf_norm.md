@@ -1,3 +1,14 @@
+> ⚠️ **SUPERSEDED — FROZEN PRE-REPAIR RECORD. DO NOT QUOTE, DO NOT PROPAGATE.**
+> This is the original WP5 run in which **0 of 54 branches passed** the
+> mass-function residual gate (every `residual_gate_pass` below is `False`).
+> It is retained only as the historical record of issue #2. The accepted
+> normalization is [`wp5_imf_norm_repair_v6.md`](wp5_imf_norm_repair_v6.md) and
+> the version consumed downstream is
+> `data/processed/wp5_imf_normalization_repair_v7.parquet`.
+> Banner added 2026-07-30 (item S3); the table below is byte-unchanged.
+> Enforcement: [`scripts/wp10_inputs.py`](../scripts/wp10_inputs.py) refuses
+> this file as a manuscript input.
+
 # WP5 IMF-normalization branch table
 
 | subgroup | family | R_V | alpha | k_median | k_lo68 | k_hi68 | poisson_chi_square_p | residual_gate_pass |

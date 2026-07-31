@@ -1,0 +1,100 @@
+{
+  "created_utc": "2026-07-30T07:56:10+00:00",
+  "script": "scripts/wp4_wp5_age_reconciliation.py",
+  "purpose": "B2 of tasks/pre_wp10_assessment_brief.md -- identify which age is which, and price the difference in supernovae.  Definitional and diagnostic only: nothing was refitted, no stored number moved.",
+  "python": "3.11.15",
+  "platform": "macOS-15.6.1-arm64-arm-64bit",
+  "numpy": "2.4.6",
+  "pandas": "3.0.3",
+  "wp4_version": "repair_v5",
+  "wp5_version": "repair_v7",
+  "definitions": {
+    "wp4_ums_map": "MAP of the WP4 upper-main-sequence CMD age posterior at f_bin = 0.40, dmu = 0.  A photometric age from isochrone fitting to the observed CMD.",
+    "wp5_fitted_posterior_mean": "mean of the WP5 joint age-k truth-age posterior: the WP4 posterior taken as prior over nine unsnapped quantile nodes, reweighted by the Poisson likelihood of the observed 2-8 Msun counts with k integrated out under a Jeffreys prior.  A counts-based age."
+  },
+  "identification": {
+    "claim": "obligation O1's 'A 4.00, B 4.07, C 2.52' is the WP5 fitted truth-age posterior mean on the baseline branch, not a stale or alternative WP4 number",
+    "baseline_fitted_posterior_mean_Myr": {
+      "CygOB2-A": 4.0,
+      "CygOB2-B": 4.086,
+      "CygOB2-C": 2.517
+    },
+    "baseline_wp4_ums_map_Myr": {
+      "CygOB2-A": 3.981,
+      "CygOB2-B": 3.548,
+      "CygOB2-C": 2.512
+    },
+    "ledger_draw_means_Myr": {
+      "CygOB2-A": 4.001,
+      "CygOB2-B": 4.085,
+      "CygOB2-C": 2.517
+    },
+    "consumed_downstream_by": "wp7_ledger.py and wp9_verdict.py both read truth_age_draws__* from the WP5 posterior-draw archive, so the counts-based age is the one every downstream number rests on; the upper-MS MAP enters only as its prior"
+  },
+  "baseline_PARSEC_rv3.1_alpha2.3": [
+    {
+      "subgroup": "CygOB2-A",
+      "wp4_ums_map_Myr": 3.981,
+      "wp4_ums_68_Myr": [
+        3.814,
+        4.056
+      ],
+      "wp5_fitted_mean_Myr": 4.0,
+      "shift_Myr": 0.019,
+      "turnoff_ums_Msun": 58.3,
+      "turnoff_fitted_Msun": 57.9,
+      "sn_ratio_fitted_over_ums": 1.018,
+      "top_node_Myr": 4.102,
+      "top_node_posterior_weight": 0.166
+    },
+    {
+      "subgroup": "CygOB2-B",
+      "wp4_ums_map_Myr": 3.548,
+      "wp4_ums_68_Myr": [
+        3.389,
+        3.991
+      ],
+      "wp5_fitted_mean_Myr": 4.086,
+      "shift_Myr": 0.538,
+      "turnoff_ums_Msun": 73.7,
+      "turnoff_fitted_Msun": 55.8,
+      "sn_ratio_fitted_over_ums": 1.924,
+      "top_node_Myr": 4.258,
+      "top_node_posterior_weight": 0.532
+    },
+    {
+      "subgroup": "CygOB2-C",
+      "wp4_ums_map_Myr": 2.512,
+      "wp4_ums_68_Myr": [
+        2.47,
+        2.56
+      ],
+      "wp5_fitted_mean_Myr": 2.517,
+      "shift_Myr": 0.005,
+      "turnoff_ums_Msun": 281.7,
+      "turnoff_fitted_Msun": 278.7,
+      "sn_ratio_fitted_over_ums": null,
+      "top_node_Myr": 2.59,
+      "top_node_posterior_weight": 0.124
+    }
+  ],
+  "railing_finding": {
+    "subgroup": "CygOB2-B",
+    "top_node_Myr": 4.258,
+    "top_node_posterior_weight": 0.532,
+    "top_two_nodes_posterior_weight": 0.837,
+    "grid_median_top_node_weight_B": 0.435,
+    "grid_median_top_node_weight_A": 0.133,
+    "grid_median_top_node_weight_C": 0.134,
+    "sn_headroom_if_true_age_at_top_node": 0.151,
+    "reading": "B's counts-based age piles up against the top of its own WP4 node support, so the fitted age is truncated by the prior grid, not by the data.  The bound is one-sided and its direction is known: older means a lower turnoff means MORE supernovae, so B's contribution to N_SN is a lower bound at the level quoted here."
+  },
+  "inputs": {
+    "data/processed/wp4_age_posteriors_repair_v5.parquet": "dc14e923a5dc4ad1336d08059e397bbc007f0f926f91a94f5ac2ddfbdc141ada",
+    "data/processed/wp5_imf_normalization_repair_v7.parquet": "edfce6cf9fb72ab1fe0848181041b9d698676841193d1deafebe66706e9b7071",
+    "data/processed/wp5_imf_posterior_draws_repair_v7.npz": "f5109380de44ed81ed0ddd8d53f4072f19e2d7f9465a2b5ad5519dd26e27b66d"
+  },
+  "outputs": {
+    "tables/wp4_wp5_age_reconciliation.csv": "62d4c7e710860393dca926cb00b4207800f1dc01618377f2a4a362102b0fb2bd"
+  }
+}
