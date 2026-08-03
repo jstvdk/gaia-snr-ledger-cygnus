@@ -73,6 +73,11 @@ MANUSCRIPT_INPUTS: dict[str, str] = {
     "wp8_tension_list": "tables/wp8_tension_list.csv",
     "wp9_verdict": "tables/wp9_verdict.csv",
     "wp9_sensitivity": "tables/wp9_sensitivity.csv",
+    # WP11 Part B -- post-hoc, pre-registered before scoring.  Registered here
+    # deliberately: these are the ONLY post-WP1 comparisons in the manuscript
+    # and the text must disclose that where it quotes them.
+    "wp11_isotope_forecast": "tables/wp11_isotope_forecast.csv",
+    "wp11_isotope_summary": "tables/wp11_isotope_summary.csv",
     # pre-WP10 work
     "age_reconciliation": "tables/wp4_wp5_age_reconciliation.csv",
     "alpha_headline_branch_sets": "tables/wp7_alpha_headline_branch_sets.csv",

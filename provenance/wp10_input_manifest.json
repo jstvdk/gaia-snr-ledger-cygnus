@@ -1,5 +1,5 @@
 {
-  "created_utc": "2026-07-30T11:13:56+00:00",
+  "created_utc": "2026-07-31T13:12:49+00:00",
   "script": "scripts/wp10_inputs.py",
   "item": "S3 of tasks/pre_wp10_assessment_brief.md",
   "python": "3.11.15",
@@ -29,6 +29,14 @@
     "binary_bound_harer_fig2": {
       "path": "tables/wp7_binary_bound_harer_fig2.csv",
       "sha256": "4891aa6ffcf30010282e980dfa458ff23e8990490e90e9b64a901b299e206afe"
+    },
+    "wp11_isotope_forecast": {
+      "path": "tables/wp11_isotope_forecast.csv",
+      "sha256": "8ed50e31eccfb3911cbed80daef6f3c3bad64da733da3cabc5011f21d34305ff"
+    },
+    "wp11_isotope_summary": {
+      "path": "tables/wp11_isotope_summary.csv",
+      "sha256": "f1071f5f393b16907615b48803592481d0f8c704d45fb173b0608c974cebce0f"
     },
     "wp1_inventory": {
       "path": "tables/table1_wp1_inventory.md",
@@ -169,7 +177,7 @@
     "data/processed/wp2_members_failed_20260722.parquet": "the rejected 2026-07-22 membership run"
   },
   "audit": {
-    "declared_inputs": 36,
+    "declared_inputs": 38,
     "missing_declared_inputs": [],
     "forbidden_entries": 11,
     "authorized_forbidden_overlap": [],

@@ -1,0 +1,186 @@
+{
+  "created_utc": "2026-07-31T13:14:30.695093+00:00",
+  "script": "scripts/wp11_isotope_forecast.py",
+  "status": "SUCCESS",
+  "work_package": "WP11 Part B",
+  "prereg": "provenance/wp11_isotope_prereg.json",
+  "brief": "tasks/wp11_bowshock_isotope_brief.md \u00a74",
+  "post_hoc_disclosure": "this comparison was NOT frozen at WP1.  It is a post-hoc addition, pre-registered before scoring but chosen after the ledger existed. It must be introduced as such in the manuscript.",
+  "iterations": 500000,
+  "wp5_version": "repair_v7",
+  "distance_kpc": 1.6245,
+  "distance_source": "wp3_common.D_KPC <- provenance/wp2_membership_manifest.json one_component_mean_kpc",
+  "environment": {
+    "python": "3.11.15 | packaged by conda-forge | (main, Jun 11 2026, 03:29:05) [Clang 19.1.7 ]",
+    "platform": "macOS-15.6.1-arm64-arm-64bit",
+    "numpy": "2.4.6",
+    "pandas": "3.0.3"
+  },
+  "headline_branches": 36,
+  "yield_arms": [
+    "LC06_NL",
+    "LC06_Langer",
+    "LC18_REC"
+  ],
+  "primary_arm": "LC06_NL",
+  "lc18_null_arm_check": {
+    "supernovae_sampled": 315462579,
+    "supernovae_at_or_below_25_Msun": 0,
+    "meaning": "LC18's Recommended scenario collapses everything above 25 Msun.  A count of zero here means the null arm is identically zero for this ledger, as the pre-registration asserted, rather than merely nearly so."
+  },
+  "convergence": {
+    "statistic": "split-half relative difference in the primary arm's 60Fe mass, per branch",
+    "max": 0.0030132767990256617,
+    "median": 0.0007230359492439002
+  },
+  "summary_by_arm": [
+    {
+      "yield_arm": "LC06_NL",
+      "branches": 36,
+      "M_al26_min_Msun": 0.0009200077121704848,
+      "M_al26_median_Msun": 0.0018924766809023975,
+      "M_al26_max_Msun": 0.003701868226479154,
+      "M_fe60_min_Msun": 0.0029778625188884096,
+      "M_fe60_median_Msun": 0.006736334145674264,
+      "M_fe60_max_Msun": 0.014301083212600754,
+      "F_1809_min": 4.040110887024087e-06,
+      "F_1809_median": 8.310599509992102e-06,
+      "F_1809_max": 1.6256339948328085e-05,
+      "F_fe60_line_min": 1.5763442787590118e-06,
+      "F_fe60_line_median": 3.565907332184842e-06,
+      "F_fe60_line_max": 7.570339651091369e-06,
+      "F_fe60_combined_median": 7.13467024581688e-06,
+      "al26_fraction_of_complex_flux": 0.21309229512800262,
+      "fe60_over_spi_limit": 0.9466713522648541,
+      "cosi_verdict_fe60": "MARGINAL",
+      "cosi_verdict_al26_sn_only": "DETECTABLE",
+      "spi_verdict_fe60": "BELOW_LIMIT"
+    },
+    {
+      "yield_arm": "LC06_Langer",
+      "branches": 36,
+      "M_al26_min_Msun": 0.0002568427906711066,
+      "M_al26_median_Msun": 0.0005264287103052597,
+      "M_al26_max_Msun": 0.0010140830218205734,
+      "M_fe60_min_Msun": 9.633955920812467e-05,
+      "M_fe60_median_Msun": 0.0002220027489780765,
+      "M_fe60_max_Msun": 0.00046206632693725664,
+      "F_1809_min": 1.1278963655597023e-06,
+      "F_1809_median": 2.3117527555597383e-06,
+      "F_1809_max": 4.453232079041937e-06,
+      "F_fe60_line_min": 5.0997758295631817e-08,
+      "F_fe60_line_median": 1.1751810602424856e-07,
+      "F_fe60_line_max": 2.445967892253895e-07,
+      "F_fe60_combined_median": 2.3513032064190993e-07,
+      "al26_fraction_of_complex_flux": 0.05927571168101893,
+      "fe60_over_spi_limit": 0.030586840734716497,
+      "cosi_verdict_fe60": "BELOW_REACH",
+      "cosi_verdict_al26_sn_only": "MARGINAL",
+      "spi_verdict_fe60": "BELOW_LIMIT"
+    },
+    {
+      "yield_arm": "LC18_REC",
+      "branches": 36,
+      "M_al26_min_Msun": 0.0,
+      "M_al26_median_Msun": 0.0,
+      "M_al26_max_Msun": 0.0,
+      "M_fe60_min_Msun": 0.0,
+      "M_fe60_median_Msun": 0.0,
+      "M_fe60_max_Msun": 0.0,
+      "F_1809_min": 0.0,
+      "F_1809_median": 0.0,
+      "F_1809_max": 0.0,
+      "F_fe60_line_min": 0.0,
+      "F_fe60_line_median": 0.0,
+      "F_fe60_line_max": 0.0,
+      "F_fe60_combined_median": 0.0,
+      "al26_fraction_of_complex_flux": 0.0,
+      "fe60_over_spi_limit": 0.0,
+      "cosi_verdict_fe60": "BELOW_REACH",
+      "cosi_verdict_al26_sn_only": "BELOW_REACH",
+      "spi_verdict_fe60": "BELOW_LIMIT"
+    }
+  ],
+  "predicted_isotope_ratio": {
+    "fe60_combined_over_al26_sn_only": {
+      "min": 0.7581147659095324,
+      "median": 0.8394833438603128,
+      "max": 1.0008843002252419
+    },
+    "galactic_measured_for_context": 0.184,
+    "why_ours_is_higher": "our 26Al denominator is SUPERNOVA-ONLY while the Galactic ratio's is winds plus supernovae, and every progenitor here is above 30 Msun where LC06's 60Fe yield is largest.  The two numbers are not measuring the same quantity and the comparison is context, not a check."
+  },
+  "findings": [
+    {
+      "id": "T4",
+      "severity": "corrects a published WP8 number; changes no ledger value",
+      "statement": "WP8 \u00a75 compares the ledger's SN-only 26Al mass against '~1 Msun inferred for the whole Cygnus complex' and reports the ordering as roughly 1000x.  The frozen WP1 marker's own measured complex flux of 3.9e-05 ph/cm2/s corresponds to only 8.88e-03 Msun of 26Al at 1.6245 kpc.  The 1 Msun figure is about two orders of magnitude too large and looks like Martin et al.'s GALACTIC stationary mass (1.7-2.0 Msun) used for the complex.",
+      "consequence": "the true ordering is roughly one order of magnitude, not three: this ledger's supernovae alone supply 10-42% of the measured complex-wide 1809 keV flux.  Supernovae are a sub-dominant but NOT negligible contributor, which is a stronger and more interesting statement than WP8 made -- and it is still a lower bound on the complex-wide signal, so it is consistent with the measurement and is not a tension with data.",
+      "measured_complex_al26_Msun": 0.008881018808144162,
+      "wp8_assumed_complex_al26_Msun": 1.0,
+      "sn_only_flux_fraction_of_complex": {
+        "min": 0.10359258684677146,
+        "median": 0.21309229512800262,
+        "max": 0.4168292294443099
+      },
+      "action_taken": "NONE upstream.  WP11 is one-way validation: the defect is reported, WP8 is not edited, and the manuscript quotes the flux-space comparison, which needs no mass conversion of the measurement."
+    }
+  ],
+  "predictions": [
+    {
+      "id": "I1",
+      "outcome": "PASS",
+      "statement": "SN-only 26Al mass <= 1% of the ~1 Msun complex inventory",
+      "measured": {
+        "max_fraction_of_complex_Msun": 0.003701868226479154,
+        "threshold": 0.01
+      },
+      "integrity_note": "VACUOUS AS WRITTEN.  Scored against the denominator named in the pre-registration and not amended, but finding T4 shows that denominator is about 100x too large, so the PASS carries no information.  Re-scored against the measured complex-wide FLUX -- the same test with the error removed -- the outcome is FAIL.  The corrected comparison is what the manuscript quotes.",
+      "outcome_against_corrected_denominator": "FAIL"
+    },
+    {
+      "id": "I2",
+      "outcome": "PASS",
+      "statement": "60Fe below the frozen SPI Cygnus upper limit everywhere",
+      "measured": {
+        "max_combined_flux_ph_cm2_s": 1.5146741636237666e-05,
+        "spi_upper_limit_ph_cm2_s": 1.6e-05,
+        "margin_factor": 1.0563327997700156
+      }
+    },
+    {
+      "id": "I3",
+      "outcome": "PASS",
+      "statement": "alpha=2.0 median 60Fe flux >= 2x the alpha=2.3 median",
+      "measured": {
+        "median_alpha_2p0": 5.621049554918303e-06,
+        "median_alpha_2p3": 2.0950249919081743e-06,
+        "ratio": 2.6830465396016985,
+        "threshold": 2.0
+      }
+    },
+    {
+      "id": "I4",
+      "outcome": "PASS",
+      "statement": "between-arm yield spread > within-arm branch spread",
+      "measured": {
+        "between_arm_factor": 30.343471766376634,
+        "within_arm_factor": 4.8024659036103285
+      }
+    },
+    {
+      "id": "I5",
+      "outcome": "PASS",
+      "statement": "COSI verdict for 60Fe on the primary arm is MARGINAL",
+      "measured": {
+        "verdict": "MARGINAL",
+        "cosi_sensitivity_ph_cm2_s": 3e-06
+      }
+    }
+  ],
+  "prohibition_honoured": "the measured complex-wide 26Al flux was never inverted into a supernova count.  The SN-only component is reported as a LOWER BOUND on the complex-wide signal.",
+  "outputs": {
+    "tables/wp11_isotope_forecast.csv": "8ed50e31eccfb3911cbed80daef6f3c3bad64da733da3cabc5011f21d34305ff",
+    "tables/wp11_isotope_summary.csv": "f1071f5f393b16907615b48803592481d0f8c704d45fb173b0608c974cebce0f"
+  }
+}

@@ -365,6 +365,77 @@ def main() -> None:
                       ("sf_duration_Myr", "Delta")):
         m.num(f"spread{tag}", sens.loc[axis].spread, ".3f", "wp9_sensitivity.csv")
 
+    # ------------------------------------------------------------- WP11 Part B
+    # The isotope forecast.  POST-HOC: pre-registered before scoring but chosen
+    # after the ledger existed, unlike the WP8 markers, which were frozen at
+    # WP1.  The manuscript is required to say so where it quotes these.
+    iso = pd.read_csv(I.resolve("wp11_isotope_forecast"))
+    iso_exec = json.loads(
+        (w.ROOT / "provenance" / "wp11_isotope_forecast_execution.json")
+        .read_text()
+    )
+    prereg = json.loads(
+        (w.ROOT / "provenance" / "wp11_isotope_prereg.json").read_text()
+    )
+    arm = iso_exec["primary_arm"]
+    iso_head = iso[iso.in_headline_set & iso.yield_arm.eq(arm)]
+    src = "wp11_isotope_forecast.csv"
+    m.num("isoAlLo", 1e3 * iso_head.M_al26_Msun.min(), ".2f", src)
+    m.num("isoAlHi", 1e3 * iso_head.M_al26_Msun.max(), ".1f", src)
+    m.num("isoFeLo", 1e3 * iso_head.M_fe60_Msun.min(), ".1f", src)
+    m.num("isoFeHi", 1e3 * iso_head.M_fe60_Msun.max(), ".1f", src)
+    m.num("isoFluxFe", 1e6 * iso_head.F_1173_ph_cm2_s.median(), ".1f", src)
+    # The clean split: how many branches on each alpha arm clear COSI.
+    cosi = prereg["instruments"]["COSI_narrow_line_3sigma_2yr"]["value_ph_cm2_s"]
+    m.num("isoCosi", 1e6 * cosi, ".1f", "wp11_isotope_prereg.json")
+    for alpha, tag in ((2.0, "Two"), (2.3, "TwoThree")):
+        cell = iso_head[iso_head.alpha.eq(alpha)]
+        m.num(f"isoCosi{tag}", int((cell.F_1173_ph_cm2_s >= cosi).sum()), "d",
+              "derived, " + src)
+        m.num(f"isoCosi{tag}n", len(cell), "d", src)
+    scored = {p["id"]: p for p in iso_exec["predictions"]}
+    m.num("isoAlphaRatio", scored["I3"]["measured"]["ratio"], ".2f",
+          "wp11_isotope_forecast_execution.json")
+    m.num("isoArmSpread", scored["I4"]["measured"]["between_arm_factor"], ".0f",
+          "wp11_isotope_forecast_execution.json")
+    m.num("isoBranchSpread", scored["I4"]["measured"]["within_arm_factor"],
+          ".1f", "wp11_isotope_forecast_execution.json")
+    m.num("isoSpiMargin",
+          100 * (1.0 - 1.0 / scored["I2"]["measured"]["margin_factor"]), ".0f",
+          "wp11_isotope_forecast_execution.json")
+    m.num("isoSpiLimit",
+          1e5 * scored["I2"]["measured"]["spi_upper_limit_ph_cm2_s"], ".1f",
+          "wp11_isotope_prereg.json")
+    # Finding T4: the SN-only 26Al as a fraction of the MEASURED complex flux.
+    t4 = {f["id"]: f for f in iso_exec["findings"]}["T4"]
+    frac = t4["sn_only_flux_fraction_of_complex"]
+    m.num("isoAlFracLo", 100 * frac["min"], ".0f",
+          "wp11_isotope_forecast_execution.json")
+    m.num("isoAlFracHi", 100 * frac["max"], ".0f",
+          "wp11_isotope_forecast_execution.json")
+    # The null arm, and the check that it really is identically zero.
+    null_check = iso_exec["lc18_null_arm_check"]
+    m.num("isoNullBelow", null_check["supernovae_at_or_below_25_Msun"], "d",
+          "wp11_isotope_forecast_execution.json")
+    m.num("isoNullSampled",
+          null_check["supernovae_sampled"] / 1e6, ".0f",
+          "wp11_isotope_forecast_execution.json")
+    m.num("isoSatFeLo", iso_head.saturation_fe60.min(), ".2f", src)
+    m.num("isoSatFeHi", iso_head.saturation_fe60.max(), ".2f", src)
+    # The predicted 60Fe/26Al ratio against the Galactic measured one.  These
+    # are NOT the same quantity -- ours has a supernova-only 26Al denominator --
+    # so the text says so where it quotes them.
+    ratio = iso_exec["predicted_isotope_ratio"]
+    m.num("isoRatioLo", ratio["fe60_combined_over_al26_sn_only"]["min"], ".2f",
+          "wp11_isotope_forecast_execution.json")
+    m.num("isoRatioHi", ratio["fe60_combined_over_al26_sn_only"]["max"], ".2f",
+          "wp11_isotope_forecast_execution.json")
+    galactic = prereg["instruments"]["galactic_ratio_context"]
+    m.num("isoRatioGal", galactic["fe60_over_al26"], ".3f",
+          "wp11_isotope_prereg.json")
+    m.num("isoRatioGalErr", galactic["error"], ".3f",
+          "wp11_isotope_prereg.json")
+
     # The ignorance baseline quoted against P(last SN < 100 kyr).
     first = float(active.index.max()) + 0.05
     m.num("ignorance", 0.1 / first, ".3f", "derived, wp7_rsn_curves.csv")

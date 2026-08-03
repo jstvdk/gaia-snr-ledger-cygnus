@@ -13,6 +13,17 @@ population property they all depend on. This implements, rather than
 contradicts, WP9's rule: "lead with the ledger; the verdict is one result
 among several." No number changed.
 
+**WP11 Part B added 2026-07-31.** The ²⁶Al/⁶⁰Fe forward prediction lands as one
+Discussion subsection (`sec:cosi`, beside the DR4 outlook) and one sentence in
+the ²⁶Al cross-check paragraph. **These are the only comparisons in the paper
+that were not frozen before the analysis began**, and both places say so in the
+sentence that introduces them — the frozen WP8 marker set and this post-hoc
+addition must not read as the same kind of evidence. Report:
+[wp11_isotope_forecast.md](../reports/wp11_isotope_forecast.md). It also records
+finding **T4**: WP8 §5's "~1 M☉ for the whole Cygnus complex" is about 100× too
+large, so the manuscript quotes the comparison in *flux* space, where no mass
+conversion of the measurement is needed. Nothing upstream was retuned.
+
 ## Files
 
 | file | what it is |

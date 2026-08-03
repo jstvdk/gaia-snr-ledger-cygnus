@@ -17,7 +17,16 @@ data/processed/
 # Keep completed execution records tracked as provenance.
 provenance/*_job.json
 
+papers/
+
 # Local logs and temporary files
 *.log
 *.tmp
 
+
+# A&A class+bst: (c) EDP Sciences, all rights reserved. Fetch, do not commit.
+# https://www.aanda.org/doc_journal/instructions/macro/aa/macro-latex-aa.zip
+manuscript/aa.cls
+manuscript/aa.bst
+manuscript/linenoaa.sty
+manuscript/lineno.sty

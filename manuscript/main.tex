@@ -510,7 +510,12 @@ remnant is therefore consistent with the cavity argument but does not test it.
 \paragraph{$^{26}$Al --- a consistency band.}
 $^{26}$Al traces both supernova ejecta and Wolf--Rayet winds, so it constrains
 the combination and cannot be inverted for a supernova count. It is reported as
-a band and never used as a fit.
+a band and never used as a fit. Run forward rather than backward --- and, unlike
+everything else in this section, post-hoc rather than frozen at the outset
+(Sect.~\ref{sec:cosi}) --- the ledger's supernovae alone supply
+$\isoAlFracLo$--$\isoAlFracHi$\% of the measured complex-wide $1809$\,keV flux
+\citep{martin2009}. That is a lower bound on the measurement, since the winds
+add to it: supernovae are a sub-dominant but not negligible contributor.
 
 %===============================================================
 \section{Discussion}\label{sec:discussion}
@@ -709,6 +714,60 @@ everything astrometric. Distinguishing $\alpha = 2.0$ from $2.3$ needs a larger
 or deeper massive-star census, or a second association analysed identically ---
 not better astrometry on this one. We state the asymmetry because it is what
 makes the forecast usable.
+
+\subsection{A forward prediction for COSI}\label{sec:cosi}
+
+Since DR4 will not settle $\alpha$, we make the ledger falsifiable somewhere
+else. \emph{Unlike the cross-checks of Sect.~\ref{sec:crosschecks}, this
+comparison was not frozen before the analysis began: it is a post-hoc addition,
+chosen after the ledger existed and pre-registered before it was scored.} We
+flag it because the weight the frozen markers carry depends on that distinction.
+
+$^{60}$Fe is the supernova-specific tracer --- Wolf--Rayet winds make none of
+it, so unlike $^{26}$Al it counts explosions rather than a combination. Carrying
+published per-supernova yields as a branch fixed before any flux was computed,
+and accumulating each event's ejecta at its own progenitor mass with decay from
+its own epoch, the headline branches predict
+$\isoFeLo$--$\isoFeHi\times10^{-3}\,M_\odot$ of $^{60}$Fe surviving now, beside
+$\isoAlLo$--$\isoAlHi\times10^{-3}\,M_\odot$ of supernova $^{26}$Al. The
+association is nowhere near steady state --- only a fraction
+$\isoSatFeLo$--$\isoSatFeHi$ of the saturated $^{60}$Fe mass has accumulated,
+because the first supernova is more recent than the isotope's mean lifetime ---
+so the usual rate-times-lifetime estimate would overstate the signal
+several-fold.
+
+At $\ourDistance$\,kpc that gives a median $1173$\,keV line flux of
+$\isoFluxFe\times10^{-6}$\,ph\,cm$^{-2}$\,s$^{-1}$, against COSI's expected
+$3\sigma$ narrow-line sensitivity of $\isoCosi\times10^{-6}$ in a two-year
+survey \citep{tomsick2023}. The split is clean: $\isoCosiTwo$ of
+$\isoCosiTwon$ branches with $\alpha = 2.0$ clear that sensitivity and
+$\isoCosiTwoThree$ of $\isoCosiTwoThreen$ with $\alpha = 2.3$ do, a factor
+$\isoAlphaRatio$ between the medians. \textbf{COSI would discriminate the one
+axis this paper cannot decide and better astrometry will not fix.}
+
+The forecast is $^{60}$Fe-rich by Galactic standards --- the predicted
+$^{60}$Fe/$^{26}$Al flux ratio is $\isoRatioLo$--$\isoRatioHi$, against
+$\isoRatioGal \pm \isoRatioGalErr$ measured for the Galaxy
+\citep{wang2020} --- but the two are not the same quantity, and the difference
+is expected rather than anomalous: our $^{26}$Al denominator counts supernova
+ejecta only, where the Galactic ratio's includes wind $^{26}$Al, and every
+progenitor here lies above $30\,M_\odot$, where the $^{60}$Fe yield peaks.
+
+Two things bound that claim, and we give them equal weight. The yield model
+matters more than our census does: the spread between published yield arms is a
+factor $\isoArmSpread$ in the predicted flux, against $\isoBranchSpread$ across
+the entire headline branch set \citep{limongi2006}, so a measurement would
+constrain the two jointly rather than $\alpha$ alone. And the current standard
+compilation predicts nothing at all --- \citet{limongi2018}'s recommended
+scenario collapses every star above $25\,M_\odot$ straight to a black hole, and
+$\isoNullBelow$ of the $\isoNullSampled$ million supernovae we sample fall below
+that threshold, so on that prescription this ledger's $^{60}$Fe yield is
+identically zero \citep{falla2025}. A non-detection would then favour precisely
+the explodability that PSR~J2032+4127 disfavours, and that tension would itself
+be the result. Existing data are already near the boundary: our richest branch
+predicts a combined $^{60}$Fe flux within $\isoSpiMargin$\% of the INTEGRAL/SPI
+upper limit for the Cygnus region, $\isoSpiLimit\times10^{-5}$\,ph\,cm$^{-2}$
+\,s$^{-1}$ \citep{martin2009}.
 
 \subsection{Deferred}
 
