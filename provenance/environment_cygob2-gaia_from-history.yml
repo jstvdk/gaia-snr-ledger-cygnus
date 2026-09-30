@@ -1,0 +1,25 @@
+name: cygob2-gaia
+channels:
+  - conda-forge
+dependencies:
+  - python=3.11
+  - astropy
+  - astroquery
+  - duckdb
+  - dustmaps
+  - hdbscan
+  - healpy
+  - ipykernel
+  - jupyterlab
+  - matplotlib
+  - numpy
+  - pandas
+  - pyarrow
+  - pyvo
+  - pyyaml
+  - requests
+  - scikit-learn
+  - scipy
+  - seaborn
+  - tqdm
+prefix: /Users/vdk/miniforge3/envs/cygob2-gaia

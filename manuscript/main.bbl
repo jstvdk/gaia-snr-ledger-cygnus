@@ -1,19 +1,10 @@
-\begin{thebibliography}{26}
+\begin{thebibliography}{29}
 \expandafter\ifx\csname natexlab\endcsname\relax\def\natexlab#1{#1}\fi
 
-\bibitem[{{(authors to be completed at submission)}(2025)}]{fastrotators2025}
-{(authors to be completed at submission)}. 2025, arXiv e-prints
-  [\eprint{2510.15540}]
-
-\bibitem[{{(authors to be completed at
-  submission)}(2026{\natexlab{a}})}]{velob1runaways2026}
-{(authors to be completed at submission)}. 2026{\natexlab{a}}, arXiv e-prints
+\bibitem[{{Azatyan} {et~al.}(2026){Azatyan}, {Kaper}, {Samsonyan}, {Stoop},
+  {Andreasyan}, {van den Eijnden}, \& {Nikoghosyan}}]{velob1runaways2026}
+{Azatyan}, N., {Kaper}, L., {Samsonyan}, A., {et~al.} 2026, arXiv e-prints
   [\eprint{2604.11988}]
-
-\bibitem[{{(authors to be completed at
-  submission)}(2026{\natexlab{b}})}]{suppresseddiffusion2026}
-{(authors to be completed at submission)}. 2026{\natexlab{b}}, arXiv e-prints
-  [\eprint{2606.03881}]
 
 \bibitem[{{Berlanas} {et~al.}(2020){Berlanas}, {Herrero}, {Comer{\'o}n},
   {Pasquali}, {Bertelli Motta}, \& {Sota}}]{berlanas2020}
@@ -24,6 +15,11 @@
   {Lennon}}]{berlanas2019}
 {Berlanas}, S.~R., {Wright}, N.~J., {Herrero}, A., {Drew}, J.~E., \& {Lennon},
   D.~J. 2019, \mnras, 484, 1838
+
+\bibitem[{{Bj{\"o}rklund} {et~al.}(2021){Bj{\"o}rklund}, {Sundqvist}, {Puls},
+  \& {Najarro}}]{bjorklund2021}
+{Bj{\"o}rklund}, R., {Sundqvist}, J.~O., {Puls}, J., \& {Najarro}, F. 2021,
+  \aap, 648, A36
 
 \bibitem[{{de Mink} {et~al.}(2014){de Mink}, {Sana}, {Langer}, {Izzard}, \&
   {Schneider}}]{demink2014}
@@ -45,6 +41,12 @@
 {Fuchs}, B., {Breitschwerdt}, D., {de Avillez}, M.~A., {Dettbarn}, C., \&
   {Flynn}, C. 2006, \mnras, 373, 993
 
+\bibitem[{{Gal{\'a}n-Di{\'e}guez} {et~al.}(2025){Gal{\'a}n-Di{\'e}guez},
+  {Berlanas}, {Herrero}, {Abdul-Masih}, {Lennon}, {Mart{\'i}nez-Sebasti{\'a}n},
+  \& {P{\'e}rez-Toledo}}]{fastrotators2025}
+{Gal{\'a}n-Di{\'e}guez}, D., {Berlanas}, S.~R., {Herrero}, A., {et~al.} 2025,
+  arXiv e-prints [\eprint{2510.15540}]
+
 \bibitem[{{H\"arer} {et~al.}(2025){H\"arer}, {Vieu}, {Schulze}, {Larkin}, \&
   {Reville}}]{harer2025}
 {H\"arer}, L., {Vieu}, T., {Schulze}, F., {Larkin}, C.~J.~K., \& {Reville}, B.
@@ -55,10 +57,10 @@
 {Kn{\"o}dlseder}, J., {Cervi{\~n}o}, M., {Le Duigou}, J.-M., {et~al.} 2002,
   \aap, 390, 945
 
-\bibitem[{{(LHAASO-related authors, to be completed at
-  submission)}(2026)}]{cygx3pevatron2026}
-{(LHAASO-related authors, to be completed at submission)}. 2026, arXiv e-prints
-  [\eprint{2607.07100}]
+\bibitem[{{Li} {et~al.}(2026){Li}, {Blasi}, \&
+  {Amato}}]{suppresseddiffusion2026}
+{Li}, B., {Blasi}, P., \& {Amato}, E. 2026, arXiv e-prints
+  [\eprint{2606.03881}]
 
 \bibitem[{{Limongi} \& {Chieffi}(2006)}]{limongi2006}
 {Limongi}, M. \& {Chieffi}, A. 2006, \apj, 647, 483
@@ -89,6 +91,14 @@
   {et~al.}}]{sana2012}
 {Sana}, H., {de Mink}, S.~E., {de Koter}, A., {et~al.} 2012, Science, 337, 444
 
+\bibitem[{{Shi} {et~al.}(2026){Shi}, {Wang}, {Yang}, \&
+  {Aharonian}}]{cygx3pevatron2026}
+{Shi}, Z., {Wang}, G., {Yang}, R., \& {Aharonian}, F. 2026, arXiv e-prints
+  [\eprint{2607.07100}]
+
+\bibitem[{{Smith}(2014)}]{smith2014}
+{Smith}, N. 2014, \araa, 52, 487
+
 \bibitem[{{Stanway} \& {Eldridge}(2018)}]{stanway2018}
 {Stanway}, E.~R. \& {Eldridge}, J.~J. 2018, \mnras, 479, 75
 
@@ -100,6 +110,9 @@
 \bibitem[{{Tomsick} \& {COSI Collaboration}(2023)}]{tomsick2023}
 {Tomsick}, J.~A. \& {COSI Collaboration}. 2023, in Proc. 38th International
   Cosmic Ray Conference (ICRC2023), 745
+
+\bibitem[{{Vink} {et~al.}(2001){Vink}, {de Koter}, \& {Lamers}}]{vink2001}
+{Vink}, J.~S., {de Koter}, A., \& {Lamers}, H.~J.~G.~L.~M. 2001, \aap, 369, 574
 
 \bibitem[{{Wang} {et~al.}(2020){Wang}, {Siegert}, {Dai}, {Diehl}, {Greiner},
   {Heger}, {Krause}, {Lang}, {Pleintinger}, \& {Zhang}}]{wang2020}

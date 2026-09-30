@@ -1,0 +1,22 @@
+{
+  "created_utc": "2026-08-04T15:37:00+00:00",
+  "script": "scripts/wp12_tables.py",
+  "work_package": "WP12 -- manuscript revision analysis",
+  "preregistration": "provenance/wp12_revision_prereg.json",
+  "preregistration_sha256": "e81fe35728ad7818a91065bc3e96e82cc98a66d2af2efb062323eb33555465a2",
+  "python": "3.11.15",
+  "platform": "macOS-15.6.1-arm64-arm-64bit",
+  "item": "WP12 -- generated LaTeX tables",
+  "tables": [
+    "Table 1 subgroup summary",
+    "Table 2 gate summary",
+    "Table 3 conditional cocoon terms",
+    "Table A.1 branch and gate table"
+  ],
+  "appendix_a_rows": 54,
+  "appendix_a_electronic": "tables/wp12_appendix_a_full.csv",
+  "outputs": {
+    "manuscript/tables_generated.tex": "a7a6dffa6c48661f67e3d389c5047c9486418bf1e9e6aa9dbeaeacf0887e0e05",
+    "tables/wp12_appendix_a_full.csv": "3b18efd4de4966eb88c2f2e815745ed82d073e760045f398608756a9350c08ec"
+  }
+}

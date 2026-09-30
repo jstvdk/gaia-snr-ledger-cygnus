@@ -1,0 +1,145 @@
+{
+  "created_utc": "2026-08-04T15:32:42+00:00",
+  "script": "scripts/wp12_gate_landscape.py",
+  "work_package": "WP12 -- manuscript revision analysis",
+  "preregistration": "provenance/wp12_revision_prereg.json",
+  "preregistration_sha256": "e81fe35728ad7818a91065bc3e96e82cc98a66d2af2efb062323eb33555465a2",
+  "python": "3.11.15",
+  "platform": "macOS-15.6.1-arm64-arm-64bit",
+  "item": "WP12.1 -- residual-gate landscape and Appendix A branch table",
+  "wp5_version_used": "repair_v7",
+  "why_repair_v7": "the ledger, closure test and verdict all consumed the repair_v7 normalization.  The accepted GATE RECORD is repair_v6 and the two agree on 40/54, but they disagree on which 14 cells fail, so the failure map quoted in the paper must be repair_v7's.",
+  "repair_v7_breakdown": {
+    "cells_total": 54,
+    "cells_passing": 40,
+    "cells_failing": 14,
+    "failures_by_subgroup": {
+      "CygOB2-A": 4,
+      "CygOB2-B": 7,
+      "CygOB2-C": 3
+    },
+    "failures_by_family": {
+      "MIST": 10,
+      "PARSEC": 4
+    },
+    "failures_by_R_V": {
+      "3": 4,
+      "3.1": 5,
+      "3.5": 5
+    },
+    "failures_by_alpha": {
+      "2": 7,
+      "2.3": 2,
+      "2.6": 5
+    }
+  },
+  "repair_v6_breakdown_for_comparison": {
+    "cells_total": 54,
+    "cells_passing": 40,
+    "cells_failing": 14,
+    "failures_by_subgroup": {
+      "CygOB2-A": 5,
+      "CygOB2-B": 5,
+      "CygOB2-C": 4
+    },
+    "failures_by_family": {
+      "MIST": 9,
+      "PARSEC": 5
+    },
+    "failures_by_R_V": {
+      "3": 4,
+      "3.1": 4,
+      "3.5": 6
+    },
+    "failures_by_alpha": {
+      "2": 7,
+      "2.3": 1,
+      "2.6": 6
+    }
+  },
+  "breakdowns_agree_on_total": true,
+  "combinations": {
+    "total": 18,
+    "passing_all_subgroups": 8,
+    "headline_total": 12,
+    "headline_passing_all_subgroups": 5
+  },
+  "headline_cells": {
+    "total": 36,
+    "passing": 27
+  },
+  "headline_branches": {
+    "total": 36,
+    "built_entirely_on_passing_cells": 15
+  },
+  "alpha_split": {
+    "all_headline": {
+      "alpha_2": {
+        "branches": 18,
+        "above_0p5": 18,
+        "score_min": 0.5932,
+        "score_max": 0.7355,
+        "N_SN_min": 15.431,
+        "N_SN_max": 28.74
+      },
+      "alpha_2.3": {
+        "branches": 18,
+        "above_0p5": 0,
+        "score_min": 0.3233,
+        "score_max": 0.4738,
+        "N_SN_min": 5.626,
+        "N_SN_max": 11.156
+      }
+    },
+    "all_subgroup_pass_only": {
+      "alpha_2": {
+        "branches": 3,
+        "above_0p5": 3,
+        "score_min": 0.6846,
+        "score_max": 0.7209,
+        "N_SN_min": 15.431,
+        "N_SN_max": 16.301
+      },
+      "alpha_2.3": {
+        "branches": 12,
+        "above_0p5": 0,
+        "score_min": 0.3233,
+        "score_max": 0.4723,
+        "N_SN_min": 5.626,
+        "N_SN_max": 9.228
+      }
+    }
+  },
+  "predictions": [
+    {
+      "id": "R1",
+      "statement": "Fewer than half of the 36 headline ledger branches rest entirely on mass-function cells that pass the WP5 residual gate.",
+      "pass_if": "all_pass_headline_branches < 18",
+      "outcome": "PASS",
+      "measured": {
+        "all_pass_headline_branches": 15,
+        "headline_branches": 36,
+        "headline_combinations_passing_all_subgroups": 5,
+        "headline_combinations": 12,
+        "note": "NOT BLIND -- this value was computed before the preregistration was written and is disclosed as prior knowledge there.  Recorded as an expectation, not as a test."
+      }
+    },
+    {
+      "id": "R2",
+      "statement": "The qualitative alpha split in the cocoon score survives restriction to all-subgroup-pass branches: at least one alpha=2.0 branch remains above 0.5 and no alpha=2.3 branch rises above it.",
+      "pass_if": "n(alpha=2.0, all-pass, S > 0.5) >= 1 and n(alpha=2.3, all-pass, S > 0.5) == 0",
+      "outcome": "PASS",
+      "measured": {
+        "alpha_2p0_all_pass_branches": 3,
+        "alpha_2p0_above_0p5": 3,
+        "alpha_2p3_all_pass_branches": 12,
+        "alpha_2p3_above_0p5": 0
+      }
+    }
+  ],
+  "outputs": {
+    "tables/wp12_wp5_gate_map.csv": "1d82a11d1e608a3e5d171488a504facc739db7f6e99c955667c0bf9532bbdf99",
+    "tables/wp12_combination_gate.csv": "a38e9ba2dbbcb6f10bf0f4b963d764db9222208b7b61a8dc65e2a350dc6c7e15",
+    "tables/wp12_branch_gate_table.csv": "736da0f20676d7067fddab25ffa9fe55666798d0087af3087dd3a0274794358e"
+  }
+}

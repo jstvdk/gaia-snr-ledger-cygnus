@@ -1,5 +1,5 @@
 {
-  "created_utc": "2026-07-31T13:12:49+00:00",
+  "created_utc": "2026-08-04T15:32:40+00:00",
   "script": "scripts/wp10_inputs.py",
   "item": "S3 of tasks/pre_wp10_assessment_brief.md",
   "python": "3.11.15",
@@ -38,9 +38,57 @@
       "path": "tables/wp11_isotope_summary.csv",
       "sha256": "f1071f5f393b16907615b48803592481d0f8c704d45fb173b0608c974cebce0f"
     },
+    "wp12_branch_gate_table": {
+      "path": "tables/wp12_branch_gate_table.csv",
+      "sha256": "736da0f20676d7067fddab25ffa9fe55666798d0087af3087dd3a0274794358e"
+    },
+    "wp12_c3_subtype": {
+      "path": "tables/wp12_c3_subtype.csv",
+      "sha256": "aa0550f99a5663a2cf66e1cc7bd2a6b163fd290153e166afa92ac22ae4aa0334"
+    },
+    "wp12_c4_scan": {
+      "path": "tables/wp12_c4_scan.csv",
+      "sha256": "b42a5a0e0a699221574923f520dbab84daeee9b08ca1f0a59baaf425564d1da2"
+    },
+    "wp12_cavity_share": {
+      "path": "tables/wp12_cavity_share.csv",
+      "sha256": "6bb081b78726b34cffbc62e32a82a2519c953c0fbbd88e614fa545373305d47b"
+    },
+    "wp12_closing_slopes": {
+      "path": "tables/wp12_closing_slopes.csv",
+      "sha256": "2bcafa218956095ff5c0cb33272fcda524b3deb639d4ff4dfb92b2957483751e"
+    },
+    "wp12_closure_by_alpha": {
+      "path": "tables/wp12_closure_by_alpha.csv",
+      "sha256": "8cee6a627327255352026af1c72c913c7171caf750f3b5773fc881e65c8698b6"
+    },
+    "wp12_combination_gate": {
+      "path": "tables/wp12_combination_gate.csv",
+      "sha256": "a38e9ba2dbbcb6f10bf0f4b963d764db9222208b7b61a8dc65e2a350dc6c7e15"
+    },
+    "wp12_gate_map": {
+      "path": "tables/wp12_wp5_gate_map.csv",
+      "sha256": "1d82a11d1e608a3e5d171488a504facc739db7f6e99c955667c0bf9532bbdf99"
+    },
+    "wp12_mixed_slope_ledger": {
+      "path": "tables/wp12_mixed_slope_ledger.csv",
+      "sha256": "f1688ed76da32c826e02a445688feac7ecf60a419bc04428bc53557d6a98faa0"
+    },
+    "wp12_neighbour_budget": {
+      "path": "tables/wp12_neighbour_budget.csv",
+      "sha256": "18cf4001172c1541b346100c3765d519e7511db4e71955d3a51ee81abb45be35"
+    },
+    "wp12_scenario_score": {
+      "path": "tables/wp12_scenario_score.csv",
+      "sha256": "0e899da85bf00df079c6c29b425cc99cce5a5d4b317415482615e9760313e06d"
+    },
     "wp1_inventory": {
       "path": "tables/table1_wp1_inventory.md",
       "sha256": "5b9f657f4e2286dfc1d7443ce1a115ba8bc98c0cfe2556dc0c44e97e4543ae15"
+    },
+    "wp2_control_members": {
+      "path": "data/processed/wp2_control_members.parquet",
+      "sha256": "4a8e04bfca4b36bb4ddaec3351f039d6a43894134f8523da0cf6b0cc14ab9aaa"
     },
     "wp2_gate": {
       "path": "tables/table2_wp2_gate.md",
@@ -53,6 +101,10 @@
     "wp2_members": {
       "path": "data/processed/wp2_members.parquet",
       "sha256": "5db938b116edd70e8c7af3d2d4bbc8c9273d4e4c9cde76309ffc84d8cdaf90be"
+    },
+    "wp2_recovery_audit": {
+      "path": "provenance/wp2_berlanas_recovery_audit.csv",
+      "sha256": "460df72981766dfedb7d7ec24f4b312eee8fdd17bacf0b7ebf8393fcdb3c7a3d"
     },
     "wp2_subgroup_labels": {
       "path": "tables/wp2_subgroup_labels.parquet",
@@ -177,12 +229,13 @@
     "data/processed/wp2_members_failed_20260722.parquet": "the rejected 2026-07-22 membership run"
   },
   "audit": {
-    "declared_inputs": 38,
+    "declared_inputs": 51,
     "missing_declared_inputs": [],
     "forbidden_entries": 11,
     "authorized_forbidden_overlap": [],
     "files_scanned": [
       "manuscript/numbers.tex",
+      "manuscript/tables_generated.tex",
       "manuscript/main.tex",
       "manuscript/README.md"
     ],

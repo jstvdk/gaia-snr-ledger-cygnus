@@ -41,6 +41,8 @@ MANUSCRIPT_INPUTS: dict[str, str] = {
     "wp2_gate": "tables/table2_wp2_gate.md",
     "wp2_literature_recovery": "tables/table3_literature_recovery.md",
     "wp2_members": "data/processed/wp2_members.parquet",
+    "wp2_control_members": "data/processed/wp2_control_members.parquet",
+    "wp2_recovery_audit": "provenance/wp2_berlanas_recovery_audit.csv",
     "wp2_subgroup_labels": "tables/wp2_subgroup_labels.parquet",
     # WP3 -- repaired
     "wp3_extinction": f"data/processed/wp3_extinction_{WP3_WP4_VERSION}.parquet",
@@ -78,6 +80,19 @@ MANUSCRIPT_INPUTS: dict[str, str] = {
     # and the text must disclose that where it quotes them.
     "wp11_isotope_forecast": "tables/wp11_isotope_forecast.csv",
     "wp11_isotope_summary": "tables/wp11_isotope_summary.csv",
+    # WP12 -- the manuscript-revision analysis.  Read-only over the frozen
+    # repair_v7 chain; see provenance/wp12_revision_prereg.json.
+    "wp12_gate_map": "tables/wp12_wp5_gate_map.csv",
+    "wp12_combination_gate": "tables/wp12_combination_gate.csv",
+    "wp12_branch_gate_table": "tables/wp12_branch_gate_table.csv",
+    "wp12_closure_by_alpha": "tables/wp12_closure_by_alpha.csv",
+    "wp12_closing_slopes": "tables/wp12_closing_slopes.csv",
+    "wp12_mixed_slope_ledger": "tables/wp12_mixed_slope_ledger.csv",
+    "wp12_c4_scan": "tables/wp12_c4_scan.csv",
+    "wp12_c3_subtype": "tables/wp12_c3_subtype.csv",
+    "wp12_scenario_score": "tables/wp12_scenario_score.csv",
+    "wp12_neighbour_budget": "tables/wp12_neighbour_budget.csv",
+    "wp12_cavity_share": "tables/wp12_cavity_share.csv",
     # pre-WP10 work
     "age_reconciliation": "tables/wp4_wp5_age_reconciliation.csv",
     "alpha_headline_branch_sets": "tables/wp7_alpha_headline_branch_sets.csv",

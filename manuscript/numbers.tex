@@ -6,13 +6,21 @@
 % Every macro's source file is given in the trailing comment.
 % ---------------------------------------------------------------
 \newcommand{\Cfour}{0.854}% wp9_verdict.csv
+\newcommand{\CfourAll}{0.581}% wp12_scenario_score_execution.json
+\newcommand{\CfourAny}{0.720}% wp12_scenario_score_execution.json
+\newcommand{\CfourLift}{0.901}% wp12_scenario_score_execution.json
 \newcommand{\Conehi}{0.861}% wp9_verdict.csv
 \newcommand{\Conelo}{0.379}% wp9_verdict.csv
 \newcommand{\Cthree}{1.000}% wp9_verdict.csv
+\newcommand{\CthreeFortyHi}{1.00}% wp12_scenario_score_execution.json
+\newcommand{\CthreeFortyLo}{0.98}% wp12_scenario_score_execution.json
+\newcommand{\CthreeSixtyHi}{0.96}% wp12_scenario_score_execution.json
+\newcommand{\CthreeSixtyLo}{0.68}% wp12_scenario_score_execution.json
 \newcommand{\NSN}{8.43}% wp7_ledger.csv
 \newcommand{\NSNA}{4.17}% wp7_ledger.csv
 \newcommand{\NSNB}{4.26}% wp7_ledger.csv
 \newcommand{\NSNC}{0.00}% wp7_ledger.csv
+\newcommand{\NSNallbranches}{54}% wp7_ledger.csv
 \newcommand{\NSNallfactor}{14.9}% wp7_ledger.csv
 \newcommand{\NSNalllo}{1.93}% wp7_ledger.csv
 \newcommand{\NSNatSix}{38.2}% wp7_age_sensitivity.csv
@@ -71,20 +79,47 @@
 \newcommand{\bpassRatioHi}{0.73}% wp7_binary_bound_execution.json
 \newcommand{\bpassRatioLo}{0.72}% wp7_binary_bound_execution.json
 \newcommand{\branchSpan}{23.1}% wp7_binary_bound_execution.json
-\newcommand{\branchesPassing}{40}% wp5_repair_v6_gate.json
-\newcommand{\branchesTotal}{54}% wp5_repair_v6_gate.json
 \newcommand{\closingAlpha}{2.25}% derived, wp6_closure_repair_v7.csv
+\newcommand{\closingAlphaA}{2.34}% wp12_closure_slopes_execution.json
+\newcommand{\closingAlphaAssoc}{2.20}% wp12_closure_slopes_execution.json
+\newcommand{\closingAlphaB}{2.25}% wp12_closure_slopes_execution.json
+\newcommand{\closingAlphaC}{2.06}% wp12_closure_slopes_execution.json
 \newcommand{\closureA}{0.865}% wp6_closure_repair_v7.csv
 \newcommand{\closureB}{1.068}% wp6_closure_repair_v7.csv
 \newcommand{\closureC}{1.360}% wp6_closure_repair_v7.csv
 \newcommand{\closureCells}{18}% derived, wp6_closure_repair_v7.csv
 \newcommand{\closureCellsInside}{18}% derived, wp6_closure_repair_v7.csv
-\newcommand{\closureExcess}{6.7}% wp6_closure_repair_v7.csv
-\newcommand{\closureMedian}{1.067}% wp6_closure_repair_v7.csv
+\newcommand{\closureGridA}{0.95}% wp12_closure_slopes_execution.json
+\newcommand{\closureGridB}{1.07}% wp12_closure_slopes_execution.json
+\newcommand{\closureGridC}{1.39}% wp12_closure_slopes_execution.json
+\newcommand{\closureMedianRatios}{1.067}% wp12_closure_slopes_execution.json
+\newcommand{\closureWeighted}{1.154}% wp12_closure_slopes_execution.json
+\newcommand{\coarseRatioHi}{3.9}% wp12_neighbour_budget_execution.json
+\newcommand{\coarseRatioLo}{2.1}% wp12_neighbour_budget_execution.json
+\newcommand{\coarseRecent}{0.80}% wp12_neighbour_budget_execution.json
 \newcommand{\controlYield}{3.7}% table2_wp2_gate.md
 \newcommand{\firstSN}{1.30}% wp7_rsn_curves.csv
 \newcommand{\fracBelowFiftyTwo}{19}% wp7_alpha_headline_branch_sets.csv
 \newcommand{\gammaCygni}{7.7}% wp8_crosschecks.csv
+\newcommand{\gateCells}{54}% wp12_gate_landscape_execution.json
+\newcommand{\gateCombos}{12}% wp12_gate_landscape_execution.json
+\newcommand{\gateCombosPass}{5}% wp12_gate_landscape_execution.json
+\newcommand{\gateFailA}{4}% wp12_gate_landscape_execution.json
+\newcommand{\gateFailAlphaTwo}{7}% wp12_gate_landscape_execution.json
+\newcommand{\gateFailAlphaTwoSix}{5}% wp12_gate_landscape_execution.json
+\newcommand{\gateFailAlphaTwoThree}{2}% wp12_gate_landscape_execution.json
+\newcommand{\gateFailB}{7}% wp12_gate_landscape_execution.json
+\newcommand{\gateFailC}{3}% wp12_gate_landscape_execution.json
+\newcommand{\gateFailMist}{10}% wp12_gate_landscape_execution.json
+\newcommand{\gateFailParsec}{4}% wp12_gate_landscape_execution.json
+\newcommand{\gateFailRvthirty}{4}% wp12_gate_landscape_execution.json
+\newcommand{\gateFailRvthirtyfive}{5}% wp12_gate_landscape_execution.json
+\newcommand{\gateFailRvthirtyone}{5}% wp12_gate_landscape_execution.json
+\newcommand{\gateFailing}{14}% wp12_gate_landscape_execution.json
+\newcommand{\gateHeadlineCells}{36}% wp12_gate_landscape_execution.json
+\newcommand{\gateHeadlineCellsPass}{27}% wp12_gate_landscape_execution.json
+\newcommand{\gatePassing}{40}% wp12_gate_landscape_execution.json
+\newcommand{\gateStrictBranches}{15}% wp12_gate_landscape_execution.json
 \newcommand{\ignorance}{0.077}% derived, wp7_rsn_curves.csv
 \newcommand{\isoAlFracHi}{42}% wp11_isotope_forecast_execution.json
 \newcommand{\isoAlFracLo}{10}% wp11_isotope_forecast_execution.json
@@ -126,23 +161,58 @@
 \newcommand{\minProgenitor}{33.9}% wp7_alpha_headline_branch_sets.csv
 \newcommand{\minTurnoffAll}{33.9}% wp7_alpha_headline_branch_sets.csv
 \newcommand{\minTurnoffCoeval}{45.4}% wp7_alpha_headline_branch_sets.csv
+\newcommand{\mixedAliveBranches}{9}% wp12_closure_slopes_execution.json
+\newcommand{\mixedCheck}{0.2}% wp12_closure_slopes_execution.json
+\newcommand{\mixedDeadBranches}{9}% wp12_closure_slopes_execution.json
+\newcommand{\mixedHi}{15.2}% wp12_closure_slopes_execution.json
+\newcommand{\mixedLo}{5.63}% wp12_closure_slopes_execution.json
+\newcommand{\mixedShift}{44}% wp12_closure_slopes_execution.json
+\newcommand{\mixedShiftDead}{1}% wp12_closure_slopes_execution.json
+\newcommand{\neighbourPopulations}{10}% wp12_neighbour_budget_execution.json
 \newcommand{\ourDistance}{1.62}% wp8_crosschecks.csv
+\newcommand{\progenitorFloorLo}{33.9}% wp12_scenario_score_execution.json
 \newcommand{\pulsarAge}{0.960}% wp8_crosschecks.csv
 \newcommand{\pulsarIslands}{0}% wp8_crosschecks.csv
 \newcommand{\pulsarPone}{0.9997}% wp8_crosschecks.csv
 \newcommand{\railB}{53}% wp4_wp5_age_reconciliation.csv
 \newcommand{\railtopB}{4.26}% wp4_wp5_age_reconciliation.csv
 \newcommand{\rateNow}{8.0}% wp7_rsn_curves.csv
+\newcommand{\recallAnalyzable}{168}% table3_literature_recovery.md
+\newcommand{\recallAuto}{128}% table3_literature_recovery.md
+\newcommand{\recallAutoPct}{76.2}% table3_literature_recovery.md
+\newcommand{\recallManual}{61}% table3_literature_recovery.md
+\newcommand{\recallPublished}{229}% table3_literature_recovery.md
+\newcommand{\recallTotal}{189}% table3_literature_recovery.md
+\newcommand{\recallTotalPct}{82.5}% table3_literature_recovery.md
 \newcommand{\runawayFraction}{14.6}% derived, wp6_ledger_execution.json
 \newcommand{\runawaysBinned}{58.2}% wp6_ledger_execution.json
 \newcommand{\runawaysCorrected}{54.9}% wp6_ledger_execution.json
 \newcommand{\runawaysRaw}{119}% wp6_ledger_execution.json
+\newcommand{\scorePessHi}{0.691}% wp12_scenario_score_execution.json
+\newcommand{\scorePessLo}{0.304}% wp12_scenario_score_execution.json
+\newcommand{\scorePessTwoAbove}{18}% wp12_scenario_score_execution.json
+\newcommand{\scorePessTwon}{18}% wp12_scenario_score_execution.json
 \newcommand{\snRatioB}{1.92}% wp4_wp5_age_reconciliation.csv
 \newcommand{\snrExpected}{0.80}% wp8_crosschecks.csv
 \newcommand{\spreadAlpha}{0.264}% wp9_sensitivity.csv
 \newcommand{\spreadDelta}{0.043}% wp9_sensitivity.csv
 \newcommand{\spreadFamily}{0.045}% wp9_sensitivity.csv
 \newcommand{\spreadRv}{0.065}% wp9_sensitivity.csv
+\newcommand{\strictTwoAbove}{3}% wp12_gate_landscape_execution.json
+\newcommand{\strictTwoThreeAbove}{0}% wp12_gate_landscape_execution.json
+\newcommand{\strictTwoThreen}{12}% wp12_gate_landscape_execution.json
+\newcommand{\strictTwohi}{0.721}% wp12_gate_landscape_execution.json
+\newcommand{\strictTwolo}{0.685}% wp12_gate_landscape_execution.json
+\newcommand{\strictTwon}{3}% wp12_gate_landscape_execution.json
+\newcommand{\thresholdControlAdopted}{3.7}% derived from wp2_control_members.parquet
+\newcommand{\thresholdControlHigh}{2.8}% derived from wp2_control_members.parquet
+\newcommand{\thresholdControlLow}{5.4}% derived from wp2_control_members.parquet
+\newcommand{\thresholdMembersAdopted}{1,331}% derived from wp2_members.parquet
+\newcommand{\thresholdMembersHigh}{1,186}% derived from wp2_members.parquet
+\newcommand{\thresholdMembersLow}{1,441}% derived from wp2_members.parquet
+\newcommand{\thresholdRecallAdopted}{76.2}% derived from wp2_berlanas_recovery_audit.csv
+\newcommand{\thresholdRecallHigh}{75.6}% derived from wp2_berlanas_recovery_audit.csv
+\newcommand{\thresholdRecallLow}{77.4}% derived from wp2_berlanas_recovery_audit.csv
 \newcommand{\tlast}{86}% wp7_ledger.csv
 \newcommand{\turnoffA}{58}% wp4_wp5_age_reconciliation.csv
 \newcommand{\turnoffB}{56}% wp4_wp5_age_reconciliation.csv

@@ -1,10 +1,12 @@
 #!/usr/bin/env python3
 """Build the conference talk deck (15-20 min) from the project's own artifacts.
 
-The manuscript rule applies here too: NO NUMBER IS TYPED INTO THIS FILE.  Every
-quantity is pulled from `manuscript/numbers.tex`, which `wp10_numbers.py`
-generates from versioned artifacts.  If the pipeline changes, regenerate the
-deck and the talk cannot quietly disagree with the paper.
+The manuscript rule applies here too.  Every pipeline quantity is pulled from
+`manuscript/numbers.tex`, which `wp10_numbers.py` generates from versioned
+artifacts, so regenerating the deck keeps the talk from quietly disagreeing
+with the paper.  The five literature/definition values that main.tex also
+carries as literals are collected in LITERALS below and checked against
+main.tex at build time -- the deck can quote them, but it cannot invent them.
 
 Output: slides/cygob2_supernova_history_talk.pptx
 
@@ -48,6 +50,50 @@ def numbers() -> dict[str, str]:
 
 
 N = numbers()
+
+# A handful of quantities are literals in main.tex too -- they are literature
+# or definition values on the manuscript validator's whitelist rather than
+# pipeline outputs, so there is no macro to read.  They are listed here in one
+# place and CHECKED against main.tex at build time, so the deck still cannot
+# invent or drift from a number.
+LITERALS = {
+    "berlanas_recall": "0.825",     # WP2 literature recall
+    "pulsar_offset_deg": "0.115",   # MT91 213 from the CygOB2-A centroid
+    "pulsar_age_lo": "151",         # widened characteristic age, kyr
+    "pulsar_age_hi": "401",
+    "bd43_velocity": "38.8",        # BD+43 3654 peculiar velocity, km/s
+}
+
+
+LITERAL_SOURCES = (
+    "manuscript/main.tex",
+    "tables/table2_wp2_gate.md",     # the WP2 gate values the paper cites but
+                                     # does not restate numerically
+)
+
+
+def check_literals() -> None:
+    """Every literal used here must exist in an authorized project artifact.
+
+    Not every one appears in main.tex: the Berlanas recall lives only in the
+    WP2 gate table, because the paper reports that the gate was met rather than
+    quoting the value.  Degree notation is normalised -- main.tex writes
+    "$0\\fdg115$" for 0.115.
+    """
+    corpus = ""
+    for relative in LITERAL_SOURCES:
+        corpus += (ROOT / relative).read_text()
+    corpus = corpus.replace("\\fdg", ".")
+    missing = [f"{k}={v}" for k, v in LITERALS.items() if v not in corpus]
+    if missing:
+        raise SystemExit(
+            "literal(s) absent from " + " and ".join(LITERAL_SOURCES)
+            + ", so the talk would quote a number the project does not: "
+            + ", ".join(missing)
+        )
+
+
+L = LITERALS
 
 
 def deck() -> Presentation:
@@ -169,25 +215,47 @@ def bullets(prs, title, items, kicker=None, note=None, size=17.5):
 
 
 def figure_slide(prs, title, image, caption=None, kicker=None, note=None,
-                 max_h=Inches(4.5)):
+                 max_h=None):
+    """Figure with its caption.
+
+    Wide figures take the full width with the caption beneath; tall ones would
+    have to shrink to a stamp under that layout, so they get the left column
+    with the caption beside them instead.  The switch is on aspect ratio, not
+    on the caller remembering.
+    """
     s = blank(prs)
     top = heading(s, title, kicker)
     path = ROOT / image
     from PIL import Image
     with Image.open(path) as im:
         ratio = im.height / im.width
-    width = BODY_W
-    height = Emu(int(width * ratio))
-    if height > max_h:
-        height = max_h
+
+    available_h = H - top - Inches(0.45)          # leave the bottom margin
+    if ratio > 0.62:                              # tall: figure beside caption
+        height = Emu(int(min(available_h, max_h or available_h)))
         width = Emu(int(height / ratio))
-    left = Emu(int((W - width) / 2))
-    s.shapes.add_picture(str(path), left, top, width=width, height=height)
-    if caption:
-        frame = textbox(s, MARGIN, top + height + Inches(0.14), BODY_W,
-                        Inches(0.7))
-        para(frame, caption, 14, MUTED, first=True, space_after=0,
-             line_spacing=1.05)
+        s.shapes.add_picture(str(path), MARGIN, top, width=width, height=height)
+        if caption:
+            cap_left = MARGIN + width + Inches(0.45)
+            frame = textbox(s, cap_left, top + Inches(0.25),
+                            W - cap_left - MARGIN, Inches(3.6))
+            para(frame, caption, 15, MUTED, first=True, space_after=0,
+                 line_spacing=1.2)
+    else:                                         # wide: caption underneath
+        cap_h = Inches(0.95) if caption else Inches(0)
+        limit = min(available_h - cap_h, max_h or available_h)
+        width = BODY_W
+        height = Emu(int(width * ratio))
+        if height > limit:
+            height = Emu(int(limit))
+            width = Emu(int(height / ratio))
+        left = Emu(int((W - width) / 2))
+        s.shapes.add_picture(str(path), left, top, width=width, height=height)
+        if caption:
+            frame = textbox(s, MARGIN, top + height + Inches(0.18), BODY_W,
+                            cap_h)
+            para(frame, caption, 14.5, MUTED, first=True, space_after=0,
+                 line_spacing=1.12)
     if note:
         notes(s, note)
     return s
@@ -203,9 +271,11 @@ def fit_size(text: str, width_emu: int, ideal: float, floor: float = 24.0
     """
     if not text:
         return ideal
+    # Work in points throughout: 72 pt to the inch.  (Mixing pixels and points
+    # here is what let the first version overflow by ~30%.)
+    usable_pt = (width_emu / Inches(1)) * 72.0 * 0.80
     # ~0.55 em average advance for bold Helvetica digits and punctuation.
-    usable = (width_emu / Inches(1)) * 96.0 * 0.94
-    return max(floor, min(ideal, usable / (len(text) * 0.55)))
+    return max(floor, min(ideal, usable_pt / (len(text) * 0.55)))
 
 
 def stat_slide(prs, title, stats, kicker=None, footer=None, note=None):
@@ -370,7 +440,7 @@ def build() -> Presentation:
                  caption="Clustering in position and proper motion; parallax "
                          "deliberately excluded (one population at 1.62 kpc, "
                          "its depth exhausted at DR3 precision). "
-                         "Literature recall 0.825; control-field yield 3.7%.",
+                         f"Literature recall {L['berlanas_recall']}; control-field yield 3.7%.",
                  note="Do not dwell. One line: the membership is validated "
                       "against Berlanas+19 and against control fields.")
 
@@ -408,7 +478,8 @@ def build() -> Presentation:
                 (f"They bound the fraction of supernovae that occurred outside "
                  f"the association at ≤ {N['runawayFraction']}%.", INK, False),
                 ("External check: BD+43 3654, the canonical ejected O star, is "
-                 "recovered at probability 1.000 — 38.8 km/s and 1.36 Myr "
+                 "recovered at probability 1.000 — " + L['bd43_velocity'] + " km/s "
+                 "and 1.36 Myr "
                  "against a literature ~40 km/s and 1.6 Myr.", GREEN, True),
                 ("That check also caught a real bug: the first version traced "
                  "back ABSOLUTE proper motions, which measure the "
@@ -466,8 +537,10 @@ def build() -> Presentation:
                  f"explode, against exactly {N['pulsarIslands']} on the "
                  f"black-hole branch.", BLUE, True),
                 ("Its companion MT91 213 is our own census star — a B0V of "
-                 "17 M⊙, 0.115° from the CygOB2-A centroid, already counted.", INK, False),
-                (f"Age agrees too: characteristic age widened to 151–401 kyr "
+                 "17 M⊙, " + L['pulsar_offset_deg'] + "° from the CygOB2-A "
+                 "centroid, already counted.", INK, False),
+                (f"Age agrees too: characteristic age widened to "
+                 f"{L['pulsar_age_lo']}–{L['pulsar_age_hi']} kyr "
                  f"against a ledger probability of {N['pulsarAge']} that the "
                  f"last supernova falls in that window.", INK, False),
                 ("Three readings remain degenerate — high-mass explodability, "
@@ -536,7 +609,6 @@ def build() -> Presentation:
                          f"detectable; {N['isoCosiTwoThree']}/"
                          f"{N['isoCosiTwoThreen']} at α = 2.3. Yields were "
                          f"declared as a branch BEFORE any flux was computed.",
-                 max_h=Inches(4.2),
                  note="The punchline of the new work. But immediately give "
                       "the caveat on the next slide - do not oversell.")
 
@@ -646,6 +718,7 @@ def build() -> Presentation:
 
 
 def main() -> None:
+    check_literals()
     prs = build()
     OUT.parent.mkdir(exist_ok=True)
     prs.save(OUT)

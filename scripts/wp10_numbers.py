@@ -86,6 +86,34 @@ def main() -> None:
         m.num(f"Nsub{tag}", int(labels.subgroup.eq(subgroup).sum()), ",d",
               "wp2_subgroup_labels.parquet")
 
+    # The P>0.5 handoff is the maximum-posterior decision rule for two classes
+    # under equal misclassification costs.  These neighbouring thresholds make
+    # its empirical trade-off visible rather than treating 0.5 as a convention.
+    controls = pd.read_parquet(I.resolve("wp2_control_members"))
+    recovery_audit = pd.read_csv(I.resolve("wp2_recovery_audit"))
+    # Re-read the exemption flag because the compact read above deliberately
+    # requested only two columns.
+    automatic = pd.read_parquet(I.resolve("wp2_members"))
+    automatic = automatic[~automatic.anchor_quality_exempt.fillna(False)]
+    quality_benchmark = recovery_audit[recovery_audit.quality_pass.astype(bool)]
+    for suffix, threshold in (("Low", 0.4), ("Adopted", 0.5), ("High", 0.6)):
+        n_target = int((automatic.membership_probability > threshold).sum())
+        control_yields = [
+            int((group.membership_probability > threshold).sum())
+            for _, group in controls.groupby("control_field")
+        ]
+        recovered = int(
+            (quality_benchmark.membership_probability_astrometric > threshold)
+            .fillna(False).sum()
+        )
+        m.num(f"thresholdMembers{suffix}", n_target, ",d",
+              "derived from wp2_members.parquet")
+        m.num(f"thresholdControl{suffix}",
+              100 * float(np.mean(control_yields)) / n_target, ".1f",
+              "derived from wp2_control_members.parquet")
+        m.num(f"thresholdRecall{suffix}", 100 * recovered / 168, ".1f",
+              "derived from wp2_berlanas_recovery_audit.csv")
+
     # ------------------------------------------------------------- WP4/WP5 ages
     ages = pd.read_csv(I.resolve("age_reconciliation"))
     base_ages = ages[
@@ -128,11 +156,42 @@ def main() -> None:
           100 * float(re.search(r"0\.0366", wp2gate).group(0)), ".1f",
           "table2_wp2_gate.md")
 
-    gate = json.loads(I.resolve("wp5_gate_record").read_text())
-    m.num("branchesPassing", gate.get("branches_passing", 40), "d",
-          "wp5_repair_v6_gate.json")
-    m.num("branchesTotal", gate.get("branches_total", 54), "d",
-          "wp5_repair_v6_gate.json")
+    # The Berlanas+19 recall accounting, automatic and manual separately.  The
+    # total is the gate; the automatic fraction is what the classifier achieves
+    # unaided, and the manuscript is required to give both.
+    recovery = I.resolve("wp2_literature_recovery").read_text()
+    src = "table3_literature_recovery.md"
+
+    def recovery_row(label: str, pattern: str) -> str:
+        # Table rows only: the caption contains "published membership
+        # catalogues", which substring-matches the "published members" row.
+        row = next(
+            line for line in recovery.splitlines()
+            if line.lstrip().startswith("|") and label in line
+        )
+        found = re.search(pattern, row)
+        if not found:
+            raise ValueError(f"{pattern!r} did not match recovery row: {row!r}")
+        return found.group(1)
+
+    m.num("recallPublished",
+          int(recovery_row("published members", r"\|\s*(\d+)\s*\|")), "d", src)
+    m.num("recallAnalyzable",
+          int(recovery_row("inside quality sample", r"\|\s*(\d+)\s*\|")), "d",
+          src)
+    m.num("recallAuto",
+          int(recovery_row("recovered automatically", r"\|\s*(\d+)\s*\(")), "d",
+          src)
+    m.num("recallAutoPct",
+          float(recovery_row("recovered automatically", r"\((\d+\.\d+)")), ".1f",
+          src)
+    m.num("recallManual",
+          int(recovery_row("manual quality exceptions", r"\|\s*(\d+)\s*\|")),
+          "d", src)
+    m.num("recallTotal",
+          int(recovery_row("total recall", r"\|\s*(\d+)\s*/")), "d", src)
+    m.num("recallTotalPct",
+          float(recovery_row("total recall", r"=\s*(\d+\.\d+)")), ".1f", src)
 
     plaus = json.loads(
         (w.ROOT / "provenance" / "wp5_alpha_plausibility_execution.json").read_text()
@@ -169,11 +228,6 @@ def main() -> None:
     for subgroup in w.SUBGROUPS:
         m.num(f"closure{subgroup[-1]}", base_closure.loc[subgroup].closure_ratio,
               ".3f", "wp6_closure_repair_v7.csv")
-    grid = closure[closure.alpha.eq(BASE["alpha"])]
-    m.num("closureMedian", float(grid.closure_ratio.median()), ".3f",
-          "wp6_closure_repair_v7.csv")
-    m.num("closureExcess", 100 * (float(grid.closure_ratio.median()) - 1.0),
-          ".1f", "wp6_closure_repair_v7.csv")
     # The slope at which each cell's census closes exactly, by interpolating
     # log(closure ratio) against alpha across the three carried slopes.  The
     # count of cells whose closing slope lands inside the carried grid is the
@@ -261,6 +315,7 @@ def main() -> None:
     m.num("NSNheadfactor", headline.N_SN_mean.max() / headline.N_SN_mean.min(),
           ".1f", "wp7_ledger.csv")
     m.num("NSNheadbranches", len(headline), "d", "wp7_ledger.csv")
+    m.num("NSNallbranches", len(assoc), "d", "wp7_ledger.csv")
     m.num("NSNalllo", assoc.N_SN_mean.min(), ".2f", "wp7_ledger.csv")
     m.num("NSNallfactor", assoc.N_SN_mean.max() / assoc.N_SN_mean.min(), ".1f",
           "wp7_ledger.csv")
@@ -435,6 +490,120 @@ def main() -> None:
           "wp11_isotope_prereg.json")
     m.num("isoRatioGalErr", galactic["error"], ".3f",
           "wp11_isotope_prereg.json")
+
+    # ------------------------------------------------------------------ WP12
+    # The manuscript-revision analysis.  Read-only over the frozen repair_v7
+    # chain, pre-registered with input hashes in
+    # provenance/wp12_revision_prereg.json.
+    landscape = json.loads(
+        (w.ROOT / "provenance" / "wp12_gate_landscape_execution.json").read_text()
+    )
+    src = "wp12_gate_landscape_execution.json"
+    v7 = landscape["repair_v7_breakdown"]
+    m.num("gateCells", v7["cells_total"], "d", src)
+    m.num("gatePassing", v7["cells_passing"], "d", src)
+    m.num("gateFailing", v7["cells_failing"], "d", src)
+    for key, tag in (("CygOB2-A", "A"), ("CygOB2-B", "B"), ("CygOB2-C", "C")):
+        m.num(f"gateFail{tag}", v7["failures_by_subgroup"].get(key, 0), "d", src)
+    m.num("gateFailParsec", v7["failures_by_family"].get("PARSEC", 0), "d", src)
+    m.num("gateFailMist", v7["failures_by_family"].get("MIST", 0), "d", src)
+    for rv, tag in (("3", "Rvthirty"), ("3.1", "Rvthirtyone"),
+                    ("3.5", "Rvthirtyfive")):
+        m.num(f"gateFail{tag}", v7["failures_by_R_V"].get(rv, 0), "d", src)
+    for alpha, tag in (("2", "AlphaTwo"), ("2.3", "AlphaTwoThree"),
+                       ("2.6", "AlphaTwoSix")):
+        m.num(f"gateFail{tag}", v7["failures_by_alpha"].get(alpha, 0), "d", src)
+    m.num("gateHeadlineCells", landscape["headline_cells"]["total"], "d", src)
+    m.num("gateHeadlineCellsPass", landscape["headline_cells"]["passing"], "d",
+          src)
+    m.num("gateCombos", landscape["combinations"]["headline_total"], "d", src)
+    m.num("gateCombosPass",
+          landscape["combinations"]["headline_passing_all_subgroups"], "d", src)
+    m.num("gateStrictBranches",
+          landscape["headline_branches"]["built_entirely_on_passing_cells"],
+          "d", src)
+    strict = landscape["alpha_split"]["all_subgroup_pass_only"]
+    m.num("strictTwoAbove", strict["alpha_2"]["above_0p5"], "d", src)
+    m.num("strictTwon", strict["alpha_2"]["branches"], "d", src)
+    m.num("strictTwoThreeAbove", strict["alpha_2.3"]["above_0p5"], "d", src)
+    m.num("strictTwoThreen", strict["alpha_2.3"]["branches"], "d", src)
+    m.num("strictTwolo", strict["alpha_2"]["score_min"], ".3f", src)
+    m.num("strictTwohi", strict["alpha_2"]["score_max"], ".3f", src)
+
+    closure_exec = json.loads(
+        (w.ROOT / "provenance" / "wp12_closure_slopes_execution.json").read_text()
+    )
+    src = "wp12_closure_slopes_execution.json"
+    grid_closure = closure_exec["subgroup_grid_median_closure_by_alpha"]
+    for key, tag in (("CygOB2-A", "A"), ("CygOB2-B", "B"), ("CygOB2-C", "C")):
+        m.num(f"closureGrid{tag}", grid_closure[key]["alpha_2.3"], ".2f", src)
+    slopes = closure_exec["closing_slope_grid_median_by_subgroup"]
+    for key, tag in (("CygOB2-A", "A"), ("CygOB2-B", "B"), ("CygOB2-C", "C")):
+        m.num(f"closingAlpha{tag}", slopes[key], ".2f", src)
+    m.num("closingAlphaAssoc", slopes["association"], ".2f", src)
+    two = closure_exec["two_aggregations_at_2p3"]
+    m.num("closureMedianRatios", two["median_of_18_subgroup_ratios"], ".3f", src)
+    m.num("closureWeighted", two["star_weighted_summed_ratio_grid_median"],
+          ".3f", src)
+    mixed = closure_exec["mixed_slope"]
+    m.num("mixedLo", mixed["N_SN_range"][0], ".2f", src)
+    m.num("mixedHi", mixed["N_SN_range"][1], ".1f", src)
+    versus = mixed["versus_pure_alpha_2p3"]
+    m.num("mixedShift", 100 * versus["worst_relative_change_in_N_SN"], ".0f", src)
+    m.num("mixedShiftDead",
+          100 * versus["worst_relative_change_where_C_is_dead"], ".0f", src)
+    m.num("mixedAliveBranches", versus["branches_where_C_contributes"], "d", src)
+    m.num("mixedDeadBranches",
+          versus["branches_where_C_is_above_the_imf_ceiling"], "d", src)
+    m.num("mixedCheck",
+          100 * mixed["engine_validation"]["worst_relative_N_SN_difference"],
+          ".1f", src)
+
+    scenario_exec = json.loads(
+        (w.ROOT / "provenance" / "wp12_scenario_score_execution.json").read_text()
+    )
+    src = "wp12_scenario_score_execution.json"
+    c4 = scenario_exec["wp12_3_c4_sensitivity"]
+    m.num("CfourAny",
+          c4["C4_below_which_at_least_one_alpha2p0_branch_falls_below_0p5"],
+          ".3f", src)
+    m.num("CfourAll",
+          c4["C4_below_which_every_alpha2p0_branch_falls_below_0p5"], ".3f", src)
+    m.num("CfourLift",
+          c4["C4_above_which_the_first_alpha2p3_branch_would_rise_above_0p5"],
+          ".3f", src)
+    c3 = scenario_exec["wp12_4_c3_subtype"]
+    m.num("CthreeSixtyLo", c3["pessimistic_60_Msun_C3_range"][0], ".2f", src)
+    m.num("CthreeSixtyHi", c3["pessimistic_60_Msun_C3_range"][1], ".2f", src)
+    m.num("CthreeFortyLo", c3["threshold_scan_C3_range"]["step_40"][0], ".2f",
+          src)
+    m.num("CthreeFortyHi", c3["threshold_scan_C3_range"]["step_40"][1], ".2f",
+          src)
+    pess = c3["score_under_pessimistic_C3"]
+    m.num("scorePessLo", pess["range"][0], ".3f", src)
+    m.num("scorePessHi", pess["range"][1], ".3f", src)
+    m.num("scorePessTwoAbove", pess["alpha2p0_above_0p5"], "d", src)
+    m.num("scorePessTwon", pess["alpha2p0_branches"], "d", src)
+    m.num("progenitorFloorLo",
+          c3["progenitor_mass_floor"]["min_over_headline_branches_Msun"], ".1f",
+          src)
+
+    neighbour = json.loads(
+        (w.ROOT / "provenance" / "wp12_neighbour_budget_execution.json").read_text()
+    )
+    src = "wp12_neighbour_budget_execution.json"
+    r6 = {p["id"]: p for p in neighbour["predictions"]}["R6"]
+    diag = r6["measured"][
+        "non_preregistered_diagnostic_at_our_measured_4p0_Myr"]["rows"]
+    ratios = [row["ratio_to_measured_baseline"] for row in diag
+              if row["ratio_to_measured_baseline"] is not None]
+    m.num("coarseRatioLo", min(ratios), ".1f", src)
+    m.num("coarseRatioHi", max(ratios), ".1f", src)
+    m.num("coarseRecent",
+          neighbour["measured_cygob2_reference"][
+              "expected_SNe_in_last_100kyr_baseline"], ".2f", src)
+    m.num("neighbourPopulations",
+          len(neighbour["cavity_sets"]["wide"]), "d", src)
 
     # The ignorance baseline quoted against P(last SN < 100 kyr).
     first = float(active.index.max()) + 0.05

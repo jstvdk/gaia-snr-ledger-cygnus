@@ -1,0 +1,291 @@
+{
+  "created_utc": "2026-08-04T15:33:40+00:00",
+  "script": "scripts/wp12_neighbour_budget.py",
+  "work_package": "WP12 -- manuscript revision analysis",
+  "preregistration": "provenance/wp12_revision_prereg.json",
+  "preregistration_sha256": "e81fe35728ad7818a91065bc3e96e82cc98a66d2af2efb062323eb33555465a2",
+  "python": "3.11.15",
+  "platform": "macOS-15.6.1-arm64-arm-64bit",
+  "item": "WP12.5 -- neighbouring-association supernova budget (plan WP8.5)",
+  "source": "Martin et al. 2010, A&A 511, A86, Table 1 (from Knodlseder et al. 2002, A&A 390, 945)",
+  "source_table_rows": [
+    {
+      "population": "Cyg OB1",
+      "observed_count": 23,
+      "mass_interval_Msun": [
+        15.0,
+        40.0
+      ],
+      "distance_pc": 1905,
+      "age_Myr": 4.0
+    },
+    {
+      "population": "Cyg OB2",
+      "observed_count": 120,
+      "mass_interval_Msun": [
+        20.0,
+        120.0
+      ],
+      "distance_pc": 1584,
+      "age_Myr": 2.5
+    },
+    {
+      "population": "Cyg OB3",
+      "observed_count": 14,
+      "mass_interval_Msun": [
+        25.0,
+        60.0
+      ],
+      "distance_pc": 2187,
+      "age_Myr": 3.5
+    },
+    {
+      "population": "Cyg OB7",
+      "observed_count": 10,
+      "mass_interval_Msun": [
+        7.0,
+        25.0
+      ],
+      "distance_pc": 832,
+      "age_Myr": 3.5
+    },
+    {
+      "population": "Cyg OB8",
+      "observed_count": 6,
+      "mass_interval_Msun": [
+        20.0,
+        40.0
+      ],
+      "distance_pc": 2399,
+      "age_Myr": 7.5
+    },
+    {
+      "population": "Cyg OB9",
+      "observed_count": 8,
+      "mass_interval_Msun": [
+        20.0,
+        40.0
+      ],
+      "distance_pc": 1259,
+      "age_Myr": 3.5
+    },
+    {
+      "population": "Ber 86",
+      "observed_count": 11,
+      "mass_interval_Msun": [
+        7.0,
+        25.0
+      ],
+      "distance_pc": 1660,
+      "age_Myr": 4.0
+    },
+    {
+      "population": "Ber 87",
+      "observed_count": 24,
+      "mass_interval_Msun": [
+        7.0,
+        25.0
+      ],
+      "distance_pc": 1905,
+      "age_Myr": 4.5
+    },
+    {
+      "population": "NGC 6871",
+      "observed_count": 13,
+      "mass_interval_Msun": [
+        7.0,
+        25.0
+      ],
+      "distance_pc": 2399,
+      "age_Myr": 5.5
+    },
+    {
+      "population": "NGC 6913",
+      "observed_count": 13,
+      "mass_interval_Msun": [
+        7.0,
+        40.0
+      ],
+      "distance_pc": 1820,
+      "age_Myr": 3.5
+    },
+    {
+      "population": "NGC 6910",
+      "observed_count": 7,
+      "mass_interval_Msun": [
+        7.0,
+        25.0
+      ],
+      "distance_pc": 1820,
+      "age_Myr": 4.5
+    },
+    {
+      "population": "NGC 6883",
+      "observed_count": 2,
+      "mass_interval_Msun": [
+        12.0,
+        15.0
+      ],
+      "distance_pc": 1820,
+      "age_Myr": 15.0
+    },
+    {
+      "population": "IC 4996",
+      "observed_count": 6,
+      "mass_interval_Msun": [
+        6.0,
+        25.0
+      ],
+      "distance_pc": 1660,
+      "age_Myr": 5.5
+    }
+  ],
+  "method": "normalize a single power law to the observed count over the quoted interval truncated at the turnoff; integrate above the turnoff for the cumulative deaths; difference over 100 kyr for the recent rate.  Turnoff from this project's own relation.",
+  "declared_coarseness": [
+    "the counts are OBSERVED, not completeness-corrected, so every derived supernova number is a lower bound",
+    "the ages and distances are heterogeneous literature values from 2002, not measured here",
+    "a single power law is imposed with no measured normalization uncertainty",
+    "coevality is assumed within each population (no star-formation duration branch)",
+    "all deaths are counted as successful explosions, matching the main ledger's all-explode branch and inheriting its conditionality"
+  ],
+  "age_bracket": {
+    "scales": [
+      0.75,
+      1.0,
+      1.35
+    ],
+    "status": "ADOPTED ILLUSTRATIVE BRACKET, not a literature uncertainty.  Knodlseder et al. quote ages without errors."
+  },
+  "cavity_sets": {
+    "strict": [
+      "Cyg OB1",
+      "Cyg OB9"
+    ],
+    "wide": [
+      "Cyg OB1",
+      "Cyg OB9",
+      "Cyg OB3",
+      "Cyg OB8",
+      "Ber 86",
+      "Ber 87",
+      "NGC 6871",
+      "NGC 6913",
+      "NGC 6910",
+      "IC 4996"
+    ],
+    "excluded": [
+      "Cyg OB7"
+    ],
+    "status": "a projection judgement, not a measurement"
+  },
+  "measured_cygob2_reference": {
+    "expected_SNe_in_last_100kyr_baseline": 0.80412,
+    "expected_SNe_total_over_rsn_grid": 8.4349,
+    "baseline_N_SN_mean": 8.4349,
+    "rsn_bin_width_Myr": 0.05
+  },
+  "cavity_share_baseline_wide": 0.32795,
+  "cavity_share_ranges": {
+    "wide": [
+      0.2721,
+      0.7092
+    ],
+    "strict": [
+      0.523,
+      0.9612
+    ]
+  },
+  "gate": {
+    "R6_is_the_gate": true,
+    "reportable_as_a_number": false,
+    "consequence_if_failed": "per the preregistration, if R6 fails the neighbour budget is NOT reported as a number and the manuscript scopes the claim out instead, stating that it estimates only the availability of an event from Cyg OB2 and cannot quantify whether Cyg OB2 was the source of an event elsewhere in the cavity."
+  },
+  "predictions": [
+    {
+      "id": "R6",
+      "statement": "The coarse neighbour estimator, applied to Martin+2010's own Cyg OB2 row, lands within a factor of 10 of this paper's measured baseline N_SN.",
+      "pass_if": "1/10 <= N_coarse(CygOB2) / N_measured(baseline) <= 10",
+      "outcome": "FAIL",
+      "measured": {
+        "measured_baseline_N_SN": 8.435,
+        "coarse_at_Knodlseder_age_2p5_Myr": {
+          "PARSEC_alpha2": 0.0,
+          "PARSEC_alpha2.3": 0.0,
+          "PARSEC_alpha2.6": 0.0,
+          "MIST_alpha2": 2.0141,
+          "MIST_alpha2.3": 1.4224,
+          "MIST_alpha2.6": 0.9872
+        },
+        "usable_cells": 6,
+        "total_cells": 6,
+        "ratio_range": [
+          0.0,
+          0.2388
+        ],
+        "non_preregistered_diagnostic_at_our_measured_4p0_Myr": {
+          "rows": [
+            {
+              "family": "PARSEC",
+              "alpha": 2.0,
+              "N_dead_cumulative": 32.7984,
+              "ratio_to_measured_baseline": 3.8884
+            },
+            {
+              "family": "PARSEC",
+              "alpha": 2.3,
+              "N_dead_cumulative": 24.6567,
+              "ratio_to_measured_baseline": 2.9232
+            },
+            {
+              "family": "PARSEC",
+              "alpha": 2.6,
+              "N_dead_cumulative": 18.4639,
+              "ratio_to_measured_baseline": 2.189
+            },
+            {
+              "family": "MIST",
+              "alpha": 2.0,
+              "N_dead_cumulative": 31.635,
+              "ratio_to_measured_baseline": 3.7505
+            },
+            {
+              "family": "MIST",
+              "alpha": 2.3,
+              "N_dead_cumulative": 23.7477,
+              "ratio_to_measured_baseline": 2.8154
+            },
+            {
+              "family": "MIST",
+              "alpha": 2.6,
+              "N_dead_cumulative": 17.7514,
+              "ratio_to_measured_baseline": 2.1045
+            }
+          ],
+          "all_within_factor_10": true,
+          "label": "NOT part of R6.  Recorded to separate 'the coarse estimator is wrong' from 'the 2002 age for Cyg OB2 is wrong'."
+        }
+      }
+    },
+    {
+      "id": "R7",
+      "statement": "Cyg OB2 does not dominate the recent-explosion budget of the Cygnus complex: f_OB2 < 0.9 on the WIDE cavity set at the baseline slope.",
+      "pass_if": "f_OB2(WIDE, alpha=2.3) < 0.9",
+      "outcome": "PASS",
+      "measured": {
+        "f_cygob2_recent_wide_baseline": 0.32795,
+        "f_range_over_all_cells_wide": [
+          0.2721,
+          0.7092
+        ],
+        "f_range_over_all_cells_strict": [
+          0.523,
+          0.9612
+        ]
+      }
+    }
+  ],
+  "outputs": {
+    "tables/wp12_neighbour_budget.csv": "18cf4001172c1541b346100c3765d519e7511db4e71955d3a51ee81abb45be35",
+    "tables/wp12_cavity_share.csv": "6bb081b78726b34cffbc62e32a82a2519c953c0fbbd88e614fa545373305d47b"
+  }
+}
