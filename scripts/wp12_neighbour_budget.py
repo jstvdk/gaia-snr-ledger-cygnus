@@ -42,6 +42,7 @@ from __future__ import annotations
 import numpy as np
 import pandas as pd
 
+import chain as C
 import wp5_common as w
 import wp12_common as W
 from wp6_mass_extension_decision import IMF_UPPER_LIMIT, turnoff_mass
@@ -139,7 +140,7 @@ def measured_recent_expectation() -> tuple[float, float, float]:
     comparison against the coarse neighbour numbers is like for like: both are
     expected counts in the same window.
     """
-    rsn = pd.read_csv(w.ROOT / "tables" / "wp7_rsn_curves.csv")
+    rsn = pd.read_csv(C.tag(w.TABLES / "wp7_rsn_curves.csv"))
     base = rsn[
         rsn.family.eq(W.BASE["family"]) & rsn.R_V.eq(W.BASE["R_V"])
         & rsn.alpha.eq(W.BASE["alpha"])
@@ -173,7 +174,7 @@ def main() -> None:
                         "excluded_from_cavity": name in EXCLUDED,
                     })
     budget = pd.DataFrame(rows)
-    budget.to_csv(w.TABLES / "wp12_neighbour_budget.csv", index=False)
+    budget.to_csv(C.tag(w.TABLES / "wp12_neighbour_budget.csv"), index=False)
 
     # ------------------------------------------------ R6: validate the method
     measured_recent, measured_total, width = measured_recent_expectation()
@@ -270,7 +271,7 @@ def main() -> None:
                         ),
                     })
     share = pd.DataFrame(share_rows)
-    share.to_csv(w.TABLES / "wp12_cavity_share.csv", index=False)
+    share.to_csv(C.tag(w.TABLES / "wp12_cavity_share.csv"), index=False)
 
     baseline_share = share[
         share.cavity_set.eq("wide") & share.age_scale.eq(1.0)
@@ -343,10 +344,10 @@ def main() -> None:
     }
     rec = W.record(
         "scripts/wp12_neighbour_budget.py", payload,
-        {"budget": w.TABLES / "wp12_neighbour_budget.csv",
-         "share": w.TABLES / "wp12_cavity_share.csv"},
+        {"budget": C.tag(w.TABLES / "wp12_neighbour_budget.csv"),
+         "share": C.tag(w.TABLES / "wp12_cavity_share.csv")},
     )
-    w.write_json(w.PROVENANCE / "wp12_neighbour_budget_execution.json", rec)
+    w.write_json(C.tag(w.PROVENANCE / "wp12_neighbour_budget_execution.json"), rec)
 
     print("WP12.5 neighbouring-association budget")
     print(f"  source: {SOURCE}")

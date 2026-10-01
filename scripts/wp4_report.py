@@ -7,9 +7,18 @@ Emits:
   tables/wp4_masses.cat              - whitespace catalogue of per-star masses (WP3 .cat pattern)
   provenance/wp4_manifest.json       - SHA-256 per input/output, WP1-WP3 pattern
   provenance/wp4_provenance.md       - the reproducibility narrative
+
+Issue #19.  Without --version this reproduces the 2026-07-23 pre-repair report
+(unversioned products, now FORBIDDEN for the manuscript).  With --version it
+reads wp4_age_posteriors_<version>.parquet, writes version-suffixed tables
+beside the historical ones, and refreshes only the two generated age blocks of
+wp4_ages.md; the historical manifest, masses catalogue, completion report and
+provenance narrative are left as they are:
+  PYTHONPATH=scripts python3 scripts/wp4_report.py --version repair_v5
 """
 from __future__ import annotations
 
+import argparse
 import json, hashlib, datetime as dt
 import numpy as np
 import pandas as pd
@@ -39,13 +48,14 @@ def replace_generated_block(path, name, content):
     )
 
 
-def build_tables():
-    post = pd.read_parquet(w.PROC / "wp4_age_posteriors.parquet")
+def build_tables(version=None):
+    sfx = f"_{version}" if version else ""
+    post = pd.read_parquet(w.PROC / f"wp4_age_posteriors{sfx}.parquet")
     # machine-readable summary (all branch rows)
     cols = ["subgroup", "family", "R_V", "f_bin", "indicator", "dmu", "n_stars",
             "measurable", "grid_railed", "exclusion_reason", "age_map",
             "age_lo68", "age_hi68", "age_lo90", "age_hi90"]
-    post[cols].to_csv(w.TABLES / "wp4_ages_summary.csv", index=False)
+    post[cols].to_csv(w.TABLES / f"wp4_ages_summary{sfx}.csv", index=False)
 
     # compact markdown table: baseline (R_V=3.1, f_bin=0.4, dmu=0) + envelope
     base = post[(post.R_V == 3.1) & (post.f_bin == 0.4) & (post.dmu == 0.0)]
@@ -63,12 +73,13 @@ def build_tables():
                 lines.append(
                     f"| {sub} | {ind} | {fam} | {r.age_map:.2f} | "
                     f"[{r.age_lo68:.2f}, {r.age_hi68:.2f}] | {int(r.n_stars)} | {meas} |")
-    (w.TABLES / "wp4_ages_table.md").write_text("\n".join(lines) + "\n")
+    (w.TABLES / f"wp4_ages_table{sfx}.md").write_text("\n".join(lines) + "\n")
 
     # full-envelope table across R_V x f_bin x distance per subgroup/indicator/family
     env_lines = ["| Subgroup | Indicator | Family | MAP range (Myr) | 68% CI union |",
                  "|---|---|---|---|---|"]
-    meas = post[post.measurable]
+    meas = post[post.measurable] if not version else post[
+        post.measurable.astype(bool) & ~post.grid_railed.astype(bool)]
     for sub in w.SUBGROUPS:
         for ind in ["ums", "pms"]:
             for fam in ["PARSEC", "MIST"]:
@@ -80,22 +91,37 @@ def build_tables():
                 env_lines.append(
                     f"| {sub} | {ind} | {fam} | [{g.age_map.min():.2f}, {g.age_map.max():.2f}] "
                     f"| [{g.age_lo68.min():.2f}, {g.age_hi68.max():.2f}] |")
-    (w.TABLES / "wp4_ages_envelope.md").write_text("\n".join(env_lines) + "\n")
+    if version:
+        kept = meas
+        env_lines += [
+            "",
+            f"Retained rows (measurable, not grid-railed): {len(kept)}; "
+            f"PMS rows retained: {int(kept.indicator.eq('pms').sum())}.  "
+            f"Retained upper-MS envelope (MAP span, every branch): "
+            f"{kept.age_map.min():.2f}-{kept.age_map.max():.2f} Myr.  "
+            f"Source: wp4_age_posteriors_{version}.parquet.",
+        ]
+    (w.TABLES / f"wp4_ages_envelope{sfx}.md").write_text("\n".join(env_lines) + "\n")
     return post
 
 
-def refresh_reports(post):
-    """Refresh computed report blocks after every product and manifest exist."""
+def refresh_age_blocks(version=None):
+    sfx = f"_{version}" if version else ""
     replace_generated_block(
         w.ROOT / "wp4_ages.md",
         "BASELINE_AGES",
-        (w.TABLES / "wp4_ages_table.md").read_text(),
+        (w.TABLES / f"wp4_ages_table{sfx}.md").read_text(),
     )
     replace_generated_block(
         w.ROOT / "wp4_ages.md",
         "AGE_ENVELOPE",
-        (w.TABLES / "wp4_ages_envelope.md").read_text(),
+        (w.TABLES / f"wp4_ages_envelope{sfx}.md").read_text(),
     )
+
+
+def refresh_reports(post):
+    """Refresh computed report blocks after every product and manifest exist."""
+    refresh_age_blocks()
 
     closure = json.loads(
         (w.ROOT / "provenance" / "wp4_closure_audit.json").read_text()
@@ -216,6 +242,16 @@ def build_manifest():
 
 
 if __name__ == "__main__":
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--version", default=None,
+                        help="WP4 age-posterior version, e.g. repair_v5")
+    args = parser.parse_args()
+    if args.version:
+        build_tables(args.version)
+        refresh_age_blocks(args.version)
+        print(f"wrote tables/wp4_ages_*_{args.version} and refreshed the two "
+              "generated age blocks in wp4_ages.md")
+        raise SystemExit(0)
     post = build_tables()
     build_masses_cat()
     mani = build_manifest()

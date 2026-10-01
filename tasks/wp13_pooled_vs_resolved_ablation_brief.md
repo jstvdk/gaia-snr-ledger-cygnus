@@ -220,10 +220,13 @@ From audit §8, checked against the current `main.tex`:
       discovery about the system" on the mass-floor slide; the audit demotes
       this to an expected consequence of the ages. Fix the note and the slide
       kicker.
-- [ ] Add the two pre-repair WP4 markdown tables to the forbidden list in
-      `wp10_inputs.py` (§2.2).
-- [ ] Verify which version the quoted 2.25–5.67 Myr envelope comes from; the
+- [x] Add the two pre-repair WP4 markdown tables to the forbidden list in
+      `wp10_inputs.py` (§2.2). *Done 2026-10-01 under issue #19, with the
+      unversioned WP4 posterior and anchor file.*
+- [x] Verify which version the quoted 2.25–5.67 Myr envelope comes from; the
       repair_v5 parquet must reproduce it or the macro must be regenerated.
+      *Done 2026-10-01 (issue #19): it was the pre-repair run; repair_v5 gives
+      2.00–4.01 Myr, now the macros `\ageEnvLo`/`\ageEnvHi`.*
 - [ ] Refresh the prior-art sweep immediately before submission (already listed
       in `manuscript/README.md`).
 

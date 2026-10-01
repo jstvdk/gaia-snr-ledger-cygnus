@@ -17,7 +17,7 @@ window. Regenerate it with `audit.py`; never open it.
 | file | ~tok | what it gives you |
 |---|---|---|
 | `PROJECT_TRACE.md` | 31k | The navigation spine. §1's status board carries all 13 work packages with gate verdict and headline numbers inline. |
-| `manuscript/numbers.tex` | 3k | Densest file here: all 212 quoted quantities as macros, each with its source artifact in a trailing comment. |
+| `manuscript/numbers.tex` | 3k | Densest file here: all 216 quoted quantities as macros, each with its source artifact in a trailing comment. |
 | `manuscript/README.md` | 2k | Build state, what the WP12 revision changed, figure list, limitations stated plainly. |
 | `reports/novelty_prior_art_and_incremental_value_audit_2026-08-12.md` | 7k | The most recent work and the honest account of where this stands. **Read before making any novelty claim.** |
 | `cross_checks/README.md` | 0.3k | The external-validation rules. |
@@ -43,29 +43,36 @@ and the 54-branch grid) · `wp2_subgroups.md` (membership) ·
    on disk; a cross-check that disagrees becomes an issue in `PROJECT_TRACE.md`
    §9, never a reason to move a number. Cross-checks are validations, not
    calibrations.
-4. **The chain runs on `repair_v7`.** Products from earlier repair rounds are
-   preserved but must not be quoted.
+4. **The chain runs on `repair_v8`** (since 2026-10-01, issue #19; selected in
+   `scripts/chain.py`). repair_v7 and earlier products are preserved but must
+   not be quoted; repair_v7's unsuffixed WP6–WP12 tables have `_repair_v8`
+   siblings, and `wp10_inputs` refuses the superseded ones.
 
 ## Withdrawn — never quote these
 
-From the pre-`repair_v7` chain and the fixes to issues #16 and #17:
+From the pre-`repair_v7` chain, the fixes to issues #16 and #17, and issue #19
+(repair_v7 → repair_v8: anchor masses read at pre-repair ages):
 
-| withdrawn | correct |
+| withdrawn | correct (repair_v8) |
 |---|---|
-| 45% closure excess, grid median 1.444 | 6.7% excess, grid median 1.067 |
-| closing slope α = 2.070 | α ≈ 2.20 association-wide (A 2.34, B 2.25, C 2.06) |
+| 45% closure excess, grid median 1.444; later 1.067 | grid median 1.073 (7.3% excess) |
+| closing slope α = 2.070; later A 2.34 | α ≈ 2.19 association-wide (A 2.29, B 2.25, C 2.05) |
 | 260 raw / 109 corrected runaways | 119 raw / 54.9 corrected |
-| living ledger 471.9 | 380.6 above 8 M☉ |
-| association mass "agrees with Wright+15 to 5%" | 1.47× like-for-like (29,122 vs 16,500 M☉) |
-| "retained 36-branch median ≈ 9" | 13.29 (8.79 is the *full* 54-branch median) |
+| living ledger 471.9; later 380.6 | 388.6 above 8 M☉ |
+| association mass "agrees with Wright+15 to 5%"; later 1.47× | 1.45× like-for-like (29,014 M☉ total) |
+| "retained 36-branch median ≈ 9"; later 13.29 | 13.16 (8.72 is the *full* 54-branch median) |
+| 2.25–5.67 Myr "two-indicator" age envelope; any PMS age | 2.00–4.01 Myr retained upper-MS envelope; no PMS row survives |
+| N_death 8.43 (A 4.17), headline 5.63–28.7 | 8.36 (A 4.10), 5.57–28.7 |
+| A baseline closure 0.865 ("A falls short") | 1.006 |
 
 ## Headline numbers
 
-Members 1,392 (1,331 subgroup-labelled: A 476, B 426, C 429) · ages A 4.00,
-B 4.09, C 2.52 Myr · association stellar mass 29,122 M☉ · baseline deaths
-**8.43** (A 4.17, B 4.26, C 0.00) · headline range 5.63–28.7 over 36 branches,
-1.93–28.74 over all 54 · P(≥1 event) 0.9997 · P(last < 100 kyr) 0.552 · every
-progenitor above ~34 M☉.
+Members 1,392 (1,331 subgroup-labelled: A 476, B 426, C 429) · ages A 4.01,
+B 4.09, C 2.52 Myr · association stellar mass 29,014 M☉ · baseline deaths
+**8.36** (A 4.10, B 4.26, C 0.00) · headline range 5.57–28.7 over 36 branches,
+1.94–28.74 over all 54 · P(≥1 event) 0.9996 · P(last < 100 kyr) 0.547 · every
+progenitor above ~34 M☉ · WP5 40/54 cells, gate G3 **fails** its
+no-regression clause on repair_v8 (issue #19, open question).
 
 Always write `N_death`, or `N_SN | all explode` with the conditioning explicit.
 The all-explode ledger is **not** an observed supernova history.

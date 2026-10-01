@@ -39,6 +39,7 @@ from datetime import datetime, timezone
 import numpy as np
 import pandas as pd
 
+import chain as C
 import wp5_common as w
 from wp6_mass_extension_decision import IMF_UPPER_LIMIT, turnoff_mass
 
@@ -59,8 +60,8 @@ def dead_fraction_per_k(turnoff: float, alpha: float) -> float:
 
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--wp5-version", default="repair_v7")
-    parser.add_argument("--wp4-version", default="repair_v5")
+    parser.add_argument("--wp5-version", default=C.V["wp5"])
+    parser.add_argument("--wp4-version", default=C.V["wp4_ages"])
     args = parser.parse_args()
 
     wp4_path = w.PROC / f"wp4_age_posteriors_{args.wp4_version}.parquet"
@@ -130,7 +131,7 @@ def main() -> None:
         )
 
     table = pd.DataFrame(rows)
-    out_csv = w.TABLES / "wp4_wp5_age_reconciliation.csv"
+    out_csv = C.tag(w.TABLES / "wp4_wp5_age_reconciliation.csv")
     table.to_csv(out_csv, index=False)
 
     baseline = table[
@@ -276,7 +277,7 @@ def main() -> None:
         },
         "outputs": {str(out_csv.relative_to(w.ROOT)): w.sha256(out_csv)},
     }
-    w.write_json(w.PROVENANCE / "wp4_wp5_age_reconciliation_execution.json", record)
+    w.write_json(C.tag(w.PROVENANCE / "wp4_wp5_age_reconciliation_execution.json"), record)
 
     print("B2 -- subgroup ages, baseline PARSEC R_V = 3.1 alpha = 2.3\n")
     print(
@@ -301,8 +302,8 @@ def main() -> None:
         f"top node ({b.top_node_Myr:.2f} Myr) its supernova count would be "
         f"{railing_headroom:+.1%}."
     )
-    print("wrote tables/wp4_wp5_age_reconciliation.csv")
-    print("wrote provenance/wp4_wp5_age_reconciliation_execution.json")
+    print(f"wrote {C.tag_rel('tables/wp4_wp5_age_reconciliation.csv')}")
+    print(f"wrote {C.tag_rel('provenance/wp4_wp5_age_reconciliation_execution.json')}")
 
 
 if __name__ == "__main__":

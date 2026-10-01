@@ -47,9 +47,10 @@ from datetime import datetime, timezone
 import numpy as np
 import pandas as pd
 
+import chain as C
 import wp5_common as w
 
-UPSTREAM = "repair_v5"
+UPSTREAM = C.V["wp4_masses"]   # chain-declared (issue #19)
 SN_THRESHOLD_MSUN = 8.0
 # Association footprint: the member sample reaches 0.910 deg from its own
 # subgroup centroid at most, 0.774 deg at the 99th percentile.  An anchor
@@ -228,8 +229,8 @@ def main() -> None:
             }
         )
 
-    out_census = w.TABLES / "wp6_massive_census.csv"
-    out_orphans = w.TABLES / "wp6_orphan_anchors.csv"
+    out_census = C.tag(w.TABLES / "wp6_massive_census.csv")
+    out_orphans = C.tag(w.TABLES / "wp6_orphan_anchors.csv")
     census.to_csv(out_census, index=False)
     orphans[
         [
@@ -342,7 +343,7 @@ def main() -> None:
             str(out_orphans.relative_to(w.ROOT)): w.sha256(out_orphans),
         },
     }
-    w.write_json(w.PROVENANCE / "wp6_massive_census_execution.json", record)
+    w.write_json(C.tag(w.PROVENANCE / "wp6_massive_census_execution.json"), record)
 
     print("WP6 step 0b — observed massive-star census\n")
     print("  baseline PARSEC R_V=3.1, stars above 8 Msun:")
@@ -373,7 +374,7 @@ def main() -> None:
         print(f"    {entry['subgroup']:12s} {entry['orphan_anchors']:3d} orphans, "
               f"{entry['orphan_anchors_above_8']:3d} above 8 Msun, "
               f"{entry['unclassifiable']:2d} unclassifiable")
-    print("\nwrote provenance/wp6_massive_census_execution.json")
+    print(f"\nwrote {C.tag_rel('provenance/wp6_massive_census_execution.json')}")
 
 
 def SkyCoordLite(ra_deg: np.ndarray, dec_deg: np.ndarray):

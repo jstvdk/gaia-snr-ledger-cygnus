@@ -57,6 +57,7 @@ from datetime import datetime, timezone
 import numpy as np
 import pandas as pd
 
+import chain as C
 import wp5_common as w
 from wp6_mass_extension_decision import IMF_UPPER_LIMIT, turnoff_mass
 from wp7_ledger_prereg import (
@@ -71,7 +72,7 @@ from wp7_ledger_prereg import (
     SN_THRESHOLD_MSUN,
 )
 
-WP5_VERSION = "repair_v7"
+WP5_VERSION = C.V["wp5"]   # chain-declared (issue #19)
 BASELINE = ("PARSEC", 3.1, 2.3, 0.0, "all_explode")
 
 # Look-back grid for R_SN(t).  0.05 Myr resolution is finer than any age
@@ -404,11 +405,11 @@ def main() -> None:
         )
 
     ledger = pd.DataFrame(ledger_rows)
-    ledger.to_csv(w.TABLES / "wp7_ledger.csv", index=False)
-    pd.DataFrame(rsn_rows).to_csv(w.TABLES / "wp7_rsn_curves.csv", index=False)
-    pd.DataFrame(age_rows).to_csv(w.TABLES / "wp7_age_sensitivity.csv", index=False)
+    ledger.to_csv(C.tag(w.TABLES / "wp7_ledger.csv"), index=False)
+    pd.DataFrame(rsn_rows).to_csv(C.tag(w.TABLES / "wp7_rsn_curves.csv"), index=False)
+    pd.DataFrame(age_rows).to_csv(C.tag(w.TABLES / "wp7_age_sensitivity.csv"), index=False)
     pd.DataFrame(bh_rows).to_csv(
-        w.TABLES / "wp7_bh_threshold_scan.csv", index=False
+        C.tag(w.TABLES / "wp7_bh_threshold_scan.csv"), index=False
     )
 
     # ---- score the pre-registered predictions ------------------------------
@@ -450,7 +451,7 @@ def main() -> None:
     if len(conv):
         conv["abs_drift"] = (conv.mean_full - conv.mean_half).abs()
         conv["rel_drift"] = conv.abs_drift / conv.mean_full.replace(0.0, np.nan)
-        conv.to_csv(w.TABLES / "wp7_convergence.csv", index=False)
+        conv.to_csv(C.tag(w.TABLES / "wp7_convergence.csv"), index=False)
         denom = conv.mean_full.replace(0.0, np.nan)
         drift = ((conv.mean_full - conv.mean_half).abs() / denom).max()
         worst_drift = float(0.0 if np.isnan(drift) else drift)
@@ -626,11 +627,11 @@ def main() -> None:
         "outputs": {
             str(path.relative_to(w.ROOT)): w.sha256(path)
             for path in [
-                w.TABLES / "wp7_ledger.csv",
-                w.TABLES / "wp7_rsn_curves.csv",
-                w.TABLES / "wp7_age_sensitivity.csv",
-                w.TABLES / "wp7_bh_threshold_scan.csv",
-                w.TABLES / "wp7_convergence.csv",
+                C.tag(w.TABLES / "wp7_ledger.csv"),
+                C.tag(w.TABLES / "wp7_rsn_curves.csv"),
+                C.tag(w.TABLES / "wp7_age_sensitivity.csv"),
+                C.tag(w.TABLES / "wp7_bh_threshold_scan.csv"),
+                C.tag(w.TABLES / "wp7_convergence.csv"),
             ]
         },
         "inputs": {
@@ -641,7 +642,7 @@ def main() -> None:
             ]
         },
     }
-    w.write_json(w.PROVENANCE / "wp7_ledger_execution.json", record)
+    w.write_json(C.tag(w.PROVENANCE / "wp7_ledger_execution.json"), record)
 
     print("\nWP7 — the supernova ledger\n")
     print(f"  baseline: {BASELINE[0]} R_V={BASELINE[1]} alpha={BASELINE[2]} "
@@ -662,7 +663,7 @@ def main() -> None:
     print("\n  predictions:")
     for entry in record["predictions"]:
         print(f"    {entry['id']}  {entry['outcome']:4s}  {entry['statement']}")
-    print("\nwrote provenance/wp7_ledger_execution.json")
+    print(f"\nwrote {C.tag_rel('provenance/wp7_ledger_execution.json')}")
 
 
 if __name__ == "__main__":

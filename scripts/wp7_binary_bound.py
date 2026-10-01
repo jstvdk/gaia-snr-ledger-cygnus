@@ -51,6 +51,7 @@ from datetime import datetime, timezone
 import numpy as np
 import pandas as pd
 
+import chain as C
 import wp5_common as w
 import wp7_ledger as L
 from wp6_mass_extension_decision import IMF_UPPER_LIMIT, turnoff_mass
@@ -225,7 +226,7 @@ def turnoff_rate(family: str, age: float) -> float:
 
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--wp5-version", default="repair_v7")
+    parser.add_argument("--wp5-version", default=C.V["wp5"])
     parser.add_argument("--iterations", type=int, default=400_000)
     args = parser.parse_args()
     n_iter = int(args.iterations)
@@ -259,7 +260,7 @@ def main() -> None:
     fig2["rate_SNe_per_Myr_per_1e4Msun"] = (
         fig2.rate_SNe_per_Myr / (HARER_FIG2["cluster_initial_mass_Msun"] / 1e4)
     )
-    fig2.to_csv(w.TABLES / "wp7_binary_bound_harer_fig2.csv", index=False)
+    fig2.to_csv(C.tag(w.TABLES / "wp7_binary_bound_harer_fig2.csv"), index=False)
 
     def bpass_rate_at(age: float) -> float:
         row = fig2[(fig2.age_lo_Myr <= age) & (fig2.age_hi_Myr > age)]
@@ -328,7 +329,7 @@ def main() -> None:
                 }
             )
     comparison = pd.DataFrame(rows)
-    comparison.to_csv(w.TABLES / "wp7_binary_bound.csv", index=False)
+    comparison.to_csv(C.tag(w.TABLES / "wp7_binary_bound.csv"), index=False)
 
     # Harer's Fig. 2 was computed at alpha = -2.0.  Only our alpha = 2.0 rows
     # are a matched comparison; the alpha = 2.3 rows are kept in the CSV for
@@ -426,7 +427,7 @@ def main() -> None:
                             }
                         )
     bracket = pd.DataFrame(bracket_rows)
-    bracket.to_csv(w.TABLES / "wp7_binary_bound_branches.csv", index=False)
+    bracket.to_csv(C.tag(w.TABLES / "wp7_binary_bound_branches.csv"), index=False)
 
     def arm(label: str) -> dict:
         frame = bracket[bracket.arm.eq(label)]
@@ -565,13 +566,13 @@ def main() -> None:
         "outputs": {
             str(p.relative_to(w.ROOT)): w.sha256(p)
             for p in (
-                w.TABLES / "wp7_binary_bound.csv",
-                w.TABLES / "wp7_binary_bound_harer_fig2.csv",
-                w.TABLES / "wp7_binary_bound_branches.csv",
+                C.tag(w.TABLES / "wp7_binary_bound.csv"),
+                C.tag(w.TABLES / "wp7_binary_bound_harer_fig2.csv"),
+                C.tag(w.TABLES / "wp7_binary_bound_branches.csv"),
             )
         },
     }
-    w.write_json(w.PROVENANCE / "wp7_binary_bound_execution.json", record)
+    w.write_json(C.tag(w.PROVENANCE / "wp7_binary_bound_execution.json"), record)
 
     print("T3 -- binary mass transfer, bounded\n")
     print("line 1: BPASS (binaries) vs our single-star turnoff, matched alpha,")
@@ -593,10 +594,10 @@ def main() -> None:
             f"  P(<100kyr) {a['baseline_P_last_SN_within_100kyr']:.3f}"
         )
     print("\n" + record["verdict"]["statement"])
-    print("\nwrote tables/wp7_binary_bound.csv")
-    print("wrote tables/wp7_binary_bound_harer_fig2.csv")
-    print("wrote tables/wp7_binary_bound_branches.csv")
-    print("wrote provenance/wp7_binary_bound_execution.json")
+    print(f"\nwrote {C.tag_rel('tables/wp7_binary_bound.csv')}")
+    print(f"wrote {C.tag_rel('tables/wp7_binary_bound_harer_fig2.csv')}")
+    print(f"wrote {C.tag_rel('tables/wp7_binary_bound_branches.csv')}")
+    print(f"wrote {C.tag_rel('provenance/wp7_binary_bound_execution.json')}")
 
 
 if __name__ == "__main__":

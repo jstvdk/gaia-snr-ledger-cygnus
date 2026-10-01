@@ -45,6 +45,7 @@ import numpy as np
 import pandas as pd
 from matplotlib.lines import Line2D
 
+import chain as C
 import wp5_common as w
 import wp12_common as W
 from wp6_mass_extension_decision import IMF_UPPER_LIMIT
@@ -115,6 +116,15 @@ def with_labels(frame: pd.DataFrame) -> pd.DataFrame:
         ["source_id", "subgroup"]
     ].rename(columns={"subgroup": "sg"})
     return frame.merge(labels, on="source_id", how="left")
+
+
+def age_envelope() -> tuple[float, float]:
+    """Retained upper-MS age envelope: MAP span of the measurable, non-railed
+    rows of the authorized WP4 posterior.  Issue #19 -- it replaces the
+    hand-typed 2.25-5.67 Myr span, which came from the pre-repair run."""
+    post = pd.read_parquet(W.frozen("wp4_age_posteriors"))
+    kept = post[post.measurable.astype(bool) & ~post.grid_railed.astype(bool)]
+    return float(kept.age_map.min()), float(kept.age_map.max())
 
 
 # ===================================================================== fig 01
@@ -430,9 +440,10 @@ def fig04_cmd_ages() -> None:
                    zorder=5)
         ax.text(6.55, y, tag(subgroup), ha="right", va="center", fontsize=7,
                 color=SUB[subgroup], weight="bold")
-    ax.axvspan(2.25, 5.67, color="#000000", alpha=0.06, zorder=0)
-    ax.text(2.30, -0.42, "2.25--5.67 Myr envelope across both retained "
-            "age indicators", ha="left", va="center", fontsize=6.0,
+    env_lo, env_hi = age_envelope()
+    ax.axvspan(env_lo, env_hi, color="#000000", alpha=0.06, zorder=0)
+    ax.text(env_lo + 0.05, -0.42, f"{env_lo:.2f}–{env_hi:.2f} Myr retained "
+            "upper-MS envelope (MAP)", ha="left", va="center", fontsize=6.0,
             color=MUTED)
     ax.annotate("B rails against the top of its own prior grid",
                 xy=(4.13, 1.16), xytext=(4.45, 1.62), fontsize=5.9,
@@ -454,11 +465,11 @@ def fig04_cmd_ages() -> None:
 
     # ---- what the spread costs
     ax2 = fig.add_subplot(grid[1, 2])
-    scan = pd.read_csv(w.TABLES / "wp7_age_sensitivity.csv")
+    scan = pd.read_csv(C.tag(w.TABLES / "wp7_age_sensitivity.csv"))
     ax2.plot(scan.assumed_age_Myr, scan.N_SN_mean, color=INK, linewidth=1.2)
     ax2.fill_between(scan.assumed_age_Myr, scan.N_SN_p16, scan.N_SN_p84,
                      color=INK, alpha=0.12, linewidth=0)
-    ax2.axvspan(2.25, 5.67, color="#000000", alpha=0.06, zorder=0)
+    ax2.axvspan(env_lo, env_hi, color="#000000", alpha=0.06, zorder=0)
     ax2.set_xlabel("common assumed age (Myr)")
     ax2.set_ylabel("$N_{\\rm SN}$")
     ax2.set_title("what the envelope costs", fontsize=7, color=MUTED)
@@ -651,8 +662,8 @@ def fig06_massfunction_gate() -> None:
 
 # ===================================================================== fig 07
 def fig07_closure() -> None:
-    closure = pd.read_csv(w.TABLES / "wp12_closure_by_alpha.csv")
-    slopes = pd.read_csv(w.TABLES / "wp12_closing_slopes.csv")
+    closure = pd.read_csv(C.tag(w.TABLES / "wp12_closure_by_alpha.csv"))
+    slopes = pd.read_csv(C.tag(w.TABLES / "wp12_closing_slopes.csv"))
 
     fig, axes = plt.subplots(1, 2, figsize=(WIDE, 3.0),
                              gridspec_kw={"width_ratios": [1.35, 1.0]})
@@ -715,7 +726,7 @@ def fig07_closure() -> None:
 
 # ===================================================================== fig 08
 def fig08_history() -> None:
-    rsn = pd.read_csv(w.TABLES / "wp7_rsn_curves.csv")
+    rsn = pd.read_csv(C.tag(w.TABLES / "wp7_rsn_curves.csv"))
     assoc = W.association_all_explode()
     head = assoc[assoc.alpha.isin(W.HEADLINE_ALPHAS)]
 
@@ -785,8 +796,8 @@ def fig08_history() -> None:
 
 # ===================================================================== fig 09
 def fig09_sensitivity() -> None:
-    scan = pd.read_csv(w.TABLES / "wp7_age_sensitivity.csv")
-    bh = pd.read_csv(w.TABLES / "wp7_bh_threshold_scan.csv")
+    scan = pd.read_csv(C.tag(w.TABLES / "wp7_age_sensitivity.csv"))
+    bh = pd.read_csv(C.tag(w.TABLES / "wp7_bh_threshold_scan.csv"))
     gate = W.gate_map()
     base_gate = gate[
         gate.family.eq(W.BASE["family"]) & gate.R_V.eq(W.BASE["R_V"])
@@ -810,9 +821,11 @@ def fig09_sensitivity() -> None:
     for s in w.SUBGROUPS:
         age_ax.axvline(float(base_gate.loc[s].truth_age_posterior_mean_Myr),
                        color=SUB[s], linewidth=0.9, linestyle=":")
-    age_ax.axvspan(2.25, 5.67, color="#000000", alpha=0.06, zorder=0)
-    age_ax.text(5.6, age_ax.get_ylim()[1] * 0.06,
-                "retained age envelope", fontsize=6.2, color=MUTED, ha="right")
+    env_lo, env_hi = age_envelope()
+    age_ax.axvspan(env_lo, env_hi, color="#000000", alpha=0.06, zorder=0)
+    age_ax.text(env_hi - 0.05, age_ax.get_ylim()[1] * 0.06,
+                "retained upper-MS envelope", fontsize=6.2, color=MUTED,
+                ha="right")
     age_ax.legend(fontsize=6.4, loc="upper left")
 
     total = bh.groupby("bh_threshold_Msun", as_index=False).N_SN_mean.sum() \
@@ -838,9 +851,9 @@ def fig09_sensitivity() -> None:
 
 # ===================================================================== fig 10
 def fig10_scenario_score() -> None:
-    scan = pd.read_csv(w.TABLES / "wp12_c4_scan.csv")
+    scan = pd.read_csv(C.tag(w.TABLES / "wp12_c4_scan.csv"))
     scenario = json.loads(
-        (w.PROVENANCE / "wp12_scenario_score_execution.json").read_text())
+        (C.tag(w.PROVENANCE / "wp12_scenario_score_execution.json")).read_text())
     c4 = scenario["wp12_3_c4_sensitivity"]
     adopted = c4["adopted_C4"]
     c4_any = c4["C4_below_which_at_least_one_alpha2p0_branch_falls_below_0p5"]
@@ -974,7 +987,7 @@ def main() -> None:
         },
         {name: w.ROOT / paths[0] for name, paths in WRITTEN.items()},
     )
-    w.write_json(w.PROVENANCE / "wp12_figures_execution.json", rec)
+    w.write_json(C.tag(w.PROVENANCE / "wp12_figures_execution.json"), rec)
     print(f"wrote {len(WRITTEN)} figures to figures/paper/")
 
 

@@ -519,9 +519,11 @@ they are never averaged into a pseudo-posterior.
 
 The \emph{headline} all-explode branch set excludes $\alpha = 2.6$. The
 criterion is the calibration-window $\chi^2$, an internal fit statistic fixed long before the
-ledger existed, on which $\alpha = 2.6$ is the best fit in \alphaSixWins\ of
-\alphaCells\ cells and has the worst median ($\chi^2 = \alphaSixChi$ against
-\alphaThreeChi\ for $\alpha = 2.3$). The census closure agrees independently but
+ledger existed, on which $\alpha = 2.6$ is the best fit in only \alphaSixWins\ of
+\alphaCells\ cells and has a median $\chi^2 = \alphaSixChi$ against
+\alphaThreeChi\ for $\alpha = 2.3$. The criterion compares the two steeper
+slopes only; $\alpha = 2.0$, retained in the headline set, has a median of
+\alphaTwoChi\ on the same statistic. The census closure agrees independently but
 was deliberately \emph{not} used to make this choice, so that it remains
 available as an out-of-sample validation of the extrapolation
 (Sect.~\ref{sec:closure-result}). $\alpha = 2.6$ is reported throughout with its
@@ -591,11 +593,15 @@ two younger; the change followed a pre-registered fix whose four predictions
 were confirmed in advance.
 
 \textbf{The spread between three central values is not the age uncertainty.}
-The envelope across both retained age indicators is 2.25--5.67\,Myr, and that is
-what everything downstream inherits (Fig.~\ref{fig:ages}). Within it, B's
-posterior rails against its prior grid and is a one-sided bound, and C's age is
-family-dependent in a way that moves it across the boundary discussed in
-Sect.~\ref{sec:ledger-result}.
+The retained upper-main-sequence envelope --- the span of the MAP ages of the
+\ageEnvRows\ measurable, non-railed upper-main-sequence fits across every
+family, $R_V$ and binary-fraction branch --- is \ageEnvLo--\ageEnvHi\,Myr
+(Fig.~\ref{fig:ages}). No pre-main-sequence age survives the repaired extinction
+in any subgroup, so every age in this paper rests on the upper main sequence.
+The counts-based ages are drawn from the full upper-main-sequence posteriors,
+whose tails extend beyond these MAP values; B's posterior rails against its
+prior grid and is a one-sided bound, and C's age is family-dependent in a way
+that moves it across the boundary discussed in Sect.~\ref{sec:ledger-result}.
 
 \begin{figure*}[t]
 \centering
@@ -607,8 +613,8 @@ isochrone families drawn at the adopted counts-based age of that subgroup. The
 observational scatter within a panel and the PARSEC-versus-MIST separation
 between the curves are different quantities and are drawn differently.
 \emph{Bottom left:} the counts-based age of every fit cell, by subgroup and
-family, with the baseline branch marked and the full 2.25--5.67\,Myr systematic
-envelope shaded; Cyg~OB2-B's cells pile up against the top of its own prior
+family, with the baseline branch marked and the retained upper-main-sequence
+envelope (\ageEnvLo--\ageEnvHi\,Myr) shaded; Cyg~OB2-B's cells pile up against the top of its own prior
 grid. \emph{Bottom right:} what that envelope costs in supernovae.}
 \label{fig:ages}
 \end{figure*}
@@ -795,7 +801,8 @@ conditional.
 \includegraphics[width=\textwidth]{../figures/paper/fig09_sensitivity.pdf}
 \caption{The two sensitivities that dominate. \emph{Left:} $N_{\rm SN}$ against
 a common age applied to all three subgroups, with the adopted subgroup ages
-marked on the upper axis and the retained 2.25--5.67\,Myr envelope shaded.
+marked on the upper axis and the retained upper-main-sequence envelope
+(\ageEnvLo--\ageEnvHi\,Myr) shaded.
 \emph{Right:} $N_{\rm SN}$ against the hard direct-collapse threshold. Below
 $\bhSafeCut\,M_\odot$ the ledger is identically zero. This is a threshold scan,
 not a non-monotonic explodability map.}
@@ -1428,9 +1435,9 @@ down.
 Of the age branches attempted, a minority are excluded outright for
 insufficient stars or an unmeasurable indicator, and a further set rail against
 the edge of the age grid. Both classes are recorded with their exclusion reason
-rather than silently dropped. Cyg~OB2-B's PMS indicator in particular remains
-unmeasurable, so the documented disagreement between its two age indicators is
-reported rather than resolved.
+rather than silently dropped. No subgroup's pre-main-sequence indicator is
+measurable on the repaired extinction, so no pre-main-sequence age is compared
+with an upper-main-sequence one anywhere in this paper.
 
 \paragraph{The residual map and the fit-quality definition.}
 A cell passes the residual-fit criterion only if its calibration-window $\chi^2$

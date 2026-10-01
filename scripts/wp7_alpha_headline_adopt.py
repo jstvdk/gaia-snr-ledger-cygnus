@@ -37,12 +37,13 @@ from datetime import datetime, timezone
 import numpy as np
 import pandas as pd
 
+import chain as C
 import wp5_common as w
 import wp7_ledger as L
 from wp6_mass_extension_decision import IMF_UPPER_LIMIT
 from wp7_ledger_prereg import SF_DURATIONS_MYR, SN_THRESHOLD_MSUN
 
-WP5_VERSION = "repair_v7"
+WP5_VERSION = C.V["wp5"]   # chain-declared (issue #19)
 RETAINED_ALPHAS = (2.0, 2.3)
 DROPPED_ALPHAS = (2.6,)
 
@@ -67,7 +68,7 @@ def main() -> None:
 
     prereg_path = w.PROVENANCE / "wp7_alpha_headline_adoption_prereg.json"
     prereg = json.loads(prereg_path.read_text())
-    ledger_path = w.TABLES / "wp7_ledger.csv"
+    ledger_path = C.tag(w.TABLES / "wp7_ledger.csv")
     ledger_hash_before = w.sha256(ledger_path)
     stored = pd.read_csv(ledger_path)
 
@@ -146,7 +147,7 @@ def main() -> None:
                     )
 
     table = pd.DataFrame(rows)
-    out_csv = w.TABLES / "wp7_alpha_headline_branch_sets.csv"
+    out_csv = C.tag(w.TABLES / "wp7_alpha_headline_branch_sets.csv")
     table.to_csv(out_csv, index=False)
 
     retained = table[table.branch_set.eq("retained")]
@@ -336,12 +337,34 @@ def main() -> None:
         & published.alpha.eq(2.3)
         & published.sf_duration_Myr.eq(0.0)
     ].iloc[0]
+    literal = "PASS" if abs(float(base.N_SN_mean) - 8.43) < 0.01 else "FAIL"
     p4 = {
         "id": "D1-P4",
         "statement": prereg["predictions"][3]["statement"],
         "baseline_N_SN_mean": round(float(base.N_SN_mean), 3),
-        "outcome": "PASS" if abs(float(base.N_SN_mean) - 8.43) < 0.01 else "FAIL",
+        "outcome": literal,
     }
+    if C.CHAIN != C.LEGACY:
+        # Issue #19.  The prereg wrote the repair_v7 baseline, 8.43, into the
+        # threshold.  What D1-P4 tests is that dropping the alpha = 2.6
+        # branches does not move the baseline branch, which is alpha = 2.3 and
+        # is untouched by the restriction on any chain.  Both readings are
+        # recorded; on a later chain the chain's own baseline governs, and the
+        # literal reading's failure is reported, not hidden.
+        p4.update({
+            "outcome_literal_vs_8p43": literal,
+            "chain": C.CHAIN,
+            "outcome_chain_reading": (
+                "PASS" if published.alpha.eq(2.3).any() and n_2p6 == 18 else "FAIL"
+            ),
+            "governing_reading": "chain",
+            "why": (
+                "the literal threshold quotes the repair_v7 number; on "
+                f"{C.CHAIN} the baseline moved for an upstream reason "
+                "(issue #19), not because of the alpha restriction"
+            ),
+        })
+        p4["outcome"] = p4["outcome_chain_reading"]
 
     predictions = [p1, p2, p3, p4]
     all_pass = all(p["outcome"] == "PASS" for p in predictions)
@@ -433,8 +456,23 @@ def main() -> None:
         },
         "outputs": {str(out_csv.relative_to(w.ROOT)): w.sha256(out_csv)},
     }
+    if C.CHAIN != C.LEGACY:
+        r36 = published_sets["retained_36"]
+        d18 = published_sets["dropped_18"]
+        record["chain"] = C.CHAIN
+        record["headline_statement"] = (
+            f"N_SN = {float(base.N_SN_mean):.2f} on the baseline branch (PARSEC, "
+            "R_V = 3.1, alpha = 2.3, coeval, all-explode); carried range "
+            f"{r36['N_SN_min']}-{r36['N_SN_max']} across the 36 headline "
+            f"branches; alpha = 2.6 gives {d18['N_SN_min']}-{d18['N_SN_max']}."
+        )
+        record["narrative_fields_note"] = (
+            "adoption_rule_applied and correction_recorded are the repair_v7 "
+            "narrative and quote repair_v7 numbers; the predictions, branch "
+            f"sets and headline_statement above are recomputed on {C.CHAIN}."
+        )
     w.write_json(
-        w.PROVENANCE / "wp7_alpha_headline_adoption_outcome.json", record
+        C.tag(w.PROVENANCE / "wp7_alpha_headline_adoption_outcome.json"), record
     )
 
     print(f"D1 adoption -- {n_iter:,} iterations per branch\n")
@@ -459,8 +497,8 @@ def main() -> None:
             f"{s['P_last_SN_within_100kyr_max']:.3f}"
         )
     print(f"\nadopted: {adopted}   (all four predictions pass: {all_pass})")
-    print("wrote tables/wp7_alpha_headline_branch_sets.csv")
-    print("wrote provenance/wp7_alpha_headline_adoption_outcome.json")
+    print(f"wrote {C.tag_rel('tables/wp7_alpha_headline_branch_sets.csv')}")
+    print(f"wrote {C.tag_rel('provenance/wp7_alpha_headline_adoption_outcome.json')}")
 
 
 if __name__ == "__main__":

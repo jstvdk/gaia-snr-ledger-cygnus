@@ -1,7 +1,20 @@
 #!/usr/bin/env python3
-"""Replace frozen nearest-grid masses with versioned posterior summaries."""
+"""Replace frozen nearest-grid masses with versioned posterior summaries.
+
+Inputs (WP3 extinction, WP4 ages) are read at WP_REPAIR_VERSION.  Issue #19:
+the spectroscopic-HRD anchor masses come from an explicitly versioned anchor
+file (--anchor-version), one mass per (family, R_V) branch; the unversioned
+pre-repair wp4_anchor_hrd.parquet is refused.  --output-version lets the
+outputs carry a new version while the inputs stay at WP_REPAIR_VERSION.
+
+Run (repair_v8):
+  WP_REPAIR_VERSION=repair_v5 WP3_ANCHOR_PRIOR_MODE=kriging \
+  PYTHONPATH=scripts python3 scripts/wp4_mass_posteriors_repair.py \
+      --anchor-version repair_v8 --output-version repair_v8
+"""
 from __future__ import annotations
 
+import argparse
 import hashlib
 import json
 import platform
@@ -41,6 +54,22 @@ def sha256(path: Path | str) -> str:
 
 
 def main() -> None:
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--anchor-version", required=True,
+                        help="version of wp4_anchor_hrd_<version>.parquet (required)")
+    parser.add_argument("--output-version", default=REPAIR_VERSION)
+    args = parser.parse_args()
+    output_version = args.output_version
+    anchor_path = PROC / f"wp4_anchor_hrd_{args.anchor_version}.parquet"
+    if not args.anchor_version or not anchor_path.exists():
+        raise SystemExit(
+            f"missing versioned anchor file {anchor_path.name}; the unversioned "
+            "wp4_anchor_hrd.parquet used pre-repair ages (issue #19) and is refused"
+        )
+    output_path = PROC / f"wp4_mass_posteriors_{output_version}.parquet"
+    if output_version != REPAIR_VERSION and output_path.exists():
+        raise SystemExit(f"{output_path.name} exists; nothing is overwritten")
+
     extinction = pd.read_parquet(PROC / f"wp3_extinction_{REPAIR_VERSION}.parquet")
     labels = pd.read_parquet(ROOT / "tables" / "wp2_subgroup_labels.parquet")
     extinction = extinction.drop(columns=["subgroup"], errors="ignore").merge(
@@ -52,7 +81,7 @@ def main() -> None:
     age_posterior = pd.read_parquet(
         PROC / f"wp4_age_posteriors_{REPAIR_VERSION}.parquet"
     )
-    anchor_hrd = pd.read_parquet(PROC / "wp4_anchor_hrd.parquet")
+    anchor_hrd = pd.read_parquet(anchor_path)
     anchor_lookup = anchor_hrd.set_index("source_id")
     av_store = np.load(PROC / f"wp3_extinction_posterior_{REPAIR_VERSION}.npz")
     posterior_source_id = av_store["source_id"].astype("int64")
@@ -79,8 +108,10 @@ def main() -> None:
         spectroscopic_ok = (
             anchor is not None
             and not bool(anchor["extreme_hot"])
-            and np.isfinite(anchor["mass_PARSEC"])
-            and np.isfinite(anchor["mass_MIST"])
+            and all(
+                np.isfinite(anchor[f"mass_{family}_rv{rv:.1f}"])
+                for family, rv in branches
+            )
         )
         record: dict[str, object] = {
             "source_id": source_id,
@@ -88,19 +119,19 @@ def main() -> None:
             "membership_probability": float(row["membership_probability"]),
             "av_method": row["av_method"],
             "mass_method": (
-                "spectroscopic_hrd_frozen"
-                if spectroscopic_ok
-                else "photometric_posterior_repair_v1"
+                "spectroscopic_hrd" if spectroscopic_ok else "photometric_posterior"
             ),
             "is_spectroscopic_anchor": bool(anchor is not None),
         }
         for branch_index, (family, rv) in enumerate(branches):
             column = f"mass_{family}_rv{rv:.1f}"
             if spectroscopic_ok:
+                # issue #19 / D1: the anchor's own mass on THIS branch, read at
+                # this branch's repair-version age and de-reddened M_G0
                 samples = np.full(
-                    MASS_POSTERIOR_DRAWS, float(anchor[f"mass_{family}"])
+                    MASS_POSTERIOR_DRAWS, float(anchor[f"mass_{family}_rv{rv:.1f}"])
                 )
-                age_nodes = np.array([float(anchor[f"age_used_{family}"])])
+                age_nodes = np.array([float(anchor[f"age_used_{family}_rv{rv:.1f}"])])
             else:
                 nodes = age_posterior_nodes(
                     age_posterior, str(row["subgroup"]), family, rv
@@ -137,9 +168,8 @@ def main() -> None:
         rows.append(record)
 
     output = pd.DataFrame(rows)
-    output_path = PROC / f"wp4_mass_posteriors_{REPAIR_VERSION}.parquet"
     output.to_parquet(output_path, index=False)
-    samples_path = PROC / f"wp4_mass_posterior_samples_{REPAIR_VERSION}.npz"
+    samples_path = PROC / f"wp4_mass_posterior_samples_{output_version}.npz"
     np.savez_compressed(
         samples_path,
         source_id=output["source_id"].to_numpy("int64"),
@@ -151,14 +181,16 @@ def main() -> None:
     baseline = output["mass_baseline"].dropna()
     exact_fraction = float(baseline.value_counts(normalize=True).max())
     provenance = {
-        "repair_version": REPAIR_VERSION,
+        "repair_version": output_version,
+        "input_repair_version": REPAIR_VERSION,
+        "anchor_version": args.anchor_version,
         "created_utc": datetime.now(timezone.utc).isoformat(),
         "script": "scripts/wp4_mass_posteriors_repair.py",
         "method": (
             "Monte Carlo posterior propagation of the complete WP3 A_V grid, "
             "G/BP/RP/J/H/Ks photometric errors plus floor, unresolved-binary state and q, "
             "and branch-specific subgroup age posterior; continuous parabolic "
-            "projection on a dense initial-mass grid; frozen spectroscopic HRD override"
+            "projection on a dense initial-mass grid; branch-specific spectroscopic HRD override from the versioned anchor file"
         ),
         "environment": {
             "python": sys.version,
@@ -173,7 +205,7 @@ def main() -> None:
                 f"data/processed/wp3_extinction_{REPAIR_VERSION}.parquet",
                 f"data/processed/wp3_extinction_posterior_{REPAIR_VERSION}.npz",
                 f"data/processed/wp4_age_posteriors_{REPAIR_VERSION}.parquet",
-                "data/processed/wp4_anchor_hrd.parquet",
+                str(anchor_path.relative_to(ROOT)),
                 "data/processed/wp3_isochrones_parsec.parquet",
                 "data/processed/wp3_isochrones_mist.parquet",
                 "tables/wp2_subgroup_labels.parquet",
@@ -202,10 +234,10 @@ def main() -> None:
             "members": int(len(output)),
             "finite_baseline_mass": int(output["mass_baseline"].notna().sum()),
             "spectroscopic_hrd_overrides": int(
-                output["mass_method"].eq("spectroscopic_hrd_frozen").sum()
+                output["mass_method"].eq("spectroscopic_hrd").sum()
             ),
             "photometric_posteriors": int(
-                output["mass_method"].eq("photometric_posterior_repair_v1").sum()
+                output["mass_method"].eq("photometric_posterior").sum()
             ),
             "baseline_between_2p5_3p2": int(
                 output["mass_baseline"].between(2.5, 3.2).sum()
@@ -229,7 +261,11 @@ def main() -> None:
         },
         "frozen_outputs_overwritten": False,
     }
-    provenance_path = ROOT / "provenance" / "wp4_mass_repair_execution.json"
+    provenance_path = ROOT / "provenance" / (
+        "wp4_mass_repair_execution.json"
+        if output_version == REPAIR_VERSION
+        else f"wp4_mass_repair_execution_{output_version}.json"
+    )
     temporary = provenance_path.with_suffix(".json.tmp")
     temporary.write_text(json.dumps(provenance, indent=2) + "\n", encoding="utf-8")
     temporary.replace(provenance_path)

@@ -1,5 +1,5 @@
 {
-  "created_utc": "2026-08-04T15:41:21+00:00",
+  "created_utc": "2026-10-01T14:20:03+00:00",
   "script": "scripts/wp10_validate.py",
   "item": "WP10 gate",
   "python": "3.11.15",
@@ -12,8 +12,8 @@
   "V5_missing_figures": [],
   "V6_forbidden_input_audit": true,
   "V7_bare_numbers": [],
-  "macros_defined": 212,
-  "macros_used": 212,
+  "macros_defined": 216,
+  "macros_used": 216,
   "bib_entries": 29,
   "bib_entries_uncited": [],
   "figures_referenced": 11,

@@ -17,6 +17,15 @@ Run:
   WP_REPAIR_VERSION=repair_v3 WP3_ANCHOR_PRIOR_MODE=variogram \
   PYTHONPATH=scripts python3 scripts/wp5_fit_imf_joint.py \
       --upstream-version repair_v3 --wp5-version repair_v4
+
+Issue #19 (repair_v8) splits --upstream-version into the three things it used
+to fix at once: the WP4 masses (--mass-version), the WP4 age posterior
+(--age-version) and the injection node responses (--response-version).  Each
+defaults to its old meaning, so earlier invocations are unchanged:
+  PYTHONPATH=scripts python3 scripts/wp5_fit_imf_joint.py \
+      --upstream-version repair_v5 --mass-version repair_v8 \
+      --response-version repair_v7 --wp5-version repair_v8 \
+      --compare-version repair_v7
 """
 from __future__ import annotations
 
@@ -83,11 +92,20 @@ def main() -> None:
             "defaults to the upstream version when it has one on disk"
         ),
     )
+    parser.add_argument("--mass-version", default=None,
+                        help="WP4 mass posteriors; defaults to --upstream-version")
+    parser.add_argument("--age-version", default=None,
+                        help="WP4 age posteriors; defaults to --upstream-version")
+    parser.add_argument("--response-version", default=None,
+                        help="injection node responses; defaults to --wp5-version")
     args = parser.parse_args()
     upstream = args.upstream_version
     version = args.wp5_version
+    mass_version = args.mass_version or upstream
+    age_version = args.age_version or upstream
+    response_version = args.response_version or version
 
-    masses_input = w.PROC / f"wp4_mass_posteriors_{upstream}.parquet"
+    masses_input = w.PROC / f"wp4_mass_posteriors_{mass_version}.parquet"
     masses = pd.read_parquet(masses_input)
     # Legacy single-age WP5 products exist only for upstream versions that had a
     # non-node injection run; a node-only version (repair_v5 onward) has none.
@@ -99,8 +117,8 @@ def main() -> None:
     stored_responses = (
         pd.read_parquet(response_input) if response_input.exists() else None
     )
-    age_posterior = pd.read_parquet(w.PROC / f"wp4_age_posteriors_{upstream}.parquet")
-    sample_store = np.load(w.PROC / f"wp4_mass_posterior_samples_{upstream}.npz")
+    age_posterior = pd.read_parquet(w.PROC / f"wp4_age_posteriors_{age_version}.parquet")
+    sample_store = np.load(w.PROC / f"wp4_mass_posterior_samples_{mass_version}.npz")
     if not np.array_equal(
         sample_store["source_id"].astype("int64"),
         masses["source_id"].to_numpy("int64"),
@@ -110,10 +128,10 @@ def main() -> None:
     if stored_responses is not None:
         probe_columns = stored_responses.columns
     else:
-        probe = sorted(w.PROC.glob(f"wp5_agenode_*_{version}_response.parquet"))
+        probe = sorted(w.PROC.glob(f"wp5_agenode_*_{response_version}_response.parquet"))
         if not probe:
             raise RuntimeError(
-                f"no node responses found for {version}; run "
+                f"no node responses found for {response_version}; run "
                 "scripts/wp5_injections_agenodes.py first"
             )
         probe_columns = pd.read_parquet(probe[0]).columns
@@ -123,7 +141,7 @@ def main() -> None:
     if not draw_columns:
         raise RuntimeError("response lacks mass-posterior draw columns")
     native = {family: J.native_isochrone_ages(family) for family in w.FAMILIES}
-    interpolate = J.uses_age_interpolation(version)
+    interpolate = J.uses_age_interpolation(response_version)
 
     summaries = []
     bin_tables = []
@@ -145,7 +163,7 @@ def main() -> None:
                     snap=not interpolate,
                 )
                 curves, responses, sources = load_nodes(
-                    subgroup, family, rv, prior, version,
+                    subgroup, family, rv, prior, response_version,
                     stored_curves, stored_responses,
                 )
                 node_sources[f"{subgroup}|{family}|rv{rv:.1f}"] = sources
@@ -364,6 +382,9 @@ def main() -> None:
         "created_utc": datetime.now(timezone.utc).isoformat(),
         "script": "scripts/wp5_fit_imf_joint.py",
         "upstream_repair_version": upstream,
+        "wp4_mass_version": mass_version,
+        "wp4_age_version": age_version,
+        "response_version": response_version,
         "wp5_version": version,
         "status": (
             "WP5_REPAIR_BASELINE_ACCEPTED"
@@ -408,7 +429,8 @@ def main() -> None:
             str(path.relative_to(w.ROOT)): w.sha256(path)
             for path in [
                 masses_input,
-                w.PROC / f"wp4_age_posteriors_{upstream}.parquet",
+                w.PROC / f"wp4_mass_posterior_samples_{mass_version}.npz",
+                w.PROC / f"wp4_age_posteriors_{age_version}.parquet",
                 curves_input,
                 response_input,
                 previous_path,
@@ -418,7 +440,7 @@ def main() -> None:
         "node_response_inputs": {
             str(path.relative_to(w.ROOT)): w.sha256(path)
             for path in sorted(
-                w.PROC.glob(f"wp5_agenode_*_{version}_response.parquet")
+                w.PROC.glob(f"wp5_agenode_*_{response_version}_response.parquet")
             )
         },
         "node_response_sources": node_sources,

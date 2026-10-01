@@ -52,6 +52,7 @@ from datetime import datetime, timezone
 import numpy as np
 import pandas as pd
 
+import chain as C
 import wp5_common as w
 
 
@@ -86,7 +87,7 @@ def main() -> None:
 
     closure_csv = w.TABLES / f"wp6_closure{suffix}.csv"
     closure = pd.read_csv(closure_csv)
-    census = pd.read_csv(w.TABLES / "wp6_massive_census.csv")
+    census = pd.read_csv(C.tag(w.TABLES / "wp6_massive_census.csv"))
     runaways = json.loads(
         (w.PROVENANCE / "wp6_runaways_execution.json").read_text(encoding="utf-8")
     )
@@ -175,7 +176,7 @@ def main() -> None:
             str(path.relative_to(w.ROOT)): w.sha256(path)
             for path in [
                 closure_csv,
-                w.TABLES / "wp6_massive_census.csv",
+                C.tag(w.TABLES / "wp6_massive_census.csv"),
             ]
         },
         "alpha_dependence": {

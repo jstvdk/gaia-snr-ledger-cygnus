@@ -44,13 +44,14 @@ from datetime import datetime, timezone
 import numpy as np
 import pandas as pd
 
+import chain as C
 import wp5_common as w
 import wp5_joint_age_fit as J
 from wp6_mass_extension_decision import IMF_UPPER_LIMIT, turnoff_mass
 from wp6_massive_injections import response_path as extension_path
 
 WP5_VERSION = "repair_v6"
-UPSTREAM = "repair_v5"
+UPSTREAM = C.V["wp4_ages"]     # the age posterior; chain-declared (issue #19)
 SN_THRESHOLD_MSUN = 8.0
 
 # Issue #17.  The integral's lower bound is NOT the supernova threshold.  The
@@ -124,14 +125,23 @@ def main() -> None:
             "to reproduce the withdrawn pre-fix numbers."
         ),
     )
+    parser.add_argument(
+        "--response-version", default=None,
+        help=(
+            "injection responses (WP5 nodes and WP6 extension); defaults to "
+            "--wp5-version.  repair_v8 reuses the repair_v7 responses (issue #19)."
+        ),
+    )
     args = parser.parse_args()
     version = args.wp5_version
+    response_version = args.response_version or version
     floor = float(args.integration_floor)
+    census_path = C.tag(w.TABLES / "wp6_massive_census.csv")
 
     normalization = pd.read_parquet(
         w.PROC / f"wp5_imf_normalization_{version}.parquet"
     )
-    census = pd.read_csv(w.TABLES / "wp6_massive_census.csv")
+    census = pd.read_csv(census_path)
     age_posterior = pd.read_parquet(
         w.PROC / f"wp4_age_posteriors_{UPSTREAM}.parquet"
     )
@@ -143,7 +153,7 @@ def main() -> None:
             for subgroup in w.SUBGROUPS:
                 prior = J.truth_age_nodes(
                     age_posterior, subgroup, family, rv, native[family],
-                    snap=not J.uses_age_interpolation(version),
+                    snap=not J.uses_age_interpolation(response_version),
                 )
                 # Node-weighted response over the closure window.  Each node has
                 # its own turnoff, so the window edge is marginalized over the
@@ -152,8 +162,12 @@ def main() -> None:
                 # through the same door.
                 node_masses, node_above, node_weights, node_turnoffs = [], [], [], []
                 for age, weight in prior.items():
-                    base = J.node_response_path(subgroup, family, rv, age, version)
-                    extension = extension_path(subgroup, family, rv, age, version)
+                    base = J.node_response_path(
+                        subgroup, family, rv, age, response_version
+                    )
+                    extension = extension_path(
+                        subgroup, family, rv, age, response_version
+                    )
                     if not base.exists() or not extension.exists():
                         raise RuntimeError(
                             f"missing response for {subgroup}/{family}/R_V={rv} "
@@ -267,7 +281,8 @@ def main() -> None:
         "status": "SUCCESS",
         "work_package": "WP6 steps 1-2",
         "wp5_version": version,
-        "truth_binary_fraction_model": extension_fbin_model(version),
+        "response_version": response_version,
+        "truth_binary_fraction_model": extension_fbin_model(response_version),
         "integration_floor_Msun": floor,
         "estimator": (
             f"predicted observed = k * integral[{floor:g}, M_turnoff] dM "
@@ -309,7 +324,7 @@ def main() -> None:
             str(path.relative_to(w.ROOT)): w.sha256(path)
             for path in [
                 w.PROC / f"wp5_imf_normalization_{version}.parquet",
-                w.TABLES / "wp6_massive_census.csv",
+                census_path,
                 w.PROC / f"wp4_age_posteriors_{UPSTREAM}.parquet",
             ]
         },

@@ -1,0 +1,5 @@
+version,retained_rows,retained_pms_rows,map_min_Myr,map_max_Myr
+unversioned_pre_repair,104,38,2.25,5.67
+repair_v1,66,0,1.78,4.5
+repair_v3,66,0,2.0,4.5
+repair_v5,66,0,2.0,4.01

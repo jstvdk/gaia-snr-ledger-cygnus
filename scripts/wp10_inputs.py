@@ -26,11 +26,17 @@ import sys
 from datetime import datetime, timezone
 from pathlib import Path
 
+import chain as C
 import wp5_common as w
 
-WP5_VERSION = "repair_v7"
+# Versions come from the active chain (scripts/chain.py).  repair_v7 is the
+# chain whose WP6-WP12 products carry no suffix; on repair_v8 (issue #19) the
+# same logical inputs resolve to their _repair_v8 siblings via C.tag.
+WP5_VERSION = C.V["wp5"]
 WP5_REPORT_VERSION = "repair_v6"   # the accepted gate record; v7 re-passed it
-WP3_WP4_VERSION = "repair_v5"
+WP3_WP4_VERSION = C.V["wp4_ages"]
+WP4_MASS_VERSION = C.V["wp4_masses"]
+T = C.tag_rel
 
 # --------------------------------------------------------------- authorized
 # Logical name -> path relative to the repository root.  Every WP5/WP6 entry is
@@ -48,7 +54,7 @@ MANUSCRIPT_INPUTS: dict[str, str] = {
     "wp3_extinction": f"data/processed/wp3_extinction_{WP3_WP4_VERSION}.parquet",
     # WP4 -- repaired
     "wp4_age_posteriors": f"data/processed/wp4_age_posteriors_{WP3_WP4_VERSION}.parquet",
-    "wp4_masses": f"data/processed/wp4_mass_posteriors_{WP3_WP4_VERSION}.parquet",
+    "wp4_masses": f"data/processed/wp4_mass_posteriors_{WP4_MASS_VERSION}.parquet",
     # WP5 -- repaired twice; the normalization consumed downstream is v7
     "wp5_normalization": f"data/processed/wp5_imf_normalization_{WP5_VERSION}.parquet",
     "wp5_posterior_draws": f"data/processed/wp5_imf_posterior_draws_{WP5_VERSION}.npz",
@@ -56,49 +62,49 @@ MANUSCRIPT_INPUTS: dict[str, str] = {
     "wp5_imf_norm_table": f"tables/wp5_imf_norm_{WP5_REPORT_VERSION}.csv",
     "wp5_baseline_residuals": f"tables/wp5_baseline_residuals_{WP5_REPORT_VERSION}.csv",
     "wp5_gate_record": f"provenance/wp5_{WP5_REPORT_VERSION}_gate.json",
-    "wp5_association_mass_reconciliation": "tables/wp5_association_mass_reconciliation.csv",
-    # WP6 -- closure re-run under repair_v7
-    "wp6_closure": "tables/wp6_closure_repair_v7.csv",
-    "wp6_closure_attribution": "tables/wp6_closure_attribution_repair_v7.csv",
-    "wp6_massive_census": "tables/wp6_massive_census.csv",
+    "wp5_association_mass_reconciliation": T("tables/wp5_association_mass_reconciliation.csv"),
+    # WP6 -- closure re-run under repair_v7, and again under repair_v8
+    "wp6_closure": f"tables/wp6_closure_{WP5_VERSION}.csv",
+    "wp6_closure_attribution": f"tables/wp6_closure_attribution_{WP5_VERSION}.csv",
+    "wp6_massive_census": T("tables/wp6_massive_census.csv"),
     "wp6_runaways": "tables/wp6_runaways.csv",
     "wp6_runaway_crossmatch": "tables/wp6_runaway_crossmatch.csv",
-    "wp6_orphan_anchors": "tables/wp6_orphan_anchors.csv",
+    "wp6_orphan_anchors": T("tables/wp6_orphan_anchors.csv"),
     "wp6_external_crosschecks": "tables/wp6_external_crosschecks.csv",
     # WP7-WP9 -- single versions, all computed on the repair_v7 chain
-    "wp7_ledger": "tables/wp7_ledger.csv",
-    "wp7_rsn_curves": "tables/wp7_rsn_curves.csv",
-    "wp7_age_sensitivity": "tables/wp7_age_sensitivity.csv",
-    "wp7_bh_threshold_scan": "tables/wp7_bh_threshold_scan.csv",
-    "wp7_convergence": "tables/wp7_convergence.csv",
-    "wp8_crosschecks": "tables/wp8_crosschecks.csv",
-    "wp8_tension_list": "tables/wp8_tension_list.csv",
-    "wp9_verdict": "tables/wp9_verdict.csv",
-    "wp9_sensitivity": "tables/wp9_sensitivity.csv",
+    "wp7_ledger": T("tables/wp7_ledger.csv"),
+    "wp7_rsn_curves": T("tables/wp7_rsn_curves.csv"),
+    "wp7_age_sensitivity": T("tables/wp7_age_sensitivity.csv"),
+    "wp7_bh_threshold_scan": T("tables/wp7_bh_threshold_scan.csv"),
+    "wp7_convergence": T("tables/wp7_convergence.csv"),
+    "wp8_crosschecks": T("tables/wp8_crosschecks.csv"),
+    "wp8_tension_list": T("tables/wp8_tension_list.csv"),
+    "wp9_verdict": T("tables/wp9_verdict.csv"),
+    "wp9_sensitivity": T("tables/wp9_sensitivity.csv"),
     # WP11 Part B -- post-hoc, pre-registered before scoring.  Registered here
     # deliberately: these are the ONLY post-WP1 comparisons in the manuscript
     # and the text must disclose that where it quotes them.
-    "wp11_isotope_forecast": "tables/wp11_isotope_forecast.csv",
-    "wp11_isotope_summary": "tables/wp11_isotope_summary.csv",
+    "wp11_isotope_forecast": T("tables/wp11_isotope_forecast.csv"),
+    "wp11_isotope_summary": T("tables/wp11_isotope_summary.csv"),
     # WP12 -- the manuscript-revision analysis.  Read-only over the frozen
     # repair_v7 chain; see provenance/wp12_revision_prereg.json.
-    "wp12_gate_map": "tables/wp12_wp5_gate_map.csv",
-    "wp12_combination_gate": "tables/wp12_combination_gate.csv",
-    "wp12_branch_gate_table": "tables/wp12_branch_gate_table.csv",
-    "wp12_closure_by_alpha": "tables/wp12_closure_by_alpha.csv",
-    "wp12_closing_slopes": "tables/wp12_closing_slopes.csv",
-    "wp12_mixed_slope_ledger": "tables/wp12_mixed_slope_ledger.csv",
-    "wp12_c4_scan": "tables/wp12_c4_scan.csv",
-    "wp12_c3_subtype": "tables/wp12_c3_subtype.csv",
-    "wp12_scenario_score": "tables/wp12_scenario_score.csv",
-    "wp12_neighbour_budget": "tables/wp12_neighbour_budget.csv",
-    "wp12_cavity_share": "tables/wp12_cavity_share.csv",
+    "wp12_gate_map": T("tables/wp12_wp5_gate_map.csv"),
+    "wp12_combination_gate": T("tables/wp12_combination_gate.csv"),
+    "wp12_branch_gate_table": T("tables/wp12_branch_gate_table.csv"),
+    "wp12_closure_by_alpha": T("tables/wp12_closure_by_alpha.csv"),
+    "wp12_closing_slopes": T("tables/wp12_closing_slopes.csv"),
+    "wp12_mixed_slope_ledger": T("tables/wp12_mixed_slope_ledger.csv"),
+    "wp12_c4_scan": T("tables/wp12_c4_scan.csv"),
+    "wp12_c3_subtype": T("tables/wp12_c3_subtype.csv"),
+    "wp12_scenario_score": T("tables/wp12_scenario_score.csv"),
+    "wp12_neighbour_budget": T("tables/wp12_neighbour_budget.csv"),
+    "wp12_cavity_share": T("tables/wp12_cavity_share.csv"),
     # pre-WP10 work
-    "age_reconciliation": "tables/wp4_wp5_age_reconciliation.csv",
-    "alpha_headline_branch_sets": "tables/wp7_alpha_headline_branch_sets.csv",
-    "binary_bound": "tables/wp7_binary_bound.csv",
-    "binary_bound_branches": "tables/wp7_binary_bound_branches.csv",
-    "binary_bound_harer_fig2": "tables/wp7_binary_bound_harer_fig2.csv",
+    "age_reconciliation": T("tables/wp4_wp5_age_reconciliation.csv"),
+    "alpha_headline_branch_sets": T("tables/wp7_alpha_headline_branch_sets.csv"),
+    "binary_bound": T("tables/wp7_binary_bound.csv"),
+    "binary_bound_branches": T("tables/wp7_binary_bound_branches.csv"),
+    "binary_bound_harer_fig2": T("tables/wp7_binary_bound_harer_fig2.csv"),
 }
 
 # ---------------------------------------------------------------- forbidden
@@ -140,7 +146,57 @@ FORBIDDEN: dict[str, str] = {
     "data/processed/wp2_members_failed_20260722.parquet": (
         "the rejected 2026-07-22 membership run"
     ),
+    # issue #19 -- the pre-repair WP4 run of 2026-07-23
+    "data/processed/wp4_age_posteriors.parquet": (
+        "issue #19 -- unversioned pre-repair WP4 age posterior; source of the "
+        "withdrawn 2.25-5.67 Myr 'two-indicator' envelope.  Use "
+        "wp4_age_posteriors_repair_v5.parquet"
+    ),
+    "data/processed/wp4_anchor_hrd.parquet": (
+        "issue #19 -- anchor masses read at the pre-repair ages and copied onto "
+        "every R_V branch.  Use wp4_anchor_hrd_repair_v8.parquet"
+    ),
+    "tables/wp4_ages_envelope.md": (
+        "issue #19 -- pre-repair WP4 envelope table (2.25-5.67 Myr, PMS rows)"
+    ),
+    "tables/wp4_ages_table.md": (
+        "issue #19 -- pre-repair WP4 age table"
+    ),
 }
+
+# Once a later chain is active, the repair_v7 products it supersedes may not be
+# quoted (CLAUDE.md rule 4).  They stay on disk; only the manuscript is barred.
+SUPERSEDED_BY_LATER_CHAIN = [
+    "data/processed/wp4_mass_posteriors_repair_v5.parquet",
+    "data/processed/wp5_imf_normalization_repair_v7.parquet",
+    "data/processed/wp5_imf_posterior_draws_repair_v7.npz",
+    "data/processed/wp5_association_mass_repair_v7.parquet",
+    "tables/wp6_closure_repair_v7.csv",
+    "tables/wp6_closure_attribution_repair_v7.csv",
+    "tables/wp6_massive_census.csv",
+    "tables/wp6_orphan_anchors.csv",
+    "tables/wp7_ledger.csv",
+    "tables/wp7_rsn_curves.csv",
+    "tables/wp7_age_sensitivity.csv",
+    "tables/wp7_bh_threshold_scan.csv",
+    "tables/wp7_convergence.csv",
+    "tables/wp7_alpha_headline_branch_sets.csv",
+    "tables/wp7_binary_bound.csv",
+    "tables/wp7_binary_bound_branches.csv",
+    "tables/wp8_crosschecks.csv",
+    "tables/wp8_tension_list.csv",
+    "tables/wp9_verdict.csv",
+    "tables/wp9_sensitivity.csv",
+    "tables/wp11_isotope_forecast.csv",
+    "tables/wp11_isotope_summary.csv",
+    "tables/wp4_wp5_age_reconciliation.csv",
+]
+if C.CHAIN != C.LEGACY:
+    for _rel in SUPERSEDED_BY_LATER_CHAIN:
+        FORBIDDEN[_rel] = (
+            f"superseded by {C.CHAIN} (issue #19: anchor masses at pre-repair "
+            "ages); preserved on disk, not quotable"
+        )
 
 # Files whose text is scanned for forbidden references by audit().
 AUDITED_GLOBS = ("manuscript/**/*.tex", "manuscript/**/*.md", "manuscript/**/*.py")

@@ -1,0 +1,47 @@
+quantity,repair_v7,repair_v8,change,source
+"N_death baseline, association",8.435,8.36,-0.07500000000000107,wp7_ledger
+"N_death baseline, CygOB2-A",4.17,4.095,-0.07500000000000018,wp7_ledger
+"N_death baseline, CygOB2-B",4.265,4.265,0.0,wp7_ledger
+"N_death baseline, CygOB2-C",0.0,0.0,0.0,wp7_ledger
+P(>=1 event) baseline,0.9997,0.9996,-9.999999999998899e-05,wp7_ledger
+P(last < 100 kyr) baseline,0.5518,0.547,-0.0047999999999999154,wp7_ledger
+"N_death min, 36 headline branches",5.63,5.57,-0.05999999999999961,wp7_ledger
+"N_death max, 36 headline branches",28.74,28.74,0.0,wp7_ledger
+"N_death median, 36 headline branches",13.29,13.16,-0.129999999999999,wp7_ledger
+"N_death min, all 54 branches",1.93,1.94,0.010000000000000009,wp7_ledger
+"N_death max, all 54 branches",28.74,28.74,0.0,wp7_ledger
+"N_death median, all 54 branches",8.79,8.72,-0.06999999999999851,wp7_ledger
+"k_median baseline, CygOB2-A",1734.0,1692.3,-41.700000000000045,wp5_imf_normalization
+"age posterior mean baseline, CygOB2-A (Myr)",4.0,4.007,0.006999999999999673,wp5_imf_normalization
+"k_median baseline, CygOB2-B",1647.5,1647.5,0.0,wp5_imf_normalization
+"age posterior mean baseline, CygOB2-B (Myr)",4.086,4.086,0.0,wp5_imf_normalization
+"k_median baseline, CygOB2-C",1893.7,1893.6,-0.10000000000013642,wp5_imf_normalization
+"age posterior mean baseline, CygOB2-C (Myr)",2.517,2.517,0.0,wp5_imf_normalization
+WP5 cells passing residual gate (of 54),40,40,0.0,wp5_imf_normalization
+association stellar mass baseline (Msun),29246.0,29014.0,-232.0,wp5_association_mass
+WP5 gate G3 pass,True,False,,wp5_imf_fit_execution
+closure grid median at alpha 2.3 (18 cells),1.067,1.073,0.006000000000000005,wp6_closure
+"closure ratio baseline, CygOB2-A",0.865,1.006,0.14100000000000001,wp6_closure
+"closure ratio baseline, CygOB2-B",1.068,1.068,0.0,wp6_closure
+"closure ratio baseline, CygOB2-C",1.36,1.36,0.0,wp6_closure
+"closing slope grid median, CygOB2-A",2.336,2.289,-0.04699999999999971,wp12_closure_slopes_execution
+"closing slope grid median, CygOB2-B",2.254,2.254,0.0,wp12_closure_slopes_execution
+"closing slope grid median, CygOB2-C",2.056,2.051,-0.004999999999999893,wp12_closure_slopes_execution
+"closing slope grid median, association",2.197,2.186,-0.01100000000000012,wp12_closure_slopes_execution
+"star-weighted association closure, grid median at 2.3",1.154,1.1713,0.017300000000000093,wp12_closure_slopes_execution
+"census above 8 Msun (probabilistic), CygOB2-A",59.41,67.41,8.0,wp6_massive_census
+"census above 8 Msun (thresholded), CygOB2-A",57,65,8.0,wp6_massive_census
+"census above 8 Msun (probabilistic), CygOB2-B",79.55,79.55,0.0,wp6_massive_census
+"census above 8 Msun (thresholded), CygOB2-B",75,75,0.0,wp6_massive_census
+"census above 8 Msun (probabilistic), CygOB2-C",107.44,107.44,0.0,wp6_massive_census
+"census above 8 Msun (thresholded), CygOB2-C",109,109,0.0,wp6_massive_census
+living ledger above 8 Msun,380.58,388.58,8.0,wp6_ledger_execution
+P_verdict_min,0.3233,0.3232,-9.999999999998899e-05,wp9_verdict_execution
+P_verdict_median,0.5335,0.5332,-0.00029999999999996696,wp9_verdict_execution
+P_verdict_max,0.7355,0.7326,-0.0029000000000000137,wp9_verdict_execution
+WP9 verdict,INCONCLUSIVE,INCONCLUSIVE,,wp9_verdict_execution
+headline cells passing (of 36),27,25,-2.0,wp12_gate_landscape_execution
+headline combinations passing all subgroups (of 12),5,5,0.0,wp12_gate_landscape_execution
+headline branches on all-passing cells (of 36),15,15,0.0,wp12_gate_landscape_execution
+"branches with P_verdict > 0.5, alpha_2 (of 18)",18,18,0.0,wp12_gate_landscape_execution
+"branches with P_verdict > 0.5, alpha_2.3 (of 18)",0,0,0.0,wp12_gate_landscape_execution

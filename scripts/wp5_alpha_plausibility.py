@@ -27,16 +27,17 @@ from datetime import datetime, timezone
 import numpy as np
 import pandas as pd
 
+import chain as C
 import wp5_common as w
 from wp5_alpha_plausibility_prereg import CHI_SQUARE_DOF
 
-WP5_VERSION = "repair_v7"
+WP5_VERSION = C.V["wp5"]   # chain-declared (issue #19)
 
 
 def main() -> None:
     norm = pd.read_parquet(w.PROC / f"wp5_imf_normalization_{WP5_VERSION}.parquet")
     closure = pd.read_csv(w.TABLES / f"wp6_closure_{WP5_VERSION}.csv")
-    ledger = pd.read_csv(w.TABLES / "wp7_ledger.csv")
+    ledger = pd.read_csv(C.tag(w.TABLES / "wp7_ledger.csv"))
 
     # ---- E1: calibration-window chi-square, per cell -----------------------
     e1 = norm.pivot_table(
@@ -86,7 +87,7 @@ def main() -> None:
                 }
             )
     table = pd.DataFrame(rows)
-    table.to_csv(w.TABLES / "wp5_alpha_plausibility.csv", index=False)
+    table.to_csv(C.tag(w.TABLES / "wp5_alpha_plausibility.csv"), index=False)
 
     # ---- per-subgroup preference, for prediction A2 ------------------------
     per_subgroup = {}
@@ -156,7 +157,7 @@ def main() -> None:
             }
         )
     pd.DataFrame(candidates).to_csv(
-        w.TABLES / "wp5_alpha_candidate_sets.csv", index=False
+        C.tag(w.TABLES / "wp5_alpha_candidate_sets.csv"), index=False
     )
 
     # ---- score the pre-registered predictions ------------------------------
@@ -292,13 +293,13 @@ def main() -> None:
         "outputs": {
             str(path.relative_to(w.ROOT)): w.sha256(path)
             for path in [
-                w.TABLES / "wp5_alpha_plausibility.csv",
-                w.TABLES / "wp5_alpha_candidate_sets.csv",
+                C.tag(w.TABLES / "wp5_alpha_plausibility.csv"),
+                C.tag(w.TABLES / "wp5_alpha_candidate_sets.csv"),
             ]
         },
     }
     w.write_json(
-        w.PROVENANCE / "wp5_alpha_plausibility_execution.json", record
+        C.tag(w.PROVENANCE / "wp5_alpha_plausibility_execution.json"), record
     )
 
     print("alpha plausibility — measured, nothing acted on\n")
@@ -324,7 +325,7 @@ def main() -> None:
     print("\n  predictions:")
     for entry in record["predictions"]:
         print(f"     {entry['id']}  {entry['outcome']}")
-    print("\nwrote provenance/wp5_alpha_plausibility_execution.json")
+    print(f"\nwrote {C.tag_rel('provenance/wp5_alpha_plausibility_execution.json')}")
 
 
 if __name__ == "__main__":

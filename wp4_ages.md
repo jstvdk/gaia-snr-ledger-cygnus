@@ -1,5 +1,20 @@
 # WP4 — Subgroup ages and per-star masses
 
+> **SUPERSEDED IN PART 2026-10-01 — issue #19.** The narrative of this report
+> describes the **pre-repair** WP4 run of 2026-07-23 (unversioned
+> `wp4_age_posteriors.parquet`, now refused by `wp10_inputs`). On the chain's
+> age posterior, `wp4_age_posteriors_repair_v5.parquet`, **no PMS row is
+> retained** (n = 15, 4, 3 stars, all grid-railed) and the retained upper-MS
+> envelope is **2.00–4.01 Myr** (66 rows). Withdrawn, not to be quoted: the
+> "2.25–5.67 Myr envelope across both retained age indicators"; "A's upper MS
+> is ~1.5 Myr older than its PMS → extended star formation" (§5, §9); "B's
+> high-R_V PMS branch reaches 5.67 Myr" (§3, §10). The two generated tables in
+> §2–§3 below now show repair_v5 (`scripts/wp4_report.py --version repair_v5`);
+> the surrounding text does not. The anchor masses of §7 were read at these
+> pre-repair ages and are replaced by `wp4_anchor_hrd_repair_v8.parquet`.
+> See `tasks/issue19_stale_wp4_inputs_brief.md` and
+> `reports/issue19_completion_report.md`.
+
 **Status:** WP4_COMPLETE — gate satisfied with documented indicator disagreement and subgroup-B anchor limitation (see §10).
 **Date:** 2026-07-23 · DR3 · distance fixed at **1.6245 ± 0.045 kpc** (μ = 11.054, single population).
 **Isochrones:** the frozen WP3 grids (`wp3_isochrones_parsec.parquet`, `wp3_isochrones_mist.parquet`), solar Z, 1–10 Myr, Gaia G/BP/RP + 2MASS JHK — identical files used by WP3 (plan consistency requirement; not refetched).
@@ -51,18 +66,18 @@ Both age indicators, both isochrone families, per subgroup, with 68% credible in
 <!-- BEGIN GENERATED:BASELINE_AGES -->
 | Subgroup | Indicator | Family | Age MAP (Myr) | 68% CI | n | Measurable |
 |---|---|---|---|---|---|---|
-| CygOB2-A | ums | PARSEC | 4.47 | [4.41, 4.49] | 337 | yes |
-| CygOB2-A | ums | MIST | 3.57 | [3.56, 3.59] | 337 | yes |
-| CygOB2-A | pms | PARSEC | 3.16 | [2.88, 3.56] | 37 | yes |
-| CygOB2-A | pms | MIST | 2.52 | [2.31, 3.12] | 37 | yes |
-| CygOB2-B | ums | PARSEC | 3.98 | [3.93, 4.00] | 333 | yes |
-| CygOB2-B | ums | MIST | 3.57 | [3.56, 3.61] | 333 | yes |
-| CygOB2-B | pms | PARSEC | 3.55 | [3.31, 3.93] | 31 | yes |
-| CygOB2-B | pms | MIST | 3.57 | [2.87, 3.63] | 31 | yes |
-| CygOB2-C | ums | PARSEC | 3.98 | [3.90, 3.99] | 396 | yes |
-| CygOB2-C | ums | MIST | 3.57 | [3.54, 3.58] | 396 | yes |
-| CygOB2-C | pms | PARSEC | 1.78 | [1.39, 2.65] | 3 | **no (n_stars_below_15)** |
-| CygOB2-C | pms | MIST | 1.78 | [1.31, 2.55] | 3 | **no (n_stars_below_15)** |
+| CygOB2-A | ums | PARSEC | 3.98 | [3.81, 4.06] | 416 | yes |
+| CygOB2-A | ums | MIST | 4.01 | [3.98, 4.12] | 416 | yes |
+| CygOB2-A | pms | PARSEC | 10.00 | [8.20, 9.85] | 12 | **no (n_stars_below_15;grid_railed)** |
+| CygOB2-A | pms | MIST | 10.12 | [8.61, 10.02] | 12 | **no (n_stars_below_15;grid_railed)** |
+| CygOB2-B | ums | PARSEC | 3.55 | [3.39, 3.99] | 394 | yes |
+| CygOB2-B | ums | MIST | 4.01 | [3.47, 4.04] | 394 | yes |
+| CygOB2-B | pms | PARSEC | 1.12 | [1.26, 5.71] | 4 | **no (n_stars_below_15;grid_railed)** |
+| CygOB2-B | pms | MIST | 1.12 | [1.27, 6.56] | 4 | **no (n_stars_below_15;grid_railed)** |
+| CygOB2-C | ums | PARSEC | 2.51 | [2.47, 2.56] | 412 | yes |
+| CygOB2-C | ums | MIST | 3.18 | [3.10, 3.25] | 412 | yes |
+| CygOB2-C | pms | PARSEC | 10.00 | [1.59, 7.39] | 2 | **no (n_stars_below_15;grid_railed)** |
+| CygOB2-C | pms | MIST | 10.12 | [1.59, 7.56] | 2 | **no (n_stars_below_15;grid_railed)** |
 <!-- END GENERATED:BASELINE_AGES -->
 
 **Read the credible intervals correctly.** The upper-MS 68% intervals are *tiny* (±0.05 Myr) because they are the **internal statistical precision** of 330–400 membership-weighted stars — they deliberately do **not** include isochrone-calibration or distance systematics. The honest age uncertainty is the **branch envelope** (§3), which is ~±1 Myr and dominates. Reporting the narrow statistical CI as if it were the total uncertainty would be dishonest; it is quoted here only as the internal precision.
@@ -76,18 +91,20 @@ MAP range and 68%-CI union across R_V × f_bin × distance, per subgroup / indic
 <!-- BEGIN GENERATED:AGE_ENVELOPE -->
 | Subgroup | Indicator | Family | MAP range (Myr) | 68% CI union |
 |---|---|---|---|---|
-| CygOB2-A | ums | PARSEC | [3.98, 4.47] | [3.97, 4.75] |
-| CygOB2-A | ums | MIST | [3.57, 4.50] | [3.56, 4.51] |
-| CygOB2-A | pms | PARSEC | [2.82, 3.55] | [2.55, 3.94] |
-| CygOB2-A | pms | MIST | [2.25, 3.57] | [2.19, 3.58] |
-| CygOB2-B | ums | PARSEC | [3.55, 3.98] | [3.51, 4.01] |
-| CygOB2-B | ums | MIST | [3.57, 4.01] | [3.55, 3.97] |
-| CygOB2-B | pms | PARSEC | [3.16, 5.01] | [2.87, 5.52] |
-| CygOB2-B | pms | MIST | [2.52, 5.67] | [2.33, 5.87] |
-| CygOB2-C | ums | PARSEC | [3.16, 3.98] | [3.14, 4.02] |
-| CygOB2-C | ums | MIST | [3.57, 3.57] | [3.45, 3.58] |
+| CygOB2-A | ums | PARSEC | [3.98, 3.98] | [3.68, 4.09] |
+| CygOB2-A | ums | MIST | [4.01, 4.01] | [3.98, 4.32] |
+| CygOB2-A | pms | PARSEC | - | not measurable |
+| CygOB2-A | pms | MIST | - | not measurable |
+| CygOB2-B | ums | PARSEC | [2.82, 3.98] | [2.77, 4.19] |
+| CygOB2-B | ums | MIST | [3.18, 4.01] | [3.08, 4.11] |
+| CygOB2-B | pms | PARSEC | - | not measurable |
+| CygOB2-B | pms | MIST | - | not measurable |
+| CygOB2-C | ums | PARSEC | [2.00, 2.51] | [1.83, 2.57] |
+| CygOB2-C | ums | MIST | [2.00, 3.18] | [1.80, 3.25] |
 | CygOB2-C | pms | PARSEC | - | not measurable |
 | CygOB2-C | pms | MIST | - | not measurable |
+
+Retained rows (measurable, not grid-railed): 66; PMS rows retained: 0.  Retained upper-MS envelope (MAP span, every branch): 2.00-4.01 Myr.  Source: wp4_age_posteriors_repair_v5.parquet.
 <!-- END GENERATED:AGE_ENVELOPE -->
 
 Across all 132 branch rows, **104 are retained and 28 are excluded**. Nineteen

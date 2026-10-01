@@ -25,6 +25,7 @@ from datetime import datetime, timezone
 import numpy as np
 import pandas as pd
 
+import chain as C
 import wp5_common as w
 
 COUNTS = (40000, 100000, 400000, 1000000, 2000000)
@@ -37,9 +38,9 @@ def run(iterations: int) -> dict:
         [sys.executable, "scripts/wp7_ledger.py", "--iterations", str(iterations)],
         cwd=w.ROOT, check=True, capture_output=True, text=True,
     )
-    conv = pd.read_csv(w.TABLES / "wp7_convergence.csv")
+    conv = pd.read_csv(C.tag(w.TABLES / "wp7_convergence.csv"))
     conv = conv[conv.explodability.eq("all_explode")]
-    ledger = pd.read_csv(w.TABLES / "wp7_ledger.csv")
+    ledger = pd.read_csv(C.tag(w.TABLES / "wp7_ledger.csv"))
     assoc = ledger[
         ledger.scope.eq("association") & ledger.family.eq("PARSEC")
         & ledger.R_V.eq(3.1) & ledger.alpha.eq(2.3)
@@ -161,8 +162,8 @@ def main() -> None:
             "affect a result."
         ),
     }
-    w.write_json(w.PROVENANCE / "wp7_convergence_scan.json", record)
-    print("\nwrote provenance/wp7_convergence_scan.json")
+    w.write_json(C.tag(w.PROVENANCE / "wp7_convergence_scan.json"), record)
+    print(f"\nwrote {C.tag_rel('provenance/wp7_convergence_scan.json')}")
 
 
 if __name__ == "__main__":

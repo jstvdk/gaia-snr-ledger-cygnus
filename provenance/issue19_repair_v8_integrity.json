@@ -1,0 +1,82 @@
+{
+  "script": "scripts/issue19_integrity.py",
+  "preregistration": "provenance/issue19_repair_v8_prereg.json",
+  "preregistration_sha256": "092b6d3361f88b2c2c0cfd8d2a585d4c03d9d6c49e53a8ebfe82cdf6d0519819",
+  "checks": {
+    "I2": {
+      "pass": true,
+      "by_family": [
+        {
+          "family": "PARSEC",
+          "diagnostic_rows": 150,
+          "repair_v8_rows": 150,
+          "unmatched": 0,
+          "max_abs_mass_diff": 0.0,
+          "max_abs_age_diff": 0.0
+        },
+        {
+          "family": "MIST",
+          "diagnostic_rows": 150,
+          "repair_v8_rows": 150,
+          "unmatched": 0,
+          "max_abs_mass_diff": 1.7763568394002505e-15,
+          "max_abs_age_diff": 0.0
+        }
+      ],
+      "tolerance": 1e-12,
+      "tolerance_note": "CSV round-trip of the diagnostic; first run at tolerance 0 failed at 1.8e-15 Msun on one MIST anchor",
+      "run_utc": "2026-10-01T11:28:04+00:00"
+    },
+    "I1": {
+      "pass": true,
+      "photometric_rows": 1242,
+      "anchor_rows": 150,
+      "same_rows_photometric_in_both": true,
+      "columns_compared": 41,
+      "columns_differing_on_photometric_rows": [],
+      "sample_cube_identical_on_photometric_rows": true,
+      "run_utc": "2026-10-01T11:28:05+00:00"
+    },
+    "I3": {
+      "pass": true,
+      "first_run_note": "first run reported FAIL from a NaN-comparison defect in this check (all-NaN absolute_95_edge_Msun); no value differed",
+      "replay_version": "repair_v7_replay_issue19",
+      "cells": 54,
+      "max_abs_difference_by_column": {
+        "calibration_lower_Msun": 0.0,
+        "calibration_upper_Msun": 0.0,
+        "absolute_95_edge_Msun": 0.0,
+        "relative_95_plateau_edge_Msun_diagnostic": 0.0,
+        "bright_plateau_completeness": 0.0,
+        "raw_calibration_sources": 0.0,
+        "membership_weighted_calibration_sources": 0.0,
+        "truth_age_posterior_mean_Myr": 0.0,
+        "truth_age_prior_mean_Myr": 0.0,
+        "truth_age_posterior_map_Myr": 0.0,
+        "k_mle": 0.0,
+        "k_median": 0.0,
+        "k_lo68": 0.0,
+        "k_hi68": 0.0,
+        "k_lo95": 0.0,
+        "k_hi95": 0.0,
+        "poisson_chi_square": 0.0,
+        "poisson_chi_square_df": 0.0,
+        "poisson_chi_square_p": 0.0,
+        "residual_spearman_rho": 0.0,
+        "residual_trend_p": 0.0,
+        "max_abs_pearson_residual": 0.0,
+        "residual_gate_pass": 0.0
+      },
+      "gate_verdicts_identical": true,
+      "posterior_draws_identical": true,
+      "run_utc": "2026-10-01T11:28:07+00:00"
+    },
+    "I4": {
+      "pass": true,
+      "checked": 697,
+      "moved": {},
+      "run_utc": "2026-10-01T14:20:27+00:00"
+    }
+  },
+  "all_run_pass": true
+}

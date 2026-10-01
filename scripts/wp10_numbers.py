@@ -27,11 +27,41 @@ from datetime import datetime, timezone
 import numpy as np
 import pandas as pd
 
+import chain as C
 import wp5_common as w
 import wp10_inputs as I
 
 MANUSCRIPT = w.ROOT / "manuscript"
 BASE = dict(family="PARSEC", R_V=3.1, alpha=2.3, sf_duration_Myr=0.0)
+
+# Products repair_v7 wrote without a suffix.  A macro's source comment names
+# the file it was actually read from, so on a later chain (issue #19) these
+# names are rewritten to the chain's own copies.
+CHAIN_SOURCES = {
+    "wp4_wp5_age_reconciliation.csv", "wp5_alpha_plausibility_execution.json",
+    "wp5_association_mass_reconciliation.csv", "wp6_massive_census.csv",
+    "wp6_ledger_execution.json", "wp7_ledger.csv", "wp7_age_sensitivity.csv",
+    "wp7_rsn_curves.csv", "wp7_alpha_headline_branch_sets.csv",
+    "wp7_alpha_headline_adoption_outcome.json", "wp7_binary_bound_execution.json",
+    "wp8_crosschecks.csv", "wp9_verdict.csv", "wp9_sensitivity.csv",
+    "wp11_isotope_forecast.csv", "wp11_isotope_forecast_execution.json",
+    "wp12_gate_landscape_execution.json", "wp12_closure_slopes_execution.json",
+    "wp12_scenario_score_execution.json", "wp12_neighbour_budget_execution.json",
+}
+
+
+def chain_source(text: str) -> str:
+    def sub(match: re.Match) -> str:
+        name = match.group(0)
+        if name in CHAIN_SOURCES:
+            return C.tag(name).name
+        return name.replace("_repair_v7", f"_{C.V['wp5']}")
+    return re.sub(r"wp\d+_[A-Za-z0-9_]+\.(?:csv|json|parquet)", sub, text)
+
+
+def chain_json(name: str) -> dict:
+    """A chain product's provenance record, read from the active chain."""
+    return json.loads(C.tag(w.PROVENANCE / name).read_text())
 
 
 class Macros:
@@ -45,7 +75,7 @@ class Macros:
             raise KeyError(f"macro {name} defined twice")
         if not name.isalpha():
             raise ValueError(f"LaTeX macro names must be letters only: {name}")
-        self.items[name] = (str(value), source)
+        self.items[name] = (str(value), chain_source(source))
 
     def num(self, name: str, value: float, fmt: str, source: str) -> None:
         self.add(name, format(value, fmt), source)
@@ -142,6 +172,22 @@ def main() -> None:
     m.num("railtopB", base_ages.loc["CygOB2-B"].top_node_Myr, ".2f",
           "wp4_wp5_age_reconciliation.csv")
 
+    # Issue #19.  The retained upper-MS age envelope, computed rather than
+    # typed: MAP span of the measurable, non-railed rows of the authorized WP4
+    # posterior.  It replaces the hand-typed 2.25-5.67 Myr "two-indicator"
+    # envelope, which came from the pre-repair run; the repaired posterior
+    # retains no PMS row, so the envelope is upper-MS only.
+    posterior = pd.read_parquet(I.resolve("wp4_age_posteriors"))
+    kept = posterior[
+        posterior.measurable.astype(bool) & ~posterior.grid_railed.astype(bool)
+    ]
+    src = I.resolve("wp4_age_posteriors").name + " (retained rows)"
+    if kept.indicator.eq("pms").any():
+        raise RuntimeError("a PMS age row is retained; the envelope text assumes none")
+    m.num("ageEnvLo", kept.age_map.min(), ".2f", src)
+    m.num("ageEnvHi", kept.age_map.max(), ".2f", src)
+    m.num("ageEnvRows", len(kept), "d", src)
+
     # -------------------------------------------------------------------- WP5
     norm = pd.read_parquet(I.resolve("wp5_normalization"))
     base_norm = norm[
@@ -193,9 +239,7 @@ def main() -> None:
     m.num("recallTotalPct",
           float(recovery_row("total recall", r"=\s*(\d+\.\d+)")), ".1f", src)
 
-    plaus = json.loads(
-        (w.ROOT / "provenance" / "wp5_alpha_plausibility_execution.json").read_text()
-    )["E1_calibration_window"]
+    plaus = chain_json("wp5_alpha_plausibility_execution.json")["E1_calibration_window"]
     m.num("alphaCells", plaus["cells"], "d",
           "wp5_alpha_plausibility_execution.json")
     m.num("alphaSixWins", plaus["wins_by_alpha"]["2.6"], "d",
@@ -204,10 +248,14 @@ def main() -> None:
           "wp5_alpha_plausibility_execution.json")
     m.num("alphaThreeChi", plaus["median_chi_square_by_alpha"]["2.3"], ".2f",
           "wp5_alpha_plausibility_execution.json")
+    # issue #19: on repair_v8 alpha = 2.0, not 2.6, has the worst median, so
+    # the text quotes all three instead of calling 2.6 the worst.
+    m.num("alphaTwoChi", plaus["median_chi_square_by_alpha"]["2"], ".2f",
+          "wp5_alpha_plausibility_execution.json")
 
     mass = pd.read_csv(I.resolve("wp5_association_mass_reconciliation"))
     mass = mass[
-        mass.wp5_version.eq("repair_v7") & mass.family.eq(BASE["family"])
+        mass.wp5_version.eq(C.V["wp5"]) & mass.family.eq(BASE["family"])
         & mass.R_V.eq(BASE["R_V"]) & mass.alpha.eq(BASE["alpha"])
     ].iloc[0]
     m.num("massPrimariesHalf", mass.M1_primaries_0p5_to_120_Msun / 1e4, ".2f",
@@ -251,9 +299,7 @@ def main() -> None:
     m.num("closingAlpha", float(np.median(closing)), ".2f",
           "derived, wp6_closure_repair_v7.csv")
     census = pd.read_csv(I.resolve("wp6_massive_census"))
-    ledger_json = json.loads(
-        (w.ROOT / "provenance" / "wp6_ledger_execution.json").read_text()
-    )
+    ledger_json = chain_json("wp6_ledger_execution.json")
     m.num("livingTotal", ledger_json["total_living_above_8_Msun"], ".1f",
           "wp6_ledger_execution.json")
     m.num("livingMembers", ledger_json["by_channel"]["member"]["summed_weight"],
@@ -353,9 +399,7 @@ def main() -> None:
           "wp7_alpha_headline_branch_sets.csv")
 
     # -------------------------------------------------------------------- T3
-    binary = json.loads(
-        (w.ROOT / "provenance" / "wp7_binary_bound_execution.json").read_text()
-    )
+    binary = chain_json("wp7_binary_bound_execution.json")
     arms = binary["adopted_bracket"]["arms"]
     m.num("binaryLo", arms["low"]["baseline_N_SN"], ".2f",
           "wp7_binary_bound_execution.json")
@@ -425,10 +469,7 @@ def main() -> None:
     # after the ledger existed, unlike the WP8 markers, which were frozen at
     # WP1.  The manuscript is required to say so where it quotes these.
     iso = pd.read_csv(I.resolve("wp11_isotope_forecast"))
-    iso_exec = json.loads(
-        (w.ROOT / "provenance" / "wp11_isotope_forecast_execution.json")
-        .read_text()
-    )
+    iso_exec = chain_json("wp11_isotope_forecast_execution.json")
     prereg = json.loads(
         (w.ROOT / "provenance" / "wp11_isotope_prereg.json").read_text()
     )
@@ -495,9 +536,7 @@ def main() -> None:
     # The manuscript-revision analysis.  Read-only over the frozen repair_v7
     # chain, pre-registered with input hashes in
     # provenance/wp12_revision_prereg.json.
-    landscape = json.loads(
-        (w.ROOT / "provenance" / "wp12_gate_landscape_execution.json").read_text()
-    )
+    landscape = chain_json("wp12_gate_landscape_execution.json")
     src = "wp12_gate_landscape_execution.json"
     v7 = landscape["repair_v7_breakdown"]
     m.num("gateCells", v7["cells_total"], "d", src)
@@ -530,9 +569,7 @@ def main() -> None:
     m.num("strictTwolo", strict["alpha_2"]["score_min"], ".3f", src)
     m.num("strictTwohi", strict["alpha_2"]["score_max"], ".3f", src)
 
-    closure_exec = json.loads(
-        (w.ROOT / "provenance" / "wp12_closure_slopes_execution.json").read_text()
-    )
+    closure_exec = chain_json("wp12_closure_slopes_execution.json")
     src = "wp12_closure_slopes_execution.json"
     grid_closure = closure_exec["subgroup_grid_median_closure_by_alpha"]
     for key, tag in (("CygOB2-A", "A"), ("CygOB2-B", "B"), ("CygOB2-C", "C")):
@@ -559,9 +596,7 @@ def main() -> None:
           100 * mixed["engine_validation"]["worst_relative_N_SN_difference"],
           ".1f", src)
 
-    scenario_exec = json.loads(
-        (w.ROOT / "provenance" / "wp12_scenario_score_execution.json").read_text()
-    )
+    scenario_exec = chain_json("wp12_scenario_score_execution.json")
     src = "wp12_scenario_score_execution.json"
     c4 = scenario_exec["wp12_3_c4_sensitivity"]
     m.num("CfourAny",
@@ -588,9 +623,7 @@ def main() -> None:
           c3["progenitor_mass_floor"]["min_over_headline_branches_Msun"], ".1f",
           src)
 
-    neighbour = json.loads(
-        (w.ROOT / "provenance" / "wp12_neighbour_budget_execution.json").read_text()
-    )
+    neighbour = chain_json("wp12_neighbour_budget_execution.json")
     src = "wp12_neighbour_budget_execution.json"
     r6 = {p["id"]: p for p in neighbour["predictions"]}["R6"]
     diag = r6["measured"][

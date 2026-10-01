@@ -90,11 +90,14 @@ Three consequences:
 
 1. **B's contribution to N_SN is a lower bound at the quoted precision**, and
    the paper must say so. It is not symmetric with the branch spread.
-2. It is the same direction as issue #9 (B's PMS indicator wants B older than
-   its upper-MS indicator) and the same direction as the repair_v5 extinction
-   correction. Three independent lines now point the same way, which is why the
-   *structural* result — two older subgroups plus one younger — is more robust
-   than B's central value.
+2. ~~It is the same direction as issue #9 (B's PMS indicator wants B older than
+   its upper-MS indicator) and~~ It is the same direction as the repair_v5
+   extinction correction. ~~Three independent lines now point the same way,
+   which is why the *structural* result — two older subgroups plus one younger —
+   is more robust than B's central value.~~ **Corrected 2026-10-01 (issue
+   #19):** the PMS line came from the pre-repair WP4 run; on repair_v5 B's PMS
+   indicator has 4 stars and is grid-railed, so it is not evidence.  Two lines,
+   not three, point the same way.
 3. It is a real limitation of the joint-fit design, stated here rather than
    discovered by a referee: the truth-age node set is WP4's nine posterior
    quantiles, so the counts can never pull the age outside WP4's own support,
@@ -116,7 +119,12 @@ They are never quoted as "the age" of a subgroup. Where the star-formation
 history is stated as a result (obligation O1), the counts-based set is the one
 used, with B's railing carried as a one-sided systematic.
 
-The wider honest envelope from WP4 — 2.25–5.67 Myr across both retained
+~~The wider honest envelope from WP4 — 2.25–5.67 Myr across both retained
 indicators — is unchanged by any of this and remains the age uncertainty the
-paper reports; §4's table is the *central-value* reconciliation, not a claim of
-0.02 Myr precision.
+paper reports.~~ **Corrected 2026-10-01 (issue #19):** that envelope came from
+the unversioned *pre-repair* WP4 run and does not reproduce on the chain. On
+`wp4_age_posteriors_repair_v5.parquet` no PMS row is retained and the retained
+upper-MS envelope is **2.00–4.01 Myr** (66 rows; manuscript macros
+`\ageEnvLo`/`\ageEnvHi`). The PMS-based support cited for issue #9 ("B's PMS
+wants B older") is likewise from the pre-repair run and is withdrawn. §4's table
+is the *central-value* reconciliation, not a claim of 0.02 Myr precision.

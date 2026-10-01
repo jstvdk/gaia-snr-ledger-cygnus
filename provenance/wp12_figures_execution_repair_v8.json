@@ -1,0 +1,87 @@
+{
+  "created_utc": "2026-10-01T14:20:18+00:00",
+  "script": "scripts/wp12_figures.py",
+  "work_package": "WP12 -- manuscript revision analysis",
+  "chain": "repair_v8",
+  "preregistration": "provenance/wp12_revision_prereg_repair_v8.json",
+  "preregistration_sha256": "5909bc5dfd85962c3d4a08d1eafd22d77138b708abee16da5c32fb5a20bde1e4",
+  "python": "3.11.15",
+  "platform": "macOS-15.6.1-arm64-arm-64bit",
+  "item": "WP12 -- revised paper figure set",
+  "figures": {
+    "fig01_analysis_flow": [
+      "figures/paper/fig01_analysis_flow.pdf",
+      "figures/paper/fig01_analysis_flow.png"
+    ],
+    "fig02_membership_subgroups": [
+      "figures/paper/fig02_membership_subgroups.pdf",
+      "figures/paper/fig02_membership_subgroups.png"
+    ],
+    "fig03_control_fields": [
+      "figures/paper/fig03_control_fields.pdf",
+      "figures/paper/fig03_control_fields.png"
+    ],
+    "fig04_cmd_ages": [
+      "figures/paper/fig04_cmd_ages.pdf",
+      "figures/paper/fig04_cmd_ages.png"
+    ],
+    "fig05_extinction": [
+      "figures/paper/fig05_extinction.pdf",
+      "figures/paper/fig05_extinction.png"
+    ],
+    "fig06_massfunction_gate": [
+      "figures/paper/fig06_massfunction_gate.pdf",
+      "figures/paper/fig06_massfunction_gate.png"
+    ],
+    "fig07_closure": [
+      "figures/paper/fig07_closure.pdf",
+      "figures/paper/fig07_closure.png"
+    ],
+    "fig08_history": [
+      "figures/paper/fig08_history.pdf",
+      "figures/paper/fig08_history.png"
+    ],
+    "fig09_sensitivity": [
+      "figures/paper/fig09_sensitivity.pdf",
+      "figures/paper/fig09_sensitivity.png"
+    ],
+    "fig10_scenario_score": [
+      "figures/paper/fig10_scenario_score.pdf",
+      "figures/paper/fig10_scenario_score.png"
+    ],
+    "fig11_isotopes": [
+      "figures/paper/fig11_isotopes.pdf",
+      "figures/paper/fig11_isotopes.png"
+    ]
+  },
+  "colour_rules": {
+    "categorical": "Okabe-Ito, fixed assignment, never cycled",
+    "subgroups": {
+      "CygOB2-A": "#0072B2",
+      "CygOB2-B": "#D55E00",
+      "CygOB2-C": "#009E73"
+    },
+    "alpha_arms": {
+      "2": "#D55E00",
+      "2.3": "#0072B2",
+      "2.6": "#999999"
+    },
+    "sequential": "viridis",
+    "validated": "adjacent-pair separation checked under deuteranopia, protanopia and tritanopia; every colour-coded series is also direct-labelled or marker-distinguished"
+  },
+  "column_width_in": 3.46,
+  "double_column_width_in": 7.09,
+  "outputs": {
+    "figures/paper/fig01_analysis_flow.pdf": "773f6b9e8a10adba88e71dbb8067b225fd8f0d18e6b311bd46c6b311fbcafe33",
+    "figures/paper/fig02_membership_subgroups.pdf": "9f2a3076087c8363b603df61357adedb590fc6f0443091bf179d5c24a8dca0b6",
+    "figures/paper/fig03_control_fields.pdf": "748b5091d368fb5eba1ebd672ca6e0bc518c9cdb38dbe23dab5ce3c7b13b1942",
+    "figures/paper/fig04_cmd_ages.pdf": "01a02abcfbd6d9aca0ebc5631ed7555d35bf8e8e055228fcb9ebc2051b16a18e",
+    "figures/paper/fig05_extinction.pdf": "625c1298f58348fe37cb320b2fedbeb6d0a0ba71ab1ebca935eccda7745d9e23",
+    "figures/paper/fig06_massfunction_gate.pdf": "103011c8e4401980d9fc8c68a62889cc69f54ef8845ead0503e7f5d7c0e817dd",
+    "figures/paper/fig07_closure.pdf": "1727a826a1bc7c0540aba6a82bc672cc6370f73fae6c436de6e14cfcd21224fe",
+    "figures/paper/fig08_history.pdf": "a6b260d20b4d679a059fc8fc090cf04ffcef18ddbd5d35fab6889a4c4e49d991",
+    "figures/paper/fig09_sensitivity.pdf": "f1dae47dc6bb13e62400cb75948e60e80a757f12abb7b7d495ec82917d985596",
+    "figures/paper/fig10_scenario_score.pdf": "acca3771013db7afee18c41e799043e0a1e7e6998e57acdfb09d55c1bf09e5a3",
+    "figures/paper/fig11_isotopes.pdf": "3a392010332d03832d60eda87ccf7424c9576313603cc4666859b5b95d6b7e61"
+  }
+}

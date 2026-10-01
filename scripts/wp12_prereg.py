@@ -421,7 +421,100 @@ def build() -> dict:
     }
 
 
+# Products repair_v7 wrote without a suffix; a later chain reads its tagged copy.
+CHAIN_UNVERSIONED = {
+    "wp6_ledger_execution", "wp7_ledger", "wp7_branch_sets",
+    "wp7_bh_threshold_scan", "wp8_crosschecks", "wp9_verdict",
+    "wp9_sensitivity", "wp11_isotope_forecast",
+}
+
+
+def chain_record() -> None:
+    """Hash record for a later chain (issue #19), from the SAME specification.
+
+    The 2026-08-03 preregistration is not edited.  This copies it verbatim --
+    definitions, predictions R1-R7, disclosed priors, anti-tuning rule -- and
+    replaces only ``frozen_inputs``: each path re-pointed to the chain's own
+    product and re-hashed now.  WP12 on that chain then verifies against this
+    record exactly as WP12 on repair_v7 verifies against the original.
+    """
+    import copy
+    import json
+
+    import chain as C
+
+    if C.CHAIN == C.LEGACY:
+        raise SystemExit("--chain-record is for a chain other than repair_v7")
+    original_path = w.PROVENANCE / "wp12_revision_prereg.json"
+    out = w.PROVENANCE / f"wp12_revision_prereg_{C.CHAIN}.json"
+    if out.exists():
+        raise SystemExit(f"{out.relative_to(w.ROOT)} exists; a hash record is written once")
+    original = json.loads(original_path.read_text())
+    record = copy.deepcopy(original)
+    inputs = {}
+    for name, entry in sorted(original["frozen_inputs"].items()):
+        rel = entry["path"].replace(f"_{WP5_VERSION}", f"_{C.V['wp5']}")
+        if rel == entry["path"] and name in CHAIN_UNVERSIONED:
+            rel = C.tag_rel(rel)
+        path = w.ROOT / rel
+        inputs[name] = {
+            "path": rel,
+            "sha256": w.sha256(path) if path.exists() else None,
+            "exists": path.exists(),
+            "repair_v7_path": entry["path"],
+        }
+    record.update({
+        "created_utc": datetime.now(timezone.utc).isoformat(timespec="seconds"),
+        "script": "scripts/wp12_prereg.py --chain-record",
+        "status": (
+            f"HASH RECORD for {C.CHAIN} -- the specification and predictions are "
+            "the 2026-08-03 preregistration's, copied verbatim; only "
+            "frozen_inputs is re-pointed and re-hashed"
+        ),
+        "chain": C.CHAIN,
+        "derived_from": {
+            "path": str(original_path.relative_to(w.ROOT)),
+            "sha256": w.sha256(original_path),
+            "created_utc": original["created_utc"],
+        },
+        "reason": (
+            "issue #19: the repair_v7 chain consumed anchor masses read at "
+            "pre-repair ages; see provenance/issue19_repair_v8_prereg.json"
+        ),
+        "python": sys.version.split()[0],
+        "platform": platform.platform(),
+        "versions": {**original["versions"], "chain": C.CHAIN, "wp5": C.V["wp5"],
+                     "wp4_masses": C.V["wp4_masses"]},
+        "frozen_inputs": inputs,
+        "forbidden_to_write": sorted(e["path"] for e in inputs.values()),
+        "predictions_note": (
+            "R1-R7 were written before any repair_v7 WP12 result existed.  On "
+            f"{C.CHAIN} the repair_v7 WP12 results ARE known; re-scoring R1-R7 "
+            "here is a re-execution of a fixed specification, not a fresh test."
+        ),
+    })
+    voided = sorted(w.PROVENANCE.glob(f"wp12_revision_prereg_{C.CHAIN}_void_*.json"))
+    if voided:
+        record["voided_predecessors"] = {
+            str(p.relative_to(w.ROOT)): w.sha256(p) for p in voided
+        }
+        record["voided_note"] = (
+            "issue #19, 2026-10-01: the first repair_v8 hash record pinned a "
+            "WP11 forecast run at 200,000 iterations instead of the published "
+            "500,000.  WP11 was re-run at 500,000; the first record was renamed "
+            "(not deleted) and this one written in its place."
+        )
+    missing = [n for n, e in inputs.items() if not e["exists"]]
+    if missing:
+        raise SystemExit(f"chain inputs missing: {missing}")
+    w.write_json(out, record)
+    print(f"wrote {out.relative_to(w.ROOT)} ({len(inputs)} inputs hashed)")
+
+
 def main() -> None:
+    if "--chain-record" in sys.argv[1:]:
+        chain_record()
+        return
     record = build()
     out = w.PROVENANCE / "wp12_revision_prereg.json"
     if out.exists():

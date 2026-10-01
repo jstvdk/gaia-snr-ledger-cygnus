@@ -32,15 +32,16 @@ from datetime import datetime, timezone
 import numpy as np
 import pandas as pd
 
+import chain as C
 import wp5_common as w
 
-UPSTREAM = "repair_v5"
+UPSTREAM = C.V["wp4_masses"]   # chain-declared (issue #19)
 BASELINE = ("PARSEC", 3.1)
 
 
 def main() -> None:
     masses = pd.read_parquet(w.PROC / f"wp4_mass_posteriors_{UPSTREAM}.parquet")
-    orphans = pd.read_csv(w.TABLES / "wp6_orphan_anchors.csv")
+    orphans = pd.read_csv(C.tag(w.TABLES / "wp6_orphan_anchors.csv"))
     runaways = pd.read_csv(w.TABLES / "wp6_runaways.csv")
     # The aggregate correction is read from the traceback's own record rather
     # than repeated here, so the two can never drift apart.
@@ -145,7 +146,7 @@ def main() -> None:
     ledger = pd.concat(
         [members, anchor_entries, runaway_entries], ignore_index=True
     )
-    out = w.TABLES / "wp6_massive_census.cat"
+    out = C.tag(w.TABLES / "wp6_massive_census.cat")
     ledger.to_csv(out, index=False)
 
     by_channel = {
@@ -195,7 +196,7 @@ def main() -> None:
             str(path.relative_to(w.ROOT)): w.sha256(path)
             for path in [
                 w.PROC / f"wp4_mass_posteriors_{UPSTREAM}.parquet",
-                w.TABLES / "wp6_orphan_anchors.csv",
+                C.tag(w.TABLES / "wp6_orphan_anchors.csv"),
                 w.TABLES / "wp6_runaways.csv",
             ]
         },
@@ -254,7 +255,7 @@ def main() -> None:
         ],
         "outputs": {str(out.relative_to(w.ROOT)): w.sha256(out)},
     }
-    w.write_json(w.PROVENANCE / "wp6_ledger_execution.json", record)
+    w.write_json(C.tag(w.PROVENANCE / "wp6_ledger_execution.json"), record)
 
     print("WP6 step 5 — living massive-star ledger\n")
     for channel, block in by_channel.items():
@@ -264,7 +265,7 @@ def main() -> None:
     print("  by subgroup:")
     for subgroup, value in by_subgroup.items():
         print(f"    {subgroup:12s} {value:8.2f}")
-    print("\nwrote provenance/wp6_ledger_execution.json")
+    print(f"\nwrote {C.tag_rel('provenance/wp6_ledger_execution.json')}")
 
 
 if __name__ == "__main__":

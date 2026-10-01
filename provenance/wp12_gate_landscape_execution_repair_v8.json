@@ -1,0 +1,147 @@
+{
+  "created_utc": "2026-10-01T14:18:06+00:00",
+  "script": "scripts/wp12_gate_landscape.py",
+  "work_package": "WP12 -- manuscript revision analysis",
+  "chain": "repair_v8",
+  "preregistration": "provenance/wp12_revision_prereg_repair_v8.json",
+  "preregistration_sha256": "5909bc5dfd85962c3d4a08d1eafd22d77138b708abee16da5c32fb5a20bde1e4",
+  "python": "3.11.15",
+  "platform": "macOS-15.6.1-arm64-arm-64bit",
+  "item": "WP12.1 -- residual-gate landscape and Appendix A branch table",
+  "wp5_version_used": "repair_v8",
+  "breakdown_key_note": "the key repair_v7_breakdown is kept for its readers (wp12_tables, wp10_numbers); it holds the breakdown of wp5_version_used, which on a later chain is that chain's",
+  "why_repair_v7": "the ledger, closure test and verdict all consumed the repair_v7 normalization.  The accepted GATE RECORD is repair_v6 and the two agree on 40/54, but they disagree on which 14 cells fail, so the failure map quoted in the paper must be repair_v7's.",
+  "repair_v7_breakdown": {
+    "cells_total": 54,
+    "cells_passing": 40,
+    "cells_failing": 14,
+    "failures_by_subgroup": {
+      "CygOB2-A": 4,
+      "CygOB2-B": 7,
+      "CygOB2-C": 3
+    },
+    "failures_by_family": {
+      "MIST": 9,
+      "PARSEC": 5
+    },
+    "failures_by_R_V": {
+      "3": 5,
+      "3.1": 6,
+      "3.5": 3
+    },
+    "failures_by_alpha": {
+      "2": 9,
+      "2.3": 2,
+      "2.6": 3
+    }
+  },
+  "repair_v6_breakdown_for_comparison": {
+    "cells_total": 54,
+    "cells_passing": 40,
+    "cells_failing": 14,
+    "failures_by_subgroup": {
+      "CygOB2-A": 5,
+      "CygOB2-B": 5,
+      "CygOB2-C": 4
+    },
+    "failures_by_family": {
+      "MIST": 9,
+      "PARSEC": 5
+    },
+    "failures_by_R_V": {
+      "3": 4,
+      "3.1": 4,
+      "3.5": 6
+    },
+    "failures_by_alpha": {
+      "2": 7,
+      "2.3": 1,
+      "2.6": 6
+    }
+  },
+  "breakdowns_agree_on_total": true,
+  "combinations": {
+    "total": 18,
+    "passing_all_subgroups": 8,
+    "headline_total": 12,
+    "headline_passing_all_subgroups": 5
+  },
+  "headline_cells": {
+    "total": 36,
+    "passing": 25
+  },
+  "headline_branches": {
+    "total": 36,
+    "built_entirely_on_passing_cells": 15
+  },
+  "alpha_split": {
+    "all_headline": {
+      "alpha_2": {
+        "branches": 18,
+        "above_0p5": 18,
+        "score_min": 0.5927,
+        "score_max": 0.7326,
+        "N_SN_min": 15.168,
+        "N_SN_max": 28.74
+      },
+      "alpha_2.3": {
+        "branches": 18,
+        "above_0p5": 0,
+        "score_min": 0.3232,
+        "score_max": 0.4738,
+        "N_SN_min": 5.571,
+        "N_SN_max": 11.156
+      }
+    },
+    "all_subgroup_pass_only": {
+      "alpha_2": {
+        "branches": 3,
+        "above_0p5": 3,
+        "score_min": 0.6804,
+        "score_max": 0.7165,
+        "N_SN_min": 15.168,
+        "N_SN_max": 16.039
+      },
+      "alpha_2.3": {
+        "branches": 12,
+        "above_0p5": 0,
+        "score_min": 0.3232,
+        "score_max": 0.4693,
+        "N_SN_min": 5.571,
+        "N_SN_max": 9.153
+      }
+    }
+  },
+  "predictions": [
+    {
+      "id": "R1",
+      "statement": "Fewer than half of the 36 headline ledger branches rest entirely on mass-function cells that pass the WP5 residual gate.",
+      "pass_if": "all_pass_headline_branches < 18",
+      "outcome": "PASS",
+      "measured": {
+        "all_pass_headline_branches": 15,
+        "headline_branches": 36,
+        "headline_combinations_passing_all_subgroups": 5,
+        "headline_combinations": 12,
+        "note": "NOT BLIND -- this value was computed before the preregistration was written and is disclosed as prior knowledge there.  Recorded as an expectation, not as a test."
+      }
+    },
+    {
+      "id": "R2",
+      "statement": "The qualitative alpha split in the cocoon score survives restriction to all-subgroup-pass branches: at least one alpha=2.0 branch remains above 0.5 and no alpha=2.3 branch rises above it.",
+      "pass_if": "n(alpha=2.0, all-pass, S > 0.5) >= 1 and n(alpha=2.3, all-pass, S > 0.5) == 0",
+      "outcome": "PASS",
+      "measured": {
+        "alpha_2p0_all_pass_branches": 3,
+        "alpha_2p0_above_0p5": 3,
+        "alpha_2p3_all_pass_branches": 12,
+        "alpha_2p3_above_0p5": 0
+      }
+    }
+  ],
+  "outputs": {
+    "tables/wp12_wp5_gate_map_repair_v8.csv": "8d23a65e88d68f6dffaed88e4eef94e24bd179ed1653318da85bdaea4211422e",
+    "tables/wp12_combination_gate_repair_v8.csv": "c03f75e5552bdaf50a4dc8977da48cd5071a77c5ee27610376efd97143479f79",
+    "tables/wp12_branch_gate_table_repair_v8.csv": "1fafc78de28b3038f99d140788309ec2dade591cbf27c95db7397f87acdc81c0"
+  }
+}

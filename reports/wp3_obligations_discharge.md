@@ -46,9 +46,13 @@ Three points must accompany it, and all three are consequences of item **B2**
    predictions confirmed in advance. That provenance is what makes the revised
    history a result rather than a re-labelling, and the paper says so.
 
-**The honest envelope stays.** The 2.25–5.67 Myr span across both retained WP4
-indicators remains the age uncertainty the paper reports; the three central
-values above are not a claim of 0.01 Myr precision.
+**The honest envelope — corrected 2026-10-01 (issue #19).** ~~The 2.25–5.67 Myr
+span across both retained WP4 indicators remains the age uncertainty the paper
+reports.~~ That span came from the unversioned pre-repair WP4 run. On the
+chain's `wp4_age_posteriors_repair_v5.parquet` no PMS row is retained and the
+retained upper-MS envelope is **2.00–4.01 Myr**; the paper now quotes it from
+macros (`\ageEnvLo`–`\ageEnvHi`). The three central values above are not a
+claim of 0.01 Myr precision.
 
 ## O2 — carry the anchor absolute-scale systematic
 

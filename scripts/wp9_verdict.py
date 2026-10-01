@@ -26,6 +26,7 @@ from datetime import datetime, timezone
 import numpy as np
 import pandas as pd
 
+import chain as C
 import wp5_common as w
 from wp7_ledger import TurnoffRelation, draw_key, run_population
 from wp7_ledger_prereg import SF_DURATIONS_MYR, SN_THRESHOLD_MSUN
@@ -40,7 +41,7 @@ from wp9_verdict_prereg import (
     STRIPPED_PROGENITOR_MSUN,
 )
 
-WP5_VERSION = "repair_v7"
+WP5_VERSION = C.V["wp5"]   # chain-declared (issue #19)
 ITERATIONS = 2_000_000
 # WP7's in-situ bound: at most 14.6% of supernovae occurred outside the
 # association, from the runaway fraction.  A bound, applied as a constant.
@@ -119,7 +120,7 @@ def main() -> None:
                 print(f"  {family} R_V={rv} alpha={alpha} done", flush=True)
 
     table = pd.DataFrame(rows)
-    table.to_csv(w.TABLES / "wp9_verdict.csv", index=False)
+    table.to_csv(C.tag(w.TABLES / "wp9_verdict.csv"), index=False)
 
     head = table[table.in_headline_set]
     excluded = table[~table.in_headline_set]
@@ -152,7 +153,7 @@ def main() -> None:
     pd.DataFrame(
         [{k: (v if not isinstance(v, dict) else str(v)) for k, v in r.items()}
          for r in sensitivity]
-    ).to_csv(w.TABLES / "wp9_sensitivity.csv", index=False)
+    ).to_csv(C.tag(w.TABLES / "wp9_sensitivity.csv"), index=False)
 
     # ---- score the predictions --------------------------------------------
     v1 = bool((head.C3_stripped_fraction > 0.95).all())
@@ -261,12 +262,12 @@ def main() -> None:
         "outputs": {
             str(path.relative_to(w.ROOT)): w.sha256(path)
             for path in [
-                w.TABLES / "wp9_verdict.csv",
-                w.TABLES / "wp9_sensitivity.csv",
+                C.tag(w.TABLES / "wp9_verdict.csv"),
+                C.tag(w.TABLES / "wp9_sensitivity.csv"),
             ]
         },
     }
-    w.write_json(w.PROVENANCE / "wp9_verdict_execution.json", record)
+    w.write_json(C.tag(w.PROVENANCE / "wp9_verdict_execution.json"), record)
 
     print("\nWP9 — the verdict\n")
     print(f"  P_verdict = P(C1 age) x P(C3 type) x P(C4 in-situ)")
@@ -291,7 +292,7 @@ def main() -> None:
     print("\n  predictions:")
     for entry in record["predictions"]:
         print(f"    {entry['id']}  {entry['outcome']:4s}  {entry['statement']}")
-    print("\nwrote provenance/wp9_verdict_execution.json")
+    print(f"\nwrote {C.tag_rel('provenance/wp9_verdict_execution.json')}")
 
 
 if __name__ == "__main__":

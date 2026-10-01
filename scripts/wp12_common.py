@@ -15,9 +15,18 @@ from pathlib import Path
 
 import pandas as pd
 
+import chain as C
 import wp5_common as w
 
-PREREG_PATH = w.PROVENANCE / "wp12_revision_prereg.json"
+# The preregistration of 2026-08-03 hashes the repair_v7 chain.  A later chain
+# (issue #19) is verified against its own hash record, written by
+# `wp12_prereg.py --chain-record` from the same specification; the original is
+# never edited.
+PREREG_PATH = (
+    w.PROVENANCE / "wp12_revision_prereg.json"
+    if C.CHAIN == C.LEGACY
+    else w.PROVENANCE / f"wp12_revision_prereg_{C.CHAIN}.json"
+)
 
 BASE = dict(family="PARSEC", R_V=3.1, alpha=2.3, sf_duration_Myr=0.0)
 HEADLINE_ALPHAS = (2.0, 2.3)
@@ -31,7 +40,7 @@ class FrozenInputMoved(RuntimeError):
 def prereg() -> dict:
     if not PREREG_PATH.exists():
         raise FileNotFoundError(
-            "provenance/wp12_revision_prereg.json is missing.  Run "
+            f"{PREREG_PATH.relative_to(w.ROOT)} is missing.  Run "
             "scripts/wp12_prereg.py first -- WP12 results are only meaningful "
             "against a preregistration that predates them."
         )
@@ -128,7 +137,8 @@ def record(script: str, payload: dict, outputs: dict[str, Path]) -> dict:
         "created_utc": datetime.now(timezone.utc).isoformat(timespec="seconds"),
         "script": script,
         "work_package": "WP12 -- manuscript revision analysis",
-        "preregistration": "provenance/wp12_revision_prereg.json",
+        "chain": C.CHAIN,
+        "preregistration": str(PREREG_PATH.relative_to(w.ROOT)),
         "preregistration_sha256": w.sha256(PREREG_PATH),
         "python": sys.version.split()[0],
         "platform": platform.platform(),

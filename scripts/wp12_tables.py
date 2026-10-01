@@ -26,6 +26,7 @@ import json
 import numpy as np
 import pandas as pd
 
+import chain as C
 import wp5_common as w
 import wp12_common as W
 
@@ -106,15 +107,15 @@ def appendix_a(table: pd.DataFrame) -> str:
 # ------------------------------------------------------- in-text small tables
 def gate_summary() -> str:
     landscape = json.loads(
-        (w.PROVENANCE / "wp12_gate_landscape_execution.json").read_text())
+        (C.tag(w.PROVENANCE / "wp12_gate_landscape_execution.json")).read_text())
     closure = json.loads(
-        (w.PROVENANCE / "wp12_closure_slopes_execution.json").read_text())
+        (C.tag(w.PROVENANCE / "wp12_closure_slopes_execution.json")).read_text())
     scenario = json.loads(
-        (w.PROVENANCE / "wp12_scenario_score_execution.json").read_text())
+        (C.tag(w.PROVENANCE / "wp12_scenario_score_execution.json")).read_text())
     neighbour = json.loads(
-        (w.PROVENANCE / "wp12_neighbour_budget_execution.json").read_text())
+        (C.tag(w.PROVENANCE / "wp12_neighbour_budget_execution.json")).read_text())
     ledger_exec = json.loads(
-        (w.PROVENANCE / "wp7_ledger_execution.json").read_text())
+        (C.tag(w.PROVENANCE / "wp7_ledger_execution.json")).read_text())
     g7a = ledger_exec.get("gate", {})
 
     rows = [
@@ -180,7 +181,7 @@ def gate_summary() -> str:
 
 def cocoon_terms() -> str:
     scenario = json.loads(
-        (w.PROVENANCE / "wp12_scenario_score_execution.json").read_text())
+        (C.tag(w.PROVENANCE / "wp12_scenario_score_execution.json")).read_text())
     c4 = scenario["wp12_3_c4_sensitivity"]
     c3 = scenario["wp12_4_c3_subtype"]
     lines = [
@@ -229,9 +230,9 @@ def subgroup_summary() -> str:
         & gate.alpha.eq(W.BASE["alpha"])
     ].set_index("subgroup")
     closure_exec = json.loads(
-        (w.PROVENANCE / "wp12_closure_slopes_execution.json").read_text())
+        (C.tag(w.PROVENANCE / "wp12_closure_slopes_execution.json")).read_text())
     grid = closure_exec["subgroup_grid_median_closure_by_alpha"]
-    slopes = pd.read_csv(w.TABLES / "wp12_closing_slopes.csv")
+    slopes = pd.read_csv(C.tag(w.TABLES / "wp12_closing_slopes.csv"))
     labels = pd.read_parquet(W.frozen("wp2_subgroup_labels"))
     extinction = pd.read_parquet(W.frozen("wp3_extinction"))
     # The extinction catalogue carries one A_V column per carried extinction
@@ -303,13 +304,13 @@ def subgroup_summary() -> str:
 
 
 def main() -> None:
-    table = pd.read_csv(w.TABLES / "wp12_branch_gate_table.csv")
+    table = pd.read_csv(C.tag(w.TABLES / "wp12_branch_gate_table.csv"))
     table = table.sort_values(
         ["alpha", "family", "R_V", "sf_duration_Myr"]
     ).reset_index(drop=True)
 
     full = table.copy()
-    full.to_csv(w.TABLES / "wp12_appendix_a_full.csv", index=False)
+    full.to_csv(C.tag(w.TABLES / "wp12_appendix_a_full.csv"), index=False)
 
     body = "\n".join([
         "% =================================================================",
@@ -338,11 +339,11 @@ def main() -> None:
             "appendix_a_rows": int(len(table)),
             "appendix_a_electronic": "tables/wp12_appendix_a_full.csv",
         },
-        {"tex": OUT, "csv": w.TABLES / "wp12_appendix_a_full.csv"},
+        {"tex": OUT, "csv": C.tag(w.TABLES / "wp12_appendix_a_full.csv")},
     )
-    w.write_json(w.PROVENANCE / "wp12_tables_execution.json", rec)
+    w.write_json(C.tag(w.PROVENANCE / "wp12_tables_execution.json"), rec)
     print(f"wrote manuscript/tables_generated.tex ({len(table)} branch rows)")
-    print("wrote tables/wp12_appendix_a_full.csv")
+    print(f"wrote {C.tag_rel('tables/wp12_appendix_a_full.csv')}")
 
 
 if __name__ == "__main__":

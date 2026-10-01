@@ -1,5 +1,13 @@
 # WP4 completion report — subgroup ages & per-star masses
 
+> **SUPERSEDED IN PART 2026-10-01 — issue #19.** This report describes the
+> pre-repair WP4 run. On the chain's `wp4_age_posteriors_repair_v5.parquet` no
+> PMS row is retained and the retained upper-MS envelope is **2.00–4.01 Myr**;
+> the "2.25–5.67 Myr two-indicator envelope" and the PMS-based statements below
+> are withdrawn. The anchor masses were read at these pre-repair ages and are
+> replaced at repair_v8 (`wp4_anchor_hrd_repair_v8.parquet`). See
+> `reports/issue19_completion_report.md`.
+
 Completed: 2026-07-23 · Gaia DR3 · distance posterior 1.6245 ± 0.045 kpc (μ=11.054)
 
 - **WP5/WP7 input gate: READY WITH CONSTRAINTS** · **WP4 validation gate:

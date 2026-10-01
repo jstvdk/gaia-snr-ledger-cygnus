@@ -23,6 +23,7 @@ from datetime import datetime, timezone
 import numpy as np
 import pandas as pd
 
+import chain as C
 import wp5_common as w
 import wp6_runaways as R
 from wp8_crosschecks_prereg import (
@@ -48,10 +49,10 @@ def true_age_yr(period: float, pdot: float, n: float, f0: float) -> float:
 
 
 def main() -> None:
-    ledger = pd.read_csv(w.TABLES / "wp7_ledger.csv")
-    rsn = pd.read_csv(w.TABLES / "wp7_rsn_curves.csv")
+    ledger = pd.read_csv(C.tag(w.TABLES / "wp7_ledger.csv"))
+    rsn = pd.read_csv(C.tag(w.TABLES / "wp7_rsn_curves.csv"))
     wp7 = json.loads(
-        (w.PROVENANCE / "wp7_ledger_execution.json").read_text(encoding="utf-8")
+        (C.tag(w.PROVENANCE / "wp7_ledger_execution.json")).read_text(encoding="utf-8")
     )
     snrs = pd.read_parquet(w.PROC / "wp1_green_snrs_wide.parquet")
 
@@ -200,7 +201,7 @@ def main() -> None:
             },
         ]
     )
-    table.to_csv(w.TABLES / "wp8_crosschecks.csv", index=False)
+    table.to_csv(C.tag(w.TABLES / "wp8_crosschecks.csv"), index=False)
 
     tensions = pd.DataFrame(
         [
@@ -243,7 +244,7 @@ def main() -> None:
             },
         ]
     )
-    tensions.to_csv(w.TABLES / "wp8_tension_list.csv", index=False)
+    tensions.to_csv(C.tag(w.TABLES / "wp8_tension_list.csv"), index=False)
 
     record = {
         "created_utc": datetime.now(timezone.utc).isoformat(),
@@ -387,12 +388,12 @@ def main() -> None:
         "outputs": {
             str(path.relative_to(w.ROOT)): w.sha256(path)
             for path in [
-                w.TABLES / "wp8_crosschecks.csv",
-                w.TABLES / "wp8_tension_list.csv",
+                C.tag(w.TABLES / "wp8_crosschecks.csv"),
+                C.tag(w.TABLES / "wp8_tension_list.csv"),
             ]
         },
     }
-    w.write_json(w.PROVENANCE / "wp8_crosschecks_execution.json", record)
+    w.write_json(C.tag(w.PROVENANCE / "wp8_crosschecks_execution.json"), record)
 
     print("WP8 — external cross-checks\n")
     print(f"  ledger rate: {rate_per_myr:.2f} SNe/Myr = 1 per "
@@ -407,7 +408,7 @@ def main() -> None:
     for entry in record["predictions"]:
         print(f"    {entry['id']}  {entry['outcome']}")
     print(f"\n  G8a pulsar resolved: {record['gate']['G8a_pulsar_resolved']}")
-    print("\nwrote provenance/wp8_crosschecks_execution.json")
+    print(f"\nwrote {C.tag_rel('provenance/wp8_crosschecks_execution.json')}")
 
 
 if __name__ == "__main__":

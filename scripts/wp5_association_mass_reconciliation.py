@@ -45,6 +45,7 @@ from datetime import datetime, timezone
 import numpy as np
 import pandas as pd
 
+import chain as C
 import wp5_common as w
 
 BASELINE_FAMILY, BASELINE_RV, BASELINE_ALPHA = "PARSEC", 3.1, 2.3
@@ -116,7 +117,7 @@ def brown_dwarf_extension(k: float, alpha: float, lo: float = 0.01) -> float:
 
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--wp5-version", default="repair_v7")
+    parser.add_argument("--wp5-version", default=C.V["wp5"])
     parser.add_argument("--compare-version", default="repair_v6")
     args = parser.parse_args()
 
@@ -184,7 +185,7 @@ def main() -> None:
             f"wp5_common have drifted apart"
         )
 
-    out_csv = w.TABLES / "wp5_association_mass_reconciliation.csv"
+    out_csv = C.tag(w.TABLES / "wp5_association_mass_reconciliation.csv")
     table.to_csv(out_csv, index=False)
 
     def baseline(version: str) -> pd.Series:
@@ -289,7 +290,7 @@ def main() -> None:
         "outputs": {str(out_csv.relative_to(w.ROOT)): w.sha256(out_csv)},
     }
     w.write_json(
-        w.PROVENANCE / "wp5_association_mass_reconciliation_execution.json", record
+        C.tag(w.PROVENANCE / "wp5_association_mass_reconciliation_execution.json"), record
     )
 
     print(f"association mass reconciliation, baseline PARSEC R_V=3.1 alpha=2.3\n")
@@ -314,8 +315,8 @@ def main() -> None:
         f"reproduction of stored primary_system_mass: worst difference "
         f"{worst:.2e} Msun over {len(stored_checks)} cells"
     )
-    print("wrote tables/wp5_association_mass_reconciliation.csv")
-    print("wrote provenance/wp5_association_mass_reconciliation_execution.json")
+    print(f"wrote {C.tag_rel('tables/wp5_association_mass_reconciliation.csv')}")
+    print(f"wrote {C.tag_rel('provenance/wp5_association_mass_reconciliation_execution.json')}")
 
 
 if __name__ == "__main__":

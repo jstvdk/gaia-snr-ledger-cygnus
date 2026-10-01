@@ -29,6 +29,7 @@ from __future__ import annotations
 
 import pandas as pd
 
+import chain as C
 import wp5_common as w
 import wp12_common as W
 
@@ -200,16 +201,22 @@ def main() -> None:
     })
 
     # -------------------------------------------------------------- write out
-    out_cells = w.TABLES / "wp12_wp5_gate_map.csv"
-    out_combo = w.TABLES / "wp12_combination_gate.csv"
-    out_table = w.TABLES / "wp12_branch_gate_table.csv"
+    out_cells = C.tag(w.TABLES / "wp12_wp5_gate_map.csv")
+    out_combo = C.tag(w.TABLES / "wp12_combination_gate.csv")
+    out_table = C.tag(w.TABLES / "wp12_branch_gate_table.csv")
     cells.to_csv(out_cells, index=False)
     combos.to_csv(out_combo, index=False)
     table.to_csv(out_table, index=False)
 
     payload = {
         "item": "WP12.1 -- residual-gate landscape and Appendix A branch table",
-        "wp5_version_used": "repair_v7",
+        "wp5_version_used": C.V["wp5"],
+        "chain": C.CHAIN,
+        "breakdown_key_note": (
+            "the key repair_v7_breakdown is kept for its readers "
+            "(wp12_tables, wp10_numbers); it holds the breakdown of "
+            "wp5_version_used, which on a later chain is that chain's"
+        ),
         "why_repair_v7": (
             "the ledger, closure test and verdict all consumed the repair_v7 "
             "normalization.  The accepted GATE RECORD is repair_v6 and the two "
@@ -242,7 +249,7 @@ def main() -> None:
         "scripts/wp12_gate_landscape.py", payload,
         {"cells": out_cells, "combos": out_combo, "table": out_table},
     )
-    w.write_json(w.PROVENANCE / "wp12_gate_landscape_execution.json", rec)
+    w.write_json(C.tag(w.PROVENANCE / "wp12_gate_landscape_execution.json"), rec)
 
     print("WP12.1 residual-gate landscape")
     print(f"  repair_v7 cells passing        : {v7_breakdown['cells_passing']}/54")

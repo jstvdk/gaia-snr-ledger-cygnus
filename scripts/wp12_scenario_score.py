@@ -43,6 +43,7 @@ from __future__ import annotations
 import numpy as np
 import pandas as pd
 
+import chain as C
 import wp5_common as w
 import wp12_common as W
 from wp7_ledger import TurnoffRelation, draw_key, run_population
@@ -251,9 +252,9 @@ def main() -> None:
     r5 = W.score_prediction(
         "R5", bool(score.C3_pessimistic_step60.min() < 0.95), r5_measured)
 
-    out_scan = w.TABLES / "wp12_c4_scan.csv"
-    out_subtype = w.TABLES / "wp12_c3_subtype.csv"
-    out_score = w.TABLES / "wp12_scenario_score.csv"
+    out_scan = C.tag(w.TABLES / "wp12_c4_scan.csv")
+    out_subtype = C.tag(w.TABLES / "wp12_c3_subtype.csv")
+    out_score = C.tag(w.TABLES / "wp12_scenario_score.csv")
     scan.to_csv(out_scan, index=False)
     subtype.to_csv(out_subtype, index=False)
     score.to_csv(out_score, index=False)
@@ -383,7 +384,7 @@ def main() -> None:
         "scripts/wp12_scenario_score.py", payload,
         {"scan": out_scan, "subtype": out_subtype, "score": out_score},
     )
-    w.write_json(w.PROVENANCE / "wp12_scenario_score_execution.json", rec)
+    w.write_json(C.tag(w.PROVENANCE / "wp12_scenario_score_execution.json"), rec)
 
     print("WP12.3/12.4 conditional scenario-availability score")
     print(f"  engine validation: worst dC1 = {worst_c1:.5f} "

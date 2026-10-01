@@ -1,0 +1,444 @@
+{
+  "created_utc": "2026-10-01T14:21:33+00:00",
+  "script": "scripts/issue19_score.py",
+  "python": "3.11.15",
+  "platform": "macOS-15.6.1-arm64-arm-64bit",
+  "preregistration": "provenance/issue19_repair_v8_prereg.json",
+  "preregistration_sha256": "092b6d3361f88b2c2c0cfd8d2a585d4c03d9d6c49e53a8ebfe82cdf6d0519819",
+  "preregistration_created_utc": "2026-10-01T11:17:17+00:00",
+  "predictions": [
+    {
+      "id": "P1",
+      "statement": "PARSEC, subgroup A: the WP5 calibration window loses 8.0 +/- 0.5 membership-weighted stars on every PARSEC branch.",
+      "pass_if": "7.5 <= loss <= 8.5 at all three PARSEC R_V branches",
+      "outcome": "FAIL",
+      "measured": {
+        "loss_by_R_V": {
+          "rv3.0": 8.0,
+          "rv3.1": 8.0,
+          "rv3.5": 10.9999
+        }
+      }
+    },
+    {
+      "id": "P2",
+      "statement": "MIST branches, and subgroups B and C on every branch: k and N_death within 1 %.",
+      "pass_if": "every cell in (a) within 1 % relative, AND every row in (b) within 1 % relative or within 0.01 deaths absolute where the repair_v7 value is below 1 (C is 0.00 at baseline, where a relative tolerance is undefined)",
+      "outcome": "PASS",
+      "measured": {
+        "k_cells": 45,
+        "k_cells_outside_1pct": [],
+        "k_worst": {
+          "subgroup": "CygOB2-C",
+          "family": "MIST",
+          "R_V": 3.5,
+          "alpha": 2.6,
+          "rel": -0.0049
+        },
+        "ledger_rows": 162,
+        "ledger_rows_outside_tolerance": 0,
+        "ledger_rows_outside_tolerance_examples": [],
+        "ledger_worst_relative_material_row": {
+          "scope": "subgroup",
+          "subgroup": "CygOB2-A",
+          "family": "MIST",
+          "R_V": 3.5,
+          "alpha": 2.6,
+          "sf_duration_Myr": 1.0,
+          "explodability": "all_explode",
+          "N_SN_mean_v7": 1.6641,
+          "N_SN_mean_v8": 1.6589,
+          "rel": 0.00316
+        }
+      }
+    },
+    {
+      "id": "P3",
+      "statement": "Baseline association N_death lies in [8.20, 8.43].",
+      "pass_if": "8.20 <= value <= 8.43 (the repair_v7 value is 8.4349)",
+      "outcome": "PASS",
+      "measured": {
+        "N_death_baseline_repair_v8": 8.3599,
+        "repair_v7": 8.4349
+      }
+    },
+    {
+      "id": "P4",
+      "statement": "A's PARSEC closure ratios rise by 8-20 %.",
+      "pass_if": "0.08 <= rise <= 0.20 in all nine cells; the median rise is reported but does not gate",
+      "outcome": "FAIL",
+      "measured": {
+        "rise_by_cell": {
+          "rv3.0_a2.0": 0.1662,
+          "rv3.0_a2.3": 0.1667,
+          "rv3.0_a2.6": 0.1671,
+          "rv3.1_a2.0": 0.162,
+          "rv3.1_a2.3": 0.1626,
+          "rv3.1_a2.6": 0.1631,
+          "rv3.5_a2.0": 0.2072,
+          "rv3.5_a2.3": 0.2077,
+          "rv3.5_a2.6": 0.2093
+        },
+        "median_rise_not_gating": 0.1667,
+        "cells_in_range": 6
+      }
+    },
+    {
+      "id": "P5",
+      "statement": "The association closing slope stays within [2.10, 2.30].",
+      "pass_if": "2.10 <= value <= 2.30",
+      "outcome": "PASS",
+      "measured": {
+        "association_closing_slope_repair_v8": 2.1855,
+        "repair_v7": 2.1966
+      }
+    },
+    {
+      "id": "P6",
+      "statement": "The repair_v5 retained age envelope is 2.00-4.01 Myr and no PMS row is retained.",
+      "pass_if": "min == 2.00 AND max == 4.01 AND pms_count == 0",
+      "outcome": "PASS",
+      "measured": {
+        "retained_rows": 66,
+        "min_Myr": 2.0,
+        "max_Myr": 4.01,
+        "pms_rows": 0
+      }
+    }
+  ],
+  "predictions_passed": 4,
+  "predictions_total": 6,
+  "integrity_checks": {
+    "I1": true,
+    "I2": true,
+    "I3": true,
+    "I4": true
+  },
+  "adoption_rule": "repair_v8 corrects a defect; it is not a model choice.  It becomes the chain the manuscript quotes if and only if I1-I4 pass.  Adoption does NOT depend on P1-P6: a failed prediction is recorded as failed and means the defect's effect was misunderstood, not that the fix is wrong.  If a downstream gate (WP5 G3, WP6, WP7, WP9, WP12 R1-R7) changes verdict on repair_v8, the new verdict is reported as it stands and opened as an issue in PROJECT_TRACE section 9; repair_v7 is not restored and no threshold is moved to recover the old verdict.",
+  "adopted": true,
+  "before_after_table": "tables/issue19_before_after.csv",
+  "before_after": [
+    {
+      "quantity": "N_death baseline, association",
+      "repair_v7": 8.435,
+      "repair_v8": 8.36,
+      "change": -0.07500000000000107,
+      "source": "wp7_ledger"
+    },
+    {
+      "quantity": "N_death baseline, CygOB2-A",
+      "repair_v7": 4.17,
+      "repair_v8": 4.095,
+      "change": -0.07500000000000018,
+      "source": "wp7_ledger"
+    },
+    {
+      "quantity": "N_death baseline, CygOB2-B",
+      "repair_v7": 4.265,
+      "repair_v8": 4.265,
+      "change": 0.0,
+      "source": "wp7_ledger"
+    },
+    {
+      "quantity": "N_death baseline, CygOB2-C",
+      "repair_v7": 0.0,
+      "repair_v8": 0.0,
+      "change": 0.0,
+      "source": "wp7_ledger"
+    },
+    {
+      "quantity": "P(>=1 event) baseline",
+      "repair_v7": 0.9997,
+      "repair_v8": 0.9996,
+      "change": -9.999999999998899e-05,
+      "source": "wp7_ledger"
+    },
+    {
+      "quantity": "P(last < 100 kyr) baseline",
+      "repair_v7": 0.5518,
+      "repair_v8": 0.547,
+      "change": -0.0047999999999999154,
+      "source": "wp7_ledger"
+    },
+    {
+      "quantity": "N_death min, 36 headline branches",
+      "repair_v7": 5.63,
+      "repair_v8": 5.57,
+      "change": -0.05999999999999961,
+      "source": "wp7_ledger"
+    },
+    {
+      "quantity": "N_death max, 36 headline branches",
+      "repair_v7": 28.74,
+      "repair_v8": 28.74,
+      "change": 0.0,
+      "source": "wp7_ledger"
+    },
+    {
+      "quantity": "N_death median, 36 headline branches",
+      "repair_v7": 13.29,
+      "repair_v8": 13.16,
+      "change": -0.129999999999999,
+      "source": "wp7_ledger"
+    },
+    {
+      "quantity": "N_death min, all 54 branches",
+      "repair_v7": 1.93,
+      "repair_v8": 1.94,
+      "change": 0.010000000000000009,
+      "source": "wp7_ledger"
+    },
+    {
+      "quantity": "N_death max, all 54 branches",
+      "repair_v7": 28.74,
+      "repair_v8": 28.74,
+      "change": 0.0,
+      "source": "wp7_ledger"
+    },
+    {
+      "quantity": "N_death median, all 54 branches",
+      "repair_v7": 8.79,
+      "repair_v8": 8.72,
+      "change": -0.06999999999999851,
+      "source": "wp7_ledger"
+    },
+    {
+      "quantity": "k_median baseline, CygOB2-A",
+      "repair_v7": 1734.0,
+      "repair_v8": 1692.3,
+      "change": -41.700000000000045,
+      "source": "wp5_imf_normalization"
+    },
+    {
+      "quantity": "age posterior mean baseline, CygOB2-A (Myr)",
+      "repair_v7": 4.0,
+      "repair_v8": 4.007,
+      "change": 0.006999999999999673,
+      "source": "wp5_imf_normalization"
+    },
+    {
+      "quantity": "k_median baseline, CygOB2-B",
+      "repair_v7": 1647.5,
+      "repair_v8": 1647.5,
+      "change": 0.0,
+      "source": "wp5_imf_normalization"
+    },
+    {
+      "quantity": "age posterior mean baseline, CygOB2-B (Myr)",
+      "repair_v7": 4.086,
+      "repair_v8": 4.086,
+      "change": 0.0,
+      "source": "wp5_imf_normalization"
+    },
+    {
+      "quantity": "k_median baseline, CygOB2-C",
+      "repair_v7": 1893.7,
+      "repair_v8": 1893.6,
+      "change": -0.10000000000013642,
+      "source": "wp5_imf_normalization"
+    },
+    {
+      "quantity": "age posterior mean baseline, CygOB2-C (Myr)",
+      "repair_v7": 2.517,
+      "repair_v8": 2.517,
+      "change": 0.0,
+      "source": "wp5_imf_normalization"
+    },
+    {
+      "quantity": "WP5 cells passing residual gate (of 54)",
+      "repair_v7": 40,
+      "repair_v8": 40,
+      "change": 0.0,
+      "source": "wp5_imf_normalization"
+    },
+    {
+      "quantity": "association stellar mass baseline (Msun)",
+      "repair_v7": 29246.0,
+      "repair_v8": 29014.0,
+      "change": -232.0,
+      "source": "wp5_association_mass"
+    },
+    {
+      "quantity": "WP5 gate G3 pass",
+      "repair_v7": "True",
+      "repair_v8": "False",
+      "change": NaN,
+      "source": "wp5_imf_fit_execution"
+    },
+    {
+      "quantity": "closure grid median at alpha 2.3 (18 cells)",
+      "repair_v7": 1.067,
+      "repair_v8": 1.073,
+      "change": 0.006000000000000005,
+      "source": "wp6_closure"
+    },
+    {
+      "quantity": "closure ratio baseline, CygOB2-A",
+      "repair_v7": 0.865,
+      "repair_v8": 1.006,
+      "change": 0.14100000000000001,
+      "source": "wp6_closure"
+    },
+    {
+      "quantity": "closure ratio baseline, CygOB2-B",
+      "repair_v7": 1.068,
+      "repair_v8": 1.068,
+      "change": 0.0,
+      "source": "wp6_closure"
+    },
+    {
+      "quantity": "closure ratio baseline, CygOB2-C",
+      "repair_v7": 1.36,
+      "repair_v8": 1.36,
+      "change": 0.0,
+      "source": "wp6_closure"
+    },
+    {
+      "quantity": "closing slope grid median, CygOB2-A",
+      "repair_v7": 2.336,
+      "repair_v8": 2.289,
+      "change": -0.04699999999999971,
+      "source": "wp12_closure_slopes_execution"
+    },
+    {
+      "quantity": "closing slope grid median, CygOB2-B",
+      "repair_v7": 2.254,
+      "repair_v8": 2.254,
+      "change": 0.0,
+      "source": "wp12_closure_slopes_execution"
+    },
+    {
+      "quantity": "closing slope grid median, CygOB2-C",
+      "repair_v7": 2.056,
+      "repair_v8": 2.051,
+      "change": -0.004999999999999893,
+      "source": "wp12_closure_slopes_execution"
+    },
+    {
+      "quantity": "closing slope grid median, association",
+      "repair_v7": 2.197,
+      "repair_v8": 2.186,
+      "change": -0.01100000000000012,
+      "source": "wp12_closure_slopes_execution"
+    },
+    {
+      "quantity": "star-weighted association closure, grid median at 2.3",
+      "repair_v7": 1.154,
+      "repair_v8": 1.1713,
+      "change": 0.017300000000000093,
+      "source": "wp12_closure_slopes_execution"
+    },
+    {
+      "quantity": "census above 8 Msun (probabilistic), CygOB2-A",
+      "repair_v7": 59.41,
+      "repair_v8": 67.41,
+      "change": 8.0,
+      "source": "wp6_massive_census"
+    },
+    {
+      "quantity": "census above 8 Msun (thresholded), CygOB2-A",
+      "repair_v7": 57,
+      "repair_v8": 65,
+      "change": 8.0,
+      "source": "wp6_massive_census"
+    },
+    {
+      "quantity": "census above 8 Msun (probabilistic), CygOB2-B",
+      "repair_v7": 79.55,
+      "repair_v8": 79.55,
+      "change": 0.0,
+      "source": "wp6_massive_census"
+    },
+    {
+      "quantity": "census above 8 Msun (thresholded), CygOB2-B",
+      "repair_v7": 75,
+      "repair_v8": 75,
+      "change": 0.0,
+      "source": "wp6_massive_census"
+    },
+    {
+      "quantity": "census above 8 Msun (probabilistic), CygOB2-C",
+      "repair_v7": 107.44,
+      "repair_v8": 107.44,
+      "change": 0.0,
+      "source": "wp6_massive_census"
+    },
+    {
+      "quantity": "census above 8 Msun (thresholded), CygOB2-C",
+      "repair_v7": 109,
+      "repair_v8": 109,
+      "change": 0.0,
+      "source": "wp6_massive_census"
+    },
+    {
+      "quantity": "living ledger above 8 Msun",
+      "repair_v7": 380.58,
+      "repair_v8": 388.58,
+      "change": 8.0,
+      "source": "wp6_ledger_execution"
+    },
+    {
+      "quantity": "P_verdict_min",
+      "repair_v7": 0.3233,
+      "repair_v8": 0.3232,
+      "change": -9.999999999998899e-05,
+      "source": "wp9_verdict_execution"
+    },
+    {
+      "quantity": "P_verdict_median",
+      "repair_v7": 0.5335,
+      "repair_v8": 0.5332,
+      "change": -0.00029999999999996696,
+      "source": "wp9_verdict_execution"
+    },
+    {
+      "quantity": "P_verdict_max",
+      "repair_v7": 0.7355,
+      "repair_v8": 0.7326,
+      "change": -0.0029000000000000137,
+      "source": "wp9_verdict_execution"
+    },
+    {
+      "quantity": "WP9 verdict",
+      "repair_v7": "INCONCLUSIVE",
+      "repair_v8": "INCONCLUSIVE",
+      "change": NaN,
+      "source": "wp9_verdict_execution"
+    },
+    {
+      "quantity": "headline cells passing (of 36)",
+      "repair_v7": 27,
+      "repair_v8": 25,
+      "change": -2.0,
+      "source": "wp12_gate_landscape_execution"
+    },
+    {
+      "quantity": "headline combinations passing all subgroups (of 12)",
+      "repair_v7": 5,
+      "repair_v8": 5,
+      "change": 0.0,
+      "source": "wp12_gate_landscape_execution"
+    },
+    {
+      "quantity": "headline branches on all-passing cells (of 36)",
+      "repair_v7": 15,
+      "repair_v8": 15,
+      "change": 0.0,
+      "source": "wp12_gate_landscape_execution"
+    },
+    {
+      "quantity": "branches with P_verdict > 0.5, alpha_2 (of 18)",
+      "repair_v7": 18,
+      "repair_v8": 18,
+      "change": 0.0,
+      "source": "wp12_gate_landscape_execution"
+    },
+    {
+      "quantity": "branches with P_verdict > 0.5, alpha_2.3 (of 18)",
+      "repair_v7": 0,
+      "repair_v8": 0,
+      "change": 0.0,
+      "source": "wp12_gate_landscape_execution"
+    }
+  ]
+}

@@ -833,7 +833,9 @@ Suggested panels:
 - stars used in upper-MS/counts fits versus excluded points;
 - age posterior per subgroup and family;
 - B's top-node railing visible;
-- the full 2.25--5.67 Myr systematic envelope.
+- the retained upper-MS envelope (2.00--4.01 Myr on repair_v5, macros
+  `\ageEnvLo`/`\ageEnvHi`; the earlier 2.25--5.67 Myr was the pre-repair run,
+  issue #19).
 
 The figure must distinguish observational scatter from model-family spread.
 

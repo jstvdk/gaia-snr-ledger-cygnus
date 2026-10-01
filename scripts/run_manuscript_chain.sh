@@ -2,7 +2,9 @@
 # Regenerate every number, table and figure in the manuscript, then validate.
 #
 # This is the command sequence Appendix F of the paper refers to.  It consumes
-# the frozen repair_v7 chain read-only and rewrites only generated products:
+# the adopted chain read-only -- repair_v8 since 2026-10-01 (issue #19; set in
+# scripts/chain.py, override with CYGOB2_CHAIN) -- and rewrites only generated
+# products:
 # manuscript/numbers.tex, manuscript/tables_generated.tex, the paper figures and
 # the WP12 tables.  It does NOT re-run WP1-WP9; those are the frozen chain.
 #

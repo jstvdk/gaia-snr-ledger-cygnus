@@ -40,6 +40,7 @@ from datetime import datetime, timezone
 import numpy as np
 import pandas as pd
 
+import chain as C
 import wp5_common as w
 from wp3_common import D_KPC
 from wp7_ledger import TurnoffRelation, draw_key, run_population
@@ -58,7 +59,7 @@ from wp11_isotope_prereg import (
     PRIMARY_EXPLODABILITY,
 )
 
-WP5_VERSION = "repair_v7"
+WP5_VERSION = C.V["wp5"]   # chain-declared (issue #19)
 ITERATIONS = 200_000
 PRIMARY_ARM = "LC06_NL"
 
@@ -287,7 +288,7 @@ def main() -> None:
                 print(f"  {family} R_V={rv} alpha={alpha} done", flush=True)
 
     table = pd.DataFrame(rows)
-    table.to_csv(w.TABLES / "wp11_isotope_forecast.csv", index=False)
+    table.to_csv(C.tag(w.TABLES / "wp11_isotope_forecast.csv"), index=False)
 
     head = table[table.in_headline_set]
     primary = head[head.yield_arm.eq(PRIMARY_ARM)]
@@ -333,7 +334,7 @@ def main() -> None:
             ),
         })
     summary_df = pd.DataFrame(summary)
-    summary_df.to_csv(w.TABLES / "wp11_isotope_summary.csv", index=False)
+    summary_df.to_csv(C.tag(w.TABLES / "wp11_isotope_summary.csv"), index=False)
 
     # ------------------------------------------- T4: the WP8 denominator is wrong
     # The frozen WP1 marker gives a MEASURED Cygnus-complex 1809 keV flux.  At
@@ -528,13 +529,13 @@ def main() -> None:
         "outputs": {
             str(path.relative_to(w.ROOT)): w.sha256(path)
             for path in [
-                w.TABLES / "wp11_isotope_forecast.csv",
-                w.TABLES / "wp11_isotope_summary.csv",
+                C.tag(w.TABLES / "wp11_isotope_forecast.csv"),
+                C.tag(w.TABLES / "wp11_isotope_summary.csv"),
             ]
         },
     }
     w.write_json(
-        w.PROVENANCE / "wp11_isotope_forecast_execution.json", record
+        C.tag(w.PROVENANCE / "wp11_isotope_forecast_execution.json"), record
     )
 
     # ------------------------------------------------------------------ report
@@ -574,9 +575,9 @@ def main() -> None:
         if "integrity_note" in entry:
             print(f"          ^ VACUOUS as written (see T4); corrected "
                   f"outcome {entry['outcome_against_corrected_denominator']}")
-    print("\nwrote tables/wp11_isotope_forecast.csv")
-    print("wrote tables/wp11_isotope_summary.csv")
-    print("wrote provenance/wp11_isotope_forecast_execution.json")
+    print(f"\nwrote {C.tag_rel('tables/wp11_isotope_forecast.csv')}")
+    print(f"wrote {C.tag_rel('tables/wp11_isotope_summary.csv')}")
+    print(f"wrote {C.tag_rel('provenance/wp11_isotope_forecast_execution.json')}")
 
 
 if __name__ == "__main__":

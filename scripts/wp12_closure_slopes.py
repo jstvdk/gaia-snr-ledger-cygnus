@@ -41,6 +41,7 @@ from __future__ import annotations
 import numpy as np
 import pandas as pd
 
+import chain as C
 import wp5_common as w
 import wp12_common as W
 from wp7_ledger import TurnoffRelation, draw_key, run_population, summarize
@@ -313,9 +314,9 @@ def main() -> None:
     })
 
     # -------------------------------------------------------------- write out
-    out_closure = w.TABLES / "wp12_closure_by_alpha.csv"
-    out_slopes = w.TABLES / "wp12_closing_slopes.csv"
-    out_mixed = w.TABLES / "wp12_mixed_slope_ledger.csv"
+    out_closure = C.tag(w.TABLES / "wp12_closure_by_alpha.csv")
+    out_slopes = C.tag(w.TABLES / "wp12_closing_slopes.csv")
+    out_mixed = C.tag(w.TABLES / "wp12_mixed_slope_ledger.csv")
     by_alpha.to_csv(out_closure, index=False)
     slopes.to_csv(out_slopes, index=False)
     mixed.to_csv(out_mixed, index=False)
@@ -495,7 +496,7 @@ def main() -> None:
         "scripts/wp12_closure_slopes.py", payload,
         {"closure": out_closure, "slopes": out_slopes, "mixed": out_mixed},
     )
-    w.write_json(w.PROVENANCE / "wp12_closure_slopes_execution.json", rec)
+    w.write_json(C.tag(w.PROVENANCE / "wp12_closure_slopes_execution.json"), rec)
 
     print("WP12.2 closure and mixed slopes")
     print("  closing alpha (grid median) by subgroup:")
