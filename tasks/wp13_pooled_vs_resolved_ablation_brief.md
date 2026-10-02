@@ -6,6 +6,14 @@ Thresholds in §5 are *proposed*; they become binding only when transcribed into
 `scripts/wp13_prereg.py` and hashed, **before** any M0 number is read.
 **Governing document:** [reports/novelty_prior_art_and_incremental_value_audit_2026-08-12.md](../reports/novelty_prior_art_and_incremental_value_audit_2026-08-12.md) §5–§9 and §12.
 **Extension to the plan:** WP13 is not in `paper1_execution_plan.md`, like WP11 and WP12.
+**Re-based 2026-10-02 on `repair_v8`** (issue #19; see the note at the top of §2).
+Superseded repair_v7 values are kept, struck through, beside the new ones.
+**Issue #20 Phase A (2026-10-02) bears on §1's premise:** C's spectroscopic-HRD
+age is 3.98 / 4.01 Myr (PARSEC / MIST), at least as old as A's. "C is young"
+rests on the photometric age alone and is **not established**
+([reports/issue20_phase_a_report.md](../reports/issue20_phase_a_report.md)).
+The ablation still runs on repair_v8 (stage brief, step 4), but no framing may
+assume a young C.
 
 ---
 
@@ -36,25 +44,44 @@ result.
 
 ## 2. Disclosed prior knowledge
 
+> **Re-basing note, 2026-10-02.** §2.1–§2.3 were computed on `repair_v7`. The
+> chain is now `repair_v8` (issue #19, adopted 2026-10-01). Every number below
+> was recomputed from the repair_v8 products by
+> [scripts/wp13_brief_rebase.py](../scripts/wp13_brief_rebase.py) →
+> [tables/wp13_brief_rebase_repair_v8.csv](../tables/wp13_brief_rebase_repair_v8.csv).
+> The same code reproduces the repair_v7 values this section originally printed,
+> which are kept here struck through.
+>
+> - The reading does not change.
+> - One correction to the original text: the scan's P(last < 100 kyr) between
+>   3.25 and 6 Myr spans 0.675–0.765 on repair_v7 and 0.673–0.763 on repair_v8,
+>   not "0.70–0.77". The lowest value is at 3.25 Myr.
+> - The §5 thresholds were checked against the new baseline and stay sensible.
+>   T2's |ΔN| ≥ 3 is binding, because 10 % of 8.36 is 0.84. A single common age
+>   of 3.66 Myr still reproduces the resolved count, so T2 is still expected to
+>   be marginal.
+
 Everything below was computed while writing this brief, from tables that already
 exist. It is disclosed so that the thresholds in §5 are set *knowing* it, as WP11
 did for I3. None of it is the M0 result, because none of it fits a pooled age.
 
 ### 2.1 What the existing common-age scan already implies
 
-`tables/wp7_age_sensitivity.csv` forces one age on all three subgroups while
-keeping each subgroup's own `k`. Interpolating it:
+`tables/wp7_age_sensitivity.csv` (repair_v8: `tables/wp7_age_sensitivity_repair_v8.csv`)
+forces one age on all three subgroups while keeping each subgroup's own `k`.
+Interpolating it (repair_v8; repair_v7 struck through):
 
 | model | age (Myr) | N_death | P(last < 100 kyr) |
 |---|---:|---:|---:|
-| resolved baseline (M1) | A 4.00 / B 4.09 / C 2.52 | **8.43** | **0.552** |
-| common age forced to 4.0 | 4.00 | 12.73 | 0.727 |
-| common age = k-weighted mean of the three counts-based ages | 3.494 | 6.46 | 0.700 |
-| common age that reproduces the resolved count | 3.659 | 8.43 | 0.701 |
+| resolved baseline (M1) | A 4.01 / B 4.09 / C 2.52 (~~A 4.00~~) | **8.36** (~~8.43~~) | **0.547** (~~0.552~~) |
+| common age forced to 4.0 | 4.00 | 12.63 (~~12.73~~) | 0.724 (~~0.727~~) |
+| common age = k-weighted mean of the three counts-based ages | 3.493 (~~3.494~~) | 6.39 (~~6.46~~) | 0.697 (~~0.700~~) |
+| common age that reproduces the resolved count | 3.659 | 8.36 (~~8.43~~) | 0.698 (~~0.701~~) |
 
 **Reading.** A single age of about 3.66 Myr reproduces the resolved *count*.
 No single age between 3.25 and 6 Myr reproduces the resolved *recency
-probability*: the scan sits at 0.70–0.77 throughout while M1 gives 0.55. The
+probability*: the scan sits at 0.67–0.76 throughout (~~0.70–0.77~~, see the
+re-basing note), while M1 gives 0.547 (~~0.55~~). The
 honest expectation is therefore that the count test (T2) will be marginal or
 fail and the time-history tests (T3, T4) are where the difference lives.
 Thresholds are set anyway; the expectation is recorded here so it cannot be
@@ -62,17 +89,20 @@ claimed as a prediction afterwards.
 
 ### 2.2 The structural finding is robust on the authoritative grid
 
-`data/processed/wp5_imf_normalization_repair_v7.parquet`, counts-based
+`data/processed/wp5_imf_normalization_repair_v8.parquet` (~~`_repair_v7`~~), counts-based
 posterior-mean ages over all 18 family × R_V × α cells:
 
 | subgroup | range (Myr) |
 |---|---|
-| Cyg OB2-A | 3.85–4.07 |
+| Cyg OB2-A | 3.88–4.07 (~~3.85–4.07~~) |
 | Cyg OB2-B | 3.30–4.30 |
-| Cyg OB2-C | **2.03–3.17** |
+| Cyg OB2-C | **2.03–3.17** (unchanged; issue #19 did not touch C) |
 
 C is younger than A on every cell. The "two older, one younger" structure is not
-an artefact of one branch. What *is* branch-dependent is whether C's turnoff has
+an artefact of one branch *of the photometric fit*. **Issue #20 Phase A
+(2026-10-02):** C's own spectroscopy does not reproduce it. The spectroscopic-HRD
+age is 3.98 / 4.01 Myr against A's 3.16 / 3.57, and the photometric young age is
+carried by C's photometric-only members' repair_v1 extinction. What *is* branch-dependent is whether C's turnoff has
 crossed the 120 M☉ ceiling (it has on the 9 PARSEC-and-MIST-3.5 cells, giving C
 exactly zero; it has not on MIST 3.0/3.1, giving C 2.5–7.3).
 
@@ -111,10 +141,10 @@ and *not* by PARSEC, and their 5 Myr number is reproduced by neither. The
 turnoff at 3 Myr is 118 M☉ (PARSEC) against 73 M☉ (MIST), so **the lifetime
 prescription alone is worth the same factor of four at 3 Myr as the 3-to-5 Myr
 age change they emphasise.** Two consequences for the paper: (i) the numerical
-proximity of our 8.43 to their 7 ± 2.5 is coincidental, not a validation, and
+proximity of our 8.36 (~~8.43~~) to their 7 ± 2.5 is coincidental, not a validation, and
 must not be presented as one; (ii) "a fixed-age estimate is sensitive to the
 lifetime prescription at the same level as to the age" is a legitimate, cheap
-finding for the sensitivity section. Our association mass is 1.47× theirs
+finding for the sensitivity section. Our association mass is 1.45× (~~1.47×~~, repair_v7) theirs
 like-for-like, which would scale their number to ~10 at 3 Myr under MIST.
 
 ## 3. The model hierarchy
@@ -124,7 +154,7 @@ like-for-like, which would scale their number to ~10 at 3 Myr under MIST.
 | **M_prior** | Menchiari's recipe with our turnoff relation | pilot done (§2.3); finalise once the lifetime source is obtained from Menchiari (2023), else report as "reproduced to within the lifetime-prescription systematic" |
 | **M0** | the same 1,331 labelled members treated as one population: one age, one `k`, per family × R_V × α cell | **to run** |
 | **M0-lite** | M0's pooled age with `k_ALL = k_A + k_B + k_C` draw-wise | fallback only; may not be quoted as "the best one-population model" |
-| **M1** | the accepted `repair_v7` ledger, unchanged, hash-verified | done |
+| **M1** | the accepted `repair_v8` ledger (~~`repair_v7`~~), unchanged, hash-verified | done |
 
 **M0 definition, step by step.** The pooled label is constructed inside the WP13
 script and never written into `wp2_subgroup_labels.parquet`.
@@ -212,14 +242,16 @@ as applications, exactly as WP12 placed them.
 From audit §8, checked against the current `main.tex`:
 
 - [ ] The Menchiari paragraph (§1.2) is fair as written; add the §2.3 result
-      and state explicitly that the proximity of 8.43 to 7 ± 2.5 is not a
+      and state explicitly that the proximity of 8.36 (~~8.43~~) to 7 ± 2.5 is not a
       validation.
 - [ ] Add the lifetime-prescription lever to the sensitivity section and to
       Fig. 9 (turnoff at 3 Myr: 118 vs 73 M☉).
 - [ ] `slides/make_talk.py` still carries the speaker note "This is a genuine
       discovery about the system" on the mass-floor slide; the audit demotes
       this to an expected consequence of the ages. Fix the note and the slide
-      kicker.
+      kicker. *Re-checked 2026-10-02: still present (`slides/make_talk.py`
+      line 528). Issue #20 Phase A weakens the claim further, because C's
+      young age is not established.*
 - [x] Add the two pre-repair WP4 markdown tables to the forbidden list in
       `wp10_inputs.py` (§2.2). *Done 2026-10-01 under issue #19, with the
       unversioned WP4 posterior and anchor file.*

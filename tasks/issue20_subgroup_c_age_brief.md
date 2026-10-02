@@ -13,11 +13,18 @@ Related: [issue #19](issue19_stale_wp4_inputs_brief.md) (the WP4 anchor-HRD gate
 PYTHONPATH=scripts python scripts/issue20_c_age_diagnostic.py   # conda env cygob2-gaia
 ```
 
+
+> **Phase A done 2026-10-02:** [reports/issue20_phase_a_report.md](../reports/issue20_phase_a_report.md).
+> The frozen rule gives **H3, flagged "mixture preference not specific to C"**, so Phase B is a user decision.
+> - H1 fails: C's spectroscopic-HRD age is 3.98 / 4.01 Myr, at least as old as A's.
+> - The photometric young age is carried by C's photometric-only members' repair_v1 extinction, not by its supergiants.
+> - Values in this brief are repair_v8 where they changed; repair_v7 values are struck through.
+
 ---
 
 ## 1. Why this matters
 
-The project's surviving novelty claim is that resolving Cyg OB2 into subgroups changes the death history *because the young C subgroup sits below the first-death boundary*. On the baseline, C is at 2.52 Myr and contributes **0** deaths, against 4.17 for A and 4.26 for B.
+The project's surviving novelty claim is that resolving Cyg OB2 into subgroups changes the death history *because the young C subgroup sits below the first-death boundary*. On the baseline, C is at 2.52 Myr and contributes **0** deaths, against 4.10 (~~4.17~~, repair_v7) for A and 4.26 for B on repair_v8.
 
 **If C is not young, both the zero and the claim go.** If C *is* young, or has a young component, then C is a scientific target in its own right.
 
@@ -80,8 +87,8 @@ The original WP4 HRD consistency gate passed **at the pre-repair ages** (C at 3.
 
 ### Phase A — decide which hypothesis holds (read-only, ~2–3 days, do this first)
 
-- [ ] **A1. Pre-register** (`scripts/issue20_prereg.py` → `provenance/issue20_prereg.json`, with input SHA-256s). Fix the hypotheses, every test statistic and the decision rule (§5) before running A3–A6. Failed predictions stay recorded as failed.
-- [ ] **A2. Star-by-star audit** of C's 43 spectroscopic stars and its 15 brightest members (`tables/issue20_c_star_audit.csv`). For each star record:
+- [x] **A1. Pre-register** (`scripts/issue20_prereg.py` → `provenance/issue20_prereg.json`, with input SHA-256s). Fix the hypotheses, every test statistic and the decision rule (§5) before running A3–A6. Failed predictions stay recorded as failed.
+- [x] **A2. Star-by-star audit** of C's 43 spectroscopic stars and its 15 brightest members (`tables/issue20_c_star_audit.csv`). For each star record:
   - spectral type and luminosity class;
   - binarity (RUWE, plus SB/eclipsing flags from the literature);
   - membership probability;
@@ -89,21 +96,21 @@ The original WP4 HRD consistency gate passed **at the pre-repair ages** (C at 3.
   - position relative to each centroid;
   - spectroscopic versus photometric A_V;
   - literature identifier (Cyg OB2 #, MT91, Schulte numbers).
-- [ ] **A3. A proper spectroscopic-HRD age likelihood** per subgroup, both families and all three R_V values:
+- [x] **A3. A proper spectroscopic-HRD age likelihood** per subgroup, both families and all three R_V values:
   - per-star likelihood over the isochrone, IMF-weighted;
   - an unresolved-binary component, as in WP4;
   - T_eff calibration error of σ_logTe 0.03–0.05, using a supergiant T_eff scale where the luminosity class is I/II;
   - output: the posterior per subgroup, plus a per-star single-isochrone age where defined.
 
   Then test single-age against two-age mixtures for C (H3).
-- [ ] **A4. Photometric sensitivity refits of C** (sensitivity only, never adopted from this step):
+- [x] **A4. Photometric sensitivity refits of C** (sensitivity only, never adopted from this step):
   - (a) a hybrid likelihood in which spectroscopic stars use their spectroscopic T_eff;
   - (b) the upper-MS fit with luminosity class I–II stars excluded.
-- [ ] **A5. Attribute the 3.98 → 2.51 jump.** Compare A_V and M_G,0 of C's brightest stars between the pre-repair and repair_v1 extinction. Did the repair brighten them?
-- [ ] **A6. Closure cross-check.** Compute C's closure ratio and closing slope at C ages of 2.51, 3.16, 3.55 and 3.98 Myr.
-  - Expected direction: an older C lowers the turnoff, so fewer massive stars are predicted alive, so C's existing excess (closing slope 2.06) grows.
+- [x] **A5. Attribute the 3.98 → 2.51 jump.** Compare A_V and M_G,0 of C's brightest stars between the pre-repair and repair_v1 extinction. Did the repair brighten them?
+- [x] **A6. Closure cross-check.** Compute C's closure ratio and closing slope at C ages of 2.51, 3.16, 3.55 and 3.98 Myr.
+  - Expected direction: an older C lowers the turnoff, so fewer massive stars are predicted alive, so C's existing excess (closing slope 2.05 on repair_v8; ~~2.06~~ repair_v7) grows.
   - If so, an older C makes C's massive-star excess *harder* to explain. Record this as evidence either way.
-- [ ] **A7. Literature check.** Published ages for C's region and members: Wright+2015, Berlanas+2019/2020, and spectroscopic studies of the O3 If stars. Treat it as a cross-check, never a calibration (rule 3).
+- [x] **A7. Literature check.** Published ages for C's region and members: Wright+2015, Berlanas+2019/2020, and spectroscopic studies of the O3 If stars. Treat it as a cross-check, never a calibration (rule 3).
 
 ### Phase B — act on the verdict
 
@@ -128,7 +135,7 @@ Science questions:
 2. **Its feedback state.**
    - On the PARSEC relation, C's first death is about τ(120 M☉) ≈ 3.0 Myr after birth, i.e. ~0.5 Myr in the future at 2.52 Myr.
    - C is then a purely wind-driven site, a clean laboratory for wind-only cosmic-ray acceleration in the Cygnus cocoon. Connects to the wind-luminosity program in `method_explained.md`.
-3. **The top of its IMF.** C's closing slope of 2.06 is the shallowest of the three. Does a genuinely young C carry a top-heavy IMF, or is it mass segregation or an age effect?
+3. **The top of its IMF.** C's closing slope of 2.05 (~~2.06~~) is the shallowest of the three. Does a genuinely young C carry a top-heavy IMF, or is it mass segregation or an age effect?
 4. **Its dynamical state.** An expansion or traceback age from Gaia proper motions; 3-D kinematics with radial velocities; mass segregation of the O stars.
 5. **Star-formation history of Cygnus X.** Do A, B and C form a sequence in time and space?
 

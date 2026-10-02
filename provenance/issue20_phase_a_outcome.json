@@ -1,0 +1,668 @@
+{
+  "created_utc": "2026-10-02T07:03:15+00:00",
+  "script": "scripts/issue20_score.py",
+  "preregistration": {
+    "path": "provenance/issue20_prereg.json",
+    "created_utc": "2026-10-02T06:55:20+00:00",
+    "sha256": "a48e01eb724b57def764a8de8c0054f3b7e1aebb06cd48fc42b85d65b3bee161"
+  },
+  "verdict": "H3",
+  "verdict_rule_text": {
+    "evaluated_on": "the decision cell, separately for PARSEC and MIST.  A hypothesis is the verdict only if it holds in BOTH families.",
+    "H3": "C's best two-age mixture beats C's best single age by Delta BIC > 10 AND age_old - age_young > 1.0 Myr AND both components hold >= 3 weighted stars.",
+    "H1": "C's 95 % upper bound < A's 95 % lower bound.",
+    "H2": "C's 68 % interval overlaps A's 68 % interval.",
+    "precedence": "H3 is tested first: if it holds in both families the verdict is H3 whatever the single-age intervals say.  Otherwise H1, then H2 (H1 and H2 are mutually exclusive by construction).  Families disagreeing, or neither H1 nor H2 holding (68 % disjoint, 95 % overlapping), is INCONCLUSIVE.",
+    "measurability": "if A's or C's posterior is railed in a family, that family supports neither H1 nor H2 (it can still support H3); a railed family makes the single-age verdict INCONCLUSIVE.",
+    "qualifiers_not_changing_the_label": {
+      "robust / fragile": "robust if the same per-family outcome obtains at R_V 3.0, 3.5 and f_bin 0.3, 0.5 in both families; otherwise fragile, with the dissenting cells listed.",
+      "statistic-dependent": "the secondary (joint) statistic gives a different verdict.",
+      "H3 specificity": "the same mixture test is run on A.  If A also passes the H3 criteria in both families, an H3 verdict is labelled 'mixture preference not specific to C' and Phase B for H3 needs a user decision (the test may be detecting model mis-specification, e.g. blue stragglers, rather than a second episode in C)."
+    },
+    "inconclusive_means": "C is carried as a branch (young / coeval) through the ledger in a later, separately pre-registered chain, and no novelty claim rests on C's age."
+  },
+  "qualifiers": {
+    "robust": true,
+    "dissenting_cells": [],
+    "statistic_dependent": false,
+    "joint_statistic_verdict": "H3",
+    "H3_not_specific_to_C": true
+  },
+  "single_age_verdict_ignoring_H3": "INCONCLUSIVE",
+  "decision_cells": {
+    "PARSEC": {
+      "H1": false,
+      "H2": true,
+      "H3": true,
+      "railed": false,
+      "label": "H3",
+      "single_age_label": "H2",
+      "A": {
+        "map": 3.1622776601683795,
+        "lo95": 2.7182452983746863,
+        "lo68": 2.970415154649404,
+        "hi68": 3.581606762106168,
+        "hi95": 4.038031406201051
+      },
+      "C": {
+        "map": 3.981071705534972,
+        "lo95": 3.2815392762495774,
+        "lo68": 3.5376040419001376,
+        "hi68": 4.226866723683767,
+        "hi95": 4.528436169831372
+      },
+      "C_mixture": {
+        "single_best_age": 3.9810717055349696,
+        "age_young": 3.548133892335753,
+        "age_old": 10.0,
+        "phi_young": 0.76,
+        "n_young": 34.37091320682195,
+        "n_old": 7.638486793178046,
+        "delta_BIC": 22.699392180403247
+      }
+    },
+    "MIST": {
+      "H1": false,
+      "H2": false,
+      "H3": true,
+      "railed": false,
+      "label": "H3",
+      "single_age_label": "none",
+      "A": {
+        "map": 3.570672345572628,
+        "lo95": 3.195571430578941,
+        "lo68": 3.389898780727258,
+        "hi68": 3.7649531985613054,
+        "hi95": 4.075485335580201
+      },
+      "C": {
+        "map": 4.008667176273027,
+        "lo95": 3.7732810183987784,
+        "lo68": 3.9415145017868047,
+        "hi68": 4.486875647139369,
+        "hi95": 4.720905662669313
+      },
+      "C_mixture": {
+        "single_best_age": 4.008667176273026,
+        "age_young": 4.008667176273026,
+        "age_old": 10.115794542598984,
+        "phi_young": 0.82,
+        "n_young": 36.35607775502155,
+        "n_old": 5.6533222449784475,
+        "delta_BIC": 15.361887791627016
+      }
+    }
+  },
+  "joint_statistic_decision_cells": {
+    "PARSEC": {
+      "H1": false,
+      "H2": false,
+      "H3": true,
+      "railed": false,
+      "label": "H3",
+      "single_age_label": "none",
+      "A": {
+        "map": 3.1622776601683795,
+        "lo95": 2.703594307539265,
+        "lo68": 2.8492565783468025,
+        "hi68": 3.4697508144641187,
+        "hi95": 3.992795167739098
+      },
+      "C": {
+        "map": 3.981071705534972,
+        "lo95": 3.301641448737336,
+        "lo68": 3.552165055967092,
+        "hi68": 4.150846683870733,
+        "hi95": 4.430365300978589
+      },
+      "C_mixture": {
+        "single_best_age": 3.9810717055349696,
+        "age_young": 3.548133892335753,
+        "age_old": 10.0,
+        "phi_young": 0.84,
+        "n_young": 35.872550145837664,
+        "n_old": 6.136849854162335,
+        "delta_BIC": 19.176498915418083
+      }
+    },
+    "MIST": {
+      "H1": false,
+      "H2": true,
+      "H3": true,
+      "railed": false,
+      "label": "H3",
+      "single_age_label": "H2",
+      "A": {
+        "map": 3.570672345572628,
+        "lo95": 3.4344983596688663,
+        "lo68": 3.542080758355593,
+        "hi68": 4.001569751650008,
+        "hi95": 4.3209231345173
+      },
+      "C": {
+        "map": 4.008667176273027,
+        "lo95": 3.667294948551508,
+        "lo68": 3.866589201649473,
+        "hi68": 4.406603306926063,
+        "hi95": 4.615266479590639
+      },
+      "C_mixture": {
+        "single_best_age": 4.008667176273026,
+        "age_young": 4.008667176273026,
+        "age_old": 10.115794542598984,
+        "phi_young": 0.88,
+        "n_young": 37.42730291927461,
+        "n_old": 4.58209708072539,
+        "delta_BIC": 13.43857688716955
+      }
+    }
+  },
+  "robustness_cells": [
+    {
+      "family": "PARSEC",
+      "R_V": 3.0,
+      "f_bin": 0.3,
+      "label": "H3",
+      "single_age_label": "none",
+      "C_map": 3.981071705534972,
+      "A_map": 3.1622776601683795,
+      "C_mix_dBIC": 21.135872689157257
+    },
+    {
+      "family": "PARSEC",
+      "R_V": 3.0,
+      "f_bin": 0.4,
+      "label": "H3",
+      "single_age_label": "none",
+      "C_map": 3.981071705534972,
+      "A_map": 3.1622776601683795,
+      "C_mix_dBIC": 19.570655283912036
+    },
+    {
+      "family": "PARSEC",
+      "R_V": 3.0,
+      "f_bin": 0.5,
+      "label": "H3",
+      "single_age_label": "H2",
+      "C_map": 3.981071705534972,
+      "A_map": 3.1622776601683795,
+      "C_mix_dBIC": 18.328231600315537
+    },
+    {
+      "family": "PARSEC",
+      "R_V": 3.1,
+      "f_bin": 0.3,
+      "label": "H3",
+      "single_age_label": "H2",
+      "C_map": 3.981071705534972,
+      "A_map": 3.1622776601683795,
+      "C_mix_dBIC": 24.435495046246597
+    },
+    {
+      "family": "PARSEC",
+      "R_V": 3.1,
+      "f_bin": 0.5,
+      "label": "H3",
+      "single_age_label": "H2",
+      "C_map": 3.981071705534972,
+      "A_map": 3.1622776601683795,
+      "C_mix_dBIC": 21.33033129335671
+    },
+    {
+      "family": "PARSEC",
+      "R_V": 3.5,
+      "f_bin": 0.3,
+      "label": "H3",
+      "single_age_label": "H2",
+      "C_map": 4.466835921509632,
+      "A_map": 3.548133892335755,
+      "C_mix_dBIC": 38.15539363296382
+    },
+    {
+      "family": "PARSEC",
+      "R_V": 3.5,
+      "f_bin": 0.4,
+      "label": "H3",
+      "single_age_label": "H2",
+      "C_map": 4.466835921509632,
+      "A_map": 3.548133892335755,
+      "C_mix_dBIC": 35.94181700005433
+    },
+    {
+      "family": "PARSEC",
+      "R_V": 3.5,
+      "f_bin": 0.5,
+      "label": "H3",
+      "single_age_label": "H2",
+      "C_map": 4.466835921509632,
+      "A_map": 3.548133892335755,
+      "C_mix_dBIC": 34.298892627238374
+    },
+    {
+      "family": "MIST",
+      "R_V": 3.0,
+      "f_bin": 0.3,
+      "label": "H3",
+      "single_age_label": "none",
+      "C_map": 4.008667176273027,
+      "A_map": 3.570672345572628,
+      "C_mix_dBIC": 13.928218538978388
+    },
+    {
+      "family": "MIST",
+      "R_V": 3.0,
+      "f_bin": 0.4,
+      "label": "H3",
+      "single_age_label": "none",
+      "C_map": 4.008667176273027,
+      "A_map": 3.570672345572628,
+      "C_mix_dBIC": 12.622569314607665
+    },
+    {
+      "family": "MIST",
+      "R_V": 3.0,
+      "f_bin": 0.5,
+      "label": "H3",
+      "single_age_label": "none",
+      "C_map": 4.008667176273027,
+      "A_map": 3.570672345572628,
+      "C_mix_dBIC": 11.580644344949167
+    },
+    {
+      "family": "MIST",
+      "R_V": 3.1,
+      "f_bin": 0.3,
+      "label": "H3",
+      "single_age_label": "none",
+      "C_map": 4.008667176273027,
+      "A_map": 3.570672345572628,
+      "C_mix_dBIC": 16.816301836813967
+    },
+    {
+      "family": "MIST",
+      "R_V": 3.1,
+      "f_bin": 0.5,
+      "label": "H3",
+      "single_age_label": "none",
+      "C_map": 4.008667176273027,
+      "A_map": 3.570672345572628,
+      "C_mix_dBIC": 14.212395323335375
+    },
+    {
+      "family": "MIST",
+      "R_V": 3.5,
+      "f_bin": 0.3,
+      "label": "H3",
+      "single_age_label": "none",
+      "C_map": 4.500388435263084,
+      "A_map": 3.570672345572628,
+      "C_mix_dBIC": 27.84547184448307
+    },
+    {
+      "family": "MIST",
+      "R_V": 3.5,
+      "f_bin": 0.4,
+      "label": "H3",
+      "single_age_label": "none",
+      "C_map": 4.500388435263084,
+      "A_map": 3.570672345572628,
+      "C_mix_dBIC": 26.001254946721108
+    },
+    {
+      "family": "MIST",
+      "R_V": 3.5,
+      "f_bin": 0.5,
+      "label": "H3",
+      "single_age_label": "none",
+      "C_map": 4.500388435263084,
+      "A_map": 3.570672345572628,
+      "C_mix_dBIC": 24.559837066829463
+    }
+  ],
+  "H3_specificity_control_A": {
+    "decision_cells": {
+      "PARSEC": {
+        "h3_criteria_met": true,
+        "delta_BIC": 22.625570176017597,
+        "age_young": 2.818382931264455,
+        "age_old": 10.0,
+        "phi_young": 0.56
+      },
+      "MIST": {
+        "h3_criteria_met": true,
+        "delta_BIC": 10.00561112191546,
+        "age_young": 3.5706723455726257,
+        "age_old": 10.115794542598984,
+        "phi_young": 0.74
+      }
+    },
+    "all_cells": [
+      {
+        "family": "PARSEC",
+        "R_V": 3.0,
+        "f_bin": 0.3,
+        "h3_criteria_met": true,
+        "delta_BIC": 19.23882146634154
+      },
+      {
+        "family": "PARSEC",
+        "R_V": 3.0,
+        "f_bin": 0.4,
+        "h3_criteria_met": true,
+        "delta_BIC": 17.005941489359948
+      },
+      {
+        "family": "PARSEC",
+        "R_V": 3.0,
+        "f_bin": 0.5,
+        "h3_criteria_met": true,
+        "delta_BIC": 15.246322749335317
+      },
+      {
+        "family": "PARSEC",
+        "R_V": 3.1,
+        "f_bin": 0.3,
+        "h3_criteria_met": true,
+        "delta_BIC": 25.270875639493543
+      },
+      {
+        "family": "PARSEC",
+        "R_V": 3.1,
+        "f_bin": 0.4,
+        "h3_criteria_met": true,
+        "delta_BIC": 22.625570176017597
+      },
+      {
+        "family": "PARSEC",
+        "R_V": 3.1,
+        "f_bin": 0.5,
+        "h3_criteria_met": true,
+        "delta_BIC": 20.520738464039503
+      },
+      {
+        "family": "PARSEC",
+        "R_V": 3.5,
+        "f_bin": 0.3,
+        "h3_criteria_met": true,
+        "delta_BIC": 52.13672711617394
+      },
+      {
+        "family": "PARSEC",
+        "R_V": 3.5,
+        "f_bin": 0.4,
+        "h3_criteria_met": true,
+        "delta_BIC": 47.89227157372032
+      },
+      {
+        "family": "PARSEC",
+        "R_V": 3.5,
+        "f_bin": 0.5,
+        "h3_criteria_met": true,
+        "delta_BIC": 44.52625093827755
+      },
+      {
+        "family": "MIST",
+        "R_V": 3.0,
+        "f_bin": 0.3,
+        "h3_criteria_met": false,
+        "delta_BIC": 7.664607237842398
+      },
+      {
+        "family": "MIST",
+        "R_V": 3.0,
+        "f_bin": 0.4,
+        "h3_criteria_met": false,
+        "delta_BIC": 6.342968876499805
+      },
+      {
+        "family": "MIST",
+        "R_V": 3.0,
+        "f_bin": 0.5,
+        "h3_criteria_met": false,
+        "delta_BIC": 5.28655717422121
+      },
+      {
+        "family": "MIST",
+        "R_V": 3.1,
+        "f_bin": 0.3,
+        "h3_criteria_met": true,
+        "delta_BIC": 11.56058942249417
+      },
+      {
+        "family": "MIST",
+        "R_V": 3.1,
+        "f_bin": 0.4,
+        "h3_criteria_met": true,
+        "delta_BIC": 10.00561112191546
+      },
+      {
+        "family": "MIST",
+        "R_V": 3.1,
+        "f_bin": 0.5,
+        "h3_criteria_met": false,
+        "delta_BIC": 8.758938525099063
+      },
+      {
+        "family": "MIST",
+        "R_V": 3.5,
+        "f_bin": 0.3,
+        "h3_criteria_met": true,
+        "delta_BIC": 30.671848403780523
+      },
+      {
+        "family": "MIST",
+        "R_V": 3.5,
+        "f_bin": 0.4,
+        "h3_criteria_met": true,
+        "delta_BIC": 27.86893343958628
+      },
+      {
+        "family": "MIST",
+        "R_V": 3.5,
+        "f_bin": 0.5,
+        "h3_criteria_met": true,
+        "delta_BIC": 25.618593851892307
+      }
+    ]
+  },
+  "mixture_old_component": {
+    "PARSEC": {
+      "C_old_component_Myr": 10.0,
+      "A_old_component_Myr": 10.0,
+      "both_at_oldest_grid_age": true
+    },
+    "MIST": {
+      "C_old_component_Myr": 10.115794542598984,
+      "A_old_component_Myr": 10.115794542598984,
+      "both_at_oldest_grid_age": true
+    }
+  },
+  "secondary_predictions": {
+    "S1": {
+      "measured_fraction_nearest_C": 0.7142857142857143,
+      "n_class_I_II": 7,
+      "outcome": "consistent with H2/H3",
+      "caveat": "partly circular (GMM labels in l, b, pm)",
+      "stars": [
+        {
+          "source_id": 2067771533186357888,
+          "object_name": "2MASS J20323904+4100078",
+          "spectral_type": "B0Ia",
+          "pm_mahal_A": 2.921112700471763,
+          "pm_mahal_B": 2.281096086796368,
+          "pm_mahal_C": 1.5424068339833201,
+          "pm_nearest": "C"
+        },
+        {
+          "source_id": 2067783623515353728,
+          "object_name": "Schulte 9",
+          "spectral_type": "O5I+O3.5III",
+          "pm_mahal_A": 2.4377141072099406,
+          "pm_mahal_B": 1.9886257116498707,
+          "pm_mahal_C": 1.01326612119812,
+          "pm_nearest": "C"
+        },
+        {
+          "source_id": 2067780947755025920,
+          "object_name": "Schulte 18",
+          "spectral_type": "B1Ib",
+          "pm_mahal_A": 0.7323777255860652,
+          "pm_mahal_B": 3.078583468211304,
+          "pm_mahal_C": 1.5081913655880237,
+          "pm_nearest": "A"
+        },
+        {
+          "source_id": 2064757703093913984,
+          "object_name": "[CPR2002] A27",
+          "spectral_type": "B0Ia",
+          "pm_mahal_A": 0.35503364941788723,
+          "pm_mahal_B": 2.2712093824539723,
+          "pm_mahal_C": 1.5173417944232905,
+          "pm_nearest": "A"
+        },
+        {
+          "source_id": 2064739041458261120,
+          "object_name": "A29",
+          "spectral_type": "O9.7Iab",
+          "pm_mahal_A": 1.271663415522136,
+          "pm_mahal_B": 2.3533303475538188,
+          "pm_mahal_C": 0.6479608112007262,
+          "pm_nearest": "C"
+        },
+        {
+          "source_id": 2067785070923663104,
+          "object_name": "Schulte 7",
+          "spectral_type": "O3If",
+          "pm_mahal_A": 1.6740833793764838,
+          "pm_mahal_B": 1.5685845377370797,
+          "pm_mahal_C": 0.80150672048435,
+          "pm_nearest": "C"
+        },
+        {
+          "source_id": 2067845887660714880,
+          "object_name": "Schulte 2",
+          "spectral_type": "B1I",
+          "pm_mahal_A": 3.3247546493135465,
+          "pm_mahal_B": 3.363933751365903,
+          "pm_mahal_C": 1.2961596251501302,
+          "pm_nearest": "C"
+        }
+      ]
+    },
+    "S2": {
+      "rows": {
+        "PARSEC": {
+          "C_map_without_I_II": 2.51188643150958,
+          "A_stored_map": 3.981071705534972,
+          "young_persists": true
+        },
+        "MIST": {
+          "C_map_without_I_II": 3.1805336883295205,
+          "A_stored_map": 4.008667176273027,
+          "young_persists": true
+        }
+      },
+      "outcome": "young persists (consistent with H1)"
+    },
+    "S3": {
+      "rows": {
+        "PARSEC": {
+          "C_hybrid_map": 2.8183829312644537,
+          "old": false
+        },
+        "MIST": {
+          "C_hybrid_map": 3.570672345572628,
+          "old": true
+        }
+      },
+      "outcome": "FAIL (hybrid not >= 3.3 Myr in both families)"
+    },
+    "S4": {
+      "rows": [
+        {
+          "family": "MIST",
+          "R_V": 3.0,
+          "ratios": [
+            1.3855642058994837,
+            1.3883255677336055,
+            1.3883255677336055,
+            1.4044771175451354
+          ],
+          "non_decreasing": true
+        },
+        {
+          "family": "MIST",
+          "R_V": 3.1,
+          "ratios": [
+            1.457768775946172,
+            1.457768775946172,
+            1.457768775946172,
+            1.4747880163680278
+          ],
+          "non_decreasing": true
+        },
+        {
+          "family": "MIST",
+          "R_V": 3.5,
+          "ratios": [
+            1.41486075093938,
+            1.4448002977002012,
+            1.4448002977002012,
+            1.4607677445830207
+          ],
+          "non_decreasing": true
+        },
+        {
+          "family": "PARSEC",
+          "R_V": 3.0,
+          "ratios": [
+            1.3147481006895896,
+            1.331166009556147,
+            1.355134857888758,
+            1.3713253737771527
+          ],
+          "non_decreasing": true
+        },
+        {
+          "family": "PARSEC",
+          "R_V": 3.1,
+          "ratios": [
+            1.3600247859942516,
+            1.376721327162432,
+            1.400854608527829,
+            1.4171109007663436
+          ],
+          "non_decreasing": true
+        },
+        {
+          "family": "PARSEC",
+          "R_V": 3.5,
+          "ratios": [
+            1.4421690764264248,
+            1.458328634198897,
+            1.4816950296854734,
+            1.497765010129438
+          ],
+          "non_decreasing": true
+        }
+      ],
+      "median_closing_alpha_by_age": {
+        "2.51": 2.0482724179518126,
+        "3.16": 2.03802956407586,
+        "3.55": 2.034364017352888,
+        "3.98": 2.0212105395378295
+      },
+      "outcome": "PASS"
+    }
+  },
+  "integrity": {
+    "I1": true,
+    "I2": true,
+    "I3": true,
+    "I4": true,
+    "I5": true,
+    "I6": "all inputs read through issue20_common.frozen; no FrozenInputMoved raised"
+  },
+  "phase_b_action": "needs a user decision: the mixture preference is not specific to C",
+  "consequence_for_n_death_registered": "Direction UP, by less than H2 for the same old age: the older component contributes deaths in proportion to its birth fraction, dated by its own age.  Requires either the existing formation-duration branch (delta up to 2 Myr) or a two-component C in repair_v9."
+}

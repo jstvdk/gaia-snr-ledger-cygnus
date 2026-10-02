@@ -1,0 +1,315 @@
+{
+  "created_utc": "2026-10-02T06:59:36+00:00",
+  "script": "scripts/issue20_closure_c_age.py",
+  "preregistration": "provenance/issue20_prereg.json",
+  "method_check": {
+    "method_hash": "ad1b5f12d4181922b0bf75116e952547f100aab5803f2ab3765840e0f4f2b028",
+    "deviation": null
+  },
+  "inputs": {
+    "wp5_normalization_v8": {
+      "path": "data/processed/wp5_imf_normalization_repair_v8.parquet",
+      "sha256": "ca841c082672fced85e692b682b534b28fa5fc9739167d11e1efe745044b54c3"
+    },
+    "massive_census_v8": {
+      "path": "tables/wp6_massive_census_repair_v8.csv",
+      "sha256": "74dcb0f2400d9aef542b06b1f77dd337cf43b2253630ca045f3af956ba75f4d0"
+    },
+    "closure_v8": {
+      "path": "tables/wp6_closure_repair_v8.csv",
+      "sha256": "ca0190a6fe02586cd50887b2a789922df597d7c6c8156b735abfbdb2a5d471f6"
+    },
+    "age_posteriors_v5": {
+      "path": "data/processed/wp4_age_posteriors_repair_v5.parquet",
+      "sha256": "dc14e923a5dc4ad1336d08059e397bbc007f0f926f91a94f5ac2ddfbdc141ada"
+    }
+  },
+  "node_response_files": {
+    "data/processed/wp5_agenode_C_MIST_rv3p0_age2p753_repair_v7_response.parquet": "e52a063c0f92ac40ad352649c32aa47987d70fb31cf6e42888e01b54a402c5ab",
+    "data/processed/wp5_agenode_C_MIST_rv3p0_age2p921_repair_v7_response.parquet": "2f95a2d931bfade43fd61dbb3e5474ec3a5e89522e1aad028cac17be12cb974d",
+    "data/processed/wp5_agenode_C_MIST_rv3p0_age3p022_repair_v7_response.parquet": "cc50c95b1da2fb97e78e48231d68bb2a8ffd9adc571279ac224e2d10d3bf78d6",
+    "data/processed/wp5_agenode_C_MIST_rv3p0_age3p105_repair_v7_response.parquet": "974db39137492d2b9ebd3aa16b8a44cf75d8ab5a3f878181d26d041b5927354a",
+    "data/processed/wp5_agenode_C_MIST_rv3p0_age3p181_repair_v7_response.parquet": "e26dd72a7a8fb1af147f9be117b2a929b43db76166cdcd034148796ffde2e64a",
+    "data/processed/wp5_agenode_C_MIST_rv3p0_age3p190_repair_v7_response.parquet": "2613c1affa4e62185e2a0567e714c889448e4044dc289f30bd0ef5fc6ea83fec",
+    "data/processed/wp5_agenode_C_MIST_rv3p0_age3p200_repair_v7_response.parquet": "25df61bdb57f19c83d25bf0bb1d5f75b301687c6337664741ad52ec7831eceaa",
+    "data/processed/wp5_agenode_C_MIST_rv3p0_age3p212_repair_v7_response.parquet": "c4275e70f08539ef46bd4af931efcc69089ea6974d46faefae7ec04bee9dacab",
+    "data/processed/wp5_agenode_C_MIST_rv3p0_age3p232_repair_v7_response.parquet": "36c36acd521e5483d47ba9366f9763fd1e11120a53967269d16d137ac2810d3a",
+    "data/processed/wp5_agenode_C_MIST_rv3p1_age3p044_repair_v7_response.parquet": "07413bc34032140bdd162e1ff7f079eaecabdec2876599f99aa0a7ce7f50d98f",
+    "data/processed/wp5_agenode_C_MIST_rv3p1_age3p097_repair_v7_response.parquet": "ef6500824ad693567bbf4d3ae4a642950031d9bdeb6073627ce20746b9bd7d4c",
+    "data/processed/wp5_agenode_C_MIST_rv3p1_age3p130_repair_v7_response.parquet": "288aecc859063069857134fc72c41ef9c86140c0ab1b60e51e9cd5a90dfbfcc4",
+    "data/processed/wp5_agenode_C_MIST_rv3p1_age3p156_repair_v7_response.parquet": "0ad4ce6159100d7fb9a382ebd51a79cab028e542e758cb9b7a791d8ce0fac5c8",
+    "data/processed/wp5_agenode_C_MIST_rv3p1_age3p181_repair_v7_response.parquet": "a1e925c177d0023e23a6025dbf3b768e514efa52cff7833f3b188ef5bd2e95de",
+    "data/processed/wp5_agenode_C_MIST_rv3p1_age3p199_repair_v7_response.parquet": "506cc46ac1bce8d77c6272923803bcef6520d16131091a2c022c38c8b4640e0f",
+    "data/processed/wp5_agenode_C_MIST_rv3p1_age3p220_repair_v7_response.parquet": "4c1d266fd06181cdb049912b7d5df45d8ba40e9f6a9666660d793a8d6435fe31",
+    "data/processed/wp5_agenode_C_MIST_rv3p1_age3p245_repair_v7_response.parquet": "ea7e5040ecc542fc3339bd9c3f5a3f19f9e036433064e1b16bd5e63359756ebb",
+    "data/processed/wp5_agenode_C_MIST_rv3p1_age3p287_repair_v7_response.parquet": "f00b4c787ea8fb206608e49faad80fde3456f230ab8ce455d4d79f9a3686c64a",
+    "data/processed/wp5_agenode_C_MIST_rv3p5_age1p782_repair_v7_response.parquet": "74f7f4080300e818d1360f7b9f24061b602870a7ab4b3da4049f189891219a97",
+    "data/processed/wp5_agenode_C_MIST_rv3p5_age1p868_repair_v7_response.parquet": "fc4bf1f1f6d01eb48652d1927dcb19e8df1fa2b1f47af6b0e51e60b045a7367f",
+    "data/processed/wp5_agenode_C_MIST_rv3p5_age1p921_repair_v7_response.parquet": "83d7855152e05bf9d8fdd1d1492f9b1683634fae39b622d98d9dd00312d4925b",
+    "data/processed/wp5_agenode_C_MIST_rv3p5_age1p963_repair_v7_response.parquet": "5b0a6857fb8b3e50a124b647b71c24762a60293ec1c9f56440933843af9ca79b",
+    "data/processed/wp5_agenode_C_MIST_rv3p5_age2p002_repair_v7_response.parquet": "c95fcce647de96b609169e4cd87a8493e6030cbfcd0719fa9a347a4636b9e8bc",
+    "data/processed/wp5_agenode_C_MIST_rv3p5_age2p019_repair_v7_response.parquet": "dc78967a2ae5045fe8107fb19d8dc860453b3ddf457aabd5c7a3645e7ad25cd3",
+    "data/processed/wp5_agenode_C_MIST_rv3p5_age2p038_repair_v7_response.parquet": "ace9ca7fae69a25322afaa30e9a0baf8bb9d00f6ef803dd09bba6361d2eed12e",
+    "data/processed/wp5_agenode_C_MIST_rv3p5_age2p061_repair_v7_response.parquet": "f51bebd94f98802a70f150a18b31982d6f94120c7cf9816156002e792eaf8cf3",
+    "data/processed/wp5_agenode_C_MIST_rv3p5_age2p099_repair_v7_response.parquet": "edb6dff028a3e8da8cd663151e667d1bfdce14acaa9c6b60a648567633893205",
+    "data/processed/wp5_agenode_C_PARSEC_rv3p0_age2p456_repair_v7_response.parquet": "3e6f70cbff53e5662c8600295cd51908298e88db0c6dd105a4b4f356cd4ab189",
+    "data/processed/wp5_agenode_C_PARSEC_rv3p0_age2p478_repair_v7_response.parquet": "a01ee19bfd91a282a7af79ae4c0ae9197f36895739e35e8777b79ab5ca0f152f",
+    "data/processed/wp5_agenode_C_PARSEC_rv3p0_age2p491_repair_v7_response.parquet": "c56e483de1ac9c260dd0d0a886a6b0d1433d50276406a7de3ff30d56b3bc6d9f",
+    "data/processed/wp5_agenode_C_PARSEC_rv3p0_age2p502_repair_v7_response.parquet": "41efb62e3b8360e68a890b769545132df95597bd17b532415e521197cb9704db",
+    "data/processed/wp5_agenode_C_PARSEC_rv3p0_age2p512_repair_v7_response.parquet": "ed4fd115964ec3616f53e7e70b731a72f792938beef3d6074eac8773cd0d9914",
+    "data/processed/wp5_agenode_C_PARSEC_rv3p0_age2p528_repair_v7_response.parquet": "d5fed1a9bc740008d45846ada05c9e7d56c34a2c467af65d8ddfbd2bb56d3ddf",
+    "data/processed/wp5_agenode_C_PARSEC_rv3p0_age2p545_repair_v7_response.parquet": "c9ecdd79e11c25d0ba88a356cfbd2e7b6db4e30a179e1d83816bf51f275e9d04",
+    "data/processed/wp5_agenode_C_PARSEC_rv3p0_age2p567_repair_v7_response.parquet": "3bdcae3194107461e1779a2d9762c424780637dbf1415ccdd340a9a59ad95c8d",
+    "data/processed/wp5_agenode_C_PARSEC_rv3p0_age2p603_repair_v7_response.parquet": "56d3cb9eda7a73493fe8660f826fde63d198f77ae8bcd307400514e19528c602",
+    "data/processed/wp5_agenode_C_PARSEC_rv3p1_age2p445_repair_v7_response.parquet": "617b462c2467d672c3ec253ae87cdcf4fa4a9c3e49221512f7e26884cf982842",
+    "data/processed/wp5_agenode_C_PARSEC_rv3p1_age2p472_repair_v7_response.parquet": "b6dd1a53d4ad55c8e1cb4b8f1ec3d532c2d10ad366d935ca240bc420bc689056",
+    "data/processed/wp5_agenode_C_PARSEC_rv3p1_age2p487_repair_v7_response.parquet": "645b08b830499d8343e98be927e2c0ec01d8edb68254adc499e44f48a1758525",
+    "data/processed/wp5_agenode_C_PARSEC_rv3p1_age2p500_repair_v7_response.parquet": "f02b499c0f5c1cd7cdb847e16979b68cad7aeb408aea2b7dcbea125218d91102",
+    "data/processed/wp5_agenode_C_PARSEC_rv3p1_age2p512_repair_v7_response.parquet": "a1bc103d4151a013866190b8691812af3e7c9706c892d5db3af4f4098d9226b8",
+    "data/processed/wp5_agenode_C_PARSEC_rv3p1_age2p526_repair_v7_response.parquet": "ed3a913788732cd5c65be04839549016f020e4cca3664631cd3daa01849f67ca",
+    "data/processed/wp5_agenode_C_PARSEC_rv3p1_age2p541_repair_v7_response.parquet": "ea71446f1b5969240e7bee85729ec6babcfea32cff6eaf77f5b72b9272da8234",
+    "data/processed/wp5_agenode_C_PARSEC_rv3p1_age2p559_repair_v7_response.parquet": "5ce5747747a154c0b8301c2334f8011786c976ba534bd2294c596dd493832557",
+    "data/processed/wp5_agenode_C_PARSEC_rv3p1_age2p590_repair_v7_response.parquet": "365c6635e61dd368c251a178db3987a917499af76a447bc0cbd32c802a0b9c2f",
+    "data/processed/wp5_agenode_C_PARSEC_rv3p5_age1p835_repair_v7_response.parquet": "581846b99b4f0fcf412f4c348e4c96849c5d5850a02c7f5110b66e2d3de4a60d",
+    "data/processed/wp5_agenode_C_PARSEC_rv3p5_age1p898_repair_v7_response.parquet": "3062d7dfcaa91674bd6a9985fc554d256221000027828b4ee31231904da85801",
+    "data/processed/wp5_agenode_C_PARSEC_rv3p5_age1p936_repair_v7_response.parquet": "1f97f5c48c6daab80513c3a0eb84dd79475fc1562a95fc19fd4a36dcd7728a7a",
+    "data/processed/wp5_agenode_C_PARSEC_rv3p5_age1p967_repair_v7_response.parquet": "c7e79faa9208396a3f778c4b8f0b051d8f177a8928ddaea2c266642000198eb9",
+    "data/processed/wp5_agenode_C_PARSEC_rv3p5_age1p995_repair_v7_response.parquet": "9837cfaea62a2df82bd4d826489319ea249d0a50b1fafe2c1d440c82f6c77272",
+    "data/processed/wp5_agenode_C_PARSEC_rv3p5_age2p039_repair_v7_response.parquet": "8873aa5fa59bf66ebd5633e14ab261d1c938d8896560099897ba4de0ae12e26d",
+    "data/processed/wp5_agenode_C_PARSEC_rv3p5_age2p087_repair_v7_response.parquet": "b1baf1742871326c2fce937daa486c4803bdd94931c8f6d20a063b5e06b8b730",
+    "data/processed/wp5_agenode_C_PARSEC_rv3p5_age2p146_repair_v7_response.parquet": "3d7546c040fa22f9543c32a794dd854d7b083ca846d57d99f18fdcf7c270e4fd",
+    "data/processed/wp5_agenode_C_PARSEC_rv3p5_age2p244_repair_v7_response.parquet": "a2b4a25ef24e7548af8480a12c4da6b2a58f5015e6765bb3649e7fe1e4d5d264",
+    "data/processed/wp6_massext_C_MIST_rv3p0_age2p753_repair_v7_response.parquet": "e6b63a3a12e4b3bb095e6644b37820965e9e536f250bf207f48a947016f3e215",
+    "data/processed/wp6_massext_C_MIST_rv3p0_age2p921_repair_v7_response.parquet": "0623d2d45469befa8f19b5b3e3637ef5fedea7bbf55bc4cfe8440e758ba4179c",
+    "data/processed/wp6_massext_C_MIST_rv3p0_age3p022_repair_v7_response.parquet": "74c0356f5352dcdb3dc5f5ee37352a7be4c35169e4bc89de7871039f0b2db8b8",
+    "data/processed/wp6_massext_C_MIST_rv3p0_age3p105_repair_v7_response.parquet": "6266a20530c8537c6a0a13ac408764b8d4dcf0f3a3645b466f41645e4ef3bd1b",
+    "data/processed/wp6_massext_C_MIST_rv3p0_age3p181_repair_v7_response.parquet": "a7ae06e458712373981faced325f01664bebbeec846f20d931f8fb2f3433fca9",
+    "data/processed/wp6_massext_C_MIST_rv3p0_age3p190_repair_v7_response.parquet": "bc333649c0ae56becc49e276d0a99f6bb370acd512147973a28b37993597fc8a",
+    "data/processed/wp6_massext_C_MIST_rv3p0_age3p200_repair_v7_response.parquet": "60372093ba169e42f4020292c95e9a7d7bde62adc43b5d649088b9e8ffe0bdd7",
+    "data/processed/wp6_massext_C_MIST_rv3p0_age3p212_repair_v7_response.parquet": "c471125493cc26bf9933da5fa0ecd67a8d8096f2fd23c586a68bf022bcd5c6e0",
+    "data/processed/wp6_massext_C_MIST_rv3p0_age3p232_repair_v7_response.parquet": "23948ddc6d0749eaa63ce643fd9693d1ce49fc823bc506564fcf52371ec8e22d",
+    "data/processed/wp6_massext_C_MIST_rv3p1_age3p044_repair_v7_response.parquet": "b228f583d8f70fbbc29be9033404bb74937700201b067e04e57ac4957efefb74",
+    "data/processed/wp6_massext_C_MIST_rv3p1_age3p097_repair_v7_response.parquet": "af46275b51523124cdc70cc31850616591f5177cf99a4645d29edec7b0b94a26",
+    "data/processed/wp6_massext_C_MIST_rv3p1_age3p130_repair_v7_response.parquet": "8e6d8a1aac40ed94c3ac22ccb2ae212e990c55876a13a53adc8f9c16baa3de35",
+    "data/processed/wp6_massext_C_MIST_rv3p1_age3p156_repair_v7_response.parquet": "ec0d62601c16a7ec607604745a6739690fc83fc24a8dbab2f16b05d976396a3e",
+    "data/processed/wp6_massext_C_MIST_rv3p1_age3p181_repair_v7_response.parquet": "008db1996fa2463effe1600fef8fa98d25600020b42aa41ef715dfae2acef92a",
+    "data/processed/wp6_massext_C_MIST_rv3p1_age3p199_repair_v7_response.parquet": "0ccb79338a50dfb20105526dc77648e383d26c27429e562dc9ad814457ea0ef2",
+    "data/processed/wp6_massext_C_MIST_rv3p1_age3p220_repair_v7_response.parquet": "64f370bd732254050c67ea56887867ee0f3346a863281f13412babb71cb1ef14",
+    "data/processed/wp6_massext_C_MIST_rv3p1_age3p245_repair_v7_response.parquet": "93570ce894f4e9a826e97c83d120db6f7f4d26f264b17b491e0cda06ba64bd15",
+    "data/processed/wp6_massext_C_MIST_rv3p1_age3p287_repair_v7_response.parquet": "00a0d99525a9373d55ebbd3a8659dbee2df1182046f86c43889538e577a6bb90",
+    "data/processed/wp6_massext_C_MIST_rv3p5_age1p782_repair_v7_response.parquet": "1d6d2c7a368e09e8ee581bd0c2659e53e622bca21d07a4fc3a7ff07a856a8fe9",
+    "data/processed/wp6_massext_C_MIST_rv3p5_age1p868_repair_v7_response.parquet": "ab2372adb6522886636f7e1362804a7a1a0d7b4f531590fa033b67ed80726635",
+    "data/processed/wp6_massext_C_MIST_rv3p5_age1p921_repair_v7_response.parquet": "00cc1e5990fab271f545ec5cd6bd807886b82e128d722515f075aa45bc8b4eca",
+    "data/processed/wp6_massext_C_MIST_rv3p5_age1p963_repair_v7_response.parquet": "7289d035b4d2b8f813f6429d27bed90fd3763dd92430e2f903912eb446851c01",
+    "data/processed/wp6_massext_C_MIST_rv3p5_age2p002_repair_v7_response.parquet": "a9200b460717ab1b423d31d614852ff33861b112d2b5c3036edc59af4d374c17",
+    "data/processed/wp6_massext_C_MIST_rv3p5_age2p019_repair_v7_response.parquet": "1d91c9be39020a22de35d3f194de0f4889cc8a4896f79a93ed38395fdfd0e64a",
+    "data/processed/wp6_massext_C_MIST_rv3p5_age2p038_repair_v7_response.parquet": "2c9eb9067627432c994f2131de03644f7a497cf2c74433f8c2b8ba24781be573",
+    "data/processed/wp6_massext_C_MIST_rv3p5_age2p061_repair_v7_response.parquet": "98f6515a97ba575cc2f4d3751089c1bd0b779d36be7837eaf2ed288fa4ba9506",
+    "data/processed/wp6_massext_C_MIST_rv3p5_age2p099_repair_v7_response.parquet": "44c3b01f880c7ae3f2e4807cdfa486750e14b28d062b738c5b868deecdbc67e6",
+    "data/processed/wp6_massext_C_PARSEC_rv3p0_age2p456_repair_v7_response.parquet": "7e5d227bf5a5197166058309c04840f9ff8f3bcf7d3495281805420f840767ff",
+    "data/processed/wp6_massext_C_PARSEC_rv3p0_age2p478_repair_v7_response.parquet": "0ea50e32009a76dd431cddd1ed2285ff99bb73fb206bbc73734a84635e9df642",
+    "data/processed/wp6_massext_C_PARSEC_rv3p0_age2p491_repair_v7_response.parquet": "cd4bab7424f865c0f251f14638f26d57bb554f1b38d64d6afe4e985a49d26f27",
+    "data/processed/wp6_massext_C_PARSEC_rv3p0_age2p502_repair_v7_response.parquet": "54d6fb350e7dc87b63114aef893968190586bb8804db38ebb1cf2d3f16e19eda",
+    "data/processed/wp6_massext_C_PARSEC_rv3p0_age2p512_repair_v7_response.parquet": "2cb709a2e54ded5aa74338465c57dc538a74b97bff708a0dbf5f3affec03a049",
+    "data/processed/wp6_massext_C_PARSEC_rv3p0_age2p528_repair_v7_response.parquet": "d0bb73ff3916b5020a5122d73823083a7b2d48fcd7e6689be248a60cf680e4ab",
+    "data/processed/wp6_massext_C_PARSEC_rv3p0_age2p545_repair_v7_response.parquet": "7b486c121d721daf7b56965f1795429422ca963ae805cffbb40f570a54a9a408",
+    "data/processed/wp6_massext_C_PARSEC_rv3p0_age2p567_repair_v7_response.parquet": "3ec3eb3768be74d781e44a10fdf1feb8953e213591fb9ffe3f01221c9144d303",
+    "data/processed/wp6_massext_C_PARSEC_rv3p0_age2p603_repair_v7_response.parquet": "7d4099d6cb29956c62affa13875c7f3b7b56d0b88c29f5cf569af5029843eb81",
+    "data/processed/wp6_massext_C_PARSEC_rv3p1_age2p445_repair_v7_response.parquet": "be7976334d0fe6aab688553193be377368f891ae97b4412e5f131a5bf887a7df",
+    "data/processed/wp6_massext_C_PARSEC_rv3p1_age2p472_repair_v7_response.parquet": "870e9baa3fb73dbd0e1696795e23eec7dd24c5913c6f0d8b9a610da9719e8d3c",
+    "data/processed/wp6_massext_C_PARSEC_rv3p1_age2p487_repair_v7_response.parquet": "fb8b12395e8be66b3b82f82850d05ba15afcf5b6a7b793c55b8ae5873bfe3110",
+    "data/processed/wp6_massext_C_PARSEC_rv3p1_age2p500_repair_v7_response.parquet": "e7490a45618755ebb40459b109563554fdb261f8881a08712aaa4be4f0d9b416",
+    "data/processed/wp6_massext_C_PARSEC_rv3p1_age2p512_repair_v7_response.parquet": "f28436642480423a9fd623fd1dc1d4efb34bee067f2cf4a482deb2f1d8b7c7dd",
+    "data/processed/wp6_massext_C_PARSEC_rv3p1_age2p526_repair_v7_response.parquet": "3fa6216b228a13f585973990130db08d8d0d054ae6151f254bc0754943bc2aeb",
+    "data/processed/wp6_massext_C_PARSEC_rv3p1_age2p541_repair_v7_response.parquet": "36fe58573a6afb119f04c3a27367accc2e8d2e543bcfcb7c4e4513f8817d24b0",
+    "data/processed/wp6_massext_C_PARSEC_rv3p1_age2p559_repair_v7_response.parquet": "d37601bc5ab207eb4de5277fd4e7550d61165d1505730a99d76e3f96db3b8fd7",
+    "data/processed/wp6_massext_C_PARSEC_rv3p1_age2p590_repair_v7_response.parquet": "7ea7f487cba93252b1087a0c25468b0023ce9bbb01ea72110baf2cd27c49d89e",
+    "data/processed/wp6_massext_C_PARSEC_rv3p5_age1p835_repair_v7_response.parquet": "0282e3fcffa6a0af58fb4117705300fb0efb694e872f1dd0d8a4340bec3edcde",
+    "data/processed/wp6_massext_C_PARSEC_rv3p5_age1p898_repair_v7_response.parquet": "85faa9c1eafb92c497288d6e9b5836812f1f71b0af02e5e114234d5d223e68df",
+    "data/processed/wp6_massext_C_PARSEC_rv3p5_age1p936_repair_v7_response.parquet": "61560d75b0d96d21ac74f07f7413ce9bd58bb763bf6bb4ef1d517164d56c46a2",
+    "data/processed/wp6_massext_C_PARSEC_rv3p5_age1p967_repair_v7_response.parquet": "d7088eb58b8c4515ab9b21078c71dbc47ae2334cf4880d90b315b9074f010e9c",
+    "data/processed/wp6_massext_C_PARSEC_rv3p5_age1p995_repair_v7_response.parquet": "5b9ea844e27e35a42b00471b02b53b04f44d6d653522b26fbe86922a688a8983",
+    "data/processed/wp6_massext_C_PARSEC_rv3p5_age2p039_repair_v7_response.parquet": "4e71c8faa8548d613f15a87dd3edb69e27d979f90889396e0e2ece3a447d971a",
+    "data/processed/wp6_massext_C_PARSEC_rv3p5_age2p087_repair_v7_response.parquet": "0a7ab2ffbc56a7ad4c4bc148c069f196e3a65b8a933c91d582e89619bb447399",
+    "data/processed/wp6_massext_C_PARSEC_rv3p5_age2p146_repair_v7_response.parquet": "5af295d4964b57d9deed63b66d8abc689cba6c2cb6d7fd3da8c7d3af0d0283fa",
+    "data/processed/wp6_massext_C_PARSEC_rv3p5_age2p244_repair_v7_response.parquet": "1c6ab8325e95504ac40978820489bb3f7b27d89afdffa1b1551d9745f346759a"
+  },
+  "held_fixed": "C's node responses and weights, k_median per alpha, observed census",
+  "varies": "only the cap of the forward integral: min(turnoff(family, t), 120)",
+  "summary": {
+    "C_age_2.51": {
+      "ratio_alpha2.3_PARSEC_rv3.1": 1.3600247859942516,
+      "closing_alpha_6cell_median": 2.0482724179518126
+    },
+    "C_age_3.16": {
+      "ratio_alpha2.3_PARSEC_rv3.1": 1.376721327162432,
+      "closing_alpha_6cell_median": 2.03802956407586
+    },
+    "C_age_3.55": {
+      "ratio_alpha2.3_PARSEC_rv3.1": 1.400854608527829,
+      "closing_alpha_6cell_median": 2.034364017352888
+    },
+    "C_age_3.98": {
+      "ratio_alpha2.3_PARSEC_rv3.1": 1.4171109007663436,
+      "closing_alpha_6cell_median": 2.0212105395378295
+    },
+    "stored_node_prior": {
+      "ratio_alpha2.3_PARSEC_rv3.1": 1.3600247859942516,
+      "closing_alpha_6cell_median": 2.0511493504213067
+    }
+  },
+  "integrity": {
+    "I4": {
+      "pass": true,
+      "rows": [
+        {
+          "family": "PARSEC",
+          "R_V": 3.0,
+          "alpha": 2.0,
+          "replica": 0.8639590680931658,
+          "stored": 0.8639590680931658,
+          "rel_diff": 0.0
+        },
+        {
+          "family": "PARSEC",
+          "R_V": 3.0,
+          "alpha": 2.3,
+          "replica": 1.3147481006895896,
+          "stored": 1.3147481006895896,
+          "rel_diff": 0.0
+        },
+        {
+          "family": "PARSEC",
+          "R_V": 3.0,
+          "alpha": 2.6,
+          "replica": 1.9898223634133987,
+          "stored": 1.989822363413399,
+          "rel_diff": 1.1102230246251565e-16
+        },
+        {
+          "family": "PARSEC",
+          "R_V": 3.1,
+          "alpha": 2.0,
+          "replica": 0.8930627168783771,
+          "stored": 0.8930627168783771,
+          "rel_diff": 0.0
+        },
+        {
+          "family": "PARSEC",
+          "R_V": 3.1,
+          "alpha": 2.3,
+          "replica": 1.3600247859942516,
+          "stored": 1.3600247859942516,
+          "rel_diff": 0.0
+        },
+        {
+          "family": "PARSEC",
+          "R_V": 3.1,
+          "alpha": 2.6,
+          "replica": 2.0600435172792833,
+          "stored": 2.0600435172792833,
+          "rel_diff": 0.0
+        },
+        {
+          "family": "PARSEC",
+          "R_V": 3.5,
+          "alpha": 2.0,
+          "replica": 0.9606600453848211,
+          "stored": 0.9606600453848212,
+          "rel_diff": 1.1102230246251565e-16
+        },
+        {
+          "family": "PARSEC",
+          "R_V": 3.5,
+          "alpha": 2.3,
+          "replica": 1.4421690764264248,
+          "stored": 1.4421690764264248,
+          "rel_diff": 0.0
+        },
+        {
+          "family": "PARSEC",
+          "R_V": 3.5,
+          "alpha": 2.6,
+          "replica": 2.158243905521635,
+          "stored": 2.158243905521635,
+          "rel_diff": 0.0
+        },
+        {
+          "family": "MIST",
+          "R_V": 3.0,
+          "alpha": 2.0,
+          "replica": 0.927035502576408,
+          "stored": 0.927035502576408,
+          "rel_diff": 0.0
+        },
+        {
+          "family": "MIST",
+          "R_V": 3.0,
+          "alpha": 2.3,
+          "replica": 1.3855642058994837,
+          "stored": 1.3855642058994837,
+          "rel_diff": 0.0
+        },
+        {
+          "family": "MIST",
+          "R_V": 3.0,
+          "alpha": 2.6,
+          "replica": 2.0626766603652684,
+          "stored": 2.0626766603652684,
+          "rel_diff": 0.0
+        },
+        {
+          "family": "MIST",
+          "R_V": 3.1,
+          "alpha": 2.0,
+          "replica": 0.9709561479083351,
+          "stored": 0.9709561479083352,
+          "rel_diff": 1.1102230246251565e-16
+        },
+        {
+          "family": "MIST",
+          "R_V": 3.1,
+          "alpha": 2.3,
+          "replica": 1.457768775946172,
+          "stored": 1.457768775946172,
+          "rel_diff": 0.0
+        },
+        {
+          "family": "MIST",
+          "R_V": 3.1,
+          "alpha": 2.6,
+          "replica": 2.1922074760741537,
+          "stored": 2.1922074760741537,
+          "rel_diff": 0.0
+        },
+        {
+          "family": "MIST",
+          "R_V": 3.5,
+          "alpha": 2.0,
+          "replica": 0.9402408232457579,
+          "stored": 0.940240823245758,
+          "rel_diff": 1.1102230246251565e-16
+        },
+        {
+          "family": "MIST",
+          "R_V": 3.5,
+          "alpha": 2.3,
+          "replica": 1.4084978842340974,
+          "stored": 1.4084978842340974,
+          "rel_diff": 0.0
+        },
+        {
+          "family": "MIST",
+          "R_V": 3.5,
+          "alpha": 2.6,
+          "replica": 2.1067394004824336,
+          "stored": 2.1067394004824336,
+          "rel_diff": 0.0
+        }
+      ]
+    }
+  },
+  "outputs": {
+    "tables/issue20_closure_by_c_age.csv": "0198d52f0258dfd556c03be30ef7433ccd18b3c7fbb5ad9d73db839bd494ba5e"
+  }
+}

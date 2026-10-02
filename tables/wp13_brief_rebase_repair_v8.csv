@@ -1,0 +1,17 @@
+chain,row,age_Myr,N_death,P_last_lt_100kyr,P_last_lt_100kyr_min,P_last_lt_100kyr_max,age_min_Myr,age_max_Myr
+repair_v7,resolved baseline (M1),4.00/4.09/2.52,8.4349035,0.551831,,,,
+repair_v7,common age forced to 4.0,4.000,12.731329,0.726541,,,,
+repair_v7,common age = k-weighted mean of the counts-based ages,3.494,6.461000523019126,0.6998896008292825,,,,
+repair_v7,common age that reproduces the resolved count,3.660,8.4349035,0.7007443447824508,,,,
+repair_v7,scan P(last<100kyr) range over 3.25-6 Myr,3.25-6.00,,,0.674902,0.765172,,
+repair_v7,"counts-based age range, 18 cells, CygOB2-A",,,,,,3.847735943526784,4.066640045195499
+repair_v7,"counts-based age range, 18 cells, CygOB2-B",,,,,,3.304058643828368,4.302535224967624
+repair_v7,"counts-based age range, 18 cells, CygOB2-C",,,,,,2.030312699625444,3.167360894236389
+repair_v8,resolved baseline (M1),4.01/4.09/2.52,8.3599265,0.5469945,,,,
+repair_v8,common age forced to 4.0,4.000,12.6314305,0.723916,,,,
+repair_v8,common age = k-weighted mean of the counts-based ages,3.493,6.387155425619408,0.696816404323313,,,,
+repair_v8,common age that reproduces the resolved count,3.659,8.3599265,0.698152166799054,,,,
+repair_v8,scan P(last<100kyr) range over 3.25-6 Myr,3.25-6.00,,,0.672503,0.7626975,,
+repair_v8,"counts-based age range, 18 cells, CygOB2-A",,,,,,3.8820855242765764,4.066640045195499
+repair_v8,"counts-based age range, 18 cells, CygOB2-B",,,,,,3.304058643828368,4.302535224967624
+repair_v8,"counts-based age range, 18 cells, CygOB2-C",,,,,,2.0316983972549063,3.167360894236389

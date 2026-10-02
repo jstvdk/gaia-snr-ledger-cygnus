@@ -1,0 +1,139 @@
+{
+  "created_utc": "2026-10-02T06:58:41+00:00",
+  "script": "scripts/issue20_photometric.py",
+  "preregistration": "provenance/issue20_prereg.json",
+  "method_check": {
+    "method_hash": "ad1b5f12d4181922b0bf75116e952547f100aab5803f2ab3765840e0f4f2b028",
+    "deviation": null
+  },
+  "inputs": {
+    "extinction_v5": {
+      "path": "data/processed/wp3_extinction_repair_v5.parquet",
+      "sha256": "76a3c3df1e754b9846a2401ce898aad50f8de28b90a11725687af0e7cc4524fc"
+    },
+    "extinction_pre_repair": {
+      "path": "data/processed/wp3_extinction.parquet",
+      "sha256": "f83a612215e9e0e0dfb532eab10687bd83808787aa27a649a78b597b895ef0e1"
+    },
+    "extinction_v1": {
+      "path": "data/processed/wp3_extinction_repair_v1.parquet",
+      "sha256": "9a2a323b2b4ae420059c4c11e3a902c276b5175d3ebc051837adb209a231fd80"
+    },
+    "subgroup_labels": {
+      "path": "tables/wp2_subgroup_labels.parquet",
+      "sha256": "44a5ee7b9190703dae8dca9540c192757423db293c9ecc1ea123065849800887"
+    },
+    "anchor_hrd": {
+      "path": "data/processed/wp4_anchor_hrd_repair_v8.parquet",
+      "sha256": "0a3048508ea134386f8f6503abb636859bce22643042d4477a72d9601655f1de"
+    },
+    "age_posteriors_v5": {
+      "path": "data/processed/wp4_age_posteriors_repair_v5.parquet",
+      "sha256": "dc14e923a5dc4ad1336d08059e397bbc007f0f926f91a94f5ac2ddfbdc141ada"
+    },
+    "age_posteriors_pre_repair": {
+      "path": "data/processed/wp4_age_posteriors.parquet",
+      "sha256": "ca7b50099717d76def831fbf5245b90895cc15d13186796b614022d5f8e4e3f9"
+    },
+    "age_posteriors_v1": {
+      "path": "data/processed/wp4_age_posteriors_repair_v1.parquet",
+      "sha256": "e8169cbaf754a2efdc3952c44e5825cd91f9b622923c186d8cb2268f732118ea"
+    },
+    "isochrones_parsec": {
+      "path": "data/processed/wp3_isochrones_parsec.parquet",
+      "sha256": "9e0444045acf3e9331bf609e44c5f065635b217558f2ff46deec68fb66c8c663"
+    },
+    "isochrones_mist": {
+      "path": "data/processed/wp3_isochrones_mist.parquet",
+      "sha256": "3b1437d791e61a5dc9b7b2a2ed12e83bc0a1c64cb775c3862a2073731623135b"
+    }
+  },
+  "f_bin": 0.4,
+  "integrity": {
+    "I1": {
+      "pass": true,
+      "rows": [
+        {
+          "family": "PARSEC",
+          "R_V": 3.0,
+          "recomputed": 2.51188643150958,
+          "stored": 2.51188643150958,
+          "abs_diff": 0.0
+        },
+        {
+          "family": "PARSEC",
+          "R_V": 3.1,
+          "recomputed": 2.51188643150958,
+          "stored": 2.51188643150958,
+          "abs_diff": 0.0
+        },
+        {
+          "family": "PARSEC",
+          "R_V": 3.5,
+          "recomputed": 1.9952623149688795,
+          "stored": 1.9952623149688795,
+          "abs_diff": 0.0
+        },
+        {
+          "family": "MIST",
+          "R_V": 3.0,
+          "recomputed": 3.1805336883295205,
+          "stored": 3.1805336883295205,
+          "abs_diff": 0.0
+        },
+        {
+          "family": "MIST",
+          "R_V": 3.1,
+          "recomputed": 3.1805336883295205,
+          "stored": 3.1805336883295205,
+          "abs_diff": 0.0
+        },
+        {
+          "family": "MIST",
+          "R_V": 3.5,
+          "recomputed": 2.00216562158904,
+          "stored": 2.00216562158904,
+          "abs_diff": 0.0
+        }
+      ]
+    },
+    "I2": {
+      "pass": true,
+      "rows": [
+        {
+          "family": "PARSEC",
+          "version": "pre_repair",
+          "recomputed": 3.9810717055349722,
+          "stored": 3.9810717055349722,
+          "abs_diff": 0.0
+        },
+        {
+          "family": "PARSEC",
+          "version": "repair_v1",
+          "recomputed": 2.51188643150958,
+          "stored": 2.51188643150958,
+          "abs_diff": 0.0
+        },
+        {
+          "family": "MIST",
+          "version": "pre_repair",
+          "recomputed": 3.570672345572628,
+          "stored": 3.570672345572628,
+          "abs_diff": 0.0
+        },
+        {
+          "family": "MIST",
+          "version": "repair_v1",
+          "recomputed": 3.1805336883295205,
+          "stored": 3.1805336883295205,
+          "abs_diff": 0.0
+        }
+      ]
+    }
+  },
+  "runtime_s": 13.5,
+  "outputs": {
+    "tables/issue20_photometric_refits.csv": "efbdd1c41cb586fcfcbc2b1b0cdeb045fa803aac1669c8cb0720acc74b2a712a",
+    "tables/issue20_extinction_attribution.csv": "6c6133a760bee10a73d34d2bd54f377c6b01294021e2d5dff17c4b914c8a24ec"
+  }
+}

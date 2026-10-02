@@ -1,0 +1,735 @@
+{
+  "created_utc": "2026-10-02T06:56:57+00:00",
+  "script": "scripts/issue20_hrd_likelihood.py",
+  "preregistration": "provenance/issue20_prereg.json",
+  "method_check": {
+    "method_hash": "ad1b5f12d4181922b0bf75116e952547f100aab5803f2ab3765840e0f4f2b028",
+    "deviation": null
+  },
+  "inputs": {
+    "anchor_hrd": {
+      "path": "data/processed/wp4_anchor_hrd_repair_v8.parquet",
+      "sha256": "0a3048508ea134386f8f6503abb636859bce22643042d4477a72d9601655f1de"
+    },
+    "extinction_v5": {
+      "path": "data/processed/wp3_extinction_repair_v5.parquet",
+      "sha256": "76a3c3df1e754b9846a2401ce898aad50f8de28b90a11725687af0e7cc4524fc"
+    },
+    "spectroscopic_anchors": {
+      "path": "data/processed/wp1_spectroscopic_anchors.parquet",
+      "sha256": "9bb30e91d98568b346616e5c712f4784d3ff23f90d6216af501597bf18c9b283"
+    },
+    "isochrones_parsec": {
+      "path": "data/processed/wp3_isochrones_parsec.parquet",
+      "sha256": "9e0444045acf3e9331bf609e44c5f065635b217558f2ff46deec68fb66c8c663"
+    },
+    "isochrones_mist": {
+      "path": "data/processed/wp3_isochrones_mist.parquet",
+      "sha256": "3b1437d791e61a5dc9b7b2a2ed12e83bc0a1c64cb775c3862a2073731623135b"
+    },
+    "diag_hrd_age_scan": {
+      "path": "tables/issue20_hrd_age_scan.csv",
+      "sha256": "c3c448d2d8a11e73c4d51a532e63fcb0c7188fa2ca47f8830759de022993f24d"
+    }
+  },
+  "n_runs": 30,
+  "sample_counts": {
+    "CygOB2-A": 59,
+    "CygOB2-C": 43,
+    "CygOB2-B": 4
+  },
+  "excluded": [
+    {
+      "source_id": 2067745076187793024,
+      "subgroup": "CygOB2-B",
+      "spectral_type": "WN7o/CE+O7V((f))",
+      "excluded": "not_OB_primary"
+    },
+    {
+      "source_id": 2067824545964503168,
+      "subgroup": "CygOB2-A",
+      "spectral_type": "WC4",
+      "excluded": "extreme_hot"
+    }
+  ],
+  "integrity": {
+    "I3": {
+      "pass": true,
+      "worst_abs_diff": 0.0,
+      "rows": [
+        {
+          "subgroup": "CygOB2-A",
+          "family": "PARSEC",
+          "age": 2.0,
+          "recomputed": 224.9,
+          "diagnostic": 224.9,
+          "n": 59,
+          "n_diag": 59
+        },
+        {
+          "subgroup": "CygOB2-A",
+          "family": "PARSEC",
+          "age": 2.24,
+          "recomputed": 218.3,
+          "diagnostic": 218.3,
+          "n": 59,
+          "n_diag": 59
+        },
+        {
+          "subgroup": "CygOB2-A",
+          "family": "PARSEC",
+          "age": 2.51,
+          "recomputed": 211.1,
+          "diagnostic": 211.1,
+          "n": 59,
+          "n_diag": 59
+        },
+        {
+          "subgroup": "CygOB2-A",
+          "family": "PARSEC",
+          "age": 2.82,
+          "recomputed": 205.9,
+          "diagnostic": 205.9,
+          "n": 59,
+          "n_diag": 59
+        },
+        {
+          "subgroup": "CygOB2-A",
+          "family": "PARSEC",
+          "age": 3.16,
+          "recomputed": 202.8,
+          "diagnostic": 202.8,
+          "n": 59,
+          "n_diag": 59
+        },
+        {
+          "subgroup": "CygOB2-A",
+          "family": "PARSEC",
+          "age": 3.55,
+          "recomputed": 195.1,
+          "diagnostic": 195.1,
+          "n": 59,
+          "n_diag": 59
+        },
+        {
+          "subgroup": "CygOB2-A",
+          "family": "PARSEC",
+          "age": 3.98,
+          "recomputed": 206.7,
+          "diagnostic": 206.7,
+          "n": 59,
+          "n_diag": 59
+        },
+        {
+          "subgroup": "CygOB2-A",
+          "family": "PARSEC",
+          "age": 4.47,
+          "recomputed": 237.4,
+          "diagnostic": 237.4,
+          "n": 59,
+          "n_diag": 59
+        },
+        {
+          "subgroup": "CygOB2-A",
+          "family": "PARSEC",
+          "age": 5.01,
+          "recomputed": 247.0,
+          "diagnostic": 247.0,
+          "n": 59,
+          "n_diag": 59
+        },
+        {
+          "subgroup": "CygOB2-A",
+          "family": "MIST",
+          "age": 2.0,
+          "recomputed": 259.8,
+          "diagnostic": 259.8,
+          "n": 59,
+          "n_diag": 59
+        },
+        {
+          "subgroup": "CygOB2-A",
+          "family": "MIST",
+          "age": 2.25,
+          "recomputed": 250.3,
+          "diagnostic": 250.3,
+          "n": 59,
+          "n_diag": 59
+        },
+        {
+          "subgroup": "CygOB2-A",
+          "family": "MIST",
+          "age": 2.52,
+          "recomputed": 231.2,
+          "diagnostic": 231.2,
+          "n": 59,
+          "n_diag": 59
+        },
+        {
+          "subgroup": "CygOB2-A",
+          "family": "MIST",
+          "age": 2.83,
+          "recomputed": 210.0,
+          "diagnostic": 210.0,
+          "n": 59,
+          "n_diag": 59
+        },
+        {
+          "subgroup": "CygOB2-A",
+          "family": "MIST",
+          "age": 3.18,
+          "recomputed": 187.9,
+          "diagnostic": 187.9,
+          "n": 59,
+          "n_diag": 59
+        },
+        {
+          "subgroup": "CygOB2-A",
+          "family": "MIST",
+          "age": 3.57,
+          "recomputed": 176.1,
+          "diagnostic": 176.1,
+          "n": 59,
+          "n_diag": 59
+        },
+        {
+          "subgroup": "CygOB2-A",
+          "family": "MIST",
+          "age": 4.01,
+          "recomputed": 181.8,
+          "diagnostic": 181.8,
+          "n": 59,
+          "n_diag": 59
+        },
+        {
+          "subgroup": "CygOB2-A",
+          "family": "MIST",
+          "age": 4.5,
+          "recomputed": 191.9,
+          "diagnostic": 191.9,
+          "n": 59,
+          "n_diag": 59
+        },
+        {
+          "subgroup": "CygOB2-A",
+          "family": "MIST",
+          "age": 5.05,
+          "recomputed": 209.2,
+          "diagnostic": 209.2,
+          "n": 59,
+          "n_diag": 59
+        },
+        {
+          "subgroup": "CygOB2-C",
+          "family": "PARSEC",
+          "age": 2.0,
+          "recomputed": 219.3,
+          "diagnostic": 219.3,
+          "n": 43,
+          "n_diag": 43
+        },
+        {
+          "subgroup": "CygOB2-C",
+          "family": "PARSEC",
+          "age": 2.24,
+          "recomputed": 194.2,
+          "diagnostic": 194.2,
+          "n": 43,
+          "n_diag": 43
+        },
+        {
+          "subgroup": "CygOB2-C",
+          "family": "PARSEC",
+          "age": 2.51,
+          "recomputed": 176.8,
+          "diagnostic": 176.8,
+          "n": 43,
+          "n_diag": 43
+        },
+        {
+          "subgroup": "CygOB2-C",
+          "family": "PARSEC",
+          "age": 2.82,
+          "recomputed": 163.9,
+          "diagnostic": 163.9,
+          "n": 43,
+          "n_diag": 43
+        },
+        {
+          "subgroup": "CygOB2-C",
+          "family": "PARSEC",
+          "age": 3.16,
+          "recomputed": 153.2,
+          "diagnostic": 153.2,
+          "n": 43,
+          "n_diag": 43
+        },
+        {
+          "subgroup": "CygOB2-C",
+          "family": "PARSEC",
+          "age": 3.55,
+          "recomputed": 144.0,
+          "diagnostic": 144.0,
+          "n": 43,
+          "n_diag": 43
+        },
+        {
+          "subgroup": "CygOB2-C",
+          "family": "PARSEC",
+          "age": 3.98,
+          "recomputed": 151.5,
+          "diagnostic": 151.5,
+          "n": 43,
+          "n_diag": 43
+        },
+        {
+          "subgroup": "CygOB2-C",
+          "family": "PARSEC",
+          "age": 4.47,
+          "recomputed": 172.8,
+          "diagnostic": 172.8,
+          "n": 43,
+          "n_diag": 43
+        },
+        {
+          "subgroup": "CygOB2-C",
+          "family": "PARSEC",
+          "age": 5.01,
+          "recomputed": 190.4,
+          "diagnostic": 190.4,
+          "n": 43,
+          "n_diag": 43
+        },
+        {
+          "subgroup": "CygOB2-C",
+          "family": "MIST",
+          "age": 2.0,
+          "recomputed": 340.0,
+          "diagnostic": 340.0,
+          "n": 43,
+          "n_diag": 43
+        },
+        {
+          "subgroup": "CygOB2-C",
+          "family": "MIST",
+          "age": 2.25,
+          "recomputed": 322.3,
+          "diagnostic": 322.3,
+          "n": 43,
+          "n_diag": 43
+        },
+        {
+          "subgroup": "CygOB2-C",
+          "family": "MIST",
+          "age": 2.52,
+          "recomputed": 292.7,
+          "diagnostic": 292.7,
+          "n": 43,
+          "n_diag": 43
+        },
+        {
+          "subgroup": "CygOB2-C",
+          "family": "MIST",
+          "age": 2.83,
+          "recomputed": 251.9,
+          "diagnostic": 251.9,
+          "n": 43,
+          "n_diag": 43
+        },
+        {
+          "subgroup": "CygOB2-C",
+          "family": "MIST",
+          "age": 3.18,
+          "recomputed": 194.3,
+          "diagnostic": 194.3,
+          "n": 43,
+          "n_diag": 43
+        },
+        {
+          "subgroup": "CygOB2-C",
+          "family": "MIST",
+          "age": 3.57,
+          "recomputed": 141.8,
+          "diagnostic": 141.8,
+          "n": 43,
+          "n_diag": 43
+        },
+        {
+          "subgroup": "CygOB2-C",
+          "family": "MIST",
+          "age": 4.01,
+          "recomputed": 134.8,
+          "diagnostic": 134.8,
+          "n": 43,
+          "n_diag": 43
+        },
+        {
+          "subgroup": "CygOB2-C",
+          "family": "MIST",
+          "age": 4.5,
+          "recomputed": 140.9,
+          "diagnostic": 140.9,
+          "n": 43,
+          "n_diag": 43
+        },
+        {
+          "subgroup": "CygOB2-C",
+          "family": "MIST",
+          "age": 5.05,
+          "recomputed": 153.3,
+          "diagnostic": 153.3,
+          "n": 43,
+          "n_diag": 43
+        }
+      ]
+    },
+    "I5": {
+      "pass": true,
+      "per_age_fbin0.4": [
+        {
+          "family": "PARSEC",
+          "age": 1.0,
+          "imf_check": 1.7795370267608535e-16,
+          "dropped_gap_fraction": 0.0,
+          "alive_fraction": 1.0000000000000002,
+          "n_particles": 6402
+        },
+        {
+          "family": "PARSEC",
+          "age": 1.122018454301963,
+          "imf_check": 1.7795370267608535e-16,
+          "dropped_gap_fraction": 0.0,
+          "alive_fraction": 1.0000000000000002,
+          "n_particles": 6490
+        },
+        {
+          "family": "PARSEC",
+          "age": 1.2589254117941662,
+          "imf_check": 0.0,
+          "dropped_gap_fraction": 0.0,
+          "alive_fraction": 1.0,
+          "n_particles": 6479
+        },
+        {
+          "family": "PARSEC",
+          "age": 1.4125375446227553,
+          "imf_check": 0.0,
+          "dropped_gap_fraction": 0.0,
+          "alive_fraction": 1.0,
+          "n_particles": 6479
+        },
+        {
+          "family": "PARSEC",
+          "age": 1.584893192461114,
+          "imf_check": 0.0,
+          "dropped_gap_fraction": 0.0,
+          "alive_fraction": 1.0002004064704126,
+          "n_particles": 6699
+        },
+        {
+          "family": "PARSEC",
+          "age": 1.778279410038923,
+          "imf_check": 0.0,
+          "dropped_gap_fraction": 0.0,
+          "alive_fraction": 1.0002403736743897,
+          "n_particles": 6864
+        },
+        {
+          "family": "PARSEC",
+          "age": 1.9952623149688788,
+          "imf_check": 1.7792162498103405e-16,
+          "dropped_gap_fraction": 0.0,
+          "alive_fraction": 1.0001802911537858,
+          "n_particles": 6996
+        },
+        {
+          "family": "PARSEC",
+          "age": 2.238721138568338,
+          "imf_check": 1.779175060230735e-16,
+          "dropped_gap_fraction": 0.0,
+          "alive_fraction": 1.000203446270246,
+          "n_particles": 7821
+        },
+        {
+          "family": "PARSEC",
+          "age": 2.5118864315095824,
+          "imf_check": 1.7790939408768352e-16,
+          "dropped_gap_fraction": 0.0,
+          "alive_fraction": 1.0002490514265931,
+          "n_particles": 9922
+        },
+        {
+          "family": "PARSEC",
+          "age": 2.818382931264455,
+          "imf_check": 1.7810856446098388e-16,
+          "dropped_gap_fraction": 0.0,
+          "alive_fraction": 0.999130520279206,
+          "n_particles": 12694
+        },
+        {
+          "family": "PARSEC",
+          "age": 3.1622776601683795,
+          "imf_check": 0.0,
+          "dropped_gap_fraction": 0.0,
+          "alive_fraction": 0.9960345225239248,
+          "n_particles": 15466
+        },
+        {
+          "family": "PARSEC",
+          "age": 3.548133892335753,
+          "imf_check": 0.0,
+          "dropped_gap_fraction": 0.0,
+          "alive_fraction": 0.9935130031288517,
+          "n_particles": 15554
+        },
+        {
+          "family": "PARSEC",
+          "age": 3.9810717055349696,
+          "imf_check": 1.7967005978349186e-16,
+          "dropped_gap_fraction": 0.0,
+          "alive_fraction": 0.9904471723921352,
+          "n_particles": 16137
+        },
+        {
+          "family": "PARSEC",
+          "age": 4.4668359215096345,
+          "imf_check": 1.8033050807648027e-16,
+          "dropped_gap_fraction": 0.0,
+          "alive_fraction": 0.9868197265912049,
+          "n_particles": 13013
+        },
+        {
+          "family": "PARSEC",
+          "age": 5.011872336272725,
+          "imf_check": 1.8111889468302768e-16,
+          "dropped_gap_fraction": 0.0,
+          "alive_fraction": 0.9825242307685143,
+          "n_particles": 13277
+        },
+        {
+          "family": "PARSEC",
+          "age": 5.623413251903491,
+          "imf_check": 1.8198850618822413e-16,
+          "dropped_gap_fraction": 0.0,
+          "alive_fraction": 0.9778293497943998,
+          "n_particles": 9746
+        },
+        {
+          "family": "PARSEC",
+          "age": 6.309573444801931,
+          "imf_check": 0.0,
+          "dropped_gap_fraction": 0.0,
+          "alive_fraction": 0.9728417548437572,
+          "n_particles": 7722
+        },
+        {
+          "family": "PARSEC",
+          "age": 7.079457843841373,
+          "imf_check": 1.8394288902689973e-16,
+          "dropped_gap_fraction": 0.0,
+          "alive_fraction": 0.9674399680112746,
+          "n_particles": 6853
+        },
+        {
+          "family": "PARSEC",
+          "age": 7.943282347242822,
+          "imf_check": 1.8506527856869677e-16,
+          "dropped_gap_fraction": 0.0,
+          "alive_fraction": 0.9615726086080939,
+          "n_particles": 6556
+        },
+        {
+          "family": "PARSEC",
+          "age": 8.912509381337458,
+          "imf_check": 1.8624215227153235e-16,
+          "dropped_gap_fraction": 0.0,
+          "alive_fraction": 0.9554963820254676,
+          "n_particles": 6325
+        },
+        {
+          "family": "PARSEC",
+          "age": 10.0,
+          "imf_check": 0.0,
+          "dropped_gap_fraction": 0.0,
+          "alive_fraction": 0.9487618834092526,
+          "n_particles": 9306
+        },
+        {
+          "family": "MIST",
+          "age": 1.0,
+          "imf_check": 1.7810921503054666e-16,
+          "dropped_gap_fraction": 0.0,
+          "alive_fraction": 0.9991268708110658,
+          "n_particles": 6468
+        },
+        {
+          "family": "MIST",
+          "age": 1.122664525980235,
+          "imf_check": 0.0,
+          "dropped_gap_fraction": 0.0,
+          "alive_fraction": 0.9998527942874353,
+          "n_particles": 6754
+        },
+        {
+          "family": "MIST",
+          "age": 1.2603756378944257,
+          "imf_check": 0.0,
+          "dropped_gap_fraction": 0.0,
+          "alive_fraction": 0.9997715869092105,
+          "n_particles": 6732
+        },
+        {
+          "family": "MIST",
+          "age": 1.4149790180737818,
+          "imf_check": 0.0,
+          "dropped_gap_fraction": 0.0,
+          "alive_fraction": 0.9999696016558705,
+          "n_particles": 6798
+        },
+        {
+          "family": "MIST",
+          "age": 1.5885467485977776,
+          "imf_check": 1.7796086732869277e-16,
+          "dropped_gap_fraction": 0.0,
+          "alive_fraction": 0.9999597402917004,
+          "n_particles": 6886
+        },
+        {
+          "family": "MIST",
+          "age": 1.7834050825119674,
+          "imf_check": 0.0,
+          "dropped_gap_fraction": 0.0,
+          "alive_fraction": 0.9999356487239432,
+          "n_particles": 6974
+        },
+        {
+          "family": "MIST",
+          "age": 2.0021656215890395,
+          "imf_check": 0.0,
+          "dropped_gap_fraction": 0.0,
+          "alive_fraction": 0.9999316504070067,
+          "n_particles": 7315
+        },
+        {
+          "family": "MIST",
+          "age": 2.2477603184951818,
+          "imf_check": 1.7796642920225907e-16,
+          "dropped_gap_fraction": 0.0,
+          "alive_fraction": 0.999928489175005,
+          "n_particles": 7458
+        },
+        {
+          "family": "MIST",
+          "age": 2.5234807724805752,
+          "imf_check": 0.0,
+          "dropped_gap_fraction": 0.0,
+          "alive_fraction": 0.9999104213900595,
+          "n_particles": 7480
+        },
+        {
+          "family": "MIST",
+          "age": 2.8330223452571426,
+          "imf_check": 0.0,
+          "dropped_gap_fraction": 0.0020258367020236706,
+          "alive_fraction": 0.9976208726153544,
+          "n_particles": 10934
+        },
+        {
+          "family": "MIST",
+          "age": 3.180533688329517,
+          "imf_check": 1.7828118658308243e-16,
+          "dropped_gap_fraction": 0.002989788829582425,
+          "alive_fraction": 0.9951788076133298,
+          "n_particles": 12188
+        },
+        {
+          "family": "MIST",
+          "age": 3.5706723455726257,
+          "imf_check": 1.784856015733638e-16,
+          "dropped_gap_fraction": 0.0028627331464501425,
+          "alive_fraction": 0.9941657318501697,
+          "n_particles": 12023
+        },
+        {
+          "family": "MIST",
+          "age": 4.008667176273026,
+          "imf_check": 1.7938537788295118e-16,
+          "dropped_gap_fraction": 0.0,
+          "alive_fraction": 0.9920189971793578,
+          "n_particles": 14707
+        },
+        {
+          "family": "MIST",
+          "age": 4.500388435263084,
+          "imf_check": 1.8011124130471106e-16,
+          "dropped_gap_fraction": 0.0,
+          "alive_fraction": 0.9880210773464407,
+          "n_particles": 14256
+        },
+        {
+          "family": "MIST",
+          "age": 5.052426449401561,
+          "imf_check": 0.0,
+          "dropped_gap_fraction": 0.0,
+          "alive_fraction": 0.9840525599820547,
+          "n_particles": 11242
+        },
+        {
+          "family": "MIST",
+          "age": 5.672179944867406,
+          "imf_check": 3.6319609492239643e-16,
+          "dropped_gap_fraction": 0.0,
+          "alive_fraction": 0.9799318063378869,
+          "n_particles": 10978
+        },
+        {
+          "family": "MIST",
+          "age": 6.367955209079162,
+          "imf_check": 0.0,
+          "dropped_gap_fraction": 0.0,
+          "alive_fraction": 0.9745718626665302,
+          "n_particles": 10384
+        },
+        {
+          "family": "MIST",
+          "age": 7.149077416264226,
+          "imf_check": 0.0,
+          "dropped_gap_fraction": 0.0,
+          "alive_fraction": 0.9692829850894756,
+          "n_particles": 9944
+        },
+        {
+          "family": "MIST",
+          "age": 8.026015608726263,
+          "imf_check": 0.0,
+          "dropped_gap_fraction": 0.0,
+          "alive_fraction": 0.9633190598936937,
+          "n_particles": 9647
+        },
+        {
+          "family": "MIST",
+          "age": 9.010523008880638,
+          "imf_check": 1.8598797182304036e-16,
+          "dropped_gap_fraction": 0.0,
+          "alive_fraction": 0.9568022110881487,
+          "n_particles": 9889
+        },
+        {
+          "family": "MIST",
+          "age": 10.115794542598984,
+          "imf_check": 0.0,
+          "dropped_gap_fraction": 0.0,
+          "alive_fraction": 0.9501179556565174,
+          "n_particles": 9405
+        }
+      ]
+    },
+    "I6": "every input opened through issue20_common.frozen (hash-verified)"
+  },
+  "runtime_s": 17.0,
+  "outputs": {
+    "tables/issue20_hrd_posteriors.csv": "1dbe526657846c1700531372b7ca45d57489ccd7ff921a1e2b58f5fac62c1d36",
+    "tables/issue20_hrd_mixture.csv": "61b25464e325f9b31372299e4dde2cbff71c9e93fbc2cc473697672d272be58d",
+    "tables/issue20_hrd_per_star.csv": "fe0a258a2416847874492e5d1d2b5a7f6a9c79750a8239f48a65b8f464e03da1"
+  }
+}
