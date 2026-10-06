@@ -1,0 +1,57 @@
+{
+  "created_utc": "2026-10-02T09:47:01+00:00",
+  "script": "scripts/decisions_2026_10_02.py",
+  "decided_by": "project owner, 2026-10-02 ('yes to all, proceed further' on the proposals in tasks/decisions_before_wp13_freeze.md and the follow-up explanation)",
+  "decisions": {
+    "1_G3": {
+      "question": "WP5 gate G3 fails on repair_v8 only through its no-A/C-regression clause (A-PARSEC alpha 2.0 at R_V 3.0 and 3.1). Does the clause apply to a data-defect fix?",
+      "decision": "The clause applies as written. G3 stays recorded as FAILED on repair_v8, with the explanation that the two pass->fail cells compare against a predecessor computed on defective anchor masses. repair_v8 remains adopted (its adoption never depended on G3).",
+      "changes": "wording only; no number moves",
+      "note": "both regressed cells are alpha = 2.0, which decision 2 removes from the headline"
+    },
+    "2_alpha_headline": {
+      "question": "The headline set alpha in {2.0, 2.3} keeps a slope that fits no better than the one it drops.",
+      "decision": "NEW HEADLINE RULE: alpha = 2.3 is the headline slope. alpha = 2.0 and 2.6 are reported as sensitivity branches (never deleted, shown alongside). Supersedes the 36-branch alpha in {2.0, 2.3} headline set of WP7 D1 (wp7_alpha_headline_adoption_outcome_*).",
+      "justification": {
+        "E1_calibration_window_median_chi2": {
+          "2.0": 10.4,
+          "2.3": 7.0,
+          "2.6": 10.06,
+          "dof": 5
+        },
+        "E2_closure_median_sigma_from_unity": {
+          "2.0": 6.55,
+          "2.3": 1.03,
+          "2.6": 5.63
+        },
+        "reading": "E1 alone rejects neither extreme (p ~ 0.07 each vs ~0.2); E2, the held-back out-of-sample check, separates them strongly in favour of 2.3.",
+        "caveats": [
+          "issue #15 (unmodelled massive-star multiplicity) can shift E2",
+          "C alone prefers 2.0 on E1 and E2; C's age is under test (issue #20 Phase A')"
+        ]
+      },
+      "disclosed_before_deciding": "the owner saw, before deciding, that the headline death-count range becomes 5.57-11.16 (alpha 2.3 only, repair_v8) from 5.57-28.74, and that the WP9 alpha split (S > 0.5 on 18/18 alpha-2.0 branches, 0/18 alpha-2.3) then resolves on the alpha-2.3 side. The decision is taken on E1/E2, not on those consequences; it is recorded as post-hoc with respect to them.",
+      "headline_branches": "18 = alpha 2.3 x {PARSEC, MIST} x R_V {3.0, 3.1, 3.5} x sf_duration {0, 1, 2} Myr",
+      "wp13_consequence": "WP13 T6 is scored on these 18 headline branches (>= 80 %), not the old 36",
+      "pending": "WP9 re-scoring, numbers.tex/manuscript text and figures follow in the manuscript revision; not done by this record"
+    },
+    "3_D1_P4": {
+      "question": "D1-P4's literal threshold quotes the repair_v7 baseline 8.43; repair_v8 gives 8.36.",
+      "decision": "The intent governs (the alpha restriction does not move the baseline): PASS, as already recorded under 'governing_reading: chain'. D1 itself is superseded by decision 2.",
+      "changes": "nothing"
+    },
+    "4_issue20": {
+      "question": "Issue #20 Phase B after Phase A (H3, not specific to C).",
+      "decision": "Run Phase A': three independent age tests applied identically to A, B and C (near-IR free-extinction CMD fit; Gaia DR3 ESP-HS hot-star HRD; outlier-robust spectroscopic HRD), with a pre-registered agreement rule. The adopted ages are then used throughout the study (a separately pre-registered chain, repair_v9).",
+      "sequencing": "Agent's reading of the instruction 'use it throughout the study': repair_v9 with the adopted ages is run BEFORE WP13 reads M0/M1, so WP13 is not run on an age the project has evidence against. This changes the stage brief's order (which put repair_v9 after WP13) and is flagged to the owner."
+    }
+  },
+  "evidence": {
+    "tasks/decisions_before_wp13_freeze.md": "aa92f51673e5800cbbc33ea6362e326980d6b0fd6ca87399c9c4f1389d0852f4",
+    "provenance/wp5_imf_fit_execution_repair_v8.json": "527be121e201696a35a24ad835f7a90d6964a27abb8d84b83949ddb893ad5de8",
+    "provenance/wp5_alpha_plausibility_execution_repair_v8.json": "d1ab9837e21cdac7011fc4c0aa01fc039a045ac0d3c844160be63c54b1ef581b",
+    "provenance/wp7_alpha_headline_adoption_outcome_repair_v8.json": "a464a46068d6c7ba0fed218b02efe2d6f8bdf5ed921f6836077d54d154403528",
+    "tables/wp7_ledger_repair_v8.csv": "0bc21761c88f800f6564e70b87e27dfad0c2df4f20eea47e0e5e4a6b1c08b46b",
+    "provenance/issue20_phase_a_outcome.json": "7780f7761e08189c190196554360e0ac76797431e673b4324dd1ce1402789411"
+  }
+}
