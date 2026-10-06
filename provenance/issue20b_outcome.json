@@ -1,0 +1,382 @@
+{
+  "created_utc": "2026-10-06T09:27:44+00:00",
+  "script": "scripts/issue20b_score.py",
+  "preregistration": {
+    "path": "provenance/issue20b_prereg.json",
+    "sha256": "a5daae2da1496f3d097013fad9d8607e4d9734778b3c080a41edffbbb61b85fc"
+  },
+  "C_versus_A": "C's age relative to A undetermined",
+  "C_versus_A_per_family": {
+    "PARSEC": "undetermined (A or C not adopted)",
+    "MIST": "undetermined (A or C not adopted)"
+  },
+  "cells_R_V_3.1": {
+    "CygOB2-A|PARSEC": {
+      "subgroup": "CygOB2-A",
+      "family": "PARSEC",
+      "R_V": 3.1,
+      "status": "NOT RESOLVED",
+      "agreeing_tests": "",
+      "valid_tests": "a,c",
+      "reason": "fewer than two valid tests agree",
+      "a_map": 5.011872336272724,
+      "a_lo68": 4.968613681334484,
+      "a_hi68": 5.022362964960144,
+      "a_valid": true,
+      "a_n": 432,
+      "b_map": 5.623413251903491,
+      "b_lo68": 2.7664455737394684,
+      "b_hi68": 7.646551679912687,
+      "b_valid": false,
+      "b_n": 24,
+      "c_map": 3.1622776601683795,
+      "c_lo68": 2.797017062648578,
+      "c_hi68": 3.4972199486270674,
+      "c_valid": true,
+      "c_n": 59
+    },
+    "CygOB2-B|PARSEC": {
+      "subgroup": "CygOB2-B",
+      "family": "PARSEC",
+      "R_V": 3.1,
+      "status": "NOT RESOLVED",
+      "agreeing_tests": "",
+      "valid_tests": "a",
+      "reason": "fewer than two valid tests agree",
+      "a_map": 7.943282347242816,
+      "a_lo68": 7.911807078548661,
+      "a_hi68": 8.336573820183958,
+      "a_valid": true,
+      "a_n": 380,
+      "b_map": 7.943282347242816,
+      "b_lo68": 3.79126763636037,
+      "b_hi68": 8.657260175322001,
+      "b_valid": false,
+      "b_n": 22,
+      "c_map": 5.623413251903491,
+      "c_lo68": 4.516690973199918,
+      "c_hi68": 6.481676193281197,
+      "c_valid": false,
+      "c_n": 4
+    },
+    "CygOB2-C|PARSEC": {
+      "subgroup": "CygOB2-C",
+      "family": "PARSEC",
+      "R_V": 3.1,
+      "status": "NOT RESOLVED",
+      "agreeing_tests": "",
+      "valid_tests": "a,c",
+      "reason": "fewer than two valid tests agree",
+      "a_map": 4.466835921509632,
+      "a_lo68": 4.463036056094048,
+      "a_hi68": 4.624874452956931,
+      "a_valid": true,
+      "a_n": 370,
+      "b_map": 1.7782794100389228,
+      "b_lo68": 1.704990906729135,
+      "b_hi68": 6.623136868878721,
+      "b_valid": false,
+      "b_n": 15,
+      "c_map": 3.548133892335755,
+      "c_lo68": 3.318436909333359,
+      "c_hi68": 3.974188905169688,
+      "c_valid": true,
+      "c_n": 43
+    },
+    "CygOB2-A|MIST": {
+      "subgroup": "CygOB2-A",
+      "family": "MIST",
+      "R_V": 3.1,
+      "status": "NOT RESOLVED",
+      "agreeing_tests": "",
+      "valid_tests": "a,c",
+      "reason": "fewer than two valid tests agree",
+      "a_map": 7.149077416264217,
+      "a_lo68": 7.0176739917081195,
+      "a_hi68": 7.283342451647694,
+      "a_valid": true,
+      "a_n": 432,
+      "b_map": 5.05242644940156,
+      "b_lo68": 2.5897464330719897,
+      "b_hi68": 7.055945728928278,
+      "b_valid": false,
+      "b_n": 24,
+      "c_map": 3.570672345572628,
+      "c_lo68": 3.3109061558094255,
+      "c_hi68": 3.696880435419999,
+      "c_valid": true,
+      "c_n": 59
+    },
+    "CygOB2-B|MIST": {
+      "subgroup": "CygOB2-B",
+      "family": "MIST",
+      "R_V": 3.1,
+      "status": "NOT RESOLVED",
+      "agreeing_tests": "",
+      "valid_tests": "a",
+      "reason": "fewer than two valid tests agree",
+      "a_map": 8.026015608726269,
+      "a_lo68": 7.60274255293876,
+      "a_hi68": 8.117802092954793,
+      "a_valid": true,
+      "a_n": 380,
+      "b_map": 7.149077416264217,
+      "b_lo68": 2.8618408452585964,
+      "b_hi68": 7.9805435227898895,
+      "b_valid": false,
+      "b_n": 22,
+      "c_map": 5.05242644940156,
+      "c_lo68": 4.663368442288841,
+      "c_hi68": 6.6491589370977735,
+      "c_valid": false,
+      "c_n": 4
+    },
+    "CygOB2-C|MIST": {
+      "subgroup": "CygOB2-C",
+      "family": "MIST",
+      "R_V": 3.1,
+      "status": "ADOPTED",
+      "agreeing_tests": "a,c",
+      "valid_tests": "a,c",
+      "reason": "",
+      "a_map": 4.500388435263084,
+      "a_lo68": 4.195379320095048,
+      "a_hi68": 4.572697984007858,
+      "a_valid": true,
+      "a_n": 370,
+      "b_map": 1.7834050825119685,
+      "b_lo68": 1.649347995299833,
+      "b_hi68": 6.00038628303765,
+      "b_valid": false,
+      "b_n": 15,
+      "c_map": 4.008667176273027,
+      "c_lo68": 3.759521773921085,
+      "c_hi68": 4.266149926142945,
+      "c_valid": true,
+      "c_n": 43,
+      "adopted_map": 4.453767071155749,
+      "adopted_median": 4.226648188939227,
+      "adopted_lo68": 3.888110639893113,
+      "adopted_hi68": 4.509092922926695,
+      "adopted_lo95": 3.6000735094876952,
+      "adopted_hi95": 4.675493223104624
+    }
+  },
+  "robustness": {
+    "CygOB2-A|PARSEC": "robust",
+    "CygOB2-A|MIST": "robust",
+    "CygOB2-B|PARSEC": "robust",
+    "CygOB2-B|MIST": "robust",
+    "CygOB2-C|PARSEC": "robust",
+    "CygOB2-C|MIST": "R_V-fragile"
+  },
+  "H3_guarded_mixture_report_only": [
+    {
+      "test": "c_mixture",
+      "eps": 0.05,
+      "subgroup": "CygOB2-A",
+      "family": "PARSEC",
+      "R_V": 3.1,
+      "n_stars": 59,
+      "lnL": 74.68222458294595,
+      "age_young": 2.818382931264455,
+      "age_old": 10.0,
+      "phi_young": 0.7,
+      "n_young": 41.50374556609452,
+      "n_old": 17.180254433905482,
+      "single_best_age": 3.1622776601683795,
+      "lnL_single": 72.71840193973544,
+      "delta_BIC": -4.216688948133784,
+      "component_at_grid_edge": true,
+      "detected": false
+    },
+    {
+      "test": "c_mixture",
+      "eps": 0.05,
+      "subgroup": "CygOB2-C",
+      "family": "PARSEC",
+      "R_V": 3.1,
+      "n_stars": 43,
+      "lnL": 54.29342165488978,
+      "age_young": 3.1622776601683795,
+      "age_old": 5.623413251903491,
+      "phi_young": 0.64,
+      "n_young": 26.73578913590721,
+      "n_old": 15.273610864092788,
+      "single_best_age": 3.548133892335753,
+      "lnL_single": 51.8565857658967,
+      "delta_BIC": -2.602115027544979,
+      "component_at_grid_edge": false,
+      "detected": false
+    },
+    {
+      "test": "c_mixture",
+      "eps": 0.05,
+      "subgroup": "CygOB2-A",
+      "family": "MIST",
+      "R_V": 3.1,
+      "n_stars": 59,
+      "lnL": 78.69952472008477,
+      "age_young": 3.5706723455726257,
+      "age_old": 10.115794542598984,
+      "phi_young": 0.88,
+      "n_young": 50.819121810104974,
+      "n_old": 7.86487818989503,
+      "single_best_age": 3.5706723455726257,
+      "lnL_single": 77.7197320340858,
+      "delta_BIC": -6.18474886255685,
+      "component_at_grid_edge": true,
+      "detected": false
+    },
+    {
+      "test": "c_mixture",
+      "eps": 0.05,
+      "subgroup": "CygOB2-C",
+      "family": "MIST",
+      "R_V": 3.1,
+      "n_stars": 43,
+      "lnL": 54.847532230558315,
+      "age_young": 3.180533688329517,
+      "age_old": 4.500388435263084,
+      "phi_young": 0.42,
+      "n_young": 17.14689245285892,
+      "n_old": 24.86250754714108,
+      "single_best_age": 4.008667176273026,
+      "lnL_single": 53.77159242451669,
+      "delta_BIC": -5.3239071934478766,
+      "component_at_grid_edge": false,
+      "detected": false
+    }
+  ],
+  "calibrations": [
+    {
+      "test": "a",
+      "R_V": 3.0,
+      "n": 136,
+      "scale": 0.9534120309123104,
+      "robust_sigma_mag": 0.29919920570830155,
+      "median_resid_mag": -5.740772214801737e-05,
+      "valid": true
+    },
+    {
+      "test": "b",
+      "R_V": 3.0,
+      "n": 30,
+      "zp_logTe": 0.08239886289053544,
+      "sig_logTe": 0.08700625217654101,
+      "zp_AG": 0.17807044922631765,
+      "sig_AG": 0.08015608776744844,
+      "valid": false
+    },
+    {
+      "test": "a",
+      "R_V": 3.1,
+      "n": 136,
+      "scale": 0.9283408197911978,
+      "robust_sigma_mag": 0.3022327620691175,
+      "median_resid_mag": 0.00035455510448834104,
+      "valid": true
+    },
+    {
+      "test": "b",
+      "R_V": 3.1,
+      "n": 30,
+      "zp_logTe": 0.08239886289053544,
+      "sig_logTe": 0.08700625217654101,
+      "zp_AG": 0.10798485364679689,
+      "sig_AG": 0.08584904822869124,
+      "valid": false
+    },
+    {
+      "test": "a",
+      "R_V": 3.5,
+      "n": 136,
+      "scale": 0.8508791500252584,
+      "robust_sigma_mag": 0.31038064560550144,
+      "median_resid_mag": -5.788988366450809e-06,
+      "valid": true
+    },
+    {
+      "test": "b",
+      "R_V": 3.5,
+      "n": 30,
+      "zp_logTe": 0.08239886289053544,
+      "sig_logTe": 0.08700625217654101,
+      "zp_AG": -0.12831589829721723,
+      "sig_AG": 0.10353076978744125,
+      "valid": false
+    }
+  ],
+  "integrity": {
+    "J1": {
+      "pass": true,
+      "rows": [
+        {
+          "family": "PARSEC",
+          "true": 2.5118864315095824,
+          "map": 2.51188643150958,
+          "grid_steps_off": 0,
+          "pass": true
+        },
+        {
+          "family": "PARSEC",
+          "true": 3.9810717055349696,
+          "map": 3.9810717055349722,
+          "grid_steps_off": 0,
+          "pass": true
+        },
+        {
+          "family": "MIST",
+          "true": 2.5234807724805752,
+          "map": 2.5234807724805743,
+          "grid_steps_off": 0,
+          "pass": true
+        },
+        {
+          "family": "MIST",
+          "true": 4.008667176273026,
+          "map": 4.008667176273027,
+          "grid_steps_off": 0,
+          "pass": true
+        }
+      ]
+    },
+    "J2": {
+      "pass": true,
+      "rows": [
+        {
+          "family": "PARSEC",
+          "subgroup": "CygOB2-A",
+          "c_eps0_map": 3.1622776601683795,
+          "phase_a_map": 3.1622776601683795,
+          "abs_diff": 0.0
+        },
+        {
+          "family": "PARSEC",
+          "subgroup": "CygOB2-C",
+          "c_eps0_map": 3.9810717055349722,
+          "phase_a_map": 3.981071705534972,
+          "abs_diff": 4.440892098500626e-16
+        },
+        {
+          "family": "MIST",
+          "subgroup": "CygOB2-A",
+          "c_eps0_map": 3.570672345572628,
+          "phase_a_map": 3.570672345572628,
+          "abs_diff": 0.0
+        },
+        {
+          "family": "MIST",
+          "subgroup": "CygOB2-C",
+          "c_eps0_map": 4.008667176273027,
+          "phase_a_map": 4.008667176273027,
+          "abs_diff": 0.0
+        }
+      ]
+    },
+    "J3": "inputs via issue20b_common.frozen; method hash checked"
+  },
+  "outputs": {
+    "tables/issue20b_adopted_ages.csv": "82d3568f221618fc2b43a5df2dd03e5e0fab3f80edc82668f826f21d5cac56cf"
+  }
+}

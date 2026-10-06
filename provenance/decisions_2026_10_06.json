@@ -1,0 +1,21 @@
+{
+  "created_utc": "2026-10-06T09:53:21+00:00",
+  "script": "scripts/decisions_2026_10_06.py",
+  "decided_by": "project owner, 2026-10-06 ('Lets go b)')",
+  "decisions": {
+    "5_issue21": {
+      "question": "Issue #21: WP4 photometric ages rest on an independent-error approximation for A_V (Phase A' report \u00a74). Options: (a) follow the registered two-branch fallback; (b) pre-register a WP4 age redesign first; (c) adopt spectroscopic HRD ages now.",
+      "decision": "Option (b). Pre-register and run a WP4 age redesign (correct A_V error propagation, a bright upper-MS indicator window, a separate study of the faint-end mis-modelling, acceptance against the spectroscopic HRD), then rebuild the chain as repair_v9 and only then run WP13.",
+      "brief": "tasks/stage_repair_v9_wp4_age_redesign_and_wp13.md",
+      "changes": "work order only; no number moves until a pre-registered repair_v9 is adopted",
+      "does_not_change": "repair_v8 stays the quoted chain until repair_v9 passes its adoption rule"
+    }
+  },
+  "evidence": {
+    "reports/issue20b_phase_a_prime_report.md": "b3062a51c323ba88d1a484bb4e00145576a5d8cb1dfd5698d8a3316bf0d66609",
+    "provenance/issue20b_outcome.json": "95308ba870fbd0f86579219babd7ccccf7dc8bbd20939db9dc707245a31d72cb",
+    "tables/issue20b_adopted_ages.csv": "82d3568f221618fc2b43a5df2dd03e5e0fab3f80edc82668f826f21d5cac56cf",
+    "tables/issue21_error_model_diagnostic.csv": "ea9b2bedb6c80fe9d45bedae68f2f4edc2c3a51488cc091f0115850db1285775",
+    "provenance/issue21_error_model_diagnostic_execution.json": "89dc2e361726a558e6ea7cc6145497d9f32bf6b60fb2f4c3453e379a586a487c"
+  }
+}

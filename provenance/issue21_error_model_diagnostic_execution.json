@@ -1,0 +1,15 @@
+{
+  "created_utc": "2026-10-06T09:30:08+00:00",
+  "script": "scripts/issue21_error_model_diagnostic.py",
+  "status": "post-hoc diagnostic, not pre-registered, nothing adopted",
+  "inputs": {
+    "data/processed/wp3_extinction_repair_v5.parquet": "76a3c3df1e754b9846a2401ce898aad50f8de28b90a11725687af0e7cc4524fc",
+    "tables/wp2_subgroup_labels.parquet": "44a5ee7b9190703dae8dca9540c192757423db293c9ecc1ea123065849800887",
+    "data/processed/wp3_isochrones_parsec.parquet": "9e0444045acf3e9331bf609e44c5f065635b217558f2ff46deec68fb66c8c663",
+    "data/processed/wp3_isochrones_mist.parquet": "3b1437d791e61a5dc9b7b2a2ed12e83bc0a1c64cb775c3862a2073731623135b",
+    "data/processed/wp4_age_posteriors_repair_v5.parquet": "dc14e923a5dc4ad1336d08059e397bbc007f0f926f91a94f5ac2ddfbdc141ada"
+  },
+  "outputs": {
+    "tables/issue21_error_model_diagnostic.csv": "ea9b2bedb6c80fe9d45bedae68f2f4edc2c3a51488cc091f0115850db1285775"
+  }
+}
