@@ -442,8 +442,12 @@ def fig04_cmd_ages() -> None:
                 color=SUB[subgroup], weight="bold")
     env_lo, env_hi = age_envelope()
     ax.axvspan(env_lo, env_hi, color="#000000", alpha=0.06, zorder=0)
-    ax.text(env_lo + 0.05, -0.42, f"{env_lo:.2f}–{env_hi:.2f} Myr retained "
-            "upper-MS envelope (MAP)", ha="left", va="center", fontsize=6.0,
+    # repair_v9: the adopted WP4 ages are spectroscopic-HRD (B borrowed), not
+    # an upper-MS photometric fit; the label follows the active age product
+    env_label = ("adopted WP4 age envelope (MAP)" if C.V["wp4_ages"] == "repair_v9_headline"
+                 else "retained upper-MS envelope (MAP)")
+    ax.text(env_lo + 0.05, -0.42, f"{env_lo:.2f}–{env_hi:.2f} Myr {env_label}",
+            ha="left", va="center", fontsize=6.0,
             color=MUTED)
     ax.annotate("B rails against the top of its own prior grid",
                 xy=(4.13, 1.16), xytext=(4.45, 1.62), fontsize=5.9,
@@ -755,9 +759,11 @@ def fig08_history() -> None:
                 xy=(0.2007, top * 1.02), xytext=(0.62, top * 1.16),
                 fontsize=6.0, color=FAIL_HUE,
                 arrowprops=dict(arrowstyle="->", color=FAIL_HUE, lw=0.7))
-    ax.text(0.985, 0.62, "Cyg OB2-C contributes\nnothing on this branch",
-            transform=ax.transAxes, ha="right", va="top", fontsize=6.0,
-            color=SUB["CygOB2-C"])
+    # repair_v9: the note is data-driven -- C contributes on repair_v9's baseline
+    if rsn[rsn.subgroup.eq("CygOB2-C")].rate_per_Myr.sum() == 0:
+        ax.text(0.985, 0.62, "Cyg OB2-C contributes\nnothing on this branch",
+                transform=ax.transAxes, ha="right", va="top", fontsize=6.0,
+                color=SUB["CygOB2-C"])
     ax.set_xlabel("look-back time (Myr)")
     ax.set_ylabel("$R_{\\rm SN}$ (Myr$^{-1}$)")
     ax.set_xlim(0, 1.6)
@@ -824,7 +830,8 @@ def fig09_sensitivity() -> None:
     env_lo, env_hi = age_envelope()
     age_ax.axvspan(env_lo, env_hi, color="#000000", alpha=0.06, zorder=0)
     age_ax.text(env_hi - 0.05, age_ax.get_ylim()[1] * 0.06,
-                "retained upper-MS envelope", fontsize=6.2, color=MUTED,
+                ("adopted WP4 age envelope" if C.V["wp4_ages"] == "repair_v9_headline"
+                 else "retained upper-MS envelope"), fontsize=6.2, color=MUTED,
                 ha="right")
     age_ax.legend(fontsize=6.4, loc="upper left")
 

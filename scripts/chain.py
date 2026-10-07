@@ -19,7 +19,8 @@ import os
 from pathlib import Path
 
 LEGACY = "repair_v7"      # the chain whose products carry no suffix
-ADOPTED = "repair_v8"     # adopted 2026-10-01: I1-I4 passed (issue19_repair_v8_integrity.json)
+ADOPTED = "repair_v9"     # adopted 2026-10-07: I1-I5 passed (repair_v9_integrity.json)
+# previously repair_v8, adopted 2026-10-01: I1-I4 passed (issue19_repair_v8_integrity.json)
 
 VERSIONS: dict[str, dict[str, str]] = {
     # repair_v7: WP3/WP4 from repair_v5, WP5/WP6 injections and fit at v7

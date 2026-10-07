@@ -1,9 +1,9 @@
 {
-  "created_utc": "2026-10-01T14:20:03+00:00",
+  "created_utc": "2026-10-07T18:41:57+00:00",
   "script": "scripts/wp10_validate.py",
   "item": "WP10 gate",
   "python": "3.11.15",
-  "platform": "macOS-15.6.1-arm64-arm-64bit",
+  "platform": "Linux-5.14.0-570.49.1.el9_6.x86_64-x86_64-with-glibc2.34",
   "note": "no LaTeX toolchain is installed in this environment, so the manuscript has NOT been compiled; these checks stand in for the failures a compile would surface, and a compile is still required before submission",
   "V1_undefined_macros": [],
   "V2_unused_macros": [],

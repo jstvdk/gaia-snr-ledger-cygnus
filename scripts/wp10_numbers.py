@@ -78,6 +78,11 @@ class Macros:
         self.items[name] = (str(value), chain_source(source))
 
     def num(self, name: str, value: float, fmt: str, source: str) -> None:
+        if value is None:
+            # repair_v9: a quantity can be undefined on the active chain (e.g. a
+            # score range over zero branches).  Render a dash, never a number.
+            self.add(name, r"\textemdash", f"{source} (undefined on this chain)")
+            return
         self.add(name, format(value, fmt), source)
 
     def render(self) -> str:
@@ -587,8 +592,8 @@ def main() -> None:
     m.num("mixedHi", mixed["N_SN_range"][1], ".1f", src)
     versus = mixed["versus_pure_alpha_2p3"]
     m.num("mixedShift", 100 * versus["worst_relative_change_in_N_SN"], ".0f", src)
-    m.num("mixedShiftDead",
-          100 * versus["worst_relative_change_where_C_is_dead"], ".0f", src)
+    dead = versus["worst_relative_change_where_C_is_dead"]   # None: C dies on every branch
+    m.num("mixedShiftDead", None if dead is None else 100 * dead, ".0f", src)
     m.num("mixedAliveBranches", versus["branches_where_C_contributes"], "d", src)
     m.num("mixedDeadBranches",
           versus["branches_where_C_is_above_the_imf_ceiling"], "d", src)

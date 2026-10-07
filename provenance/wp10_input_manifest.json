@@ -1,86 +1,86 @@
 {
-  "created_utc": "2026-10-01T14:20:01+00:00",
+  "created_utc": "2026-10-07T18:39:56+00:00",
   "script": "scripts/wp10_inputs.py",
   "item": "S3 of tasks/pre_wp10_assessment_brief.md",
   "python": "3.11.15",
-  "platform": "macOS-15.6.1-arm64-arm-64bit",
+  "platform": "Linux-5.14.0-570.49.1.el9_6.x86_64-x86_64-with-glibc2.34",
   "versions": {
-    "wp3_wp4": "repair_v5",
-    "wp5_consumed_downstream": "repair_v8",
+    "wp3_wp4": "repair_v9_headline",
+    "wp5_consumed_downstream": "repair_v9",
     "wp5_gate_record": "repair_v6"
   },
   "authorized_inputs": {
     "age_reconciliation": {
-      "path": "tables/wp4_wp5_age_reconciliation_repair_v8.csv",
-      "sha256": "8497bd22d9b4bb6121fefde4a8a9d03e88fb761a168b4a2e6bd4553085f9abf3"
+      "path": "tables/wp4_wp5_age_reconciliation_repair_v9.csv",
+      "sha256": "a79bcab7811de13ec452e77303659d3a52eca17437ce6bee9b354a8387746cf5"
     },
     "alpha_headline_branch_sets": {
-      "path": "tables/wp7_alpha_headline_branch_sets_repair_v8.csv",
-      "sha256": "367ec6ccdd56992899c0ef420b91a4db142d6b5ac5ff84a52dde674a02400d9c"
+      "path": "tables/wp7_alpha_headline_branch_sets_repair_v9.csv",
+      "sha256": "751f63593b53aca9f272fb5f12722430a337dd1608bd237eba7d854ddedef32e"
     },
     "binary_bound": {
-      "path": "tables/wp7_binary_bound_repair_v8.csv",
-      "sha256": "43ea117cd0ebd884b051d1628271b15ec7f364b9513c48614278e343570a3212"
+      "path": "tables/wp7_binary_bound_repair_v9.csv",
+      "sha256": "b7fe135fc21b5fb47c01c4e805b2445c2979bcea429a66aac94c27d20d3b654c"
     },
     "binary_bound_branches": {
-      "path": "tables/wp7_binary_bound_branches_repair_v8.csv",
-      "sha256": "f0ccfb4ee41a85e4e3cb37c45ca2a86a80bbf259f9e836969c450606c2db5f53"
+      "path": "tables/wp7_binary_bound_branches_repair_v9.csv",
+      "sha256": "531db2af2d40765e116a9509683f8d899ba607d5f69f0626bd10f98af3e344a8"
     },
     "binary_bound_harer_fig2": {
-      "path": "tables/wp7_binary_bound_harer_fig2_repair_v8.csv",
+      "path": "tables/wp7_binary_bound_harer_fig2_repair_v9.csv",
       "sha256": "4891aa6ffcf30010282e980dfa458ff23e8990490e90e9b64a901b299e206afe"
     },
     "wp11_isotope_forecast": {
-      "path": "tables/wp11_isotope_forecast_repair_v8.csv",
-      "sha256": "cbc957ac49d6026c92527e1c638c90e9da1e61ab5dc3be7810320e49b1f467ac"
+      "path": "tables/wp11_isotope_forecast_repair_v9.csv",
+      "sha256": "c45e0cdc4bad12f0db8ce2853dc2b04ed05db508a1946ba860a803a26f4ca99f"
     },
     "wp11_isotope_summary": {
-      "path": "tables/wp11_isotope_summary_repair_v8.csv",
-      "sha256": "d97525c0984718e69149a0108c70fedc61097e65b996ae3be21b5a6f0b2a75c6"
+      "path": "tables/wp11_isotope_summary_repair_v9.csv",
+      "sha256": "e175cdb255bb3f27b6556842a11254a86884089d7d808f9a258e72c9cac9c8b0"
     },
     "wp12_branch_gate_table": {
-      "path": "tables/wp12_branch_gate_table_repair_v8.csv",
-      "sha256": "1fafc78de28b3038f99d140788309ec2dade591cbf27c95db7397f87acdc81c0"
+      "path": "tables/wp12_branch_gate_table_repair_v9.csv",
+      "sha256": "8feec2dd4f9f4f48c1e989fb3116281e5d360c5692016b9c583ff2934ce62cb5"
     },
     "wp12_c3_subtype": {
-      "path": "tables/wp12_c3_subtype_repair_v8.csv",
-      "sha256": "3cbd8af47632cb6669ebe09f88a49e705f43cbfb15906294986803d6a36d679e"
+      "path": "tables/wp12_c3_subtype_repair_v9.csv",
+      "sha256": "987f8b749d024aba89cb00ca28ae1417f9ef8d24a2310f2b3c0570841054a62b"
     },
     "wp12_c4_scan": {
-      "path": "tables/wp12_c4_scan_repair_v8.csv",
-      "sha256": "7c8733b2221251043e29cb4510a82c2b0dd071922ff2f89a959f620e92866fc4"
+      "path": "tables/wp12_c4_scan_repair_v9.csv",
+      "sha256": "9fafc48c678317e49e5cb10e17487561b0903db0cf27534e467dc4a6da53c780"
     },
     "wp12_cavity_share": {
-      "path": "tables/wp12_cavity_share_repair_v8.csv",
-      "sha256": "1e65c52bd925fae420caada318734593921d6210c7f1912a8257a096ae5a5ff3"
+      "path": "tables/wp12_cavity_share_repair_v9.csv",
+      "sha256": "847243714ac88f54367a8e4caf9726bae2123ab780f6cf3c41530d9ebb5f0af9"
     },
     "wp12_closing_slopes": {
-      "path": "tables/wp12_closing_slopes_repair_v8.csv",
-      "sha256": "fc0a65f78045c09389f83130f68386cd32a0684abb8a365cfc5b50cd24081c66"
+      "path": "tables/wp12_closing_slopes_repair_v9.csv",
+      "sha256": "2deab278725659af148aeb4d7634a089e2560ece0c0425883765dc4aa36be3a2"
     },
     "wp12_closure_by_alpha": {
-      "path": "tables/wp12_closure_by_alpha_repair_v8.csv",
-      "sha256": "243b35c24d964c09c8387b7adde7532833187cb6c81996c62e316b8e50a50c79"
+      "path": "tables/wp12_closure_by_alpha_repair_v9.csv",
+      "sha256": "3eaa1baabc145b981050cdd7b494e20d8c6e9b6dad41e75c5265c95207c5702d"
     },
     "wp12_combination_gate": {
-      "path": "tables/wp12_combination_gate_repair_v8.csv",
-      "sha256": "c03f75e5552bdaf50a4dc8977da48cd5071a77c5ee27610376efd97143479f79"
+      "path": "tables/wp12_combination_gate_repair_v9.csv",
+      "sha256": "da3ea5fa87938d7cf5b22c8f60084e08b49744e043ff3e57c3543dfaba4b9330"
     },
     "wp12_gate_map": {
-      "path": "tables/wp12_wp5_gate_map_repair_v8.csv",
-      "sha256": "8d23a65e88d68f6dffaed88e4eef94e24bd179ed1653318da85bdaea4211422e"
+      "path": "tables/wp12_wp5_gate_map_repair_v9.csv",
+      "sha256": "a3fc807fda2e7251bea11bdcdc95c47c547388310f50f519fcec10eae33da2ed"
     },
     "wp12_mixed_slope_ledger": {
-      "path": "tables/wp12_mixed_slope_ledger_repair_v8.csv",
-      "sha256": "8085294cc04589081316fdea457a7e07909234d1d9f88ea7aa04925e1c93f9d9"
+      "path": "tables/wp12_mixed_slope_ledger_repair_v9.csv",
+      "sha256": "81021c4b30cf93afb3d219635340d68344b6e2b30801c0d9badc63b114daad8b"
     },
     "wp12_neighbour_budget": {
-      "path": "tables/wp12_neighbour_budget_repair_v8.csv",
+      "path": "tables/wp12_neighbour_budget_repair_v9.csv",
       "sha256": "18cf4001172c1541b346100c3765d519e7511db4e71955d3a51ee81abb45be35"
     },
     "wp12_scenario_score": {
-      "path": "tables/wp12_scenario_score_repair_v8.csv",
-      "sha256": "602866391387c36ec86eba420b6892333d72ab2cb98e4fc956356567fe747cf8"
+      "path": "tables/wp12_scenario_score_repair_v9.csv",
+      "sha256": "c52c214ac191890c51fab22e6eaac39c84b8c43c6d27f62a849f4578f683f2f0"
     },
     "wp1_inventory": {
       "path": "tables/table1_wp1_inventory.md",
@@ -115,20 +115,20 @@
       "sha256": "76a3c3df1e754b9846a2401ce898aad50f8de28b90a11725687af0e7cc4524fc"
     },
     "wp4_age_posteriors": {
-      "path": "data/processed/wp4_age_posteriors_repair_v5.parquet",
-      "sha256": "dc14e923a5dc4ad1336d08059e397bbc007f0f926f91a94f5ac2ddfbdc141ada"
+      "path": "data/processed/wp4_age_posteriors_repair_v9_headline.parquet",
+      "sha256": "6d832504f639681e8c73a2de1875bbc7328fcd444921b8bb3a84ba9d89310fd4"
     },
     "wp4_masses": {
-      "path": "data/processed/wp4_mass_posteriors_repair_v8.parquet",
-      "sha256": "214e383624123f28a84c23bddd810235e71ffe58675daae61a7f119b6ef265c9"
+      "path": "data/processed/wp4_mass_posteriors_repair_v9.parquet",
+      "sha256": "111fbf90b416b2014549c7632f3fb505e5df4f7b132acbfe3e9008f8d4de441d"
     },
     "wp5_association_mass": {
-      "path": "data/processed/wp5_association_mass_repair_v8.parquet",
-      "sha256": "62b67a6d7c77400324c5e99970a13a3740447c1e30151fc7944b80a142023b10"
+      "path": "data/processed/wp5_association_mass_repair_v9.parquet",
+      "sha256": "52fd4c9471d582613c56ddfd8a4de233699d5ed31194654c6350ae3de6dbedd5"
     },
     "wp5_association_mass_reconciliation": {
-      "path": "tables/wp5_association_mass_reconciliation_repair_v8.csv",
-      "sha256": "f8af3f51423927e56b05886895fe7d0fb15bd52bc8e52038428032d5408c208f"
+      "path": "tables/wp5_association_mass_reconciliation_repair_v9.csv",
+      "sha256": "51973813f8527bac4b28467179cbec70759b4b1bd50d24bfc3f197d39e3aacae"
     },
     "wp5_baseline_residuals": {
       "path": "tables/wp5_baseline_residuals_repair_v6.csv",
@@ -143,32 +143,32 @@
       "sha256": "f83c49a143068dd61f3e136244ec9110ce53420da3981382f67f1262cf909368"
     },
     "wp5_normalization": {
-      "path": "data/processed/wp5_imf_normalization_repair_v8.parquet",
-      "sha256": "ca841c082672fced85e692b682b534b28fa5fc9739167d11e1efe745044b54c3"
+      "path": "data/processed/wp5_imf_normalization_repair_v9.parquet",
+      "sha256": "43703353953555cfa6f7e95867ac5b751a06516ec3cce89ecd38779c6f5d6940"
     },
     "wp5_posterior_draws": {
-      "path": "data/processed/wp5_imf_posterior_draws_repair_v8.npz",
-      "sha256": "8642a8e02d9de82fe3e2b80153761068dadd6a4f78f86ae8295353d02c478031"
+      "path": "data/processed/wp5_imf_posterior_draws_repair_v9.npz",
+      "sha256": "9a108b6c04a439f84b54088766bc9563a53fd058d7004f6bd806c13496ae57b1"
     },
     "wp6_closure": {
-      "path": "tables/wp6_closure_repair_v8.csv",
-      "sha256": "ca0190a6fe02586cd50887b2a789922df597d7c6c8156b735abfbdb2a5d471f6"
+      "path": "tables/wp6_closure_repair_v9.csv",
+      "sha256": "0c92b7f4eb3a522639f994a4a7630e607f5852b170d2040945100deb950ac86e"
     },
     "wp6_closure_attribution": {
-      "path": "tables/wp6_closure_attribution_repair_v8.csv",
-      "sha256": "bcfd7cb27303b64a8ce343efa9c1d59df078f3a1b3313f41229d477bf54ae223"
+      "path": "tables/wp6_closure_attribution_repair_v9.csv",
+      "sha256": "659f5a25d5365630e6f97aa9ee82e52068a9185e7537c3d0b3c294251d0a307f"
     },
     "wp6_external_crosschecks": {
       "path": "tables/wp6_external_crosschecks.csv",
       "sha256": "cbe4e07f132c55c67868da74303739886b6f8e3e5b251abf253ddbf11b7f9e2f"
     },
     "wp6_massive_census": {
-      "path": "tables/wp6_massive_census_repair_v8.csv",
-      "sha256": "74dcb0f2400d9aef542b06b1f77dd337cf43b2253630ca045f3af956ba75f4d0"
+      "path": "tables/wp6_massive_census_repair_v9.csv",
+      "sha256": "0db34a66cd62de520d8b5eaf90c859085f68c51f221d7127848cf3cc8fa36c37"
     },
     "wp6_orphan_anchors": {
-      "path": "tables/wp6_orphan_anchors_repair_v8.csv",
-      "sha256": "df5d3e2849f5e4f24b4cf950336ae3408775508e4fbad8ea038a7d848022d315"
+      "path": "tables/wp6_orphan_anchors_repair_v9.csv",
+      "sha256": "4464aa7b8e7058c4df267c0f3976bf4ef6671ee66ad6f23ceb93f649e79a4d4d"
     },
     "wp6_runaway_crossmatch": {
       "path": "tables/wp6_runaway_crossmatch.csv",
@@ -179,40 +179,40 @@
       "sha256": "42f5ebf2a63fe344e9df7cc1977af85746b0100dbf779e16db396c00a6613280"
     },
     "wp7_age_sensitivity": {
-      "path": "tables/wp7_age_sensitivity_repair_v8.csv",
-      "sha256": "d86607e1ef0fc73bee02f3ef3975a2dc676a5d969203fe24edff5f43e4481d7a"
+      "path": "tables/wp7_age_sensitivity_repair_v9.csv",
+      "sha256": "a50514d68b539925423bb7418889204429e931afae31832a36fc2f49962093d1"
     },
     "wp7_bh_threshold_scan": {
-      "path": "tables/wp7_bh_threshold_scan_repair_v8.csv",
-      "sha256": "8e24cfd52d9477b332e65d64d3fa912728a81430fe0b290ca5d4526491b4c101"
+      "path": "tables/wp7_bh_threshold_scan_repair_v9.csv",
+      "sha256": "73cfca79788bf3a434a959c8b8a5a57c8053a38706d4fb61d5c9f413e005efc6"
     },
     "wp7_convergence": {
-      "path": "tables/wp7_convergence_repair_v8.csv",
-      "sha256": "6e0505ce45403cd80b36afad21e8a8472216522d6c4ba962c6d345219c43609d"
+      "path": "tables/wp7_convergence_repair_v9.csv",
+      "sha256": "d47046a421b8f4416e565246941e638831222767937ec8cbc5530423c1276033"
     },
     "wp7_ledger": {
-      "path": "tables/wp7_ledger_repair_v8.csv",
-      "sha256": "0bc21761c88f800f6564e70b87e27dfad0c2df4f20eea47e0e5e4a6b1c08b46b"
+      "path": "tables/wp7_ledger_repair_v9.csv",
+      "sha256": "be8098adbc57e7b1002ed5126a8e9609b04532dae21c22cdb8ddd02b841ee31b"
     },
     "wp7_rsn_curves": {
-      "path": "tables/wp7_rsn_curves_repair_v8.csv",
-      "sha256": "41b8c89fb1671a8f7a878b6a8192bd5241f699290306589987c6559586ae156c"
+      "path": "tables/wp7_rsn_curves_repair_v9.csv",
+      "sha256": "5696799e158cbb2b60cdd42fdaefc8f210f9164f20b23b08e602e93462f0db4e"
     },
     "wp8_crosschecks": {
-      "path": "tables/wp8_crosschecks_repair_v8.csv",
-      "sha256": "ab8245c5302150e474ed92b9527d51ec22342b80c81c95f7a06adc374dac93ec"
+      "path": "tables/wp8_crosschecks_repair_v9.csv",
+      "sha256": "c70a9cbdbdf4fc76bfd714e0bcae2c6daff1e7b5ee5ff9e4bde1277b56553af1"
     },
     "wp8_tension_list": {
-      "path": "tables/wp8_tension_list_repair_v8.csv",
+      "path": "tables/wp8_tension_list_repair_v9.csv",
       "sha256": "9245889d0b93bd86d243a8581106abf8996d87abe1078677da0776efd2e6510b"
     },
     "wp9_sensitivity": {
-      "path": "tables/wp9_sensitivity_repair_v8.csv",
-      "sha256": "bf7fca79b8cdfd36d003907867e9928ec1d46d39861db7ad2678ee93f6400c15"
+      "path": "tables/wp9_sensitivity_repair_v9.csv",
+      "sha256": "2dd2d88b06851b76d191ba5e9458cf335034ccde2658fbfd0024f7b90d90137d"
     },
     "wp9_verdict": {
-      "path": "tables/wp9_verdict_repair_v8.csv",
-      "sha256": "4ad6cc96b392780700399bf652a7c7d1d395ad2b0687dd708dd20982ef7dd7ab"
+      "path": "tables/wp9_verdict_repair_v9.csv",
+      "sha256": "f4caf5a7c9e07b03cee7a939f8259efff62bf50b9969b018168f4c4d2970608a"
     }
   },
   "forbidden_inputs": {
@@ -231,39 +231,77 @@
     "data/processed/wp4_anchor_hrd.parquet": "issue #19 -- anchor masses read at the pre-repair ages and copied onto every R_V branch.  Use wp4_anchor_hrd_repair_v8.parquet",
     "tables/wp4_ages_envelope.md": "issue #19 -- pre-repair WP4 envelope table (2.25-5.67 Myr, PMS rows)",
     "tables/wp4_ages_table.md": "issue #19 -- pre-repair WP4 age table",
-    "data/processed/wp4_mass_posteriors_repair_v5.parquet": "superseded by repair_v8 (issue #19: anchor masses at pre-repair ages); preserved on disk, not quotable",
-    "data/processed/wp5_imf_normalization_repair_v7.parquet": "superseded by repair_v8 (issue #19: anchor masses at pre-repair ages); preserved on disk, not quotable",
-    "data/processed/wp5_imf_posterior_draws_repair_v7.npz": "superseded by repair_v8 (issue #19: anchor masses at pre-repair ages); preserved on disk, not quotable",
-    "data/processed/wp5_association_mass_repair_v7.parquet": "superseded by repair_v8 (issue #19: anchor masses at pre-repair ages); preserved on disk, not quotable",
-    "tables/wp6_closure_repair_v7.csv": "superseded by repair_v8 (issue #19: anchor masses at pre-repair ages); preserved on disk, not quotable",
-    "tables/wp6_closure_attribution_repair_v7.csv": "superseded by repair_v8 (issue #19: anchor masses at pre-repair ages); preserved on disk, not quotable",
-    "tables/wp6_massive_census.csv": "superseded by repair_v8 (issue #19: anchor masses at pre-repair ages); preserved on disk, not quotable",
-    "tables/wp6_orphan_anchors.csv": "superseded by repair_v8 (issue #19: anchor masses at pre-repair ages); preserved on disk, not quotable",
-    "tables/wp7_ledger.csv": "superseded by repair_v8 (issue #19: anchor masses at pre-repair ages); preserved on disk, not quotable",
-    "tables/wp7_rsn_curves.csv": "superseded by repair_v8 (issue #19: anchor masses at pre-repair ages); preserved on disk, not quotable",
-    "tables/wp7_age_sensitivity.csv": "superseded by repair_v8 (issue #19: anchor masses at pre-repair ages); preserved on disk, not quotable",
-    "tables/wp7_bh_threshold_scan.csv": "superseded by repair_v8 (issue #19: anchor masses at pre-repair ages); preserved on disk, not quotable",
-    "tables/wp7_convergence.csv": "superseded by repair_v8 (issue #19: anchor masses at pre-repair ages); preserved on disk, not quotable",
-    "tables/wp7_alpha_headline_branch_sets.csv": "superseded by repair_v8 (issue #19: anchor masses at pre-repair ages); preserved on disk, not quotable",
-    "tables/wp7_binary_bound.csv": "superseded by repair_v8 (issue #19: anchor masses at pre-repair ages); preserved on disk, not quotable",
-    "tables/wp7_binary_bound_branches.csv": "superseded by repair_v8 (issue #19: anchor masses at pre-repair ages); preserved on disk, not quotable",
-    "tables/wp8_crosschecks.csv": "superseded by repair_v8 (issue #19: anchor masses at pre-repair ages); preserved on disk, not quotable",
-    "tables/wp8_tension_list.csv": "superseded by repair_v8 (issue #19: anchor masses at pre-repair ages); preserved on disk, not quotable",
-    "tables/wp9_verdict.csv": "superseded by repair_v8 (issue #19: anchor masses at pre-repair ages); preserved on disk, not quotable",
-    "tables/wp9_sensitivity.csv": "superseded by repair_v8 (issue #19: anchor masses at pre-repair ages); preserved on disk, not quotable",
-    "tables/wp11_isotope_forecast.csv": "superseded by repair_v8 (issue #19: anchor masses at pre-repair ages); preserved on disk, not quotable",
-    "tables/wp11_isotope_summary.csv": "superseded by repair_v8 (issue #19: anchor masses at pre-repair ages); preserved on disk, not quotable",
-    "tables/wp4_wp5_age_reconciliation.csv": "superseded by repair_v8 (issue #19: anchor masses at pre-repair ages); preserved on disk, not quotable"
+    "data/processed/wp4_mass_posteriors_repair_v5.parquet": "superseded by repair_v9 (issue #19: anchor masses at pre-repair ages); preserved on disk, not quotable",
+    "data/processed/wp5_imf_normalization_repair_v7.parquet": "superseded by repair_v9 (issue #19: anchor masses at pre-repair ages); preserved on disk, not quotable",
+    "data/processed/wp5_imf_posterior_draws_repair_v7.npz": "superseded by repair_v9 (issue #19: anchor masses at pre-repair ages); preserved on disk, not quotable",
+    "data/processed/wp5_association_mass_repair_v7.parquet": "superseded by repair_v9 (issue #19: anchor masses at pre-repair ages); preserved on disk, not quotable",
+    "tables/wp6_closure_repair_v7.csv": "superseded by repair_v9 (issue #19: anchor masses at pre-repair ages); preserved on disk, not quotable",
+    "tables/wp6_closure_attribution_repair_v7.csv": "superseded by repair_v9 (issue #19: anchor masses at pre-repair ages); preserved on disk, not quotable",
+    "tables/wp6_massive_census.csv": "superseded by repair_v9 (issue #19: anchor masses at pre-repair ages); preserved on disk, not quotable",
+    "tables/wp6_orphan_anchors.csv": "superseded by repair_v9 (issue #19: anchor masses at pre-repair ages); preserved on disk, not quotable",
+    "tables/wp7_ledger.csv": "superseded by repair_v9 (issue #19: anchor masses at pre-repair ages); preserved on disk, not quotable",
+    "tables/wp7_rsn_curves.csv": "superseded by repair_v9 (issue #19: anchor masses at pre-repair ages); preserved on disk, not quotable",
+    "tables/wp7_age_sensitivity.csv": "superseded by repair_v9 (issue #19: anchor masses at pre-repair ages); preserved on disk, not quotable",
+    "tables/wp7_bh_threshold_scan.csv": "superseded by repair_v9 (issue #19: anchor masses at pre-repair ages); preserved on disk, not quotable",
+    "tables/wp7_convergence.csv": "superseded by repair_v9 (issue #19: anchor masses at pre-repair ages); preserved on disk, not quotable",
+    "tables/wp7_alpha_headline_branch_sets.csv": "superseded by repair_v9 (issue #19: anchor masses at pre-repair ages); preserved on disk, not quotable",
+    "tables/wp7_binary_bound.csv": "superseded by repair_v9 (issue #19: anchor masses at pre-repair ages); preserved on disk, not quotable",
+    "tables/wp7_binary_bound_branches.csv": "superseded by repair_v9 (issue #19: anchor masses at pre-repair ages); preserved on disk, not quotable",
+    "tables/wp8_crosschecks.csv": "superseded by repair_v9 (issue #19: anchor masses at pre-repair ages); preserved on disk, not quotable",
+    "tables/wp8_tension_list.csv": "superseded by repair_v9 (issue #19: anchor masses at pre-repair ages); preserved on disk, not quotable",
+    "tables/wp9_verdict.csv": "superseded by repair_v9 (issue #19: anchor masses at pre-repair ages); preserved on disk, not quotable",
+    "tables/wp9_sensitivity.csv": "superseded by repair_v9 (issue #19: anchor masses at pre-repair ages); preserved on disk, not quotable",
+    "tables/wp11_isotope_forecast.csv": "superseded by repair_v9 (issue #19: anchor masses at pre-repair ages); preserved on disk, not quotable",
+    "tables/wp11_isotope_summary.csv": "superseded by repair_v9 (issue #19: anchor masses at pre-repair ages); preserved on disk, not quotable",
+    "tables/wp4_wp5_age_reconciliation.csv": "superseded by repair_v9 (issue #19: anchor masses at pre-repair ages); preserved on disk, not quotable",
+    "data/processed/wp4_age_posteriors_repair_v5.parquet": "superseded by repair_v9 (issue #21: ages from the Phase A' test-c spectroscopic HRD, not the repair_v5 photometric fit); preserved on disk, not quotable",
+    "data/processed/wp4_mass_posteriors_repair_v8.parquet": "superseded by repair_v9 (issue #21: ages from the Phase A' test-c spectroscopic HRD, not the repair_v5 photometric fit); preserved on disk, not quotable",
+    "data/processed/wp4_anchor_hrd_repair_v8.parquet": "superseded by repair_v9 (issue #21: ages from the Phase A' test-c spectroscopic HRD, not the repair_v5 photometric fit); preserved on disk, not quotable",
+    "data/processed/wp5_imf_normalization_repair_v8.parquet": "superseded by repair_v9 (issue #21: ages from the Phase A' test-c spectroscopic HRD, not the repair_v5 photometric fit); preserved on disk, not quotable",
+    "data/processed/wp5_imf_posterior_draws_repair_v8.npz": "superseded by repair_v9 (issue #21: ages from the Phase A' test-c spectroscopic HRD, not the repair_v5 photometric fit); preserved on disk, not quotable",
+    "data/processed/wp5_association_mass_repair_v8.parquet": "superseded by repair_v9 (issue #21: ages from the Phase A' test-c spectroscopic HRD, not the repair_v5 photometric fit); preserved on disk, not quotable",
+    "tables/wp6_closure_repair_v8.csv": "superseded by repair_v9 (issue #21: ages from the Phase A' test-c spectroscopic HRD, not the repair_v5 photometric fit); preserved on disk, not quotable",
+    "tables/wp6_closure_attribution_repair_v8.csv": "superseded by repair_v9 (issue #21: ages from the Phase A' test-c spectroscopic HRD, not the repair_v5 photometric fit); preserved on disk, not quotable",
+    "tables/wp5_association_mass_reconciliation_repair_v8.csv": "superseded by repair_v9 (issue #21: ages from the Phase A' test-c spectroscopic HRD, not the repair_v5 photometric fit); preserved on disk, not quotable",
+    "tables/wp6_massive_census_repair_v8.csv": "superseded by repair_v9 (issue #21: ages from the Phase A' test-c spectroscopic HRD, not the repair_v5 photometric fit); preserved on disk, not quotable",
+    "tables/wp6_orphan_anchors_repair_v8.csv": "superseded by repair_v9 (issue #21: ages from the Phase A' test-c spectroscopic HRD, not the repair_v5 photometric fit); preserved on disk, not quotable",
+    "tables/wp7_ledger_repair_v8.csv": "superseded by repair_v9 (issue #21: ages from the Phase A' test-c spectroscopic HRD, not the repair_v5 photometric fit); preserved on disk, not quotable",
+    "tables/wp7_rsn_curves_repair_v8.csv": "superseded by repair_v9 (issue #21: ages from the Phase A' test-c spectroscopic HRD, not the repair_v5 photometric fit); preserved on disk, not quotable",
+    "tables/wp7_age_sensitivity_repair_v8.csv": "superseded by repair_v9 (issue #21: ages from the Phase A' test-c spectroscopic HRD, not the repair_v5 photometric fit); preserved on disk, not quotable",
+    "tables/wp7_bh_threshold_scan_repair_v8.csv": "superseded by repair_v9 (issue #21: ages from the Phase A' test-c spectroscopic HRD, not the repair_v5 photometric fit); preserved on disk, not quotable",
+    "tables/wp7_convergence_repair_v8.csv": "superseded by repair_v9 (issue #21: ages from the Phase A' test-c spectroscopic HRD, not the repair_v5 photometric fit); preserved on disk, not quotable",
+    "tables/wp8_crosschecks_repair_v8.csv": "superseded by repair_v9 (issue #21: ages from the Phase A' test-c spectroscopic HRD, not the repair_v5 photometric fit); preserved on disk, not quotable",
+    "tables/wp8_tension_list_repair_v8.csv": "superseded by repair_v9 (issue #21: ages from the Phase A' test-c spectroscopic HRD, not the repair_v5 photometric fit); preserved on disk, not quotable",
+    "tables/wp9_verdict_repair_v8.csv": "superseded by repair_v9 (issue #21: ages from the Phase A' test-c spectroscopic HRD, not the repair_v5 photometric fit); preserved on disk, not quotable",
+    "tables/wp9_sensitivity_repair_v8.csv": "superseded by repair_v9 (issue #21: ages from the Phase A' test-c spectroscopic HRD, not the repair_v5 photometric fit); preserved on disk, not quotable",
+    "tables/wp11_isotope_forecast_repair_v8.csv": "superseded by repair_v9 (issue #21: ages from the Phase A' test-c spectroscopic HRD, not the repair_v5 photometric fit); preserved on disk, not quotable",
+    "tables/wp11_isotope_summary_repair_v8.csv": "superseded by repair_v9 (issue #21: ages from the Phase A' test-c spectroscopic HRD, not the repair_v5 photometric fit); preserved on disk, not quotable",
+    "tables/wp12_wp5_gate_map_repair_v8.csv": "superseded by repair_v9 (issue #21: ages from the Phase A' test-c spectroscopic HRD, not the repair_v5 photometric fit); preserved on disk, not quotable",
+    "tables/wp12_combination_gate_repair_v8.csv": "superseded by repair_v9 (issue #21: ages from the Phase A' test-c spectroscopic HRD, not the repair_v5 photometric fit); preserved on disk, not quotable",
+    "tables/wp12_branch_gate_table_repair_v8.csv": "superseded by repair_v9 (issue #21: ages from the Phase A' test-c spectroscopic HRD, not the repair_v5 photometric fit); preserved on disk, not quotable",
+    "tables/wp12_closure_by_alpha_repair_v8.csv": "superseded by repair_v9 (issue #21: ages from the Phase A' test-c spectroscopic HRD, not the repair_v5 photometric fit); preserved on disk, not quotable",
+    "tables/wp12_closing_slopes_repair_v8.csv": "superseded by repair_v9 (issue #21: ages from the Phase A' test-c spectroscopic HRD, not the repair_v5 photometric fit); preserved on disk, not quotable",
+    "tables/wp12_mixed_slope_ledger_repair_v8.csv": "superseded by repair_v9 (issue #21: ages from the Phase A' test-c spectroscopic HRD, not the repair_v5 photometric fit); preserved on disk, not quotable",
+    "tables/wp12_c4_scan_repair_v8.csv": "superseded by repair_v9 (issue #21: ages from the Phase A' test-c spectroscopic HRD, not the repair_v5 photometric fit); preserved on disk, not quotable",
+    "tables/wp12_c3_subtype_repair_v8.csv": "superseded by repair_v9 (issue #21: ages from the Phase A' test-c spectroscopic HRD, not the repair_v5 photometric fit); preserved on disk, not quotable",
+    "tables/wp12_scenario_score_repair_v8.csv": "superseded by repair_v9 (issue #21: ages from the Phase A' test-c spectroscopic HRD, not the repair_v5 photometric fit); preserved on disk, not quotable",
+    "tables/wp12_neighbour_budget_repair_v8.csv": "superseded by repair_v9 (issue #21: ages from the Phase A' test-c spectroscopic HRD, not the repair_v5 photometric fit); preserved on disk, not quotable",
+    "tables/wp12_cavity_share_repair_v8.csv": "superseded by repair_v9 (issue #21: ages from the Phase A' test-c spectroscopic HRD, not the repair_v5 photometric fit); preserved on disk, not quotable",
+    "tables/wp4_wp5_age_reconciliation_repair_v8.csv": "superseded by repair_v9 (issue #21: ages from the Phase A' test-c spectroscopic HRD, not the repair_v5 photometric fit); preserved on disk, not quotable",
+    "tables/wp7_alpha_headline_branch_sets_repair_v8.csv": "superseded by repair_v9 (issue #21: ages from the Phase A' test-c spectroscopic HRD, not the repair_v5 photometric fit); preserved on disk, not quotable",
+    "tables/wp7_binary_bound_repair_v8.csv": "superseded by repair_v9 (issue #21: ages from the Phase A' test-c spectroscopic HRD, not the repair_v5 photometric fit); preserved on disk, not quotable",
+    "tables/wp7_binary_bound_branches_repair_v8.csv": "superseded by repair_v9 (issue #21: ages from the Phase A' test-c spectroscopic HRD, not the repair_v5 photometric fit); preserved on disk, not quotable",
+    "tables/wp7_binary_bound_harer_fig2_repair_v8.csv": "superseded by repair_v9 (issue #21: ages from the Phase A' test-c spectroscopic HRD, not the repair_v5 photometric fit); preserved on disk, not quotable"
   },
   "audit": {
     "declared_inputs": 51,
     "missing_declared_inputs": [],
-    "forbidden_entries": 38,
+    "forbidden_entries": 76,
     "authorized_forbidden_overlap": [],
     "files_scanned": [
+      "manuscript/main.tex",
       "manuscript/numbers.tex",
       "manuscript/tables_generated.tex",
-      "manuscript/main.tex",
       "manuscript/README.md"
     ],
     "violations": [],

@@ -35,6 +35,7 @@ import wp5_common as w
 WP5_VERSION = C.V["wp5"]
 WP5_REPORT_VERSION = "repair_v6"   # the accepted gate record; v7 re-passed it
 WP3_WP4_VERSION = C.V["wp4_ages"]
+WP3_VERSION = C.V["wp3_extinction"]   # repair_v9: ages and extinction differ
 WP4_MASS_VERSION = C.V["wp4_masses"]
 T = C.tag_rel
 
@@ -51,7 +52,7 @@ MANUSCRIPT_INPUTS: dict[str, str] = {
     "wp2_recovery_audit": "provenance/wp2_berlanas_recovery_audit.csv",
     "wp2_subgroup_labels": "tables/wp2_subgroup_labels.parquet",
     # WP3 -- repaired
-    "wp3_extinction": f"data/processed/wp3_extinction_{WP3_WP4_VERSION}.parquet",
+    "wp3_extinction": f"data/processed/wp3_extinction_{WP3_VERSION}.parquet",
     # WP4 -- repaired
     "wp4_age_posteriors": f"data/processed/wp4_age_posteriors_{WP3_WP4_VERSION}.parquet",
     "wp4_masses": f"data/processed/wp4_mass_posteriors_{WP4_MASS_VERSION}.parquet",
@@ -196,6 +197,32 @@ if C.CHAIN != C.LEGACY:
         FORBIDDEN[_rel] = (
             f"superseded by {C.CHAIN} (issue #19: anchor masses at pre-repair "
             "ages); preserved on disk, not quotable"
+        )
+
+# repair_v9 (issue #21, adopted 2026-10-07): the repair_v8 products -- built on
+# the repair_v5 photometric ages -- are superseded in turn, with the repair_v5
+# age table itself.  Generated from the same logical inputs, so nothing quoted
+# by the manuscript on repair_v8 can be quoted on repair_v9.
+SUPERSEDED_BY_REPAIR_V9 = [
+    "data/processed/wp4_age_posteriors_repair_v5.parquet",
+    "data/processed/wp4_mass_posteriors_repair_v8.parquet",
+    "data/processed/wp4_anchor_hrd_repair_v8.parquet",
+    "data/processed/wp5_imf_normalization_repair_v8.parquet",
+    "data/processed/wp5_imf_posterior_draws_repair_v8.npz",
+    "data/processed/wp5_association_mass_repair_v8.parquet",
+    "tables/wp6_closure_repair_v8.csv",
+    "tables/wp6_closure_attribution_repair_v8.csv",
+] + [
+    rel.replace(f"_{C.CHAIN}.", "_repair_v8.")
+    for rel in MANUSCRIPT_INPUTS.values()
+    if f"_{C.CHAIN}." in rel
+]
+if C.CHAIN == "repair_v9":
+    for _rel in SUPERSEDED_BY_REPAIR_V9:
+        FORBIDDEN[_rel] = (
+            "superseded by repair_v9 (issue #21: ages from the Phase A' test-c "
+            "spectroscopic HRD, not the repair_v5 photometric fit); preserved on "
+            "disk, not quotable"
         )
 
 # Files whose text is scanned for forbidden references by audit().
