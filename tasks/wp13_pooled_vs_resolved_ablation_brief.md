@@ -6,8 +6,13 @@ Thresholds in §5 are *proposed*; they become binding only when transcribed into
 `scripts/wp13_prereg.py` and hashed, **before** any M0 number is read.
 **Governing document:** [reports/novelty_prior_art_and_incremental_value_audit_2026-08-12.md](../reports/novelty_prior_art_and_incremental_value_audit_2026-08-12.md) §5–§9 and §12.
 **Extension to the plan:** WP13 is not in `paper1_execution_plan.md`, like WP11 and WP12.
-**Re-based 2026-10-02 on `repair_v8`** (issue #19; see the note at the top of §2).
-Superseded repair_v7 values are kept, struck through, beside the new ones.
+**Re-based 2026-10-02 on `repair_v8`** (issue #19), **and again 2026-10-07 on
+`repair_v9`** (issue #21; see the notes at the top of §2). Superseded values are
+kept, struck through, beside the new ones.
+**repair_v9 (2026-10-07) answers §1's premise:** on the adopted spectroscopic
+ages C is coeval with A (3.55 vs 3.16 Myr PARSEC) and contributes 1.72 deaths.
+The falsifiable sentence below is kept as written so the ablation still tests
+it, but its "because" clause is already false on the adopted chain.
 **Issue #20 Phase A (2026-10-02) bears on §1's premise:** C's spectroscopic-HRD
 age is 3.98 / 4.01 Myr (PARSEC / MIST), at least as old as A's. "C is young"
 rests on the photometric age alone and is **not established**
@@ -61,6 +66,21 @@ result.
 >   of 3.66 Myr still reproduces the resolved count, so T2 is still expected to
 >   be marginal.
 
+> **Re-basing note, 2026-10-07 (repair_v9).** Recomputed by
+> [scripts/wp13_brief_rebase_v9.py](../scripts/wp13_brief_rebase_v9.py) →
+> [tables/wp13_brief_rebase_repair_v9.csv](../tables/wp13_brief_rebase_repair_v9.csv),
+> which imports the repair_v8 script's `rows_for` unchanged and reproduces every
+> repair_v8 value printed below. repair_v8 values are now struck through.
+>
+> - **The reading changes.** A single common age of 3.516 Myr (the k-weighted
+>   mean of the counts-based ages) gives N_death 6.644 against the resolved
+>   6.657 (0.2 %), and P(last < 100 kyr) 0.697 against 0.697. On repair_v9 a
+>   one-age model reproduces both the count *and* the recency probability.
+> - So T2 and T3 are expected to fail, and the "equivalent" (or "supported
+>   but immaterial") outcome of §6 is expected. Recorded here so that it
+>   cannot be claimed as a prediction afterwards.
+> - T2's |ΔN| ≥ 3 is now 45 % of the baseline (6.66), not 36 %.
+
 Everything below was computed while writing this brief, from tables that already
 exist. It is disclosed so that the thresholds in §5 are set *knowing* it, as WP11
 did for I3. None of it is the M0 result, because none of it fits a pooled age.
@@ -73,10 +93,10 @@ Interpolating it (repair_v8; repair_v7 struck through):
 
 | model | age (Myr) | N_death | P(last < 100 kyr) |
 |---|---:|---:|---:|
-| resolved baseline (M1) | A 4.01 / B 4.09 / C 2.52 (~~A 4.00~~) | **8.36** (~~8.43~~) | **0.547** (~~0.552~~) |
-| common age forced to 4.0 | 4.00 | 12.63 (~~12.73~~) | 0.724 (~~0.727~~) |
-| common age = k-weighted mean of the three counts-based ages | 3.493 (~~3.494~~) | 6.39 (~~6.46~~) | 0.697 (~~0.700~~) |
-| common age that reproduces the resolved count | 3.659 | 8.36 (~~8.43~~) | 0.698 (~~0.701~~) |
+| resolved baseline (M1) | **A 3.48 / B 3.70 / C 3.38** (~~4.01 / 4.09 / 2.52~~) | **6.66** (~~8.36~~) | **0.697** (~~0.547~~) |
+| common age forced to 4.0 | 4.00 | **12.60** (~~12.63~~) | **0.724** (~~0.724~~) |
+| common age = k-weighted mean of the three counts-based ages | **3.516** (~~3.493~~) | **6.64** (~~6.39~~) | **0.697** (~~0.697~~) |
+| common age that reproduces the resolved count | **3.517** (~~3.659~~) | **6.66** (~~8.36~~) | **0.697** (~~0.698~~) |
 
 **Reading.** A single age of about 3.66 Myr reproduces the resolved *count*.
 No single age between 3.25 and 6 Myr reproduces the resolved *recency
@@ -94,9 +114,11 @@ posterior-mean ages over all 18 family × R_V × α cells:
 
 | subgroup | range (Myr) |
 |---|---|
-| Cyg OB2-A | 3.88–4.07 (~~3.85–4.07~~) |
-| Cyg OB2-B | 3.30–4.30 |
-| Cyg OB2-C | **2.03–3.17** (unchanged; issue #19 did not touch C) |
+| Cyg OB2-A | **3.31–3.93** (~~3.88–4.07~~) |
+| Cyg OB2-B | **3.67–4.08** (~~3.30–4.30~~) |
+| Cyg OB2-C | **3.24–4.01** (~~2.03–3.17~~) |
+
+**repair_v9:** the three ranges overlap; C is no longer younger than A on any cell.
 
 C is younger than A on every cell. The "two older, one younger" structure is not
 an artefact of one branch *of the photometric fit*. **Issue #20 Phase A
@@ -154,7 +176,7 @@ like-for-like, which would scale their number to ~10 at 3 Myr under MIST.
 | **M_prior** | Menchiari's recipe with our turnoff relation | pilot done (§2.3); finalise once the lifetime source is obtained from Menchiari (2023), else report as "reproduced to within the lifetime-prescription systematic" |
 | **M0** | the same 1,331 labelled members treated as one population: one age, one `k`, per family × R_V × α cell | **to run** |
 | **M0-lite** | M0's pooled age with `k_ALL = k_A + k_B + k_C` draw-wise | fallback only; may not be quoted as "the best one-population model" |
-| **M1** | the accepted `repair_v8` ledger (~~`repair_v7`~~), unchanged, hash-verified | done |
+| **M1** | the accepted `repair_v9` ledger (~~`repair_v8`~~, ~~`repair_v7`~~), unchanged, hash-verified | done |
 
 **M0 definition, step by step.** The pooled label is constructed inside the WP13
 script and never written into `wp2_subgroup_labels.parquet`.

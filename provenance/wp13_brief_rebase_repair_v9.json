@@ -1,0 +1,16 @@
+{
+  "created_utc": "2026-10-07T18:46:21+00:00",
+  "script": "scripts/wp13_brief_rebase_v9.py",
+  "purpose": "re-base tasks/wp13_pooled_vs_resolved_ablation_brief.md section 2 on repair_v9",
+  "inputs": {
+    "tables/wp7_age_sensitivity_repair_v8.csv": "d86607e1ef0fc73bee02f3ef3975a2dc676a5d969203fe24edff5f43e4481d7a",
+    "tables/wp7_ledger_repair_v8.csv": "0bc21761c88f800f6564e70b87e27dfad0c2df4f20eea47e0e5e4a6b1c08b46b",
+    "data/processed/wp5_imf_normalization_repair_v8.parquet": "ca841c082672fced85e692b682b534b28fa5fc9739167d11e1efe745044b54c3",
+    "tables/wp7_age_sensitivity_repair_v9.csv": "a50514d68b539925423bb7418889204429e931afae31832a36fc2f49962093d1",
+    "tables/wp7_ledger_repair_v9.csv": "be8098adbc57e7b1002ed5126a8e9609b04532dae21c22cdb8ddd02b841ee31b",
+    "data/processed/wp5_imf_normalization_repair_v9.parquet": "43703353953555cfa6f7e95867ac5b751a06516ec3cce89ecd38779c6f5d6940"
+  },
+  "outputs": {
+    "tables/wp13_brief_rebase_repair_v9.csv": "83ea8a10ed9b8998dcb6facb06534f7637e6a8aad13d8b82bb3de30b9912b3fc"
+  }
+}
