@@ -6,11 +6,20 @@ the spectroscopic-HRD anchor masses come from an explicitly versioned anchor
 file (--anchor-version), one mass per (family, R_V) branch; the unversioned
 pre-repair wp4_anchor_hrd.parquet is refused.  --output-version lets the
 outputs carry a new version while the inputs stay at WP_REPAIR_VERSION.
+repair_v9: --age-version reads the WP4 age posterior at its own version (the
+WP3 extinction stays at WP_REPAIR_VERSION); the default is WP_REPAIR_VERSION,
+which reproduces every earlier run.
 
 Run (repair_v8):
   WP_REPAIR_VERSION=repair_v5 WP3_ANCHOR_PRIOR_MODE=kriging \
   PYTHONPATH=scripts python3 scripts/wp4_mass_posteriors_repair.py \
       --anchor-version repair_v8 --output-version repair_v8
+
+Run (repair_v9):
+  WP_REPAIR_VERSION=repair_v5 WP3_ANCHOR_PRIOR_MODE=kriging \
+  PYTHONPATH=scripts python3 scripts/wp4_mass_posteriors_repair.py \
+      --age-version repair_v9_headline --anchor-version repair_v9 \
+      --output-version repair_v9
 """
 from __future__ import annotations
 
@@ -58,8 +67,14 @@ def main() -> None:
     parser.add_argument("--anchor-version", required=True,
                         help="version of wp4_anchor_hrd_<version>.parquet (required)")
     parser.add_argument("--output-version", default=REPAIR_VERSION)
+    parser.add_argument("--age-version", default=REPAIR_VERSION,
+                        help="version of wp4_age_posteriors_<version>.parquet")
     args = parser.parse_args()
     output_version = args.output_version
+    age_version = args.age_version
+    age_path = PROC / f"wp4_age_posteriors_{age_version}.parquet"
+    if not age_path.exists():
+        raise SystemExit(f"missing age posterior {age_path.name}")
     anchor_path = PROC / f"wp4_anchor_hrd_{args.anchor_version}.parquet"
     if not args.anchor_version or not anchor_path.exists():
         raise SystemExit(
@@ -78,9 +93,7 @@ def main() -> None:
         how="left",
         validate="one_to_one",
     )
-    age_posterior = pd.read_parquet(
-        PROC / f"wp4_age_posteriors_{REPAIR_VERSION}.parquet"
-    )
+    age_posterior = pd.read_parquet(age_path)
     anchor_hrd = pd.read_parquet(anchor_path)
     anchor_lookup = anchor_hrd.set_index("source_id")
     av_store = np.load(PROC / f"wp3_extinction_posterior_{REPAIR_VERSION}.npz")
@@ -183,6 +196,7 @@ def main() -> None:
     provenance = {
         "repair_version": output_version,
         "input_repair_version": REPAIR_VERSION,
+        "age_version": age_version,
         "anchor_version": args.anchor_version,
         "created_utc": datetime.now(timezone.utc).isoformat(),
         "script": "scripts/wp4_mass_posteriors_repair.py",
@@ -204,7 +218,7 @@ def main() -> None:
             for path in [
                 f"data/processed/wp3_extinction_{REPAIR_VERSION}.parquet",
                 f"data/processed/wp3_extinction_posterior_{REPAIR_VERSION}.npz",
-                f"data/processed/wp4_age_posteriors_{REPAIR_VERSION}.parquet",
+                str(age_path.relative_to(ROOT)),
                 str(anchor_path.relative_to(ROOT)),
                 "data/processed/wp3_isochrones_parsec.parquet",
                 "data/processed/wp3_isochrones_mist.parquet",

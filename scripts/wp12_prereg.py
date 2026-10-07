@@ -456,6 +456,10 @@ def chain_record() -> None:
         rel = entry["path"].replace(f"_{WP5_VERSION}", f"_{C.V['wp5']}")
         if rel == entry["path"] and name in CHAIN_UNVERSIONED:
             rel = C.tag_rel(rel)
+        if name == "wp4_age_posteriors":
+            # the chain-declared age product (repair_v9: the headline table);
+            # for repair_v8 this is repair_v5, i.e. unchanged
+            rel = f"data/processed/wp4_age_posteriors_{C.V['wp4_ages']}.parquet"
         path = w.ROOT / rel
         inputs[name] = {
             "path": rel,

@@ -40,9 +40,44 @@ VERSIONS: dict[str, dict[str, str]] = {
         "wp5": "repair_v8",
         "responses": "repair_v7",
     },
+    # repair_v9 (issue #21, decisions of 2026-10-07): the WP4 ages become the
+    # headline table -- A and C their Phase A' test-c spectroscopic posteriors,
+    # B the A + C product (not measured for B).  Everything else is unchanged;
+    # the WP5 node and WP6 extension responses are regenerated at the new ages
+    # (provenance/repair_v9_prereg.json).
+    "repair_v9": {
+        "wp3_extinction": "repair_v5",
+        "wp4_ages": "repair_v9_headline",
+        "wp4_masses": "repair_v9",
+        "wp5": "repair_v9",
+        "responses": "repair_v9",
+    },
+    # Integrity check I1: the repair_v9 code path fed the repair_v5 ages and the
+    # repair_v7 responses must reproduce repair_v8.
+    "repair_v9_replay": {
+        "wp3_extinction": "repair_v5",
+        "wp4_ages": "repair_v5",
+        "wp4_masses": "repair_v9_replay",
+        "wp5": "repair_v9_replay",
+        "responses": "repair_v7",
+    },
 }
 
-CHAIN = os.environ.get("CYGOB2_CHAIN", ADOPTED)
+# repair_v9 age scan (decision 7 of 2026-10-07): eleven mini-chains, one per
+# native isochrone age, every subgroup forced to that age.  Index i is the
+# i-th native age of each family (PARSEC 2.00 ... 6.31, MIST 2.00 ... 6.37).
+SCAN_POINTS = 11
+for _i in range(SCAN_POINTS):
+    _scan = f"repair_v9_scan{_i:02d}"
+    VERSIONS[_scan] = {
+        "wp3_extinction": "repair_v5",
+        "wp4_ages": _scan,
+        "wp4_masses": _scan,
+        "wp5": _scan,
+        "responses": _scan,
+    }
+
+CHAIN =os.environ.get("CYGOB2_CHAIN", ADOPTED)
 if CHAIN not in VERSIONS:
     raise RuntimeError(f"unknown CYGOB2_CHAIN={CHAIN!r}; known: {sorted(VERSIONS)}")
 V = VERSIONS[CHAIN]

@@ -56,7 +56,11 @@ from wp4_repair_common import age_posterior_nodes
 # and therefore does not snap the posterior nodes (issue #13).  Declared once
 # here so the injection runner and the fit runner cannot disagree about which
 # node set a version owns -- they address the same files by age.
-AGE_INTERPOLATED_VERSIONS = frozenset({"repair_v6", "repair_v7"})
+# repair_v9 and its I1 replay keep the repair_v7 node rule; the repair_v9 age
+# scan does NOT interpolate -- each scan point is one native age, snapped.
+AGE_INTERPOLATED_VERSIONS = frozenset(
+    {"repair_v6", "repair_v7", "repair_v9", "repair_v9_replay"}
+)
 
 
 def uses_age_interpolation(version: str) -> bool:

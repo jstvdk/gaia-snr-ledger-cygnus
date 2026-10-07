@@ -118,7 +118,8 @@ def load_members(extinction_path) -> pd.DataFrame:
     return m
 
 
-def run(age_version: str, extinction_version: str, output_version: str):
+def run(age_version: str, extinction_version: str, output_version: str,
+        preregistration: str = "provenance/issue19_repair_v8_prereg.json"):
     age_path = versioned("wp4_age_posteriors", age_version)
     ext_path = versioned("wp3_extinction", extinction_version)
     if not output_version:
@@ -261,7 +262,7 @@ def run(age_version: str, extinction_version: str, output_version: str):
         "age_version": age_version,
         "extinction_version": extinction_version,
         "issue": "#19 -- replaces the anchor masses read at pre-repair ages",
-        "preregistration": "provenance/issue19_repair_v8_prereg.json",
+        "preregistration": preregistration,
         "inputs": {
             "wp1_spectroscopic_anchors": sha256(w.PROC / "wp1_spectroscopic_anchors.parquet"),
             str(ext_path.relative_to(w.ROOT)): sha256(ext_path),
@@ -307,8 +308,12 @@ def main() -> None:
                         help="WP3 extinction version, e.g. repair_v5 (required)")
     parser.add_argument("--output-version", required=True,
                         help="version suffix of the output, e.g. repair_v8")
+    parser.add_argument("--preregistration",
+                        default="provenance/issue19_repair_v8_prereg.json",
+                        help="pre-registration this run executes (provenance only)")
     args = parser.parse_args()
-    run(args.age_version, args.extinction_version, args.output_version)
+    run(args.age_version, args.extinction_version, args.output_version,
+        args.preregistration)
 
 
 if __name__ == "__main__":
