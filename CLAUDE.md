@@ -43,36 +43,49 @@ and the 54-branch grid) · `wp2_subgroups.md` (membership) ·
    on disk; a cross-check that disagrees becomes an issue in `PROJECT_TRACE.md`
    §9, never a reason to move a number. Cross-checks are validations, not
    calibrations.
-4. **The chain runs on `repair_v8`** (since 2026-10-01, issue #19; selected in
-   `scripts/chain.py`). repair_v7 and earlier products are preserved but must
-   not be quoted; repair_v7's unsuffixed WP6–WP12 tables have `_repair_v8`
-   siblings, and `wp10_inputs` refuses the superseded ones.
+4. **The chain runs on `repair_v9`** (since 2026-10-07, issue #21; selected in
+   `scripts/chain.py`). WP4 ages are the Phase A′ test-c spectroscopic-HRD
+   posteriors (A, C; B borrows A + C, flagged not measured) in
+   `wp4_age_posteriors_repair_v9_headline.parquet`. repair_v8 and earlier
+   products are preserved but must not be quoted; WP6–WP12 tables carry the
+   `_repair_v9` suffix, and `wp10_inputs` refuses the superseded ones.
 
 ## Withdrawn — never quote these
 
-From the pre-`repair_v7` chain, the fixes to issues #16 and #17, and issue #19
-(repair_v7 → repair_v8: anchor masses read at pre-repair ages):
+From the pre-`repair_v7` chain, the fixes to issues #16 and #17, issue #19
+(repair_v7 → repair_v8: anchor masses read at pre-repair ages) and issue #21
+(repair_v8 → repair_v9: photometric WP4 ages replaced by spectroscopic ones):
 
-| withdrawn | correct (repair_v8) |
+| withdrawn | correct (repair_v9) |
 |---|---|
-| 45% closure excess, grid median 1.444; later 1.067 | grid median 1.073 (7.3% excess) |
-| closing slope α = 2.070; later A 2.34 | α ≈ 2.19 association-wide (A 2.29, B 2.25, C 2.05) |
+| N_death 8.36 (A 4.10, B 4.26, **C 0.00**); earlier 8.43 | **6.66** (A 2.09, B 2.85, C 1.72) |
+| "C is young / below the first-death boundary"; C 2.51–2.52 Myr | C 3.55 Myr (PARSEC) / 4.01 (MIST), coeval with A; 1.72 deaths |
+| headline 5.57–28.7 (36 branches); 54-branch 1.94–28.74 | 6.29–34.5; 2.02–34.53 |
+| P(last < 100 kyr) 0.547 | 0.697 |
+| WP4 ages A 3.98 / B 3.55 / C 2.51 (photometric upper MS); WP5 4.01 / 4.09 / 2.52 | WP4 3.16 / 3.55 / 3.55 (spectroscopic; B borrowed); WP5 3.48 / 3.70 / 3.38 |
+| 2.00–4.01 Myr upper-MS envelope | 3.16–4.01 Myr adopted WP4 age envelope (MAP) |
+| WP5 40/54 cells, 25/36 headline cells | 28/54 (C 6/18), 18/36 |
+| closure A/B/C 1.006/1.068/1.360, grid median 1.073; slopes A 2.29, B 2.25, C 2.05 | 0.924/1.036/1.498, 1.049; A 2.33, B 2.27, C 2.00 (association 2.19) |
+| living ledger 388.6; association 29,014 M☉; progenitors above ~34 M☉ | 386.5; 28,949 M☉; above ~33 M☉ |
+| 45% closure excess, grid median 1.444; later 1.067 | grid median 1.049 (repair_v9) |
+| closing slope α = 2.070; later A 2.34 | α ≈ 2.19 association-wide (A 2.33, B 2.27, C 2.00) |
 | 260 raw / 109 corrected runaways | 119 raw / 54.9 corrected |
-| living ledger 471.9; later 380.6 | 388.6 above 8 M☉ |
-| association mass "agrees with Wright+15 to 5%"; later 1.47× | 1.45× like-for-like (29,014 M☉ total) |
-| "retained 36-branch median ≈ 9"; later 13.29 | 13.16 (8.72 is the *full* 54-branch median) |
-| 2.25–5.67 Myr "two-indicator" age envelope; any PMS age | 2.00–4.01 Myr retained upper-MS envelope; no PMS row survives |
-| N_death 8.43 (A 4.17), headline 5.63–28.7 | 8.36 (A 4.10), 5.57–28.7 |
-| A baseline closure 0.865 ("A falls short") | 1.006 |
+| living ledger 471.9; later 380.6 | 386.5 above 8 M☉ |
+| association mass "agrees with Wright+15 to 5%"; later 1.47× | 1.45× like-for-like (28,949 M☉ total) |
+| "retained 36-branch median ≈ 9"; later 13.29, 13.16 | 15.95 (9.57 is the *full* 54-branch median) |
+| 2.25–5.67 Myr "two-indicator" age envelope; any PMS age | no PMS row survives; see the repair_v9 rows above |
+| A baseline closure 0.865 ("A falls short") | 0.924 (repair_v9) |
 
 ## Headline numbers
 
-Members 1,392 (1,331 subgroup-labelled: A 476, B 426, C 429) · ages A 4.01,
-B 4.09, C 2.52 Myr · association stellar mass 29,014 M☉ · baseline deaths
-**8.36** (A 4.10, B 4.26, C 0.00) · headline range 5.57–28.7 over 36 branches,
-1.94–28.74 over all 54 · P(≥1 event) 0.9996 · P(last < 100 kyr) 0.547 · every
-progenitor above ~34 M☉ · WP5 40/54 cells, gate G3 **fails** its
-no-regression clause on repair_v8 (issue #19, open question).
+Chain `repair_v9` (adopted 2026-10-07). Members 1,392 (1,331 subgroup-labelled:
+A 476, B 426, C 429) · WP4 ages (spectroscopic HRD, PARSEC) A 3.16, B 3.55
+(borrowed from A + C, not measured), C 3.55 Myr; WP5 counts-based ages A 3.48,
+B 3.70, C 3.38 · association stellar mass 28,949 M☉ · baseline deaths
+**6.66** (A 2.09, B 2.85, C 1.72) · headline range 6.29–34.5 over 36 branches,
+2.02–34.53 over all 54 · P(≥1 event) 0.997 · P(last < 100 kyr) 0.697 · every
+progenitor above ~33 M☉ · WP5 **28/54** cells (C 6/18: C's low-mass counts
+want ≤ 3.2–3.6 Myr, issue #22), gate G3 **fails** its no-regression clause.
 
 Always write `N_death`, or `N_SN | all explode` with the conditioning explicit.
 The all-explode ledger is **not** an observed supernova history.
@@ -80,17 +93,26 @@ The all-explode ledger is **not** an observed supernova history.
 ## Where it actually stands
 
 WP0–WP9 complete, WP10 drafted and revised, WP11 Part B complete, WP12
-complete. The open question is not a method one: the 12 Aug novelty audit found
-that much of the emphasised result is already established (Wright+2015;
-Menchiari+2024 got 7 ± 2.5 deaths at 3 Myr). The surviving claim — that
-resolving the population into subgroups materially changes the death history,
-because the young C subgroup sits below the first-death boundary — is
-**a hypothesis under test, not a result**. The decisive experiment is the
-pooled-vs-resolved (M0 vs M1) ablation with materiality thresholds frozen
-before the M0 result is read; §12 of the audit is the work plan.
+complete; repair_v9 adopted 2026-10-07
+([reports/repair_v9_completion_report.md](reports/repair_v9_completion_report.md)).
+The 12 Aug novelty audit found that much of the emphasised result is already
+established (Wright+2015; Menchiari+2024 got 7 ± 2.5 deaths at 3 Myr). Its one
+surviving claim — that resolving the population changes the death history
+because a young C sits below the first-death boundary — **does not survive
+repair_v9**: on spectroscopic ages C is coeval with A (3.55 vs 3.16 Myr PARSEC)
+and contributes 1.72 deaths; at equal ages the three subgroups' death curves
+agree within 7 %. WP13 (pooled vs resolved, M0 vs M1, thresholds frozen before
+M0 is read) still decides the paper's framing, now expecting "equivalent".
 
-Everything downstream hinges on the IMF slope α: it moves the count by a factor
-of five and splits the verdict 18/18 at α = 2.0 against 0/18 at α = 2.3.
+Open, issue #22: the WP5 low-mass counts disagree with the spectroscopic ages
+(gate 28/54 cells; C passes only at ≤ 3.2–3.6 Myr; A and B rail at the top of
+their age prior). The ages behind the ledger use Gaia G plus literature
+spectral types, not Gaia photometry alone (Stage 1: the Gaia CMD does not
+measure these ages).
+
+Everything downstream still hinges on the IMF slope α: it moves the count by a
+factor of five; the verdict score is above 0.5 on 18/18 branches at α = 2.0
+and 7/18 at α = 2.3 (0/18 on repair_v8).
 
 ## Environment and entry points
 

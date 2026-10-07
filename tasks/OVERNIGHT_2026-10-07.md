@@ -10,22 +10,22 @@ The owner left the machine running overnight and asked that nothing wait for the
 
 ## Steps
 
-1. [ ] **Watch the chain.** Phases: A (anchors and masses), B (injections), C (fits and ledgers), D (WP6–WP12, checks, scoring).
+1. [x] **Watch the chain.** Done 20:37; one crash-free run. Phases: A (anchors and masses), B (injections), C (fits and ledgers), D (WP6–WP12, checks, scoring).
    - On a crash caused by a code bug:
      - fix the bug;
      - add an entry to `provenance/repair_v9_deviations.json` (`path`, `old_sha256`, `new_sha256`, `reason`, `date`);
      - relaunch the runner. It is resumable, and finished steps are skipped.
    - Never loosen a threshold in `repair_v9_integrity.TOL` or the scoring constants.
-2. [ ] **When the chain ends:** read `provenance/repair_v9_integrity.json` and `provenance/repair_v9_outcome.json`.
+2. [x] **When the chain ends:** I4 failed on a check defect, fixed as deviation D1 and rerun; all of I1–I5 pass. read `provenance/repair_v9_integrity.json` and `provenance/repair_v9_outcome.json`.
    - If a check failed because of a bug in the check or in the plumbing, fix it, record the deviation, rerun that check and rescore.
-3. [ ] **If I1–I5 all pass (decision O2):**
+3. [x] **If I1–I5 all pass (decision O2):** done (`d0bd29d` and the docs commit).
    - set `ADOPTED = "repair_v9"` in `scripts/chain.py`;
    - write `reports/repair_v9_completion_report.md` with a before/after table;
    - in `PROJECT_TRACE.md`: add a §1 notice, close #21, update #20;
    - in `CLAUDE.md`: update the headline numbers and add the repair_v8 values to the withdrawn table;
    - manuscript plumbing: `wp10_inputs` versions, `wp10_numbers`, `wp12_tables`, `wp12_figures`, `wp10_validate`. Leave `main.tex` prose alone.
    - Commit (decision O1: no push).
-4. [ ] **If not adopted:** report it, keep repair_v8, skip S1 and S2, and still do the WP13 re-base draft. Commit.
+4. [—] **If not adopted:** not applicable. report it, keep repair_v8, skip S1 and S2, and still do the WP13 re-base draft. Commit.
 5. [ ] **S1, IMF ceiling 100/120/150 M☉:** pre-register (script, JSON, commit), run, report, commit.
 6. [ ] **S2, subgroup-assignment uncertainty:** pre-register (WP2 mixture refit: k = 3, full covariance, StandardScaler on l, b, μα\*, μδ, 50 seeds, consensus mapping to the stored labels), run, report, commit.
 7. [ ] **WP13:**
