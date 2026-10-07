@@ -1,0 +1,21 @@
+{
+  "created_utc": "2026-10-07T18:49:37+00:00",
+  "script": "scripts/repair_v9_s1_imf_ceiling.py",
+  "preregistration": {
+    "path": "provenance/repair_v9_s1_s2_prereg.json",
+    "sha256": "0f78bb6a775c9c7c9349980edc3b5959dc9835a7bc39f2f98fab02d0c65aaf41"
+  },
+  "m_max_Msun": [
+    100.0,
+    120.0,
+    150.0
+  ],
+  "alpha": 2.3,
+  "iterations": 2000000,
+  "inputs": {
+    "data/processed/wp5_imf_posterior_draws_repair_v9.npz": "9a108b6c04a439f84b54088766bc9563a53fd058d7004f6bd806c13496ae57b1"
+  },
+  "outputs": {
+    "tables/repair_v9_s1_imf_ceiling.csv": "583ce14cd55d3007da964f44dfa8a19e5e6ae891b1fbdc8a3e82277ee4d5598f"
+  }
+}

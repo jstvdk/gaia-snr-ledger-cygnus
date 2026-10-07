@@ -23,9 +23,11 @@ Pre-registration: `provenance/repair_v9_prereg.json`, committed in `d947f31` bef
    - So the spectroscopic O-star ages and the Gaia low-mass counts disagree, in C most of all. This is the same tension Stage 1 found and it is **unresolved**. It does not gate adoption (the pre-registered rule is I1–I5), but every number below inherits it.
 5. **Predictions:** V1a, V1b, V1c, V2, V3 and V5 came true. **V4 failed** (§4).
 6. **The age scan** (§5): at equal ages the three subgroups have almost the same death curve, within 10 %. On the adopted ages any difference between subgroups therefore comes from age alone.
-7. **Tonight's follow-on work:**
-   - S1 (IMF ceiling) and S2 (subgroup labels) were pre-registered while this chain ran, in `3c571f6`; their results are reported separately.
-   - WP13 is re-based and its pre-registration drafted for your sign-off; **M0 was not run.**
+7. **Tonight's follow-on work, all done** (S1 and S2 pre-registered in `3c571f6` while this chain ran, before any v9 result; report in [repair_v9_sensitivity_s1_s2.md](repair_v9_sensitivity_s1_s2.md)):
+   - **S1, IMF ceiling:** 100 / 120 / 150 M☉ gives 4.55 / 6.66 / 8.66 deaths (−32 % / +30 %). The ceiling is now one of the largest systematics, because the turnoffs sit close to it.
+   - **S2, subgroup labels:** the association count moves +1.2 %, but A and C trade about 0.4–0.5 deaths each.
+   - All checks pass and all predictions are true for both.
+   - **WP13:** the brief is re-based. A single common age reproduces the resolved model (6.64 against 6.66 deaths; P(last < 100 kyr) 0.697 against 0.697), so the outcome to expect is "equivalent". The pre-registration is drafted with six decisions for you: [tasks/wp13_prereg_proposal.md](../tasks/wp13_prereg_proposal.md). **M0 was not run.**
 8. **Needs you:**
    - the WP5 gate degradation for C (item 4) — accept it as a caveat, or investigate;
    - signing off the WP13 pre-registration draft;

@@ -26,12 +26,14 @@ The owner left the machine running overnight and asked that nothing wait for the
    - manuscript plumbing: `wp10_inputs` versions, `wp10_numbers`, `wp12_tables`, `wp12_figures`, `wp10_validate`. Leave `main.tex` prose alone.
    - Commit (decision O1: no push).
 4. [—] **If not adopted:** not applicable. report it, keep repair_v8, skip S1 and S2, and still do the WP13 re-base draft. Commit.
-5. [ ] **S1, IMF ceiling 100/120/150 M☉:** pre-register (script, JSON, commit), run, report, commit.
-6. [ ] **S2, subgroup-assignment uncertainty:** pre-register (WP2 mixture refit: k = 3, full covariance, StandardScaler on l, b, μα\*, μδ, 50 seeds, consensus mapping to the stored labels), run, report, commit.
-7. [ ] **WP13:**
+5. [x] **S1, IMF ceiling 100/120/150 M☉:** pre-register (script, JSON, commit), run, report, commit.
+6. [x] **S2, subgroup-assignment uncertainty:** pre-register (WP2 mixture refit: k = 3, full covariance, StandardScaler on l, b, μα\*, μδ, 50 seeds, consensus mapping to the stored labels), run, report, commit.
+7. [x] **WP13:**
    - re-base `tasks/wp13_pooled_vs_resolved_ablation_brief.md` on repair_v9 (pattern: `scripts/wp13_brief_rebase.py`);
    - draft `tasks/wp13_prereg_proposal.md` for the owner's sign-off.
    - **Do not run M0.** Commit.
-8. [ ] **Morning summary** for the owner, at the top of the completion report: what ran, what passed or failed, what needs them.
+8. [x] **Morning summary** for the owner, at the top of the completion report: what ran, what passed or failed, what needs them.
 
 S3 (the parallax-blind membership check) is not done; that is recorded in decision O3.
+
+**Finished 2026-10-07 at about 20:55 CEST.** Morning summary: top of [reports/repair_v9_completion_report.md](../reports/repair_v9_completion_report.md).

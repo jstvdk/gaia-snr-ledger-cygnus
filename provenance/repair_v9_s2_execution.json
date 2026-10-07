@@ -1,0 +1,26 @@
+{
+  "created_utc": "2026-10-07T18:49:39+00:00",
+  "script": "scripts/repair_v9_s2_label_uncertainty.py",
+  "preregistration": {
+    "path": "provenance/repair_v9_s1_s2_prereg.json",
+    "sha256": "0f78bb6a775c9c7c9349980edc3b5959dc9835a7bc39f2f98fab02d0c65aaf41"
+  },
+  "responsibilities": {
+    "stars": 1331,
+    "median_r_max": 0.9031895309630538,
+    "fraction_r_max_gt_0p9": 0.5063861758076634,
+    "fraction_argmax_equals_hard_label": 1.0
+  },
+  "iterations": 500000,
+  "inputs": {
+    "data/processed/wp5_imf_posterior_draws_repair_v9.npz": "9a108b6c04a439f84b54088766bc9563a53fd058d7004f6bd806c13496ae57b1",
+    "data/processed/wp5_imf_posterior_draws_repair_v9_s2soft.npz": "aba6ba9a524173753bddf096c493406c3539740278051af255afecee69e4caf1",
+    "data/processed/wp4_mass_posteriors_repair_v9.parquet": "111fbf90b416b2014549c7632f3fb505e5df4f7b132acbfe3e9008f8d4de441d",
+    "tables/wp2_subgroup_labels.parquet": "44a5ee7b9190703dae8dca9540c192757423db293c9ecc1ea123065849800887",
+    "data/processed/wp2_members.parquet": "5db938b116edd70e8c7af3d2d4bbc8c9273d4e4c9cde76309ffc84d8cdaf90be"
+  },
+  "outputs": {
+    "tables/repair_v9_s2_responsibilities.csv": "10e97c4e93ca5a18828fe271b83b5e29f3b8ad0cb76d649d623687d385d2b3b0",
+    "tables/repair_v9_s2_label_uncertainty.csv": "6591b626dea23dfeeb736cb83495e6dc37565b63cc7c436c39ffdc3038c90099"
+  }
+}
