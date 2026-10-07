@@ -1,0 +1,394 @@
+{
+  "created_utc": "2026-10-07T18:36:06+00:00",
+  "script": "scripts/wp12_closure_slopes.py",
+  "work_package": "WP12 -- manuscript revision analysis",
+  "chain": "repair_v9",
+  "preregistration": "provenance/wp12_revision_prereg_repair_v9.json",
+  "preregistration_sha256": "36fcacdb8df3642e7a2698484ed63a2600e87a3ec7369be87523c851305266e3",
+  "python": "3.11.15",
+  "platform": "Linux-5.14.0-570.49.1.el9_6.x86_64-x86_64-with-glibc2.34",
+  "item": "WP12.2 -- subgroup closure, closing slopes, mixed-slope ledger",
+  "defects_found_during_development": [
+    {
+      "id": "D1",
+      "what": "the first revision of closing_slope() assumed the closure ratio decreases with alpha and inverted the interpolation accordingly.  It increases: k is refitted to the same 2-8 Msun counts at every slope and over-compensates.  The bug returned closing_alpha = 2.0 for all three subgroups, which would have made prediction R3 read FAIL.",
+      "found_by": "the returned value disagreed with the manuscript's stored closingAlpha = 2.25, which is computed by an independent expression in scripts/wp10_numbers.py",
+      "fix": "the monotone direction is now measured from the data and a non-monotone cell raises rather than silently extrapolating",
+      "affects_published_numbers": false
+    },
+    {
+      "id": "D2",
+      "what": "the association-level aggregate was first computed as summed predicted over summed observed.  WP6 defines closure_ratio the other way round -- observed over predicted -- so the aggregate ran opposite to every subgroup curve it was plotted beside.",
+      "found_by": "the aggregate decreased with alpha while all three subgroups increased, which is impossible for a weighted combination of them",
+      "fix": "the aggregate now follows WP6's definition; the figure axis is labelled observed/predicted to match",
+      "affects_published_numbers": "yes, within WP12: the star-weighted association closure and the association closing slope both changed.  No upstream WP6 number is affected -- the per-subgroup ratios were always read straight from the frozen table."
+    }
+  ],
+  "association_closure_definition": "summed observed living stars above 8 Msun over summed predicted observed living stars, NOT the mean of the three subgroup ratios",
+  "association_closure_at_baseline_alpha": {
+    "MIST_RV3": 1.1536,
+    "MIST_RV3.1": 1.1734,
+    "MIST_RV3.5": 1.2806,
+    "PARSEC_RV3": 1.1088,
+    "PARSEC_RV3.1": 1.1475,
+    "PARSEC_RV3.5": 1.266
+  },
+  "association_closure_grid_median_at_2p3": 1.1635,
+  "two_aggregations_at_2p3": {
+    "median_of_18_subgroup_ratios": 1.0487,
+    "star_weighted_summed_ratio_grid_median": 1.1635,
+    "why_they_differ": "a median of ratios is not the ratio of sums; the subgroups carry very different numbers of observed massive stars"
+  },
+  "subgroup_grid_median_closure_by_alpha": {
+    "CygOB2-A": {
+      "alpha_2": 0.6218,
+      "alpha_2.3": 0.9572,
+      "alpha_2.6": 1.4673
+    },
+    "CygOB2-B": {
+      "alpha_2": 0.6918,
+      "alpha_2.3": 1.0487,
+      "alpha_2.6": 1.5852
+    },
+    "CygOB2-C": {
+      "alpha_2": 1.0064,
+      "alpha_2.3": 1.5069,
+      "alpha_2.6": 2.2655
+    }
+  },
+  "subgroup_closure_at_baseline_branch": {
+    "CygOB2-A": 0.9244,
+    "CygOB2-B": 1.0362,
+    "CygOB2-C": 1.4985,
+    "association": 1.1475
+  },
+  "closing_slopes_at_baseline_family_rv": {
+    "CygOB2-A": {
+      "interpolated": 2.3545,
+      "inside_carried_grid": true
+    },
+    "CygOB2-B": {
+      "interpolated": 2.2748,
+      "inside_carried_grid": true
+    },
+    "CygOB2-C": {
+      "interpolated": 2.002,
+      "inside_carried_grid": true
+    },
+    "association": {
+      "interpolated": 2.2028,
+      "inside_carried_grid": true
+    }
+  },
+  "closing_slope_grid_median_by_subgroup": {
+    "CygOB2-A": 2.3307,
+    "CygOB2-B": 2.2659,
+    "CygOB2-C": 2.001,
+    "association": 2.191
+  },
+  "cells_wanting_a_slope_outside_the_grid": {
+    "CygOB2-A": 0,
+    "CygOB2-B": 0,
+    "CygOB2-C": 0,
+    "association": 0
+  },
+  "mixed_slope": {
+    "iterations": 200000,
+    "seed": 20260803,
+    "engine": "wp7_ledger.run_population, unmodified",
+    "engine_validation": {
+      "branches_checked": 36,
+      "worst_relative_N_SN_difference": 0.00148,
+      "declared_tolerance": 0.03,
+      "worst_absolute_P_recent_difference": 0.0027,
+      "declared_tolerance_P_recent": 0.02,
+      "pass": true
+    },
+    "assignments": {
+      "PARSEC_RV3": {
+        "alpha_A": 2.3,
+        "alpha_B": 2.3,
+        "alpha_C": 2.0
+      },
+      "PARSEC_RV3.1": {
+        "alpha_A": 2.3,
+        "alpha_B": 2.3,
+        "alpha_C": 2.0
+      },
+      "PARSEC_RV3.5": {
+        "alpha_A": 2.3,
+        "alpha_B": 2.3,
+        "alpha_C": 2.0
+      },
+      "MIST_RV3": {
+        "alpha_A": 2.3,
+        "alpha_B": 2.3,
+        "alpha_C": 2.0
+      },
+      "MIST_RV3.1": {
+        "alpha_A": 2.3,
+        "alpha_B": 2.3,
+        "alpha_C": 2.0
+      },
+      "MIST_RV3.5": {
+        "alpha_A": 2.3,
+        "alpha_B": 2.3,
+        "alpha_C": 2.0
+      }
+    },
+    "N_SN_range": [
+      9.722,
+      20.64
+    ],
+    "P_recent_range": [
+      0.6358,
+      0.8749
+    ],
+    "versus_pure_alpha_2p3": {
+      "worst_relative_change_in_N_SN": 0.60446,
+      "branches_where_C_is_above_the_imf_ceiling": 0,
+      "branches_where_C_contributes": 18,
+      "worst_relative_change_where_C_contributes": 0.60446,
+      "worst_relative_change_where_C_is_dead": null,
+      "interpretation": "Cyg OB2-C is the only subgroup reassigned (2.3 -> 2.0), so the entire effect is C's.  It splits on whether C's turnoff has crossed the 120 Msun IMF ceiling on that branch.  Where it has not -- PARSEC at every R_V, and MIST at R_V = 3.5 -- C contributes essentially nothing at either slope and the mixed-slope ledger reproduces the uniform one.  Where it has -- MIST at R_V = 3.0 and 3.1 -- C supplies 2.5-7.3 supernovae and giving it the shallower slope its own closure prefers raises the association total by a third to a half.  The subgroup heterogeneity is therefore not a presentational detail: on the branches where C is dynamically alive it is worth as much as an R_V step.  It remains inside the carried headline range (prediction R4).",
+      "per_branch": [
+        {
+          "family": "PARSEC",
+          "R_V": 3.0,
+          "sf_duration_Myr": 0.0,
+          "N_SN_pure_2p3": 6.2945,
+          "N_SN_mixed": 9.7221,
+          "relative_change": 0.54455,
+          "C_contributes_at_2p3": 1.4947,
+          "C_contributes_at_2p0": 4.9349,
+          "C_above_imf_ceiling": false
+        },
+        {
+          "family": "PARSEC",
+          "R_V": 3.0,
+          "sf_duration_Myr": 1.0,
+          "N_SN_pure_2p3": 6.4828,
+          "N_SN_mixed": 9.938,
+          "relative_change": 0.53298,
+          "C_contributes_at_2p3": 1.6064,
+          "C_contributes_at_2p0": 5.0782,
+          "C_above_imf_ceiling": false
+        },
+        {
+          "family": "PARSEC",
+          "R_V": 3.0,
+          "sf_duration_Myr": 2.0,
+          "N_SN_pure_2p3": 7.2584,
+          "N_SN_mixed": 11.006,
+          "relative_change": 0.51632,
+          "C_contributes_at_2p3": 1.9536,
+          "C_contributes_at_2p0": 5.714,
+          "C_above_imf_ceiling": false
+        },
+        {
+          "family": "PARSEC",
+          "R_V": 3.1,
+          "sf_duration_Myr": 0.0,
+          "N_SN_pure_2p3": 6.6567,
+          "N_SN_mixed": 10.0601,
+          "relative_change": 0.51128,
+          "C_contributes_at_2p3": 1.7174,
+          "C_contributes_at_2p0": 5.1338,
+          "C_above_imf_ceiling": false
+        },
+        {
+          "family": "PARSEC",
+          "R_V": 3.1,
+          "sf_duration_Myr": 1.0,
+          "N_SN_pure_2p3": 6.7665,
+          "N_SN_mixed": 10.1464,
+          "relative_change": 0.4995,
+          "C_contributes_at_2p3": 1.7459,
+          "C_contributes_at_2p0": 5.1333,
+          "C_above_imf_ceiling": false
+        },
+        {
+          "family": "PARSEC",
+          "R_V": 3.1,
+          "sf_duration_Myr": 2.0,
+          "N_SN_pure_2p3": 7.4251,
+          "N_SN_mixed": 11.0994,
+          "relative_change": 0.49485,
+          "C_contributes_at_2p3": 2.0725,
+          "C_contributes_at_2p0": 5.7362,
+          "C_above_imf_ceiling": false
+        },
+        {
+          "family": "PARSEC",
+          "R_V": 3.5,
+          "sf_duration_Myr": 0.0,
+          "N_SN_pure_2p3": 8.6647,
+          "N_SN_mixed": 11.9708,
+          "relative_change": 0.38157,
+          "C_contributes_at_2p3": 1.4163,
+          "C_contributes_at_2p0": 4.7046,
+          "C_above_imf_ceiling": false
+        },
+        {
+          "family": "PARSEC",
+          "R_V": 3.5,
+          "sf_duration_Myr": 1.0,
+          "N_SN_pure_2p3": 8.7977,
+          "N_SN_mixed": 12.0742,
+          "relative_change": 0.37244,
+          "C_contributes_at_2p3": 1.4827,
+          "C_contributes_at_2p0": 4.7814,
+          "C_above_imf_ceiling": false
+        },
+        {
+          "family": "PARSEC",
+          "R_V": 3.5,
+          "sf_duration_Myr": 2.0,
+          "N_SN_pure_2p3": 9.4514,
+          "N_SN_mixed": 13.0998,
+          "relative_change": 0.38603,
+          "C_contributes_at_2p3": 1.8857,
+          "C_contributes_at_2p0": 5.5466,
+          "C_above_imf_ceiling": false
+        },
+        {
+          "family": "MIST",
+          "R_V": 3.0,
+          "sf_duration_Myr": 0.0,
+          "N_SN_pure_2p3": 9.6914,
+          "N_SN_mixed": 15.5495,
+          "relative_change": 0.60446,
+          "C_contributes_at_2p3": 3.2229,
+          "C_contributes_at_2p0": 9.0753,
+          "C_above_imf_ceiling": false
+        },
+        {
+          "family": "MIST",
+          "R_V": 3.0,
+          "sf_duration_Myr": 1.0,
+          "N_SN_pure_2p3": 10.2694,
+          "N_SN_mixed": 16.3232,
+          "relative_change": 0.5895,
+          "C_contributes_at_2p3": 3.4169,
+          "C_contributes_at_2p0": 9.4585,
+          "C_above_imf_ceiling": false
+        },
+        {
+          "family": "MIST",
+          "R_V": 3.0,
+          "sf_duration_Myr": 2.0,
+          "N_SN_pure_2p3": 11.2469,
+          "N_SN_mixed": 17.642,
+          "relative_change": 0.56861,
+          "C_contributes_at_2p3": 3.6947,
+          "C_contributes_at_2p0": 10.09,
+          "C_above_imf_ceiling": false
+        },
+        {
+          "family": "MIST",
+          "R_V": 3.1,
+          "sf_duration_Myr": 0.0,
+          "N_SN_pure_2p3": 10.2804,
+          "N_SN_mixed": 16.2004,
+          "relative_change": 0.57586,
+          "C_contributes_at_2p3": 3.3376,
+          "C_contributes_at_2p0": 9.248,
+          "C_above_imf_ceiling": false
+        },
+        {
+          "family": "MIST",
+          "R_V": 3.1,
+          "sf_duration_Myr": 1.0,
+          "N_SN_pure_2p3": 10.8797,
+          "N_SN_mixed": 17.0231,
+          "relative_change": 0.56466,
+          "C_contributes_at_2p3": 3.5654,
+          "C_contributes_at_2p0": 9.7026,
+          "C_above_imf_ceiling": false
+        },
+        {
+          "family": "MIST",
+          "R_V": 3.1,
+          "sf_duration_Myr": 2.0,
+          "N_SN_pure_2p3": 11.9012,
+          "N_SN_mixed": 18.415,
+          "relative_change": 0.54732,
+          "C_contributes_at_2p3": 3.8981,
+          "C_contributes_at_2p0": 10.4197,
+          "C_above_imf_ceiling": false
+        },
+        {
+          "family": "MIST",
+          "R_V": 3.5,
+          "sf_duration_Myr": 0.0,
+          "N_SN_pure_2p3": 11.8545,
+          "N_SN_mixed": 18.538,
+          "relative_change": 0.56379,
+          "C_contributes_at_2p3": 4.1546,
+          "C_contributes_at_2p0": 10.8336,
+          "C_above_imf_ceiling": false
+        },
+        {
+          "family": "MIST",
+          "R_V": 3.5,
+          "sf_duration_Myr": 1.0,
+          "N_SN_pure_2p3": 12.3632,
+          "N_SN_mixed": 19.2037,
+          "relative_change": 0.5533,
+          "C_contributes_at_2p3": 4.3065,
+          "C_contributes_at_2p0": 11.1337,
+          "C_above_imf_ceiling": false
+        },
+        {
+          "family": "MIST",
+          "R_V": 3.5,
+          "sf_duration_Myr": 2.0,
+          "N_SN_pure_2p3": 13.4121,
+          "N_SN_mixed": 20.6399,
+          "relative_change": 0.5389,
+          "C_contributes_at_2p3": 4.6925,
+          "C_contributes_at_2p0": 11.9138,
+          "C_above_imf_ceiling": false
+        }
+      ]
+    }
+  },
+  "predictions": [
+    {
+      "id": "R3",
+      "statement": "The three subgroups do not share a closing slope: the spread in closing alpha across subgroups exceeds 0.15 at the baseline family and R_V.",
+      "pass_if": "max(closing_alpha) - min(closing_alpha) > 0.15 at PARSEC, R_V=3.1",
+      "outcome": "PASS",
+      "measured": {
+        "closing_alpha_by_subgroup_at_baseline": {
+          "CygOB2-A": 2.3545,
+          "CygOB2-B": 2.2748,
+          "CygOB2-C": 2.002
+        },
+        "spread": 0.3524
+      }
+    },
+    {
+      "id": "R4",
+      "statement": "The mixed-slope ledger lies inside the carried headline branch range for N_SN, i.e. relaxing the single-slope assumption does not open a new range beyond the one already reported.",
+      "pass_if": "NSN(mixed) within [min, max] of the 36 headline branches",
+      "outcome": "PASS",
+      "measured": {
+        "headline_N_SN_range": [
+          6.295,
+          34.527
+        ],
+        "mixed_slope_N_SN_range": [
+          9.722,
+          20.64
+        ],
+        "all_inside": true
+      }
+    }
+  ],
+  "outputs": {
+    "tables/wp12_closure_by_alpha_repair_v9.csv": "3eaa1baabc145b981050cdd7b494e20d8c6e9b6dad41e75c5265c95207c5702d",
+    "tables/wp12_closing_slopes_repair_v9.csv": "2deab278725659af148aeb4d7634a089e2560ece0c0425883765dc4aa36be3a2",
+    "tables/wp12_mixed_slope_ledger_repair_v9.csv": "81021c4b30cf93afb3d219635340d68344b6e2b30801c0d9badc63b114daad8b"
+  }
+}

@@ -248,6 +248,23 @@ def I3() -> None:
 
 # ---- I4 ----------------------------------------------------------------------
 AGE_REF = re.compile(r"wp4_age_posteriors(_[A-Za-z0-9_]+)?\.parquet")
+PATH_TOKEN = re.compile(r"[\w./-]+\.(csv|parquet|npz|json|md|tex|png|pdf)")
+
+
+def file_tokens(obj) -> set[str]:
+    """Every JSON key or whole string value that is a file path."""
+    out: set[str] = set()
+    if isinstance(obj, dict):
+        for k, v in obj.items():
+            if PATH_TOKEN.fullmatch(str(k)):
+                out.add(str(k))
+            out |= file_tokens(v)
+    elif isinstance(obj, list):
+        for v in obj:
+            out |= file_tokens(v)
+    elif isinstance(obj, str) and PATH_TOKEN.fullmatch(obj):
+        out.add(obj)
+    return out
 
 
 def I4() -> None:
@@ -272,8 +289,13 @@ def I4() -> None:
             allowed = allowed | {"wp4_age_posteriors_repair_v9.parquet"}
         for r in refs - allowed:
             bad.append({"record": name, "age_product": r})
+        # Deviation 2026-10-07 (provenance/repair_v9_deviations.json): a forbidden
+        # artifact counts only where the record LISTS a file -- a JSON key or a
+        # whole string value -- not where fixed prose mentions the legacy path
+        # (e.g. "every published number stands in tables/wp7_ledger.csv").
+        listed = file_tokens(json.loads(text))
         for f in forbidden:
-            if f in text:
+            if f in listed:
                 bad.append({"record": name, "forbidden": f})
     static = []
     for s in ("repair_v9_injections.py", "repair_v9_age_scan.py", "repair_v9_headline_ages.py"):

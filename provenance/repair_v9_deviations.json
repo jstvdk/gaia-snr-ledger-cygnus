@@ -1,0 +1,18 @@
+{
+  "deviations": [
+    {
+      "id": "D1",
+      "date": "2026-10-07T18:37:46+00:00",
+      "path": "scripts/repair_v9_integrity.py",
+      "old_sha256": "34eade827b1961501ec2a34bb3280db75d1f3a69a329fdca617d7e94cea5b3f9",
+      "new_sha256": "a8f976ddbe979da3a21e9c3334b200a850713168147f10bbad1c2a3e13755af8",
+      "check": "I4",
+      "what_happened": "I4's first run FAILED on three records (wp5_alpha_plausibility_execution, wp6_closure_test_execution, wp7_alpha_headline_adoption_outcome, all _repair_v9) because it substring-searched the whole record text for wp10_inputs.FORBIDDEN paths, and those records carry fixed prose naming the legacy unversioned tables (tables/wp7_ledger.csv, tables/wp6_massive_census.csv).",
+      "evidence_it_is_a_check_defect": "the same sentences appear verbatim in the repair_v8 records; the scripts read the tables through chain.tag() (wp6_closure_test.py:139, wp7_alpha_headline_adopt.py:71, wp5_alpha_plausibility.py:40); the records' listed inputs are tables/wp6_massive_census_repair_v9.csv and tables/wp7_ledger_repair_v9.csv; no age-product violation and no static literal was found",
+      "fix": "a forbidden artifact now counts only where the record LISTS a file (a JSON key or a whole string value), not inside prose; the forbidden list, the age-table rule and every threshold are unchanged; the fixed check was verified to still flag a forbidden path listed as an input",
+      "first_run_result_kept_at": "provenance/repair_v9_integrity.json checks.I4_first_run_defective_check",
+      "authority": "owner decision O4 (provenance/decisions_2026_10_07_overnight.json)",
+      "science_threshold_changed": false
+    }
+  ]
+}

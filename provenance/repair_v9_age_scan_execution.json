@@ -1,0 +1,53 @@
+{
+  "created_utc": "2026-10-07T18:12:24+00:00",
+  "script": "scripts/repair_v9_age_scan.py",
+  "preregistration": "provenance/repair_v9_prereg.json",
+  "scan_ages_Myr": {
+    "PARSEC": [
+      1.9952623149688788,
+      2.238721138568338,
+      2.5118864315095824,
+      2.818382931264455,
+      3.1622776601683795,
+      3.548133892335753,
+      3.9810717055349696,
+      4.4668359215096345,
+      5.011872336272725,
+      5.623413251903491,
+      6.309573444801931
+    ],
+    "MIST": [
+      2.0021656215890395,
+      2.2477603184951818,
+      2.5234807724805752,
+      2.8330223452571426,
+      3.180533688329517,
+      3.5706723455726257,
+      4.008667176273026,
+      4.500388435263084,
+      5.052426449401561,
+      5.672179944867406,
+      6.367955209079162
+    ]
+  },
+  "iterations": 200000,
+  "status": "sensitivity -- never the headline",
+  "inputs": {
+    "data/processed/repair_v9_age_scan_parts/repair_v9_scan00.npz": "cbb4845a3076249cde68619b7ced8b4d2e958b66ccc3ed74bf834e6aa9426ee9",
+    "data/processed/repair_v9_age_scan_parts/repair_v9_scan01.npz": "b0a9f6b56c993a4d5a668955ff5966d77d01727a566e50b16457de227a6272a8",
+    "data/processed/repair_v9_age_scan_parts/repair_v9_scan02.npz": "be88524040eac440544206961438aca0e2810b9d8968f0b31099e5a1e94459e6",
+    "data/processed/repair_v9_age_scan_parts/repair_v9_scan03.npz": "e95ef00f030ca125567743dc11533a2f88cdd294734785aac626658a1d711cf4",
+    "data/processed/repair_v9_age_scan_parts/repair_v9_scan04.npz": "42080546578473b755b60b3ffc3d843a57c58c2acc794c6fe94f1bebf6fb7337",
+    "data/processed/repair_v9_age_scan_parts/repair_v9_scan05.npz": "83741c21efc5e9c84b9f0bb0a59e89b72caa5eeaa53bd6b0f2d0e8f7468751b3",
+    "data/processed/repair_v9_age_scan_parts/repair_v9_scan06.npz": "b56150de1c0ea8ffe291f56a17671ea69942ff620fedc0462fc192691a0cbf19",
+    "data/processed/repair_v9_age_scan_parts/repair_v9_scan07.npz": "53d90681540e6e0446841d32c7b1e261f51a041a72e3fe63bc5d1489094d5f60",
+    "data/processed/repair_v9_age_scan_parts/repair_v9_scan08.npz": "ab62fa81d770ce75889d767ca67ce7fc5e87a9faa625030c4fd68278e13bc586",
+    "data/processed/repair_v9_age_scan_parts/repair_v9_scan09.npz": "cbe1ae3325ecd8ee5ddb809ef4d6fbcca5e267896ab6d0acad9c95b6641a3db7",
+    "data/processed/repair_v9_age_scan_parts/repair_v9_scan10.npz": "4fd0a6e9f147c9bab3e42b7afca1239baf5572c91f5c59ba8d44294f4fa115e3"
+  },
+  "outputs": {
+    "tables/repair_v9_age_scan.csv": "f31619ba348cb2daf33f3e620131f4fd9a942af342ec84fb5b82b718bfdbf74e",
+    "data/processed/repair_v9_age_scan_draws.npz": "004aa963187ef5f3c837dd70656f968206a3ab727b8762b18cbc37bc2d389fe0",
+    "figures/repair_v9/repair_v9_age_scan.png": "499b3e71d659df66789e49386667287003f8132a15af031a38b06c8637745f46"
+  }
+}

@@ -1,0 +1,91 @@
+{
+  "created_utc": "2026-10-07T18:24:41.505948+00:00",
+  "script": "scripts/wp7_convergence_scan.py",
+  "status": "SUCCESS",
+  "work_package": "WP7",
+  "prereg": "provenance/wp7_ledger_prereg.json",
+  "purpose": "apply prediction L6's own declared remedy -- increase iterations until it passes -- and record what happens",
+  "environment": {
+    "python": "3.11.15 | packaged by conda-forge | (main, Aug 11 2026, 10:26:29) [GCC 14.4.0]",
+    "platform": "Linux-5.14.0-570.49.1.el9_6.x86_64-x86_64-with-glibc2.34",
+    "numpy": "2.4.6",
+    "pandas": "3.0.3"
+  },
+  "scan": [
+    {
+      "iterations": 40000,
+      "worst_relative_drift_all_cells": 0.01793,
+      "worst_relative_drift_material_cells": 0.01793,
+      "worst_relative_drift_near_zero_cells": 0.00538,
+      "worst_absolute_drift_all_cells_SNe": 0.0294,
+      "n_material_cells": 159,
+      "n_near_zero_cells": 3,
+      "association_N_SN_mean": 6.6684,
+      "association_N_SN_median": 6.0,
+      "association_P_last_within_100kyr": 0.6971,
+      "L6_letter": "FAIL"
+    },
+    {
+      "iterations": 100000,
+      "worst_relative_drift_all_cells": 0.00899,
+      "worst_relative_drift_material_cells": 0.00899,
+      "worst_relative_drift_near_zero_cells": 0.00412,
+      "worst_absolute_drift_all_cells_SNe": 0.02639,
+      "n_material_cells": 159,
+      "n_near_zero_cells": 3,
+      "association_N_SN_mean": 6.6675,
+      "association_N_SN_median": 6.0,
+      "association_P_last_within_100kyr": 0.6988,
+      "L6_letter": "PASS"
+    },
+    {
+      "iterations": 400000,
+      "worst_relative_drift_all_cells": 0.00438,
+      "worst_relative_drift_material_cells": 0.00438,
+      "worst_relative_drift_near_zero_cells": 0.00179,
+      "worst_absolute_drift_all_cells_SNe": 0.013537,
+      "n_material_cells": 158,
+      "n_near_zero_cells": 4,
+      "association_N_SN_mean": 6.6601,
+      "association_N_SN_median": 6.0,
+      "association_P_last_within_100kyr": 0.6966,
+      "L6_letter": "PASS"
+    },
+    {
+      "iterations": 1000000,
+      "worst_relative_drift_all_cells": 0.00302,
+      "worst_relative_drift_material_cells": 0.00302,
+      "worst_relative_drift_near_zero_cells": 0.00267,
+      "worst_absolute_drift_all_cells_SNe": 0.009938,
+      "n_material_cells": 158,
+      "n_near_zero_cells": 4,
+      "association_N_SN_mean": 6.6577,
+      "association_N_SN_median": 6.0,
+      "association_P_last_within_100kyr": 0.6973,
+      "L6_letter": "PASS"
+    },
+    {
+      "iterations": 2000000,
+      "worst_relative_drift_all_cells": 0.00191,
+      "worst_relative_drift_material_cells": 0.00191,
+      "worst_relative_drift_near_zero_cells": 0.0005,
+      "worst_absolute_drift_all_cells_SNe": 0.006177,
+      "n_material_cells": 159,
+      "n_near_zero_cells": 3,
+      "association_N_SN_mean": 6.6567,
+      "association_N_SN_median": 6.0,
+      "association_P_last_within_100kyr": 0.6969,
+      "L6_letter": "PASS"
+    }
+  ],
+  "outcome": {
+    "L6": "FAIL",
+    "remedy_applied": "iterations raised from the pre-registered 40000 to 2,000,000, a factor of 50",
+    "what_the_remedy_achieved": "the worst relative drift falls from 1.8% to 0.2% but does not reach the 1% threshold, and the residual is structural rather than a matter of running longer",
+    "diagnosis": "L6 is a RELATIVE criterion applied to a grid whose cell means span four orders of magnitude.  At 2,000,000 iterations the 159 cells with a mean above 0.5 supernovae converge to 0.191%, far inside the threshold.  The 3 failing cells have means near zero -- the worst is CygOB2-C at PARSEC, R_V = 3.0, alpha = 2.6, delta = 1 Myr, whose mean is 0.0027 supernovae.  Its ABSOLUTE drift is 0.006177 supernovae.  Relative convergence of a quantity that is essentially zero requires a number of iterations that grows as the inverse square of the mean, which no feasible count reaches.",
+    "recorded_as_failed": "L6 is scored FAIL and is NOT reinterpreted.  The threshold was specified as relative without considering that the branch grid contains cells at zero -- the same class of error as issue #17's F3, where a spread limit was set too tight for a quantity whose per-subgroup variation was already on the record.  A correctly specified criterion would have combined a relative tolerance with an absolute floor.",
+    "substantive_convergence_evidence": "the association N_SN mean moves from 6.668 to 6.657 across a 50-fold range in iterations, a span of 0.012 supernovae, and the maximum absolute drift anywhere on the grid is 0.00618 supernovae.  The Monte Carlo is converged for every purpose the ledger is used for; what failed is the test, not the engine."
+  },
+  "adopted_iteration_count": 2000000,
+  "why_that_count": "the highest scanned, because L6's declared remedy is to increase iterations and because at 23 seconds per 160000 iterations the cost is negligible.  The headline numbers are unchanged from the pre-registered 40000, so the choice cannot have been made to affect a result."
+}

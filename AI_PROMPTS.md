@@ -47,3 +47,23 @@ Entries before 2026-10-07 18:41 CEST were backfilled by hand from the session in
 > <status>completed</status>
 > <summary>Background command "L=data/processed/repair_v9_logs/chain.log; until grep -qE "=== B1|EXIT=|Traceback|Error" $L; do sleep 30; done; tail -8 $L; ls data/processed/repair_v9_logs/" completed (exit code 0)</summary>
 > </task-notification>
+
+### 2026-10-07 20:06:19 CEST · dta250054
+
+> <task-notification>
+> <task-id>batlfwc94</task-id>
+> <tool-use-id>toolu_01G9EzffwDztnkna3RULGeQj</tool-use-id>
+> <output-file>/tmp/claude-1000/-home-vvoitsek-science-gaia-snr-ledger-cygnus/16147b4b-d57d-4943-acc4-c927bfd62be8/tasks/batlfwc94.output</output-file>
+> <status>completed</status>
+> <summary>Background command "L=data/processed/repair_v9_logs/chain.log; until grep -qE "^=== C2|^EXIT=|Traceback|SystemExit|RuntimeError" $L; do sleep 30; done; grep -E "^I1|^=== |Traceback|Error:|missing|wrote provenance" $L | tail -15" completed (exit code 0)</summary>
+> </task-notification>
+
+### 2026-10-07 20:36:44 CEST · dta250054
+
+> <task-notification>
+> <task-id>b48duxmm7</task-id>
+> <tool-use-id>toolu_01NPLxFFBamYrYQC7PyEQpWN</tool-use-id>
+> <output-file>/tmp/claude-1000/-home-vvoitsek-science-gaia-snr-ledger-cygnus/16147b4b-d57d-4943-acc4-c927bfd62be8/tasks/b48duxmm7.output</output-file>
+> <status>completed</status>
+> <summary>Background command "L=data/processed/repair_v9_logs/chain.log; until grep -qE "^EXIT=|Traceback" $L; do sleep 30; done; grep -E "^I[0-9]|^=== |Traceback|Error|^EXIT|^V1a|integrity|adopt" $L | tail -25; grep -B2 -A12 Traceback $L | head -40" completed (exit code 0)</summary>
+> </task-notification>

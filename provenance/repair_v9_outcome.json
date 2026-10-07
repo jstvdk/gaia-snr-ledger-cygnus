@@ -1,0 +1,719 @@
+{
+  "created_utc": "2026-10-07T18:37:48+00:00",
+  "script": "scripts/repair_v9_score.py",
+  "preregistration": {
+    "path": "provenance/repair_v9_prereg.json",
+    "sha256": "4d697a1446db62e39d615c4d557271b8e2e85a2f3727d30a29050b073784efe8"
+  },
+  "predictions": {
+    "V1a": {
+      "statement": "PARSEC baseline N_death < repair_v8",
+      "repair_v8": 8.3599265,
+      "repair_v9": 6.6566885,
+      "true": true
+    },
+    "V1b": {
+      "statement": "PARSEC baseline N_death in [4.0, 9.0]",
+      "repair_v9": 6.6566885,
+      "true": true
+    },
+    "V1c": {
+      "statement": "A and B fall, C rises (baseline subgroup means)",
+      "repair_v8": {
+        "CygOB2-A": 4.0952665,
+        "CygOB2-B": 4.26466,
+        "CygOB2-C": 0.0
+      },
+      "repair_v9": {
+        "CygOB2-A": 2.086417,
+        "CygOB2-B": 2.8528995,
+        "CygOB2-C": 1.717372
+      },
+      "true": true
+    },
+    "V2": {
+      "statement": "baseline-cell closure ratio: A down, B down, C up (PARSEC); MIST reported",
+      "repair_v8": {
+        "CygOB2-A": 1.0061856986924342,
+        "CygOB2-B": 1.0678260310224414,
+        "CygOB2-C": 1.3600247859942516
+      },
+      "repair_v9": {
+        "CygOB2-A": 0.9243926570212326,
+        "CygOB2-B": 1.0361717193797138,
+        "CygOB2-C": 1.498478752059923
+      },
+      "moved": {
+        "CygOB2-A": "down",
+        "CygOB2-B": "down",
+        "CygOB2-C": "up"
+      },
+      "true": true,
+      "report_only_MIST": {
+        "repair_v8": {
+          "CygOB2-A": 1.0033004909413583,
+          "CygOB2-B": 1.0784688810912504,
+          "CygOB2-C": 1.457768775946172
+        },
+        "repair_v9": {
+          "CygOB2-A": 0.9560590802433404,
+          "CygOB2-B": 1.061323923790929,
+          "CygOB2-C": 1.515282441949244
+        },
+        "moved": {
+          "CygOB2-A": "down",
+          "CygOB2-B": "down",
+          "CygOB2-C": "up"
+        }
+      }
+    },
+    "V3": {
+      "statement": "C baseline N_death > 0.5",
+      "repair_v9": 1.717372,
+      "true": true
+    },
+    "V4": {
+      "statement": "scan N_death(t) non-decreasing in every subgroup x branch (a drop beyond max(0.02, 2%) is a violation), and < 0.1 for t <= 2.53 Myr on coeval branches",
+      "monotonicity_violations": [
+        {
+          "cell": [
+            "MIST",
+            3.0,
+            2.0,
+            0.0,
+            "CygOB2-A"
+          ],
+          "age_from": 3.180533688329517,
+          "age_to": 3.5706723455726257,
+          "from": 7.6058,
+          "to": 7.35814
+        },
+        {
+          "cell": [
+            "MIST",
+            3.0,
+            2.0,
+            0.0,
+            "CygOB2-B"
+          ],
+          "age_from": 3.180533688329517,
+          "age_to": 3.5706723455726257,
+          "from": 7.408885,
+          "to": 7.11071
+        },
+        {
+          "cell": [
+            "MIST",
+            3.0,
+            2.0,
+            0.0,
+            "CygOB2-C"
+          ],
+          "age_from": 3.180533688329517,
+          "age_to": 3.5706723455726257,
+          "from": 7.439485,
+          "to": 7.23985
+        },
+        {
+          "cell": [
+            "MIST",
+            3.0,
+            2.3,
+            0.0,
+            "CygOB2-A"
+          ],
+          "age_from": 3.180533688329517,
+          "age_to": 3.5706723455726257,
+          "from": 2.81637,
+          "to": 2.72066
+        },
+        {
+          "cell": [
+            "MIST",
+            3.0,
+            2.3,
+            0.0,
+            "CygOB2-B"
+          ],
+          "age_from": 3.180533688329517,
+          "age_to": 3.5706723455726257,
+          "from": 2.763225,
+          "to": 2.64534
+        },
+        {
+          "cell": [
+            "MIST",
+            3.0,
+            2.3,
+            0.0,
+            "CygOB2-C"
+          ],
+          "age_from": 3.180533688329517,
+          "age_to": 3.5706723455726257,
+          "from": 2.817785,
+          "to": 2.73375
+        },
+        {
+          "cell": [
+            "MIST",
+            3.0,
+            2.6,
+            0.0,
+            "CygOB2-A"
+          ],
+          "age_from": 3.180533688329517,
+          "age_to": 3.5706723455726257,
+          "from": 1.019935,
+          "to": 0.987975
+        },
+        {
+          "cell": [
+            "MIST",
+            3.0,
+            2.6,
+            0.0,
+            "CygOB2-B"
+          ],
+          "age_from": 3.180533688329517,
+          "age_to": 3.5706723455726257,
+          "from": 1.00382,
+          "to": 0.954495
+        },
+        {
+          "cell": [
+            "MIST",
+            3.0,
+            2.6,
+            0.0,
+            "CygOB2-C"
+          ],
+          "age_from": 3.180533688329517,
+          "age_to": 3.5706723455726257,
+          "from": 1.034795,
+          "to": 1.005365
+        },
+        {
+          "cell": [
+            "MIST",
+            3.1,
+            2.0,
+            0.0,
+            "CygOB2-A"
+          ],
+          "age_from": 3.180533688329517,
+          "age_to": 3.5706723455726257,
+          "from": 7.68285,
+          "to": 7.4637
+        },
+        {
+          "cell": [
+            "MIST",
+            3.1,
+            2.0,
+            0.0,
+            "CygOB2-B"
+          ],
+          "age_from": 3.180533688329517,
+          "age_to": 3.5706723455726257,
+          "from": 7.429505,
+          "to": 7.26232
+        },
+        {
+          "cell": [
+            "MIST",
+            3.1,
+            2.0,
+            0.0,
+            "CygOB2-C"
+          ],
+          "age_from": 3.180533688329517,
+          "age_to": 3.5706723455726257,
+          "from": 7.49488,
+          "to": 7.30273
+        },
+        {
+          "cell": [
+            "MIST",
+            3.1,
+            2.3,
+            0.0,
+            "CygOB2-A"
+          ],
+          "age_from": 3.180533688329517,
+          "age_to": 3.5706723455726257,
+          "from": 2.853995,
+          "to": 2.765725
+        },
+        {
+          "cell": [
+            "MIST",
+            3.1,
+            2.3,
+            0.0,
+            "CygOB2-B"
+          ],
+          "age_from": 3.180533688329517,
+          "age_to": 3.5706723455726257,
+          "from": 2.770185,
+          "to": 2.699935
+        },
+        {
+          "cell": [
+            "MIST",
+            3.1,
+            2.3,
+            0.0,
+            "CygOB2-C"
+          ],
+          "age_from": 3.180533688329517,
+          "age_to": 3.5706723455726257,
+          "from": 2.837055,
+          "to": 2.748755
+        },
+        {
+          "cell": [
+            "MIST",
+            3.1,
+            2.6,
+            0.0,
+            "CygOB2-A"
+          ],
+          "age_from": 3.180533688329517,
+          "age_to": 3.5706723455726257,
+          "from": 1.03183,
+          "to": 1.00122
+        },
+        {
+          "cell": [
+            "MIST",
+            3.1,
+            2.6,
+            0.0,
+            "CygOB2-B"
+          ],
+          "age_from": 3.180533688329517,
+          "age_to": 3.5706723455726257,
+          "from": 1.00618,
+          "to": 0.979905
+        },
+        {
+          "cell": [
+            "MIST",
+            3.1,
+            2.6,
+            0.0,
+            "CygOB2-C"
+          ],
+          "age_from": 3.180533688329517,
+          "age_to": 3.5706723455726257,
+          "from": 1.04412,
+          "to": 1.012125
+        },
+        {
+          "cell": [
+            "MIST",
+            3.5,
+            2.0,
+            0.0,
+            "CygOB2-B"
+          ],
+          "age_from": 3.180533688329517,
+          "age_to": 3.5706723455726257,
+          "from": 7.935215,
+          "to": 7.62752
+        },
+        {
+          "cell": [
+            "MIST",
+            3.5,
+            2.0,
+            0.0,
+            "CygOB2-C"
+          ],
+          "age_from": 3.180533688329517,
+          "age_to": 3.5706723455726257,
+          "from": 7.827495,
+          "to": 7.563
+        },
+        {
+          "cell": [
+            "MIST",
+            3.5,
+            2.3,
+            0.0,
+            "CygOB2-B"
+          ],
+          "age_from": 3.180533688329517,
+          "age_to": 3.5706723455726257,
+          "from": 2.97201,
+          "to": 2.851155
+        },
+        {
+          "cell": [
+            "MIST",
+            3.5,
+            2.3,
+            0.0,
+            "CygOB2-C"
+          ],
+          "age_from": 3.180533688329517,
+          "age_to": 3.5706723455726257,
+          "from": 2.979275,
+          "to": 2.8714
+        },
+        {
+          "cell": [
+            "MIST",
+            3.5,
+            2.6,
+            0.0,
+            "CygOB2-B"
+          ],
+          "age_from": 3.180533688329517,
+          "age_to": 3.5706723455726257,
+          "from": 1.085505,
+          "to": 1.02959
+        },
+        {
+          "cell": [
+            "MIST",
+            3.5,
+            2.6,
+            0.0,
+            "CygOB2-C"
+          ],
+          "age_from": 3.180533688329517,
+          "age_to": 3.5706723455726257,
+          "from": 1.101295,
+          "to": 1.05299
+        }
+      ],
+      "young_nonzero": [
+        {
+          "cell": [
+            "MIST",
+            3.0,
+            2.0,
+            0.0,
+            "CygOB2-A"
+          ],
+          "age": 2.5234807724805752,
+          "N_death_mean": 1.27171
+        },
+        {
+          "cell": [
+            "MIST",
+            3.0,
+            2.0,
+            0.0,
+            "CygOB2-B"
+          ],
+          "age": 2.5234807724805752,
+          "N_death_mean": 1.210585
+        },
+        {
+          "cell": [
+            "MIST",
+            3.0,
+            2.0,
+            0.0,
+            "CygOB2-C"
+          ],
+          "age": 2.5234807724805752,
+          "N_death_mean": 1.21944
+        },
+        {
+          "cell": [
+            "MIST",
+            3.0,
+            2.3,
+            0.0,
+            "CygOB2-A"
+          ],
+          "age": 2.5234807724805752,
+          "N_death_mean": 0.440315
+        },
+        {
+          "cell": [
+            "MIST",
+            3.0,
+            2.3,
+            0.0,
+            "CygOB2-B"
+          ],
+          "age": 2.5234807724805752,
+          "N_death_mean": 0.421535
+        },
+        {
+          "cell": [
+            "MIST",
+            3.0,
+            2.3,
+            0.0,
+            "CygOB2-C"
+          ],
+          "age": 2.5234807724805752,
+          "N_death_mean": 0.43249
+        },
+        {
+          "cell": [
+            "MIST",
+            3.0,
+            2.6,
+            0.0,
+            "CygOB2-A"
+          ],
+          "age": 2.5234807724805752,
+          "N_death_mean": 0.14897
+        },
+        {
+          "cell": [
+            "MIST",
+            3.0,
+            2.6,
+            0.0,
+            "CygOB2-B"
+          ],
+          "age": 2.5234807724805752,
+          "N_death_mean": 0.141925
+        },
+        {
+          "cell": [
+            "MIST",
+            3.0,
+            2.6,
+            0.0,
+            "CygOB2-C"
+          ],
+          "age": 2.5234807724805752,
+          "N_death_mean": 0.14829
+        },
+        {
+          "cell": [
+            "MIST",
+            3.1,
+            2.0,
+            0.0,
+            "CygOB2-A"
+          ],
+          "age": 2.5234807724805752,
+          "N_death_mean": 1.264465
+        },
+        {
+          "cell": [
+            "MIST",
+            3.1,
+            2.0,
+            0.0,
+            "CygOB2-B"
+          ],
+          "age": 2.5234807724805752,
+          "N_death_mean": 1.222625
+        },
+        {
+          "cell": [
+            "MIST",
+            3.1,
+            2.0,
+            0.0,
+            "CygOB2-C"
+          ],
+          "age": 2.5234807724805752,
+          "N_death_mean": 1.222735
+        },
+        {
+          "cell": [
+            "MIST",
+            3.1,
+            2.3,
+            0.0,
+            "CygOB2-A"
+          ],
+          "age": 2.5234807724805752,
+          "N_death_mean": 0.43498
+        },
+        {
+          "cell": [
+            "MIST",
+            3.1,
+            2.3,
+            0.0,
+            "CygOB2-B"
+          ],
+          "age": 2.5234807724805752,
+          "N_death_mean": 0.425265
+        },
+        {
+          "cell": [
+            "MIST",
+            3.1,
+            2.3,
+            0.0,
+            "CygOB2-C"
+          ],
+          "age": 2.5234807724805752,
+          "N_death_mean": 0.433245
+        },
+        {
+          "cell": [
+            "MIST",
+            3.1,
+            2.6,
+            0.0,
+            "CygOB2-A"
+          ],
+          "age": 2.5234807724805752,
+          "N_death_mean": 0.147855
+        },
+        {
+          "cell": [
+            "MIST",
+            3.1,
+            2.6,
+            0.0,
+            "CygOB2-B"
+          ],
+          "age": 2.5234807724805752,
+          "N_death_mean": 0.143335
+        },
+        {
+          "cell": [
+            "MIST",
+            3.1,
+            2.6,
+            0.0,
+            "CygOB2-C"
+          ],
+          "age": 2.5234807724805752,
+          "N_death_mean": 0.14929
+        },
+        {
+          "cell": [
+            "MIST",
+            3.5,
+            2.0,
+            0.0,
+            "CygOB2-A"
+          ],
+          "age": 2.5234807724805752,
+          "N_death_mean": 1.310845
+        },
+        {
+          "cell": [
+            "MIST",
+            3.5,
+            2.0,
+            0.0,
+            "CygOB2-B"
+          ],
+          "age": 2.5234807724805752,
+          "N_death_mean": 1.31045
+        },
+        {
+          "cell": [
+            "MIST",
+            3.5,
+            2.0,
+            0.0,
+            "CygOB2-C"
+          ],
+          "age": 2.5234807724805752,
+          "N_death_mean": 1.25906
+        },
+        {
+          "cell": [
+            "MIST",
+            3.5,
+            2.3,
+            0.0,
+            "CygOB2-A"
+          ],
+          "age": 2.5234807724805752,
+          "N_death_mean": 0.45958
+        },
+        {
+          "cell": [
+            "MIST",
+            3.5,
+            2.3,
+            0.0,
+            "CygOB2-B"
+          ],
+          "age": 2.5234807724805752,
+          "N_death_mean": 0.4528
+        },
+        {
+          "cell": [
+            "MIST",
+            3.5,
+            2.3,
+            0.0,
+            "CygOB2-C"
+          ],
+          "age": 2.5234807724805752,
+          "N_death_mean": 0.44756
+        },
+        {
+          "cell": [
+            "MIST",
+            3.5,
+            2.6,
+            0.0,
+            "CygOB2-A"
+          ],
+          "age": 2.5234807724805752,
+          "N_death_mean": 0.156465
+        },
+        {
+          "cell": [
+            "MIST",
+            3.5,
+            2.6,
+            0.0,
+            "CygOB2-B"
+          ],
+          "age": 2.5234807724805752,
+          "N_death_mean": 0.154235
+        },
+        {
+          "cell": [
+            "MIST",
+            3.5,
+            2.6,
+            0.0,
+            "CygOB2-C"
+          ],
+          "age": 2.5234807724805752,
+          "N_death_mean": 0.1537
+        }
+      ],
+      "true": false
+    },
+    "V5": {
+      "statement": "subgroup curves agree within max/min <= 1.25 at every t >= 3.15 Myr (alpha 2.3, coeval, every family x R_V)",
+      "violations": [],
+      "true": true
+    }
+  },
+  "integrity": {
+    "passed": {
+      "I1a": true,
+      "I1b": true,
+      "I1c": true,
+      "I1d": true,
+      "I1e": true,
+      "I2": true,
+      "I3": true,
+      "I4": true,
+      "I5": true
+    },
+    "missing": []
+  },
+  "adoption": {
+    "rule": "ADOPTED = repair_v9 iff I1-I5 all pass; predictions do not gate",
+    "adopt": true
+  },
+  "outputs": {
+    "tables/repair_v9_before_after.csv": "56df834fac563fb4485fe0a891037917bdfb335966cbd91c1044d718b84bb88b"
+  }
+}

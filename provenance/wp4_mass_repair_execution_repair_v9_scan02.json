@@ -1,0 +1,63 @@
+{
+  "repair_version": "repair_v9_scan02",
+  "input_repair_version": "repair_v5",
+  "age_version": "repair_v9_scan02",
+  "anchor_version": "repair_v9_scan02",
+  "created_utc": "2026-10-07T16:59:16.348282+00:00",
+  "script": "scripts/wp4_mass_posteriors_repair.py",
+  "method": "Monte Carlo posterior propagation of the complete WP3 A_V grid, G/BP/RP/J/H/Ks photometric errors plus floor, unresolved-binary state and q, and branch-specific subgroup age posterior; continuous parabolic projection on a dense initial-mass grid; branch-specific spectroscopic HRD override from the versioned anchor file",
+  "environment": {
+    "python": "3.11.15 | packaged by conda-forge | (main, Aug 11 2026, 10:26:29) [GCC 14.4.0]",
+    "platform": "Linux-5.14.0-570.49.1.el9_6.x86_64-x86_64-with-glibc2.34",
+    "numpy": "2.4.6",
+    "pandas": "3.0.3",
+    "scipy": "1.17.1"
+  },
+  "inputs": {
+    "data/processed/wp3_extinction_repair_v5.parquet": "76a3c3df1e754b9846a2401ce898aad50f8de28b90a11725687af0e7cc4524fc",
+    "data/processed/wp3_extinction_posterior_repair_v5.npz": "36f9bd9849cb6c1d3168004ccc53fed294293d55dd67f4dca5eeac3b157af19c",
+    "data/processed/wp4_age_posteriors_repair_v9_scan02.parquet": "e7d1a02ae3616ebaa79a47ebd90104d5e317bf1bedbb12da30df0397a9f687ff",
+    "data/processed/wp4_anchor_hrd_repair_v9_scan02.parquet": "e089e99f8da2d388eb99850c8b8dac65b8c1fe282d93e7a19dbf269c9068264c",
+    "data/processed/wp3_isochrones_parsec.parquet": "9e0444045acf3e9331bf609e44c5f065635b217558f2ff46deec68fb66c8c663",
+    "data/processed/wp3_isochrones_mist.parquet": "3b1437d791e61a5dc9b7b2a2ed12e83bc0a1c64cb775c3862a2073731623135b",
+    "tables/wp2_subgroup_labels.parquet": "44a5ee7b9190703dae8dca9540c192757423db293c9ecc1ea123065849800887"
+  },
+  "configuration": {
+    "posterior_draws_per_star_branch": 256,
+    "dense_initial_mass_grid_points": 512,
+    "age_posterior_nodes": 9,
+    "binary_fraction": 0.4,
+    "minimum_mass_ratio": 0.1,
+    "binary_q_components": 9,
+    "random_seed": 20260724,
+    "mass_reporting_statistic": "posterior median",
+    "six_band_model_scale_mag": 0.38,
+    "six_band_model_scale_calibration": "median robust scatter across G/BP/RP/J/H/Ks for 107 non-extreme spectroscopic-HRD anchors; per-band range 0.35-0.39 mag",
+    "mass_prior": "log-uniform scale prior on the dense mass grid; no IMF slope is imposed before WP5"
+  },
+  "counts": {
+    "members": 1392,
+    "finite_baseline_mass": 1383,
+    "spectroscopic_hrd_overrides": 150,
+    "photometric_posteriors": 1242,
+    "baseline_between_2p5_3p2": 241,
+    "baseline_posterior_median_gt8": 300,
+    "baseline_expected_gt8_from_posterior": 314.55859375
+  },
+  "acceptance_diagnostics": {
+    "largest_exact_baseline_mass_fraction": 0.01373825018076645,
+    "largest_exact_mass_fraction_gate": 0.02,
+    "largest_exact_mass_fraction_pass": true
+  },
+  "outputs": {
+    "data/processed/wp4_mass_posteriors_repair_v9_scan02.parquet": {
+      "sha256": "3b44ab03a30c405f6f2e514e68ebf48cff7ef92d8323da822a8c9377bfff4913",
+      "bytes": 409954
+    },
+    "data/processed/wp4_mass_posterior_samples_repair_v9_scan02.npz": {
+      "sha256": "4be6fc545e4b9631566f4042ac298d93ce927eb373217e16cbc3a3ae68a31065",
+      "bytes": 6567301
+    }
+  },
+  "frozen_outputs_overwritten": false
+}

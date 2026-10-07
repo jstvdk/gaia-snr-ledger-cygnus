@@ -1,0 +1,106 @@
+{
+  "script": "scripts/wp4_anchors_hrd.py",
+  "created_utc": "2026-10-07T16:57:28.822553+00:00",
+  "output_version": "repair_v9_scan02",
+  "age_version": "repair_v9_scan02",
+  "extinction_version": "repair_v5",
+  "issue": "#19 -- replaces the anchor masses read at pre-repair ages",
+  "preregistration": "provenance/repair_v9_prereg.json",
+  "inputs": {
+    "wp1_spectroscopic_anchors": "9bb30e91d98568b346616e5c712f4784d3ff23f90d6216af501597bf18c9b283",
+    "data/processed/wp3_extinction_repair_v5.parquet": "76a3c3df1e754b9846a2401ce898aad50f8de28b90a11725687af0e7cc4524fc",
+    "wp2_subgroup_labels": "44a5ee7b9190703dae8dca9540c192757423db293c9ecc1ea123065849800887",
+    "data/processed/wp4_age_posteriors_repair_v9_scan02.parquet": "e7d1a02ae3616ebaa79a47ebd90104d5e317bf1bedbb12da30df0397a9f687ff",
+    "isochrones_parsec": "9e0444045acf3e9331bf609e44c5f065635b217558f2ff46deec68fb66c8c663",
+    "isochrones_mist": "3b1437d791e61a5dc9b7b2a2ed12e83bc0a1c64cb775c3862a2073731623135b"
+  },
+  "method": "place anchors at (logTe_spec, M_G0_obs[R_V]); mass = present-day Mass of the nearest isochrone point in the (logTe, M_G0) plane under a chi metric (SIG_LOGTE=0.03 dex, SIG_MG0=0.40 mag) on the isochrone at the subgroup's upper-MS MAP for that family AND R_V branch, snapped to the nearest native grid age; gate = chi<=2.5 for either family on the R_V=3.1 branch.",
+  "mass_quantity": "present-day isochrone Mass, unchanged from the frozen procedure; Mini (F3(a)) is deferred to a separately pre-registered change",
+  "branch_columns": [
+    "mass_PARSEC_rv3.0",
+    "mass_PARSEC_rv3.1",
+    "mass_PARSEC_rv3.5",
+    "mass_MIST_rv3.0",
+    "mass_MIST_rv3.1",
+    "mass_MIST_rv3.5"
+  ],
+  "legacy_columns": "mass_<family>, age_used_<family>, chi_<family>, MG0_obs = R_V 3.1 branch",
+  "ages_used_Myr_before_snapping": {
+    "CygOB2-A|PARSEC_rv3.0": 2.5119,
+    "CygOB2-A|PARSEC_rv3.1": 2.5119,
+    "CygOB2-A|PARSEC_rv3.5": 2.5119,
+    "CygOB2-A|MIST_rv3.0": 2.5235,
+    "CygOB2-A|MIST_rv3.1": 2.5235,
+    "CygOB2-A|MIST_rv3.5": 2.5235,
+    "CygOB2-B|PARSEC_rv3.0": 2.5119,
+    "CygOB2-B|PARSEC_rv3.1": 2.5119,
+    "CygOB2-B|PARSEC_rv3.5": 2.5119,
+    "CygOB2-B|MIST_rv3.0": 2.5235,
+    "CygOB2-B|MIST_rv3.1": 2.5235,
+    "CygOB2-B|MIST_rv3.5": 2.5235,
+    "CygOB2-C|PARSEC_rv3.0": 2.5119,
+    "CygOB2-C|PARSEC_rv3.1": 2.5119,
+    "CygOB2-C|PARSEC_rv3.5": 2.5119,
+    "CygOB2-C|MIST_rv3.0": 2.5235,
+    "CygOB2-C|MIST_rv3.1": 2.5235,
+    "CygOB2-C|MIST_rv3.5": 2.5235,
+    "unassigned|PARSEC_rv3.0": 2.5119,
+    "unassigned|PARSEC_rv3.1": 2.5119,
+    "unassigned|PARSEC_rv3.5": 2.5119,
+    "unassigned|MIST_rv3.0": 2.5235,
+    "unassigned|MIST_rv3.1": 2.5235,
+    "unassigned|MIST_rv3.5": 2.5235
+  },
+  "logTe_max_trust": 4.7160033436347994,
+  "sig_logte": 0.03,
+  "sig_mg0": 0.4,
+  "chi_tol": 2.5,
+  "n_anchors_with_teff": 156,
+  "n_extreme_hot_excluded": 2,
+  "n_gate_tested": 150,
+  "n_gate_consistent": 125,
+  "frac_consistent": 0.8333333333333334,
+  "gate_by_rv": {
+    "rv3.0": {
+      "n_tested": 150,
+      "n_consistent": 127
+    },
+    "rv3.1": {
+      "n_tested": 150,
+      "n_consistent": 125
+    },
+    "rv3.5": {
+      "n_tested": 150,
+      "n_consistent": 119
+    }
+  },
+  "gate_by_subgroup": {
+    "CygOB2-A": {
+      "n_anchors": 60,
+      "n_tested": 59,
+      "n_consistent": 52,
+      "frac_consistent": 0.8813559322033898
+    },
+    "CygOB2-B": {
+      "n_anchors": 5,
+      "n_tested": 5,
+      "n_consistent": 4,
+      "frac_consistent": 0.8
+    },
+    "CygOB2-C": {
+      "n_anchors": 43,
+      "n_tested": 43,
+      "n_consistent": 36,
+      "frac_consistent": 0.8372093023255814
+    },
+    "unassigned": {
+      "n_anchors": 48,
+      "n_tested": 43,
+      "n_consistent": 33,
+      "frac_consistent": 0.7674418604651163
+    }
+  },
+  "output": {
+    "data/processed/wp4_anchor_hrd_repair_v9_scan02.parquet": "e089e99f8da2d388eb99850c8b8dac65b8c1fe282d93e7a19dbf269c9068264c"
+  }
+}

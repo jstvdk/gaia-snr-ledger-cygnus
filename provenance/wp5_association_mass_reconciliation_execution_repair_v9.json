@@ -1,0 +1,84 @@
+{
+  "created_utc": "2026-10-07T18:35:25+00:00",
+  "script": "scripts/wp5_association_mass_reconciliation.py",
+  "purpose": "B1 of tasks/pre_wp10_assessment_brief.md -- reconcile the WP5 association mass with the WP6 external cross-check figure.  Definitional only: no fit was re-run and no stored number moved.",
+  "python": "3.11.15",
+  "platform": "Linux-5.14.0-570.49.1.el9_6.x86_64-x86_64-with-glibc2.34",
+  "numpy": "2.4.6",
+  "pandas": "3.0.3",
+  "wp5_version": "repair_v9",
+  "compare_version": "repair_v8",
+  "definitions": {
+    "M1_primaries_0p5_to_120": "k * integral[0.5, 120] M^(1-alpha) dM.  Single power law, no low-mass break, primaries only.  This is what scripts/wp6_external_crosschecks.py computes and what the PROJECT_TRACE 10b row reports as 1.74e4 Msun.",
+    "M2_primary_system_0p08_to_120": "M1 plus the 0.08-0.5 Msun segment of a Kroupa-like broken power law (slope 1.3 below the 0.5 Msun break, continuous there).  Stored as primary_system_mass_median_Msun.",
+    "M3_multiplicity_adjusted": "M2 plus unresolved companion mass for f_bin = 0.40, q ~ U(0.1, 1), companion counted only where q*m >= 0.08 Msun.  Stored as multiplicity_adjusted_mass_median_Msun and quoted by wp5_report.py as THE association mass."
+  },
+  "constants": {
+    "TOTAL_MASS_RANGE": [
+      0.08,
+      120.0
+    ],
+    "LOW_MASS_BREAK": 0.5,
+    "LOW_MASS_SLOPE": 1.3,
+    "F_BINARY": 0.4,
+    "Q_MIN": 0.1,
+    "wp6_crosscheck_mass_lo": 0.5
+  },
+  "literature": {
+    "reference": "Wright, Drew & Mohr-Smith 2015, MNRAS 449, 741",
+    "local_copy": "papers/Wright_2015.pdf",
+    "section": "6.3",
+    "total_mass_Msun": 16500.0,
+    "total_mass_hi_Msun": 3800.0,
+    "total_mass_lo_Msun": 2800.0,
+    "imf": "Maschberger 2013 universal IMF, alpha = 2.30, beta = 1.40",
+    "sampled_mass_range_Msun": [
+      0.01,
+      150.0
+    ],
+    "normalized_on": "observed number of stars at 20-40 Msun (36 +1 -4)",
+    "verbatim": "We find that the observed number of massive stars in Cyg OB2 in the mass range of 20-40 M_sun can be reproduced if the association has a total stellar mass of 16500 +3800 -2800 M_sun.",
+    "multiplicity_treatment": "the census counts PRIMARY OB stars and the Monte Carlo matches drawn individual stars to that count, so unresolved companions are not separately added; the quantity is best read as a primary-star total"
+  },
+  "baseline_PARSEC_rv3.1_alpha2.3": {
+    "repair_v9": {
+      "k_total_median": 5226.13,
+      "M1_Msun": 17304.0,
+      "low_mass_0p08_to_0p5_Msun": 6643.0,
+      "M2_Msun": 23947.0,
+      "companion_mass_Msun": 5002.0,
+      "M3_Msun": 28949.0,
+      "M3_over_M1": 1.673,
+      "M1_over_Wright2015": 1.049,
+      "M2_over_Wright2015": 1.451,
+      "M3_over_Wright2015": 1.755
+    },
+    "repair_v8": {
+      "k_total_median": 5237.86,
+      "M1_Msun": 17343.0,
+      "low_mass_0p08_to_0p5_Msun": 6658.0,
+      "M2_Msun": 24001.0,
+      "companion_mass_Msun": 5013.0,
+      "M3_Msun": 29014.0,
+      "M3_over_M1": 1.673,
+      "M1_over_Wright2015": 1.051,
+      "M2_over_Wright2015": 1.455,
+      "M3_over_Wright2015": 1.758
+    }
+  },
+  "reproduction_check": {
+    "quantity": "recomputed M2 vs stored primary_system_mass_median_Msun",
+    "cells": 36,
+    "worst_abs_difference_Msun": 0.0,
+    "pass": true
+  },
+  "finding": "The two circulating numbers differ by exactly two terms and no third.  At the accepted baseline the 0.08-0.5 Msun segment adds 38% and unresolved companions add 21%, taking M1 = 17,304 Msun to M3 = 28,949 Msun.",
+  "consequence_for_the_crosscheck": "The '5%' agreement in the PROJECT_TRACE 10b table compares M1 against a Wright+2015 mass integrated over the FULL IMF range, so it pairs mismatched definitions.  The like-for-like partner of Wright's 16,500 Msun is M2 (primary stars, full grid range), which sits at 1.45 times it -- an agreement at the factor level and a ~50% offset in the mean, inside the factor-2 gate but NOT at the 5% level.  The 5% coincidence must not be quoted as an agreement.",
+  "inputs": {
+    "data/processed/wp5_association_mass_repair_v9.parquet": "52fd4c9471d582613c56ddfd8a4de233699d5ed31194654c6350ae3de6dbedd5",
+    "data/processed/wp5_association_mass_repair_v8.parquet": "62b67a6d7c77400324c5e99970a13a3740447c1e30151fc7944b80a142023b10"
+  },
+  "outputs": {
+    "tables/wp5_association_mass_reconciliation_repair_v9.csv": "51973813f8527bac4b28467179cbec70759b4b1bd50d24bfc3f197d39e3aacae"
+  }
+}

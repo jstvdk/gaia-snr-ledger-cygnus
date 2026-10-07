@@ -1,0 +1,71 @@
+{
+  "created_utc": "2026-10-07T18:13:02.444728+00:00",
+  "script": "scripts/wp6_ledger.py",
+  "status": "SUCCESS",
+  "work_package": "WP6 step 5",
+  "baseline_branch": "PARSEC R_V=3.1 (reporting branch)",
+  "runaway_weighting": "purity per separation bin, times the star's own recovery probability.  Purity = (selected - expected chance) / selected, with expected chance summed over ALL candidates in the bin, so the ledger total reproduces the aggregate false-positive correction instead of contradicting it.",
+  "weight_definitions": {
+    "member": "p_membership * P(M > 8 Msun) from the WP4 posterior",
+    "orphan_anchor": "1.0 \u2014 spectroscopically confirmed, inside the 1 deg footprint, above 8 Msun by its spectral type, and absent from the member sample",
+    "runaway": "purity(separation) * recovery probability; see runaway_weighting"
+  },
+  "environment": {
+    "python": "3.11.15 | packaged by conda-forge | (main, Aug 11 2026, 10:26:29) [GCC 14.4.0]",
+    "platform": "Linux-5.14.0-570.49.1.el9_6.x86_64-x86_64-with-glibc2.34",
+    "numpy": "2.4.6",
+    "pandas": "3.0.3"
+  },
+  "inputs": {
+    "data/processed/wp4_mass_posteriors_repair_v9.parquet": "111fbf90b416b2014549c7632f3fb505e5df4f7b132acbfe3e9008f8d4de441d",
+    "tables/wp6_orphan_anchors_repair_v9.csv": "4464aa7b8e7058c4df267c0f3976bf4ef6671ee66ad6f23ceb93f649e79a4d4d",
+    "tables/wp6_runaways.csv": "42f5ebf2a63fe344e9df7cc1977af85746b0100dbf779e16db396c00a6613280"
+  },
+  "by_channel": {
+    "member": {
+      "entries": 640,
+      "summed_weight": 301.33
+    },
+    "orphan_anchor": {
+      "entries": 27,
+      "summed_weight": 27.0
+    },
+    "runaway": {
+      "entries": 119,
+      "summed_weight": 58.18
+    }
+  },
+  "by_subgroup_weight": {
+    "CygOB2-A": 73.92,
+    "CygOB2-B": 87.84,
+    "CygOB2-C": 117.56,
+    "unassigned": 58.18
+  },
+  "total_living_above_8_Msun": 386.5,
+  "runaway_total_reconciliation": {
+    "ledger_binned": 58.18,
+    "aggregate_unclipped": 54.9,
+    "why_they_differ": "the binned purity clips a bin at zero when its expected chance count exceeds the number selected there, because a negative count of real runaways is meaningless.  The unclipped aggregate allows those bins to subtract from others.  The clipped figure is the conservative one to quote per bin; the unclipped one is the better global estimate.  Both are reported and WP7 should carry the difference as a systematic on the runaway correction."
+  },
+  "runaway_provenance": {
+    "traceback_record": "provenance/wp6_runaways_execution.json",
+    "raw_recovered": 119,
+    "aggregate_false_positive_corrected": 54.9,
+    "association_centroid_galactic_deg": [
+      80.0729,
+      0.816
+    ],
+    "peculiar_motion": "the traceback runs on proper motions with the association's systemic motion subtracted (issue #16).  An earlier absolute-PM version of this ledger, quoting 260 raw and 109.2 corrected, is WITHDRAWN: Cyg OB2's systemic motion is larger than a typical ejection signature, so that traceback measured bulk drift.",
+    "external_gate": "provenance/wp6_runaway_crossmatch_execution.json \u2014 BD+43 3654 recovered at p = 1.000, 38.8 km/s and 1.36 Myr against a literature ~40 km/s and 1.6 Myr"
+  },
+  "handoff_to_wp7": "runaways are LIVING stars that left the association.  WP7 must subtract them from the missing-equals-dead bookkeeping, which reduces N_SN.  Their subgroup is 'unassigned': a 2D traceback constrains the origin footprint, not which subgroup inside it, so assigning them per subgroup would invent precision.",
+  "carried_limitations": [
+    "runaway weights are statistical, not per-star confirmations",
+    "the traceback is 2D, so line-of-sight ejections are missed and the runaway count is a lower bound",
+    "orphan-anchor masses come from spectral type, not from the WP4 posterior, so they carry a different systematic",
+    "13 orphan anchors have no spectral type and are excluded as unknown rather than counted either way"
+  ],
+  "outputs": {
+    "tables/wp6_massive_census_repair_v9.cat": "7774eb706596152812b848fb2e5d4a2f3ee991335bbb733febe17e1da8a60fb0"
+  }
+}

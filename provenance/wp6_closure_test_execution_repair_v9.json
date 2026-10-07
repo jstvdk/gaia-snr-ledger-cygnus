@@ -1,0 +1,80 @@
+{
+  "created_utc": "2026-10-07T18:12:59.740687+00:00",
+  "script": "scripts/wp6_closure_test.py",
+  "status": "SUCCESS",
+  "work_package": "WP6 steps 1-2",
+  "wp5_version": "repair_v9",
+  "response_version": "repair_v9",
+  "truth_binary_fraction_model": "extended",
+  "integration_floor_Msun": 4.0,
+  "estimator": "predicted observed = k * integral[4, M_turnoff] dM M^-alpha R(observed above 8 | M), per subgroup, with R from the WP5 injection response extended above 18 Msun.  Nothing is divided by a scalar completeness (CUTS section 16.2).",
+  "issue_17_lower_bound": "the lower bound is an INTEGRATION bound, not the supernova threshold.  The observed side counts every member's P(M > 8) whatever that member's true mass is, so the predicted side must integrate over every true mass the response can push above 8.  Truncating at 8 omitted that up-scatter entirely and made the two sides different quantities.  Floor chosen on convergence of the integral (provenance/wp6_closure_floor_prereg.json).",
+  "predicted_true_vs_observed_bounds": "predicted_true_living integrates from 8 Msun because it counts stars PHYSICALLY above 8; predicted_observed_living integrates from the floor because it counts stars ESTIMATED above 8.  Their ratio can therefore exceed 1 where up-scatter dominates.",
+  "upper_limit": "the isochrone turnoff at each truth-age node, marginalized over the WP4 age posterior with the node weights.  Stars above the turnoff are dead; counting them as expected-but-missing would double-count the quantity WP7 infers.",
+  "observed_side": "sum over members of p_membership * P(M > 8), from tables/wp6_massive_census.csv.  Orphan anchors are NOT added here -- they are the independent check on R, not a correction to it.",
+  "environment": {
+    "python": "3.11.15 | packaged by conda-forge | (main, Aug 11 2026, 10:26:29) [GCC 14.4.0]",
+    "platform": "Linux-5.14.0-570.49.1.el9_6.x86_64-x86_64-with-glibc2.34",
+    "numpy": "2.4.6",
+    "pandas": "3.0.3"
+  },
+  "inputs": {
+    "data/processed/wp5_imf_normalization_repair_v9.parquet": "43703353953555cfa6f7e95867ac5b751a06516ec3cce89ecd38779c6f5d6940",
+    "tables/wp6_massive_census_repair_v9.csv": "0db34a66cd62de520d8b5eaf90c859085f68c51f221d7127848cf3cc8fa36c37",
+    "data/processed/wp4_age_posteriors_repair_v9_headline.parquet": "6d832504f639681e8c73a2de1875bbc7328fcd444921b8bb3a84ba9d89310fd4"
+  },
+  "baseline_PARSEC_rv3.1_alpha2.3": [
+    {
+      "subgroup": "CygOB2-A",
+      "turnoff_prior_mean_Msun": 98.1,
+      "predicted_true_living": 87.6,
+      "predicted_observed_living": 72.4,
+      "effective_completeness": 0.826,
+      "observed_living": 66.9,
+      "closure_ratio": 0.924,
+      "closure_ratio_68": [
+        0.872,
+        0.98
+      ],
+      "shortfall": 5.5
+    },
+    {
+      "subgroup": "CygOB2-B",
+      "turnoff_prior_mean_Msun": 80.9,
+      "predicted_true_living": 82.6,
+      "predicted_observed_living": 77.1,
+      "effective_completeness": 0.933,
+      "observed_living": 79.8,
+      "closure_ratio": 1.036,
+      "closure_ratio_68": [
+        0.97,
+        1.107
+      ],
+      "shortfall": -2.8
+    },
+    {
+      "subgroup": "CygOB2-C",
+      "turnoff_prior_mean_Msun": 72.9,
+      "predicted_true_living": 85.0,
+      "predicted_observed_living": 70.4,
+      "effective_completeness": 0.829,
+      "observed_living": 105.6,
+      "closure_ratio": 1.498,
+      "closure_ratio_68": [
+        1.4,
+        1.608
+      ],
+      "shortfall": -35.1
+    }
+  ],
+  "grid_summary": {
+    "cells": 54,
+    "closure_ratio_min": 0.579,
+    "closure_ratio_median": 1.118,
+    "closure_ratio_max": 2.511,
+    "cells_consistent_with_unity_68": 12
+  },
+  "outputs": {
+    "tables/wp6_closure_repair_v9.csv": "0c92b7f4eb3a522639f994a4a7630e607f5852b170d2040945100deb950ac86e"
+  }
+}

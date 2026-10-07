@@ -1,0 +1,257 @@
+{
+  "created_utc": "2026-10-07T18:25:41+00:00",
+  "script": "scripts/wp7_alpha_headline_adopt.py",
+  "item": "D1 of tasks/pre_wp10_assessment_brief.md",
+  "python": "3.11.15",
+  "platform": "Linux-5.14.0-570.49.1.el9_6.x86_64-x86_64-with-glibc2.34",
+  "numpy": "2.4.6",
+  "pandas": "3.0.3",
+  "prereg": "provenance/wp7_alpha_headline_adoption_prereg.json",
+  "prereg_sha256": "0af15511304226c26cb3f90d1ad7b42baacaa9e3cf59659ffa27d74677f24d57",
+  "reduced_run_validation": {
+    "iterations_here": 400000,
+    "iterations_published": 2000000,
+    "cells_compared": 54,
+    "worst_relative_difference_in_N_SN_mean": 0.00182,
+    "median_relative_difference": 0.00037,
+    "pass": true
+  },
+  "predictions": [
+    {
+      "id": "D1-P1",
+      "statement": "The structural finding survives the restriction: on every one of the 36 retained branches the ledger returns exactly zero supernovae for any black-hole threshold at or below 40 Msun.",
+      "max_N_SN_over_all_cuts_le_40Msun_retained": 0.0997,
+      "min_turnoff_over_retained_branches_Msun": 32.77,
+      "outcome": "FAIL",
+      "recorded_as": "FAILED, not reinterpreted",
+      "diagnosis": "The claim is false at the 40 Msun cut once the star-formation duration branch is switched on.  A star may be born up to delta/2 before the fitted age, so the LOWEST turnoff any star was compared against is not the turnoff at the fitted age.  Over the whole grid it falls to 32.8 Msun at delta = 2 Myr, against 43.9 Msun at delta = 0.  The claim holds exactly on every coeval branch and fails on the 1 and 2 Myr formation windows.",
+      "not_caused_by_the_restriction": {
+        "retained_branches_affected": 14,
+        "dropped_branches_affected": 7,
+        "reading": "the failure appears in the dropped alpha = 2.6 set as well, in the same proportion, so it is a pre-existing over-generalization in WP7 section 2a and not a consequence of the branch restriction.  The prereg's if_it_fails clause requires the structural claim to be RE-DERIVED before adoption, which is done below; it does not require the restriction to be abandoned."
+      },
+      "affected_branches": [
+        {
+          "family": "PARSEC",
+          "R_V": 3.0,
+          "alpha": 2.0,
+          "sf_duration_Myr": 2.0,
+          "N_SN_below_40Msun": 0.0015,
+          "N_SN_total": 20.01,
+          "fraction": 8e-05
+        },
+        {
+          "family": "PARSEC",
+          "R_V": 3.0,
+          "alpha": 2.3,
+          "sf_duration_Myr": 2.0,
+          "N_SN_below_40Msun": 0.0002,
+          "N_SN_total": 7.26,
+          "fraction": 3e-05
+        },
+        {
+          "family": "PARSEC",
+          "R_V": 3.1,
+          "alpha": 2.0,
+          "sf_duration_Myr": 2.0,
+          "N_SN_below_40Msun": 0.0018,
+          "N_SN_total": 19.95,
+          "fraction": 9e-05
+        },
+        {
+          "family": "PARSEC",
+          "R_V": 3.1,
+          "alpha": 2.3,
+          "sf_duration_Myr": 2.0,
+          "N_SN_below_40Msun": 0.0003,
+          "N_SN_total": 7.42,
+          "fraction": 4e-05
+        },
+        {
+          "family": "PARSEC",
+          "R_V": 3.5,
+          "alpha": 2.0,
+          "sf_duration_Myr": 2.0,
+          "N_SN_below_40Msun": 0.0997,
+          "N_SN_total": 27.22,
+          "fraction": 0.00366
+        },
+        {
+          "family": "PARSEC",
+          "R_V": 3.5,
+          "alpha": 2.3,
+          "sf_duration_Myr": 2.0,
+          "N_SN_below_40Msun": 0.0335,
+          "N_SN_total": 9.45,
+          "fraction": 0.00355
+        },
+        {
+          "family": "MIST",
+          "R_V": 3.0,
+          "alpha": 2.0,
+          "sf_duration_Myr": 2.0,
+          "N_SN_below_40Msun": 0.0126,
+          "N_SN_total": 29.9,
+          "fraction": 0.00042
+        },
+        {
+          "family": "MIST",
+          "R_V": 3.0,
+          "alpha": 2.3,
+          "sf_duration_Myr": 2.0,
+          "N_SN_below_40Msun": 0.0025,
+          "N_SN_total": 11.25,
+          "fraction": 0.00022
+        },
+        {
+          "family": "MIST",
+          "R_V": 3.1,
+          "alpha": 2.0,
+          "sf_duration_Myr": 2.0,
+          "N_SN_below_40Msun": 0.0178,
+          "N_SN_total": 31.32,
+          "fraction": 0.00057
+        },
+        {
+          "family": "MIST",
+          "R_V": 3.1,
+          "alpha": 2.3,
+          "sf_duration_Myr": 2.0,
+          "N_SN_below_40Msun": 0.0041,
+          "N_SN_total": 11.9,
+          "fraction": 0.00034
+        },
+        {
+          "family": "MIST",
+          "R_V": 3.5,
+          "alpha": 2.0,
+          "sf_duration_Myr": 1.0,
+          "N_SN_below_40Msun": 0.0018,
+          "N_SN_total": 32.27,
+          "fraction": 5e-05
+        },
+        {
+          "family": "MIST",
+          "R_V": 3.5,
+          "alpha": 2.0,
+          "sf_duration_Myr": 2.0,
+          "N_SN_below_40Msun": 0.0755,
+          "N_SN_total": 34.53,
+          "fraction": 0.00219
+        },
+        {
+          "family": "MIST",
+          "R_V": 3.5,
+          "alpha": 2.3,
+          "sf_duration_Myr": 1.0,
+          "N_SN_below_40Msun": 0.0003,
+          "N_SN_total": 12.36,
+          "fraction": 3e-05
+        },
+        {
+          "family": "MIST",
+          "R_V": 3.5,
+          "alpha": 2.3,
+          "sf_duration_Myr": 2.0,
+          "N_SN_below_40Msun": 0.0279,
+          "N_SN_total": 13.41,
+          "fraction": 0.00208
+        }
+      ]
+    },
+    {
+      "id": "D1-P2",
+      "statement": "The restriction does not weaken the WP8 pulsar agreement: on the retained set P(last SN within the widened 151-401 kyr pulsar window) is at least as high as on the full 54-branch set, because the dropped branches are the lowest-rate ones.",
+      "window_hi_Myr": 0.401,
+      "retained_min": 0.8019,
+      "retained_max": 1.0,
+      "full_set_min": 0.4362,
+      "dropped_min": 0.4362,
+      "published_baseline_value": 0.96,
+      "outcome": "PASS"
+    },
+    {
+      "id": "D1-P3",
+      "statement": "Nothing is deleted.  After adoption, tables/wp7_ledger.csv still contains all 54 all-explode association branches including all 18 at alpha = 2.6, and its sha256 is unchanged from before the adoption ran.",
+      "ledger_sha256_before": "be8098adbc57e7b1002ed5126a8e9609b04532dae21c22cdb8ddd02b841ee31b",
+      "ledger_sha256_after": "be8098adbc57e7b1002ed5126a8e9609b04532dae21c22cdb8ddd02b841ee31b",
+      "association_all_explode_rows": 54,
+      "alpha_2p6_branches_present": 18,
+      "outcome": "PASS"
+    },
+    {
+      "id": "D1-P4",
+      "statement": "The baseline branch is unaffected.  PARSEC, R_V = 3.1, alpha = 2.3, coeval, all-explode still gives N_SN = 8.43, so the paper's central number does not move as a result of a decision about which branches surround it.",
+      "baseline_N_SN_mean": 6.657,
+      "outcome": "PASS",
+      "outcome_literal_vs_8p43": "FAIL",
+      "chain": "repair_v9",
+      "outcome_chain_reading": "PASS",
+      "governing_reading": "chain",
+      "why": "the literal threshold quotes the repair_v7 number; on repair_v9 the baseline moved for an upstream reason (issue #19), not because of the alpha restriction"
+    }
+  ],
+  "all_predictions_pass": false,
+  "structural_claim_rederivation": {
+    "supersedes": "WP7 report section 2a and the PROJECT_TRACE WP7 status line: 'for any black-hole threshold <= 40 Msun the ledger returns exactly zero on every branch'",
+    "corrected_claim": "For any black-hole threshold at or below 30 Msun the ledger returns exactly zero supernovae on every one of the 54 branches and in every iteration.  At a 40 Msun threshold it is exactly zero on every coeval branch, and at most 0.4% of N_SN on the 1-2 Myr formation-window branches.",
+    "largest_cut_that_is_zero_everywhere_Msun": 30.0,
+    "min_turnoff_all_branches_Msun": 32.77,
+    "min_turnoff_coeval_branches_Msun": 43.92,
+    "min_dead_progenitor_all_branches_Msun": 32.81,
+    "worst_fraction_of_N_SN_below_40Msun": 0.00366,
+    "max_fraction_of_N_SN_below_52Msun": 0.12774,
+    "L2_unaffected": {
+      "islands_cut_Msun": 25.0,
+      "max_N_SN_below_islands_cut_any_branch": 0.0,
+      "reading": "prediction L2 was written against the 25 Msun islands cut, not 40, and it is exactly zero on every branch.  L2 stands as PASS; what was over-general is the prose that generalized it to 40 Msun."
+    },
+    "why_the_corrected_claim_is_still_the_point": "The Sukhbold+2016 / Ertl+2016 islands of implosion sit between roughly 15 and 25 Msun.  The corrected floor of 30 Msun is above the whole of that structure, so the paper's actual argument -- that the island pattern is irrelevant at this age and the budget is conditional on very-massive-star explodability -- is unchanged and is now stated at a mass the grid actually supports.",
+    "consequence_for_WP9_C3": "C3 requires progenitors above ~30 Msun to be envelope-stripped.  The minimum dead progenitor anywhere on the grid is 32.8 Msun, still above 30, so C3 = 1.000 stands as computed.  What must be corrected is the characterization 'far above the ~30 Msun stripping threshold': on the delta = 2 Myr branches the margin is a few Msun, not a factor."
+  },
+  "adopted": true,
+  "adoption_rule_applied": "D1-P1 failed and is recorded as failed.  The prereg's own failure clause requires the structural claim to be re-derived before adoption, not the restriction to be abandoned, and the failure is measured to affect the dropped alpha = 2.6 branches in the same proportion as the retained ones -- so it is not restriction-induced.  D1-P2, D1-P3 and D1-P4 all pass.  Adopted with the corrected structural claim attached.",
+  "headline_branch_sets_published_iterations": {
+    "all_54": {
+      "branches": 54,
+      "N_SN_min": 2.02,
+      "N_SN_max": 34.53,
+      "N_SN_ensemble_median": 9.57,
+      "factor": 17.11,
+      "P_last_SN_within_100kyr_min": 0.214,
+      "P_last_SN_within_100kyr_max": 0.959,
+      "P_at_least_one_min": 0.8437
+    },
+    "retained_36": {
+      "branches": 36,
+      "N_SN_min": 6.29,
+      "N_SN_max": 34.53,
+      "N_SN_ensemble_median": 15.95,
+      "factor": 5.49,
+      "P_last_SN_within_100kyr_min": 0.483,
+      "P_last_SN_within_100kyr_max": 0.959,
+      "P_at_least_one_min": 0.9945
+    },
+    "dropped_18": {
+      "branches": 18,
+      "N_SN_min": 2.02,
+      "N_SN_max": 5.05,
+      "N_SN_ensemble_median": 3.29,
+      "factor": 2.5,
+      "P_last_SN_within_100kyr_min": 0.214,
+      "P_last_SN_within_100kyr_max": 0.398,
+      "P_at_least_one_min": 0.8437
+    }
+  },
+  "headline_statement": "N_SN = 6.66 on the baseline branch (PARSEC, R_V = 3.1, alpha = 2.3, coeval, all-explode); carried range 6.29-34.53 across the 36 headline branches; alpha = 2.6 gives 2.02-5.05.",
+  "correction_recorded": "wp5_alpha_plausibility.md section 8 and item D1 of the pre-WP10 brief state the retained set as 'median approximately 9'.  That is the median of the FULL 54-branch set (8.79).  The retained set's ensemble median is 15.95, so dropping alpha = 2.6 RAISES the ensemble median by about 50%.  The manuscript therefore leads with the baseline branch value and the carried range, not with an ensemble median across a non-probability-weighted branch set.",
+  "inputs": {
+    "tables/wp7_ledger_repair_v9.csv": "be8098adbc57e7b1002ed5126a8e9609b04532dae21c22cdb8ddd02b841ee31b",
+    "provenance/wp7_alpha_headline_adoption_prereg.json": "0af15511304226c26cb3f90d1ad7b42baacaa9e3cf59659ffa27d74677f24d57"
+  },
+  "outputs": {
+    "tables/wp7_alpha_headline_branch_sets_repair_v9.csv": "751f63593b53aca9f272fb5f12722430a337dd1608bd237eba7d854ddedef32e"
+  },
+  "chain": "repair_v9",
+  "narrative_fields_note": "adoption_rule_applied and correction_recorded are the repair_v7 narrative and quote repair_v7 numbers; the predictions, branch sets and headline_statement above are recomputed on repair_v9."
+}

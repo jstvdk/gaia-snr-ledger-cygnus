@@ -1,0 +1,500 @@
+{
+  "created_utc": "2026-10-07T18:03:42.830265+00:00",
+  "script": "scripts/repair_v9_injections.py",
+  "driver_of": "scripts/wp5_injections_agenodes.py",
+  "status": "SUCCESS",
+  "preregistration": "provenance/repair_v9_prereg.json",
+  "upstream_repair_version": "repair_v5",
+  "age_version": "repair_v9_scan04",
+  "output_version": "repair_v9_scan04",
+  "anchor_prior_mode": "kriging",
+  "seed": 20260723,
+  "seed_recipe": "fresh default_rng(SEED) per node, so every node of a branch shares its donor, binary and extinction realization and differs only in truth age; node results do not depend on worker or order",
+  "parallel_workers": 3,
+  "wall_seconds": 1499.4,
+  "truth_age_interpolation": false,
+  "truth_binary_fraction_model": "extended",
+  "environment": {
+    "python": "3.11.15 | packaged by conda-forge | (main, Aug 11 2026, 10:26:29) [GCC 14.4.0]",
+    "platform": "Linux-5.14.0-570.49.1.el9_6.x86_64-x86_64-with-glibc2.34",
+    "numpy": "2.4.6",
+    "pandas": "3.0.3",
+    "scipy": "1.17.1",
+    "sklearn": "1.9.0"
+  },
+  "qmc_validation": {
+    "rows": 760,
+    "covariance_repairs": 0,
+    "decision_agreement": 0.9894736842105263,
+    "false_negative_count": 7,
+    "false_positive_count": 1,
+    "median_abs_probability_difference": 0.0068187499999999845,
+    "p95_abs_probability_difference": 0.02272812500000001
+  },
+  "inputs": {
+    "data/processed/wp1_gaia_narrow.parquet": "ae17f6180e11073b8cc781497a45d3245085569502147f07926d1c5e46e5587a",
+    "data/processed/wp1_2mass_join.parquet": "2be08c74dab31d09b914c3b2038aed39d03fa6595339bf40efd78f6e15c11c2e",
+    "data/processed/wp2_members.parquet": "5db938b116edd70e8c7af3d2d4bbc8c9273d4e4c9cde76309ffc84d8cdaf90be",
+    "tables/wp2_subgroup_labels.parquet": "44a5ee7b9190703dae8dca9540c192757423db293c9ecc1ea123065849800887",
+    "data/processed/wp3_extinction_repair_v5.parquet": "76a3c3df1e754b9846a2401ce898aad50f8de28b90a11725687af0e7cc4524fc",
+    "data/processed/wp3_extinction_posterior_repair_v5.npz": "36f9bd9849cb6c1d3168004ccc53fed294293d55dd67f4dca5eeac3b157af19c",
+    "data/processed/wp4_age_posteriors_repair_v9_scan04.parquet": "6d718ee3e9444b6810ab1f2ffcf9077381f4f8321936d2430ecbe90c5cfd3553",
+    "provenance/wp2_membership_manifest.json": "984c8a4638267033abe278d9ca454610e12eb53d647ad6c9329071e83be769fe",
+    "provenance/wp3_repair_execution.json": "22c0f546f7f1a6d91c48a2b7dfbb6d68f77d3f4d678a19e30482491607b74061"
+  },
+  "node_plan": [
+    {
+      "subgroup": "CygOB2-A",
+      "family": "PARSEC",
+      "R_V": 3.0,
+      "truth_age_Myr": 3.1622776601683795,
+      "prior_weight": 1.0000000000000002,
+      "already_generated": false
+    },
+    {
+      "subgroup": "CygOB2-B",
+      "family": "PARSEC",
+      "R_V": 3.0,
+      "truth_age_Myr": 3.1622776601683795,
+      "prior_weight": 1.0000000000000002,
+      "already_generated": false
+    },
+    {
+      "subgroup": "CygOB2-C",
+      "family": "PARSEC",
+      "R_V": 3.0,
+      "truth_age_Myr": 3.1622776601683795,
+      "prior_weight": 1.0000000000000002,
+      "already_generated": false
+    },
+    {
+      "subgroup": "CygOB2-A",
+      "family": "PARSEC",
+      "R_V": 3.1,
+      "truth_age_Myr": 3.1622776601683795,
+      "prior_weight": 1.0000000000000002,
+      "already_generated": false
+    },
+    {
+      "subgroup": "CygOB2-B",
+      "family": "PARSEC",
+      "R_V": 3.1,
+      "truth_age_Myr": 3.1622776601683795,
+      "prior_weight": 1.0000000000000002,
+      "already_generated": false
+    },
+    {
+      "subgroup": "CygOB2-C",
+      "family": "PARSEC",
+      "R_V": 3.1,
+      "truth_age_Myr": 3.1622776601683795,
+      "prior_weight": 1.0000000000000002,
+      "already_generated": false
+    },
+    {
+      "subgroup": "CygOB2-A",
+      "family": "PARSEC",
+      "R_V": 3.5,
+      "truth_age_Myr": 3.1622776601683795,
+      "prior_weight": 1.0000000000000002,
+      "already_generated": false
+    },
+    {
+      "subgroup": "CygOB2-B",
+      "family": "PARSEC",
+      "R_V": 3.5,
+      "truth_age_Myr": 3.1622776601683795,
+      "prior_weight": 1.0000000000000002,
+      "already_generated": false
+    },
+    {
+      "subgroup": "CygOB2-C",
+      "family": "PARSEC",
+      "R_V": 3.5,
+      "truth_age_Myr": 3.1622776601683795,
+      "prior_weight": 1.0000000000000002,
+      "already_generated": false
+    },
+    {
+      "subgroup": "CygOB2-A",
+      "family": "MIST",
+      "R_V": 3.0,
+      "truth_age_Myr": 3.180533688329517,
+      "prior_weight": 1.0000000000000002,
+      "already_generated": false
+    },
+    {
+      "subgroup": "CygOB2-B",
+      "family": "MIST",
+      "R_V": 3.0,
+      "truth_age_Myr": 3.180533688329517,
+      "prior_weight": 1.0000000000000002,
+      "already_generated": false
+    },
+    {
+      "subgroup": "CygOB2-C",
+      "family": "MIST",
+      "R_V": 3.0,
+      "truth_age_Myr": 3.180533688329517,
+      "prior_weight": 1.0000000000000002,
+      "already_generated": false
+    },
+    {
+      "subgroup": "CygOB2-A",
+      "family": "MIST",
+      "R_V": 3.1,
+      "truth_age_Myr": 3.180533688329517,
+      "prior_weight": 1.0000000000000002,
+      "already_generated": false
+    },
+    {
+      "subgroup": "CygOB2-B",
+      "family": "MIST",
+      "R_V": 3.1,
+      "truth_age_Myr": 3.180533688329517,
+      "prior_weight": 1.0000000000000002,
+      "already_generated": false
+    },
+    {
+      "subgroup": "CygOB2-C",
+      "family": "MIST",
+      "R_V": 3.1,
+      "truth_age_Myr": 3.180533688329517,
+      "prior_weight": 1.0000000000000002,
+      "already_generated": false
+    },
+    {
+      "subgroup": "CygOB2-A",
+      "family": "MIST",
+      "R_V": 3.5,
+      "truth_age_Myr": 3.180533688329517,
+      "prior_weight": 1.0000000000000002,
+      "already_generated": false
+    },
+    {
+      "subgroup": "CygOB2-B",
+      "family": "MIST",
+      "R_V": 3.5,
+      "truth_age_Myr": 3.180533688329517,
+      "prior_weight": 1.0000000000000002,
+      "already_generated": false
+    },
+    {
+      "subgroup": "CygOB2-C",
+      "family": "MIST",
+      "R_V": 3.5,
+      "truth_age_Myr": 3.180533688329517,
+      "prior_weight": 1.0000000000000002,
+      "already_generated": false
+    }
+  ],
+  "generated": [
+    {
+      "subgroup": "CygOB2-B",
+      "family": "PARSEC",
+      "R_V": 3.0,
+      "truth_age_Myr": 3.1622776601683795,
+      "prior_weight": 1.0000000000000002,
+      "already_generated": false,
+      "native_isochrone_age_Myr": 3.1622776601683795,
+      "membership_pass": 11437,
+      "mass_recovered": 11437,
+      "elapsed_seconds": 230.0,
+      "worker_pid": 1808552,
+      "outputs": {
+        "data/processed/wp5_agenode_B_PARSEC_rv3p0_age3p162_repair_v9_scan04_response.parquet": "19eb8e791a3c74a020537433a988f095e000aa901a51b1ff9cda7d3d0c0e1cf7",
+        "data/processed/wp5_agenode_B_PARSEC_rv3p0_age3p162_repair_v9_scan04_curve.parquet": "5048ab9562d74aec5c0b86b70349ecd6f4d0adc25435e2bef178db1782fd771b"
+      }
+    },
+    {
+      "subgroup": "CygOB2-C",
+      "family": "PARSEC",
+      "R_V": 3.0,
+      "truth_age_Myr": 3.1622776601683795,
+      "prior_weight": 1.0000000000000002,
+      "already_generated": false,
+      "native_isochrone_age_Myr": 3.1622776601683795,
+      "membership_pass": 11218,
+      "mass_recovered": 11218,
+      "elapsed_seconds": 229.2,
+      "worker_pid": 1808511,
+      "outputs": {
+        "data/processed/wp5_agenode_C_PARSEC_rv3p0_age3p162_repair_v9_scan04_response.parquet": "13b0fe5c1f006728b8324712ac900497d95d4b2fd25e19ca905a967c2c25fd21",
+        "data/processed/wp5_agenode_C_PARSEC_rv3p0_age3p162_repair_v9_scan04_curve.parquet": "a33ae76f76435d6a23152d4af6f0c7704ed66874bb6935c03ce539071b75b037"
+      }
+    },
+    {
+      "subgroup": "CygOB2-A",
+      "family": "PARSEC",
+      "R_V": 3.0,
+      "truth_age_Myr": 3.1622776601683795,
+      "prior_weight": 1.0000000000000002,
+      "already_generated": false,
+      "native_isochrone_age_Myr": 3.1622776601683795,
+      "membership_pass": 12023,
+      "mass_recovered": 12023,
+      "elapsed_seconds": 242.6,
+      "worker_pid": 1808502,
+      "outputs": {
+        "data/processed/wp5_agenode_A_PARSEC_rv3p0_age3p162_repair_v9_scan04_response.parquet": "13c8792545b3302accc220d628e6e79dbe9fdbb304293ffd5e0b0ff1b66d8686",
+        "data/processed/wp5_agenode_A_PARSEC_rv3p0_age3p162_repair_v9_scan04_curve.parquet": "f5c657b67ecdfc33cc8d5b8b0695f41756c4a4e7203202e715bfb85a7cfac2fe"
+      }
+    },
+    {
+      "subgroup": "CygOB2-B",
+      "family": "PARSEC",
+      "R_V": 3.1,
+      "truth_age_Myr": 3.1622776601683795,
+      "prior_weight": 1.0000000000000002,
+      "already_generated": false,
+      "native_isochrone_age_Myr": 3.1622776601683795,
+      "membership_pass": 11416,
+      "mass_recovered": 11416,
+      "elapsed_seconds": 227.4,
+      "worker_pid": 1808511,
+      "outputs": {
+        "data/processed/wp5_agenode_B_PARSEC_rv3p1_age3p162_repair_v9_scan04_response.parquet": "30286af701e8dd684ada935d5779dee5eaaf31e3cbd880446b0ed26b83f2a8be",
+        "data/processed/wp5_agenode_B_PARSEC_rv3p1_age3p162_repair_v9_scan04_curve.parquet": "cc70e00377cc85dbe378133a34280b41ce31f372d054ae06b600ca56f155d7e8"
+      }
+    },
+    {
+      "subgroup": "CygOB2-C",
+      "family": "PARSEC",
+      "R_V": 3.1,
+      "truth_age_Myr": 3.1622776601683795,
+      "prior_weight": 1.0000000000000002,
+      "already_generated": false,
+      "native_isochrone_age_Myr": 3.1622776601683795,
+      "membership_pass": 11147,
+      "mass_recovered": 11147,
+      "elapsed_seconds": 225.0,
+      "worker_pid": 1808502,
+      "outputs": {
+        "data/processed/wp5_agenode_C_PARSEC_rv3p1_age3p162_repair_v9_scan04_response.parquet": "4ffd4a9538cdff62569574d992e1a85a28937a810f24030e8981bfe00785148b",
+        "data/processed/wp5_agenode_C_PARSEC_rv3p1_age3p162_repair_v9_scan04_curve.parquet": "755201154bf048dd998c86d3cf1187e9c2eca9570a5708b049b2170b9dc75f17"
+      }
+    },
+    {
+      "subgroup": "CygOB2-A",
+      "family": "PARSEC",
+      "R_V": 3.1,
+      "truth_age_Myr": 3.1622776601683795,
+      "prior_weight": 1.0000000000000002,
+      "already_generated": false,
+      "native_isochrone_age_Myr": 3.1622776601683795,
+      "membership_pass": 11967,
+      "mass_recovered": 11967,
+      "elapsed_seconds": 237.4,
+      "worker_pid": 1808552,
+      "outputs": {
+        "data/processed/wp5_agenode_A_PARSEC_rv3p1_age3p162_repair_v9_scan04_response.parquet": "7bb8ecf1cac7a4ca4fc1661d005a03a6e751dddb29b7b85a72a7da6fb9ac8624",
+        "data/processed/wp5_agenode_A_PARSEC_rv3p1_age3p162_repair_v9_scan04_curve.parquet": "87f85347d4b3cc13bd8f4295ed6f1531389b1cda3352ce0a6920e7edb5c7d96d"
+      }
+    },
+    {
+      "subgroup": "CygOB2-C",
+      "family": "PARSEC",
+      "R_V": 3.5,
+      "truth_age_Myr": 3.1622776601683795,
+      "prior_weight": 1.0000000000000002,
+      "already_generated": false,
+      "native_isochrone_age_Myr": 3.1622776601683795,
+      "membership_pass": 10812,
+      "mass_recovered": 10812,
+      "elapsed_seconds": 213.0,
+      "worker_pid": 1808552,
+      "outputs": {
+        "data/processed/wp5_agenode_C_PARSEC_rv3p5_age3p162_repair_v9_scan04_response.parquet": "7577a187768267a94abfdaa0c8c4c592e22701625c9bf915685a1fe81c44f164",
+        "data/processed/wp5_agenode_C_PARSEC_rv3p5_age3p162_repair_v9_scan04_curve.parquet": "5530acc54470f0ac3376d32ad2658884a1e5d4f0f6f8d2d899f45d6845acc0bf"
+      }
+    },
+    {
+      "subgroup": "CygOB2-B",
+      "family": "PARSEC",
+      "R_V": 3.5,
+      "truth_age_Myr": 3.1622776601683795,
+      "prior_weight": 1.0000000000000002,
+      "already_generated": false,
+      "native_isochrone_age_Myr": 3.1622776601683795,
+      "membership_pass": 11068,
+      "mass_recovered": 11068,
+      "elapsed_seconds": 225.4,
+      "worker_pid": 1808502,
+      "outputs": {
+        "data/processed/wp5_agenode_B_PARSEC_rv3p5_age3p162_repair_v9_scan04_response.parquet": "6c007b4e2995159f87c2cbd25bfeb680df0e5e39727d30216f3afe6ffd40a9ba",
+        "data/processed/wp5_agenode_B_PARSEC_rv3p5_age3p162_repair_v9_scan04_curve.parquet": "35bcd05ebaf6c5cfe0a7d7062aa4d2260f1ece101286843767d8358e9a283db5"
+      }
+    },
+    {
+      "subgroup": "CygOB2-A",
+      "family": "PARSEC",
+      "R_V": 3.5,
+      "truth_age_Myr": 3.1622776601683795,
+      "prior_weight": 1.0000000000000002,
+      "already_generated": false,
+      "native_isochrone_age_Myr": 3.1622776601683795,
+      "membership_pass": 11969,
+      "mass_recovered": 11969,
+      "elapsed_seconds": 240.6,
+      "worker_pid": 1808511,
+      "outputs": {
+        "data/processed/wp5_agenode_A_PARSEC_rv3p5_age3p162_repair_v9_scan04_response.parquet": "4cace4e64148ebf0280e43c0b86c20325fbd5a7aa12cfdef0434e3afa04b86d6",
+        "data/processed/wp5_agenode_A_PARSEC_rv3p5_age3p162_repair_v9_scan04_curve.parquet": "bf76421bcdabeb29d2004c29510d8f67f1c4fa23e9fec14109e429cbd9a437e0"
+      }
+    },
+    {
+      "subgroup": "CygOB2-C",
+      "family": "MIST",
+      "R_V": 3.0,
+      "truth_age_Myr": 3.180533688329517,
+      "prior_weight": 1.0000000000000002,
+      "already_generated": false,
+      "native_isochrone_age_Myr": 3.180533688329517,
+      "membership_pass": 11324,
+      "mass_recovered": 11324,
+      "elapsed_seconds": 220.5,
+      "worker_pid": 1808511,
+      "outputs": {
+        "data/processed/wp5_agenode_C_MIST_rv3p0_age3p181_repair_v9_scan04_response.parquet": "62a999669fdd5004a3f411d687d36aa16e969a709aea2cbb62064e303d05bb16",
+        "data/processed/wp5_agenode_C_MIST_rv3p0_age3p181_repair_v9_scan04_curve.parquet": "5c72ebfeca11b2bc6ffab90a98bd027952610323807a81860eea3a203a4c8dd3"
+      }
+    },
+    {
+      "subgroup": "CygOB2-A",
+      "family": "MIST",
+      "R_V": 3.0,
+      "truth_age_Myr": 3.180533688329517,
+      "prior_weight": 1.0000000000000002,
+      "already_generated": false,
+      "native_isochrone_age_Myr": 3.180533688329517,
+      "membership_pass": 12059,
+      "mass_recovered": 12059,
+      "elapsed_seconds": 243.6,
+      "worker_pid": 1808552,
+      "outputs": {
+        "data/processed/wp5_agenode_A_MIST_rv3p0_age3p181_repair_v9_scan04_response.parquet": "6eb2e620c7df0fe9b5e3b38dca9cfd736665570a19c11ec2cc52f4efefce6183",
+        "data/processed/wp5_agenode_A_MIST_rv3p0_age3p181_repair_v9_scan04_curve.parquet": "fca469f92bc48fa383a8c58e4700a6b212b992b0fffcccb75603c696ebef85f1"
+      }
+    },
+    {
+      "subgroup": "CygOB2-B",
+      "family": "MIST",
+      "R_V": 3.0,
+      "truth_age_Myr": 3.180533688329517,
+      "prior_weight": 1.0000000000000002,
+      "already_generated": false,
+      "native_isochrone_age_Myr": 3.180533688329517,
+      "membership_pass": 11445,
+      "mass_recovered": 11445,
+      "elapsed_seconds": 233.5,
+      "worker_pid": 1808502,
+      "outputs": {
+        "data/processed/wp5_agenode_B_MIST_rv3p0_age3p181_repair_v9_scan04_response.parquet": "951cbeda121e77dbb7c76ba1a6fc7dfbcf27c12d55c0f96781ec3fa0043a7668",
+        "data/processed/wp5_agenode_B_MIST_rv3p0_age3p181_repair_v9_scan04_curve.parquet": "1e9d97700a59e52cabab1b48f50f4ca5330b5ac5b126dbae75d456cbcd0cfe65"
+      }
+    },
+    {
+      "subgroup": "CygOB2-B",
+      "family": "MIST",
+      "R_V": 3.1,
+      "truth_age_Myr": 3.180533688329517,
+      "prior_weight": 1.0000000000000002,
+      "already_generated": false,
+      "native_isochrone_age_Myr": 3.180533688329517,
+      "membership_pass": 11496,
+      "mass_recovered": 11496,
+      "elapsed_seconds": 217.9,
+      "worker_pid": 1808552,
+      "outputs": {
+        "data/processed/wp5_agenode_B_MIST_rv3p1_age3p181_repair_v9_scan04_response.parquet": "123c7f5d3dc02832b81b7b3296c1885fe88fb22089270eeff5916a7a096c4104",
+        "data/processed/wp5_agenode_B_MIST_rv3p1_age3p181_repair_v9_scan04_curve.parquet": "d07677bc41a411debb13d36daedd086cd3c4aee117d16a50cef880384770d6f0"
+      }
+    },
+    {
+      "subgroup": "CygOB2-C",
+      "family": "MIST",
+      "R_V": 3.1,
+      "truth_age_Myr": 3.180533688329517,
+      "prior_weight": 1.0000000000000002,
+      "already_generated": false,
+      "native_isochrone_age_Myr": 3.180533688329517,
+      "membership_pass": 11198,
+      "mass_recovered": 11198,
+      "elapsed_seconds": 227.9,
+      "worker_pid": 1808502,
+      "outputs": {
+        "data/processed/wp5_agenode_C_MIST_rv3p1_age3p181_repair_v9_scan04_response.parquet": "b97815bcaf423655bf333cf98f5f64ffab14486493421fb3a5b7a3523a36e061",
+        "data/processed/wp5_agenode_C_MIST_rv3p1_age3p181_repair_v9_scan04_curve.parquet": "12943acd97301356a452314c7a08212ed5ae1a08cd4662a6db6c36544de183c5"
+      }
+    },
+    {
+      "subgroup": "CygOB2-A",
+      "family": "MIST",
+      "R_V": 3.1,
+      "truth_age_Myr": 3.180533688329517,
+      "prior_weight": 1.0000000000000002,
+      "already_generated": false,
+      "native_isochrone_age_Myr": 3.180533688329517,
+      "membership_pass": 12054,
+      "mass_recovered": 12054,
+      "elapsed_seconds": 243.1,
+      "worker_pid": 1808511,
+      "outputs": {
+        "data/processed/wp5_agenode_A_MIST_rv3p1_age3p181_repair_v9_scan04_response.parquet": "02f0f0b38b8f25b4f94708fe7845ac63355a3d28cc266c32d8360d3430965b59",
+        "data/processed/wp5_agenode_A_MIST_rv3p1_age3p181_repair_v9_scan04_curve.parquet": "bc19e0ff4470b5ee335d38564c21e565350d4e0391f93870729d878118cd8318"
+      }
+    },
+    {
+      "subgroup": "CygOB2-B",
+      "family": "MIST",
+      "R_V": 3.5,
+      "truth_age_Myr": 3.180533688329517,
+      "prior_weight": 1.0000000000000002,
+      "already_generated": false,
+      "native_isochrone_age_Myr": 3.180533688329517,
+      "membership_pass": 11107,
+      "mass_recovered": 11107,
+      "elapsed_seconds": 211.4,
+      "worker_pid": 1808502,
+      "outputs": {
+        "data/processed/wp5_agenode_B_MIST_rv3p5_age3p181_repair_v9_scan04_response.parquet": "088dc5eebc7e8a9d066a3cab74113a9b4729f1f57f6a1cf62e186fb01fc15020",
+        "data/processed/wp5_agenode_B_MIST_rv3p5_age3p181_repair_v9_scan04_curve.parquet": "283345d33108a046cf455134e13f3933aeb9b14965050735657f8907941b07a8"
+      }
+    },
+    {
+      "subgroup": "CygOB2-A",
+      "family": "MIST",
+      "R_V": 3.5,
+      "truth_age_Myr": 3.180533688329517,
+      "prior_weight": 1.0000000000000002,
+      "already_generated": false,
+      "native_isochrone_age_Myr": 3.180533688329517,
+      "membership_pass": 11973,
+      "mass_recovered": 11973,
+      "elapsed_seconds": 233.7,
+      "worker_pid": 1808552,
+      "outputs": {
+        "data/processed/wp5_agenode_A_MIST_rv3p5_age3p181_repair_v9_scan04_response.parquet": "29adbce6bef3a63cf086db522f6905ba580db5bf1cf691941900267e96ebc6d1",
+        "data/processed/wp5_agenode_A_MIST_rv3p5_age3p181_repair_v9_scan04_curve.parquet": "13b8b4b537353bb9cc15f3d6b3fa4b1eb62488e7acb5e75fa982450449e3a496"
+      }
+    },
+    {
+      "subgroup": "CygOB2-C",
+      "family": "MIST",
+      "R_V": 3.5,
+      "truth_age_Myr": 3.180533688329517,
+      "prior_weight": 1.0000000000000002,
+      "already_generated": false,
+      "native_isochrone_age_Myr": 3.180533688329517,
+      "membership_pass": 10897,
+      "mass_recovered": 10897,
+      "elapsed_seconds": 211.2,
+      "worker_pid": 1808511,
+      "outputs": {
+        "data/processed/wp5_agenode_C_MIST_rv3p5_age3p181_repair_v9_scan04_response.parquet": "f97d3a2c0f1dfac0881057d94e3d4e93f3bf389d324c86a23e91df6659354ce9",
+        "data/processed/wp5_agenode_C_MIST_rv3p5_age3p181_repair_v9_scan04_curve.parquet": "e8a04d87621d8e6068dc3d25b16ecde6f2f304f72d61e2a0d06416df66d8b9f7"
+      }
+    }
+  ],
+  "frozen_outputs_overwritten": false
+}

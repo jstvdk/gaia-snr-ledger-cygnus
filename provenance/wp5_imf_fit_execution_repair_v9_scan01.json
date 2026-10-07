@@ -1,0 +1,1278 @@
+{
+  "created_utc": "2026-10-07T18:04:33.046857+00:00",
+  "script": "scripts/wp5_fit_imf_joint.py",
+  "upstream_repair_version": "repair_v5",
+  "wp4_mass_version": "repair_v9_scan01",
+  "wp4_age_version": "repair_v9_scan01",
+  "response_version": "repair_v9_scan01",
+  "wp5_version": "repair_v9_scan01",
+  "status": "WP5_BLOCKED_RESIDUAL_OR_MASS_GATE",
+  "issue": "#1c step 3 \u2014 adoption run with truth-side joint age\u2013k fit",
+  "seed": 20260723,
+  "environment": {
+    "python": "3.11.15 | packaged by conda-forge | (main, Aug 11 2026, 10:26:29) [GCC 14.4.0]",
+    "platform": "Linux-5.14.0-570.49.1.el9_6.x86_64-x86_64-with-glibc2.34",
+    "numpy": "2.4.6",
+    "pandas": "3.0.3",
+    "scipy": "1.17.1"
+  },
+  "model_change_vs_repair_v3": "the injection truth age is no longer a single upper-MS MAP: the forward response is the WP4-posterior mixture over truth-age nodes, with node weights updated by the Poisson likelihood of the observed counts (Jeffreys k integrated analytically).  Identical machinery for all three subgroups; no gate statistic enters the weights; no gate threshold moved.  Upstream WP3/WP4 unchanged.",
+  "truth_age_interpolation": false,
+  "node_rule": "wp4_repair_common.age_posterior_nodes snapped to native isochrone ages, prior weight = summed node count",
+  "single_node_equivalence": "with one node fit_joint reproduces wp5_fit_imf.fit_one bit-for-bit; verified in provenance/wp5_joint_fit_baseline_check_execution.json",
+  "inputs": {
+    "data/processed/wp4_mass_posteriors_repair_v9_scan01.parquet": "2482a2c571e7acc3ffbb51dee826813cb34680fccf97a886c402ed2207587fdf",
+    "data/processed/wp4_mass_posterior_samples_repair_v9_scan01.npz": "7e466e4f5e9a72bd9d1365a976f7619ed864084023e6b9d1b209748424015fa6",
+    "data/processed/wp4_age_posteriors_repair_v9_scan01.parquet": "5bc80f85e9aebc7c3d4b3af9aa7770d97eb36674c2fa3e5ac1a840957a1807d5",
+    "data/processed/wp5_completeness_curves_repair_v5.parquet": "faf9886b59ffc40e4bd641cacd37bd44042946e9be5e6c4361f4ace693edd07c",
+    "data/processed/wp5_imf_normalization_repair_v8.parquet": "ca841c082672fced85e692b682b534b28fa5fc9739167d11e1efe745044b54c3"
+  },
+  "node_response_inputs": {
+    "data/processed/wp5_agenode_A_MIST_rv3p0_age2p248_repair_v9_scan01_response.parquet": "19e8c9667fa8741119b1a85a422de669bb3aaa2ac560f67da200af6ce12eef2b",
+    "data/processed/wp5_agenode_A_MIST_rv3p1_age2p248_repair_v9_scan01_response.parquet": "82012ff4bc92e9905dae15006a8cbdc0e78342aafdff0a5d641207df3739a377",
+    "data/processed/wp5_agenode_A_MIST_rv3p5_age2p248_repair_v9_scan01_response.parquet": "c06fad8916196b2c15d7e1c84941eba2bca360137be768e5d1887789d36e9d99",
+    "data/processed/wp5_agenode_A_PARSEC_rv3p0_age2p239_repair_v9_scan01_response.parquet": "86e3abe057f8dc22ce1ce29d205e0efc2c902f943dc8cdc0565538d92101cacd",
+    "data/processed/wp5_agenode_A_PARSEC_rv3p1_age2p239_repair_v9_scan01_response.parquet": "b91a15247879f2a7d01b8e9d4455a17c1b052b3b1e94e1a2343eebfe654d3482",
+    "data/processed/wp5_agenode_A_PARSEC_rv3p5_age2p239_repair_v9_scan01_response.parquet": "bbbb7a96f723d5ec3f854718584d88f7604a95961efc96577b9bce87ad257a59",
+    "data/processed/wp5_agenode_B_MIST_rv3p0_age2p248_repair_v9_scan01_response.parquet": "b1ad0c053ca7b2abd3467fbd2110396f2e1e97a259cffb556a4cd7acbc1857d4",
+    "data/processed/wp5_agenode_B_MIST_rv3p1_age2p248_repair_v9_scan01_response.parquet": "e15e9d0de654c82d5f4067128fff9643c47ac22769db78f5955870bb8c24815e",
+    "data/processed/wp5_agenode_B_MIST_rv3p5_age2p248_repair_v9_scan01_response.parquet": "32b01c0ed5b2225c91a6d83b133d1d1d1ee2eb576e8ca0140ffb64e71aea12fa",
+    "data/processed/wp5_agenode_B_PARSEC_rv3p0_age2p239_repair_v9_scan01_response.parquet": "06fb943451c81217ffb339e2ad8f8dd709b06d0868753a93767bf72b1574dcb3",
+    "data/processed/wp5_agenode_B_PARSEC_rv3p1_age2p239_repair_v9_scan01_response.parquet": "79a58834667fbf212f22c21eef2b0dabfdc058da190fe6df2958845a20eb2c29",
+    "data/processed/wp5_agenode_B_PARSEC_rv3p5_age2p239_repair_v9_scan01_response.parquet": "d10f55afba75c29d68111d283e6159401dd90a4a04672d22939335edbc669111",
+    "data/processed/wp5_agenode_C_MIST_rv3p0_age2p248_repair_v9_scan01_response.parquet": "ea1eee774bbcbbf5574ac89ba0f78b4209e8f6f83e0f77342087d79d31118141",
+    "data/processed/wp5_agenode_C_MIST_rv3p1_age2p248_repair_v9_scan01_response.parquet": "183ff01cffe460ab4b361bde34f03d13abf25a9d7579a74e23c408146182c27f",
+    "data/processed/wp5_agenode_C_MIST_rv3p5_age2p248_repair_v9_scan01_response.parquet": "97011d14406bfad9afc112202c2afcfe275b8bbcf89bb4cee840e32639d28833",
+    "data/processed/wp5_agenode_C_PARSEC_rv3p0_age2p239_repair_v9_scan01_response.parquet": "07fd8031101db18b6a6f31c06bb7ebd91f846d0bb6c44acd1b2f933a244c330a",
+    "data/processed/wp5_agenode_C_PARSEC_rv3p1_age2p239_repair_v9_scan01_response.parquet": "17ac9969847fc1e44fc66528ec85092d5c64c2dfca8a7bf5afee001c3c1b9b07",
+    "data/processed/wp5_agenode_C_PARSEC_rv3p5_age2p239_repair_v9_scan01_response.parquet": "9897ee81b67623f770d5bc194b3cefd5fd4077d63611a76dccf6fcf6b139ada7"
+  },
+  "node_response_sources": {
+    "CygOB2-A|PARSEC|rv3.0": {
+      "2.239": "data/processed/wp5_agenode_A_PARSEC_rv3p0_age2p239_repair_v9_scan01_response.parquet"
+    },
+    "CygOB2-B|PARSEC|rv3.0": {
+      "2.239": "data/processed/wp5_agenode_B_PARSEC_rv3p0_age2p239_repair_v9_scan01_response.parquet"
+    },
+    "CygOB2-C|PARSEC|rv3.0": {
+      "2.239": "data/processed/wp5_agenode_C_PARSEC_rv3p0_age2p239_repair_v9_scan01_response.parquet"
+    },
+    "CygOB2-A|PARSEC|rv3.1": {
+      "2.239": "data/processed/wp5_agenode_A_PARSEC_rv3p1_age2p239_repair_v9_scan01_response.parquet"
+    },
+    "CygOB2-B|PARSEC|rv3.1": {
+      "2.239": "data/processed/wp5_agenode_B_PARSEC_rv3p1_age2p239_repair_v9_scan01_response.parquet"
+    },
+    "CygOB2-C|PARSEC|rv3.1": {
+      "2.239": "data/processed/wp5_agenode_C_PARSEC_rv3p1_age2p239_repair_v9_scan01_response.parquet"
+    },
+    "CygOB2-A|PARSEC|rv3.5": {
+      "2.239": "data/processed/wp5_agenode_A_PARSEC_rv3p5_age2p239_repair_v9_scan01_response.parquet"
+    },
+    "CygOB2-B|PARSEC|rv3.5": {
+      "2.239": "data/processed/wp5_agenode_B_PARSEC_rv3p5_age2p239_repair_v9_scan01_response.parquet"
+    },
+    "CygOB2-C|PARSEC|rv3.5": {
+      "2.239": "data/processed/wp5_agenode_C_PARSEC_rv3p5_age2p239_repair_v9_scan01_response.parquet"
+    },
+    "CygOB2-A|MIST|rv3.0": {
+      "2.248": "data/processed/wp5_agenode_A_MIST_rv3p0_age2p248_repair_v9_scan01_response.parquet"
+    },
+    "CygOB2-B|MIST|rv3.0": {
+      "2.248": "data/processed/wp5_agenode_B_MIST_rv3p0_age2p248_repair_v9_scan01_response.parquet"
+    },
+    "CygOB2-C|MIST|rv3.0": {
+      "2.248": "data/processed/wp5_agenode_C_MIST_rv3p0_age2p248_repair_v9_scan01_response.parquet"
+    },
+    "CygOB2-A|MIST|rv3.1": {
+      "2.248": "data/processed/wp5_agenode_A_MIST_rv3p1_age2p248_repair_v9_scan01_response.parquet"
+    },
+    "CygOB2-B|MIST|rv3.1": {
+      "2.248": "data/processed/wp5_agenode_B_MIST_rv3p1_age2p248_repair_v9_scan01_response.parquet"
+    },
+    "CygOB2-C|MIST|rv3.1": {
+      "2.248": "data/processed/wp5_agenode_C_MIST_rv3p1_age2p248_repair_v9_scan01_response.parquet"
+    },
+    "CygOB2-A|MIST|rv3.5": {
+      "2.248": "data/processed/wp5_agenode_A_MIST_rv3p5_age2p248_repair_v9_scan01_response.parquet"
+    },
+    "CygOB2-B|MIST|rv3.5": {
+      "2.248": "data/processed/wp5_agenode_B_MIST_rv3p5_age2p248_repair_v9_scan01_response.parquet"
+    },
+    "CygOB2-C|MIST|rv3.5": {
+      "2.248": "data/processed/wp5_agenode_C_MIST_rv3p5_age2p248_repair_v9_scan01_response.parquet"
+    }
+  },
+  "truth_age_posteriors": [
+    {
+      "subgroup": "CygOB2-A",
+      "family": "PARSEC",
+      "R_V": 3.0,
+      "alpha": 2.0,
+      "nodes_Myr": [
+        2.238721138568338
+      ],
+      "prior_weights": [
+        1.0000000000000002
+      ],
+      "posterior_weights": [
+        1.0
+      ],
+      "prior_mean_Myr": 2.2387211385683385,
+      "posterior_mean_Myr": 2.238721138568338,
+      "posterior_map_Myr": 2.238721138568338
+    },
+    {
+      "subgroup": "CygOB2-A",
+      "family": "PARSEC",
+      "R_V": 3.0,
+      "alpha": 2.3,
+      "nodes_Myr": [
+        2.238721138568338
+      ],
+      "prior_weights": [
+        1.0000000000000002
+      ],
+      "posterior_weights": [
+        1.0
+      ],
+      "prior_mean_Myr": 2.2387211385683385,
+      "posterior_mean_Myr": 2.238721138568338,
+      "posterior_map_Myr": 2.238721138568338
+    },
+    {
+      "subgroup": "CygOB2-A",
+      "family": "PARSEC",
+      "R_V": 3.0,
+      "alpha": 2.6,
+      "nodes_Myr": [
+        2.238721138568338
+      ],
+      "prior_weights": [
+        1.0000000000000002
+      ],
+      "posterior_weights": [
+        1.0
+      ],
+      "prior_mean_Myr": 2.2387211385683385,
+      "posterior_mean_Myr": 2.238721138568338,
+      "posterior_map_Myr": 2.238721138568338
+    },
+    {
+      "subgroup": "CygOB2-B",
+      "family": "PARSEC",
+      "R_V": 3.0,
+      "alpha": 2.0,
+      "nodes_Myr": [
+        2.238721138568338
+      ],
+      "prior_weights": [
+        1.0000000000000002
+      ],
+      "posterior_weights": [
+        1.0
+      ],
+      "prior_mean_Myr": 2.2387211385683385,
+      "posterior_mean_Myr": 2.238721138568338,
+      "posterior_map_Myr": 2.238721138568338
+    },
+    {
+      "subgroup": "CygOB2-B",
+      "family": "PARSEC",
+      "R_V": 3.0,
+      "alpha": 2.3,
+      "nodes_Myr": [
+        2.238721138568338
+      ],
+      "prior_weights": [
+        1.0000000000000002
+      ],
+      "posterior_weights": [
+        1.0
+      ],
+      "prior_mean_Myr": 2.2387211385683385,
+      "posterior_mean_Myr": 2.238721138568338,
+      "posterior_map_Myr": 2.238721138568338
+    },
+    {
+      "subgroup": "CygOB2-B",
+      "family": "PARSEC",
+      "R_V": 3.0,
+      "alpha": 2.6,
+      "nodes_Myr": [
+        2.238721138568338
+      ],
+      "prior_weights": [
+        1.0000000000000002
+      ],
+      "posterior_weights": [
+        1.0
+      ],
+      "prior_mean_Myr": 2.2387211385683385,
+      "posterior_mean_Myr": 2.238721138568338,
+      "posterior_map_Myr": 2.238721138568338
+    },
+    {
+      "subgroup": "CygOB2-C",
+      "family": "PARSEC",
+      "R_V": 3.0,
+      "alpha": 2.0,
+      "nodes_Myr": [
+        2.238721138568338
+      ],
+      "prior_weights": [
+        1.0000000000000002
+      ],
+      "posterior_weights": [
+        1.0
+      ],
+      "prior_mean_Myr": 2.2387211385683385,
+      "posterior_mean_Myr": 2.238721138568338,
+      "posterior_map_Myr": 2.238721138568338
+    },
+    {
+      "subgroup": "CygOB2-C",
+      "family": "PARSEC",
+      "R_V": 3.0,
+      "alpha": 2.3,
+      "nodes_Myr": [
+        2.238721138568338
+      ],
+      "prior_weights": [
+        1.0000000000000002
+      ],
+      "posterior_weights": [
+        1.0
+      ],
+      "prior_mean_Myr": 2.2387211385683385,
+      "posterior_mean_Myr": 2.238721138568338,
+      "posterior_map_Myr": 2.238721138568338
+    },
+    {
+      "subgroup": "CygOB2-C",
+      "family": "PARSEC",
+      "R_V": 3.0,
+      "alpha": 2.6,
+      "nodes_Myr": [
+        2.238721138568338
+      ],
+      "prior_weights": [
+        1.0000000000000002
+      ],
+      "posterior_weights": [
+        1.0
+      ],
+      "prior_mean_Myr": 2.2387211385683385,
+      "posterior_mean_Myr": 2.238721138568338,
+      "posterior_map_Myr": 2.238721138568338
+    },
+    {
+      "subgroup": "CygOB2-A",
+      "family": "PARSEC",
+      "R_V": 3.1,
+      "alpha": 2.0,
+      "nodes_Myr": [
+        2.238721138568338
+      ],
+      "prior_weights": [
+        1.0000000000000002
+      ],
+      "posterior_weights": [
+        1.0
+      ],
+      "prior_mean_Myr": 2.2387211385683385,
+      "posterior_mean_Myr": 2.238721138568338,
+      "posterior_map_Myr": 2.238721138568338
+    },
+    {
+      "subgroup": "CygOB2-A",
+      "family": "PARSEC",
+      "R_V": 3.1,
+      "alpha": 2.3,
+      "nodes_Myr": [
+        2.238721138568338
+      ],
+      "prior_weights": [
+        1.0000000000000002
+      ],
+      "posterior_weights": [
+        1.0
+      ],
+      "prior_mean_Myr": 2.2387211385683385,
+      "posterior_mean_Myr": 2.238721138568338,
+      "posterior_map_Myr": 2.238721138568338
+    },
+    {
+      "subgroup": "CygOB2-A",
+      "family": "PARSEC",
+      "R_V": 3.1,
+      "alpha": 2.6,
+      "nodes_Myr": [
+        2.238721138568338
+      ],
+      "prior_weights": [
+        1.0000000000000002
+      ],
+      "posterior_weights": [
+        1.0
+      ],
+      "prior_mean_Myr": 2.2387211385683385,
+      "posterior_mean_Myr": 2.238721138568338,
+      "posterior_map_Myr": 2.238721138568338
+    },
+    {
+      "subgroup": "CygOB2-B",
+      "family": "PARSEC",
+      "R_V": 3.1,
+      "alpha": 2.0,
+      "nodes_Myr": [
+        2.238721138568338
+      ],
+      "prior_weights": [
+        1.0000000000000002
+      ],
+      "posterior_weights": [
+        1.0
+      ],
+      "prior_mean_Myr": 2.2387211385683385,
+      "posterior_mean_Myr": 2.238721138568338,
+      "posterior_map_Myr": 2.238721138568338
+    },
+    {
+      "subgroup": "CygOB2-B",
+      "family": "PARSEC",
+      "R_V": 3.1,
+      "alpha": 2.3,
+      "nodes_Myr": [
+        2.238721138568338
+      ],
+      "prior_weights": [
+        1.0000000000000002
+      ],
+      "posterior_weights": [
+        1.0
+      ],
+      "prior_mean_Myr": 2.2387211385683385,
+      "posterior_mean_Myr": 2.238721138568338,
+      "posterior_map_Myr": 2.238721138568338
+    },
+    {
+      "subgroup": "CygOB2-B",
+      "family": "PARSEC",
+      "R_V": 3.1,
+      "alpha": 2.6,
+      "nodes_Myr": [
+        2.238721138568338
+      ],
+      "prior_weights": [
+        1.0000000000000002
+      ],
+      "posterior_weights": [
+        1.0
+      ],
+      "prior_mean_Myr": 2.2387211385683385,
+      "posterior_mean_Myr": 2.238721138568338,
+      "posterior_map_Myr": 2.238721138568338
+    },
+    {
+      "subgroup": "CygOB2-C",
+      "family": "PARSEC",
+      "R_V": 3.1,
+      "alpha": 2.0,
+      "nodes_Myr": [
+        2.238721138568338
+      ],
+      "prior_weights": [
+        1.0000000000000002
+      ],
+      "posterior_weights": [
+        1.0
+      ],
+      "prior_mean_Myr": 2.2387211385683385,
+      "posterior_mean_Myr": 2.238721138568338,
+      "posterior_map_Myr": 2.238721138568338
+    },
+    {
+      "subgroup": "CygOB2-C",
+      "family": "PARSEC",
+      "R_V": 3.1,
+      "alpha": 2.3,
+      "nodes_Myr": [
+        2.238721138568338
+      ],
+      "prior_weights": [
+        1.0000000000000002
+      ],
+      "posterior_weights": [
+        1.0
+      ],
+      "prior_mean_Myr": 2.2387211385683385,
+      "posterior_mean_Myr": 2.238721138568338,
+      "posterior_map_Myr": 2.238721138568338
+    },
+    {
+      "subgroup": "CygOB2-C",
+      "family": "PARSEC",
+      "R_V": 3.1,
+      "alpha": 2.6,
+      "nodes_Myr": [
+        2.238721138568338
+      ],
+      "prior_weights": [
+        1.0000000000000002
+      ],
+      "posterior_weights": [
+        1.0
+      ],
+      "prior_mean_Myr": 2.2387211385683385,
+      "posterior_mean_Myr": 2.238721138568338,
+      "posterior_map_Myr": 2.238721138568338
+    },
+    {
+      "subgroup": "CygOB2-A",
+      "family": "PARSEC",
+      "R_V": 3.5,
+      "alpha": 2.0,
+      "nodes_Myr": [
+        2.238721138568338
+      ],
+      "prior_weights": [
+        1.0000000000000002
+      ],
+      "posterior_weights": [
+        1.0
+      ],
+      "prior_mean_Myr": 2.2387211385683385,
+      "posterior_mean_Myr": 2.238721138568338,
+      "posterior_map_Myr": 2.238721138568338
+    },
+    {
+      "subgroup": "CygOB2-A",
+      "family": "PARSEC",
+      "R_V": 3.5,
+      "alpha": 2.3,
+      "nodes_Myr": [
+        2.238721138568338
+      ],
+      "prior_weights": [
+        1.0000000000000002
+      ],
+      "posterior_weights": [
+        1.0
+      ],
+      "prior_mean_Myr": 2.2387211385683385,
+      "posterior_mean_Myr": 2.238721138568338,
+      "posterior_map_Myr": 2.238721138568338
+    },
+    {
+      "subgroup": "CygOB2-A",
+      "family": "PARSEC",
+      "R_V": 3.5,
+      "alpha": 2.6,
+      "nodes_Myr": [
+        2.238721138568338
+      ],
+      "prior_weights": [
+        1.0000000000000002
+      ],
+      "posterior_weights": [
+        1.0
+      ],
+      "prior_mean_Myr": 2.2387211385683385,
+      "posterior_mean_Myr": 2.238721138568338,
+      "posterior_map_Myr": 2.238721138568338
+    },
+    {
+      "subgroup": "CygOB2-B",
+      "family": "PARSEC",
+      "R_V": 3.5,
+      "alpha": 2.0,
+      "nodes_Myr": [
+        2.238721138568338
+      ],
+      "prior_weights": [
+        1.0000000000000002
+      ],
+      "posterior_weights": [
+        1.0
+      ],
+      "prior_mean_Myr": 2.2387211385683385,
+      "posterior_mean_Myr": 2.238721138568338,
+      "posterior_map_Myr": 2.238721138568338
+    },
+    {
+      "subgroup": "CygOB2-B",
+      "family": "PARSEC",
+      "R_V": 3.5,
+      "alpha": 2.3,
+      "nodes_Myr": [
+        2.238721138568338
+      ],
+      "prior_weights": [
+        1.0000000000000002
+      ],
+      "posterior_weights": [
+        1.0
+      ],
+      "prior_mean_Myr": 2.2387211385683385,
+      "posterior_mean_Myr": 2.238721138568338,
+      "posterior_map_Myr": 2.238721138568338
+    },
+    {
+      "subgroup": "CygOB2-B",
+      "family": "PARSEC",
+      "R_V": 3.5,
+      "alpha": 2.6,
+      "nodes_Myr": [
+        2.238721138568338
+      ],
+      "prior_weights": [
+        1.0000000000000002
+      ],
+      "posterior_weights": [
+        1.0
+      ],
+      "prior_mean_Myr": 2.2387211385683385,
+      "posterior_mean_Myr": 2.238721138568338,
+      "posterior_map_Myr": 2.238721138568338
+    },
+    {
+      "subgroup": "CygOB2-C",
+      "family": "PARSEC",
+      "R_V": 3.5,
+      "alpha": 2.0,
+      "nodes_Myr": [
+        2.238721138568338
+      ],
+      "prior_weights": [
+        1.0000000000000002
+      ],
+      "posterior_weights": [
+        1.0
+      ],
+      "prior_mean_Myr": 2.2387211385683385,
+      "posterior_mean_Myr": 2.238721138568338,
+      "posterior_map_Myr": 2.238721138568338
+    },
+    {
+      "subgroup": "CygOB2-C",
+      "family": "PARSEC",
+      "R_V": 3.5,
+      "alpha": 2.3,
+      "nodes_Myr": [
+        2.238721138568338
+      ],
+      "prior_weights": [
+        1.0000000000000002
+      ],
+      "posterior_weights": [
+        1.0
+      ],
+      "prior_mean_Myr": 2.2387211385683385,
+      "posterior_mean_Myr": 2.238721138568338,
+      "posterior_map_Myr": 2.238721138568338
+    },
+    {
+      "subgroup": "CygOB2-C",
+      "family": "PARSEC",
+      "R_V": 3.5,
+      "alpha": 2.6,
+      "nodes_Myr": [
+        2.238721138568338
+      ],
+      "prior_weights": [
+        1.0000000000000002
+      ],
+      "posterior_weights": [
+        1.0
+      ],
+      "prior_mean_Myr": 2.2387211385683385,
+      "posterior_mean_Myr": 2.238721138568338,
+      "posterior_map_Myr": 2.238721138568338
+    },
+    {
+      "subgroup": "CygOB2-A",
+      "family": "MIST",
+      "R_V": 3.0,
+      "alpha": 2.0,
+      "nodes_Myr": [
+        2.2477603184951818
+      ],
+      "prior_weights": [
+        1.0000000000000002
+      ],
+      "posterior_weights": [
+        1.0
+      ],
+      "prior_mean_Myr": 2.247760318495182,
+      "posterior_mean_Myr": 2.2477603184951818,
+      "posterior_map_Myr": 2.2477603184951818
+    },
+    {
+      "subgroup": "CygOB2-A",
+      "family": "MIST",
+      "R_V": 3.0,
+      "alpha": 2.3,
+      "nodes_Myr": [
+        2.2477603184951818
+      ],
+      "prior_weights": [
+        1.0000000000000002
+      ],
+      "posterior_weights": [
+        1.0
+      ],
+      "prior_mean_Myr": 2.247760318495182,
+      "posterior_mean_Myr": 2.2477603184951818,
+      "posterior_map_Myr": 2.2477603184951818
+    },
+    {
+      "subgroup": "CygOB2-A",
+      "family": "MIST",
+      "R_V": 3.0,
+      "alpha": 2.6,
+      "nodes_Myr": [
+        2.2477603184951818
+      ],
+      "prior_weights": [
+        1.0000000000000002
+      ],
+      "posterior_weights": [
+        1.0
+      ],
+      "prior_mean_Myr": 2.247760318495182,
+      "posterior_mean_Myr": 2.2477603184951818,
+      "posterior_map_Myr": 2.2477603184951818
+    },
+    {
+      "subgroup": "CygOB2-B",
+      "family": "MIST",
+      "R_V": 3.0,
+      "alpha": 2.0,
+      "nodes_Myr": [
+        2.2477603184951818
+      ],
+      "prior_weights": [
+        1.0000000000000002
+      ],
+      "posterior_weights": [
+        1.0
+      ],
+      "prior_mean_Myr": 2.247760318495182,
+      "posterior_mean_Myr": 2.2477603184951818,
+      "posterior_map_Myr": 2.2477603184951818
+    },
+    {
+      "subgroup": "CygOB2-B",
+      "family": "MIST",
+      "R_V": 3.0,
+      "alpha": 2.3,
+      "nodes_Myr": [
+        2.2477603184951818
+      ],
+      "prior_weights": [
+        1.0000000000000002
+      ],
+      "posterior_weights": [
+        1.0
+      ],
+      "prior_mean_Myr": 2.247760318495182,
+      "posterior_mean_Myr": 2.2477603184951818,
+      "posterior_map_Myr": 2.2477603184951818
+    },
+    {
+      "subgroup": "CygOB2-B",
+      "family": "MIST",
+      "R_V": 3.0,
+      "alpha": 2.6,
+      "nodes_Myr": [
+        2.2477603184951818
+      ],
+      "prior_weights": [
+        1.0000000000000002
+      ],
+      "posterior_weights": [
+        1.0
+      ],
+      "prior_mean_Myr": 2.247760318495182,
+      "posterior_mean_Myr": 2.2477603184951818,
+      "posterior_map_Myr": 2.2477603184951818
+    },
+    {
+      "subgroup": "CygOB2-C",
+      "family": "MIST",
+      "R_V": 3.0,
+      "alpha": 2.0,
+      "nodes_Myr": [
+        2.2477603184951818
+      ],
+      "prior_weights": [
+        1.0000000000000002
+      ],
+      "posterior_weights": [
+        1.0
+      ],
+      "prior_mean_Myr": 2.247760318495182,
+      "posterior_mean_Myr": 2.2477603184951818,
+      "posterior_map_Myr": 2.2477603184951818
+    },
+    {
+      "subgroup": "CygOB2-C",
+      "family": "MIST",
+      "R_V": 3.0,
+      "alpha": 2.3,
+      "nodes_Myr": [
+        2.2477603184951818
+      ],
+      "prior_weights": [
+        1.0000000000000002
+      ],
+      "posterior_weights": [
+        1.0
+      ],
+      "prior_mean_Myr": 2.247760318495182,
+      "posterior_mean_Myr": 2.2477603184951818,
+      "posterior_map_Myr": 2.2477603184951818
+    },
+    {
+      "subgroup": "CygOB2-C",
+      "family": "MIST",
+      "R_V": 3.0,
+      "alpha": 2.6,
+      "nodes_Myr": [
+        2.2477603184951818
+      ],
+      "prior_weights": [
+        1.0000000000000002
+      ],
+      "posterior_weights": [
+        1.0
+      ],
+      "prior_mean_Myr": 2.247760318495182,
+      "posterior_mean_Myr": 2.2477603184951818,
+      "posterior_map_Myr": 2.2477603184951818
+    },
+    {
+      "subgroup": "CygOB2-A",
+      "family": "MIST",
+      "R_V": 3.1,
+      "alpha": 2.0,
+      "nodes_Myr": [
+        2.2477603184951818
+      ],
+      "prior_weights": [
+        1.0000000000000002
+      ],
+      "posterior_weights": [
+        1.0
+      ],
+      "prior_mean_Myr": 2.247760318495182,
+      "posterior_mean_Myr": 2.2477603184951818,
+      "posterior_map_Myr": 2.2477603184951818
+    },
+    {
+      "subgroup": "CygOB2-A",
+      "family": "MIST",
+      "R_V": 3.1,
+      "alpha": 2.3,
+      "nodes_Myr": [
+        2.2477603184951818
+      ],
+      "prior_weights": [
+        1.0000000000000002
+      ],
+      "posterior_weights": [
+        1.0
+      ],
+      "prior_mean_Myr": 2.247760318495182,
+      "posterior_mean_Myr": 2.2477603184951818,
+      "posterior_map_Myr": 2.2477603184951818
+    },
+    {
+      "subgroup": "CygOB2-A",
+      "family": "MIST",
+      "R_V": 3.1,
+      "alpha": 2.6,
+      "nodes_Myr": [
+        2.2477603184951818
+      ],
+      "prior_weights": [
+        1.0000000000000002
+      ],
+      "posterior_weights": [
+        1.0
+      ],
+      "prior_mean_Myr": 2.247760318495182,
+      "posterior_mean_Myr": 2.2477603184951818,
+      "posterior_map_Myr": 2.2477603184951818
+    },
+    {
+      "subgroup": "CygOB2-B",
+      "family": "MIST",
+      "R_V": 3.1,
+      "alpha": 2.0,
+      "nodes_Myr": [
+        2.2477603184951818
+      ],
+      "prior_weights": [
+        1.0000000000000002
+      ],
+      "posterior_weights": [
+        1.0
+      ],
+      "prior_mean_Myr": 2.247760318495182,
+      "posterior_mean_Myr": 2.2477603184951818,
+      "posterior_map_Myr": 2.2477603184951818
+    },
+    {
+      "subgroup": "CygOB2-B",
+      "family": "MIST",
+      "R_V": 3.1,
+      "alpha": 2.3,
+      "nodes_Myr": [
+        2.2477603184951818
+      ],
+      "prior_weights": [
+        1.0000000000000002
+      ],
+      "posterior_weights": [
+        1.0
+      ],
+      "prior_mean_Myr": 2.247760318495182,
+      "posterior_mean_Myr": 2.2477603184951818,
+      "posterior_map_Myr": 2.2477603184951818
+    },
+    {
+      "subgroup": "CygOB2-B",
+      "family": "MIST",
+      "R_V": 3.1,
+      "alpha": 2.6,
+      "nodes_Myr": [
+        2.2477603184951818
+      ],
+      "prior_weights": [
+        1.0000000000000002
+      ],
+      "posterior_weights": [
+        1.0
+      ],
+      "prior_mean_Myr": 2.247760318495182,
+      "posterior_mean_Myr": 2.2477603184951818,
+      "posterior_map_Myr": 2.2477603184951818
+    },
+    {
+      "subgroup": "CygOB2-C",
+      "family": "MIST",
+      "R_V": 3.1,
+      "alpha": 2.0,
+      "nodes_Myr": [
+        2.2477603184951818
+      ],
+      "prior_weights": [
+        1.0000000000000002
+      ],
+      "posterior_weights": [
+        1.0
+      ],
+      "prior_mean_Myr": 2.247760318495182,
+      "posterior_mean_Myr": 2.2477603184951818,
+      "posterior_map_Myr": 2.2477603184951818
+    },
+    {
+      "subgroup": "CygOB2-C",
+      "family": "MIST",
+      "R_V": 3.1,
+      "alpha": 2.3,
+      "nodes_Myr": [
+        2.2477603184951818
+      ],
+      "prior_weights": [
+        1.0000000000000002
+      ],
+      "posterior_weights": [
+        1.0
+      ],
+      "prior_mean_Myr": 2.247760318495182,
+      "posterior_mean_Myr": 2.2477603184951818,
+      "posterior_map_Myr": 2.2477603184951818
+    },
+    {
+      "subgroup": "CygOB2-C",
+      "family": "MIST",
+      "R_V": 3.1,
+      "alpha": 2.6,
+      "nodes_Myr": [
+        2.2477603184951818
+      ],
+      "prior_weights": [
+        1.0000000000000002
+      ],
+      "posterior_weights": [
+        1.0
+      ],
+      "prior_mean_Myr": 2.247760318495182,
+      "posterior_mean_Myr": 2.2477603184951818,
+      "posterior_map_Myr": 2.2477603184951818
+    },
+    {
+      "subgroup": "CygOB2-A",
+      "family": "MIST",
+      "R_V": 3.5,
+      "alpha": 2.0,
+      "nodes_Myr": [
+        2.2477603184951818
+      ],
+      "prior_weights": [
+        1.0000000000000002
+      ],
+      "posterior_weights": [
+        1.0
+      ],
+      "prior_mean_Myr": 2.247760318495182,
+      "posterior_mean_Myr": 2.2477603184951818,
+      "posterior_map_Myr": 2.2477603184951818
+    },
+    {
+      "subgroup": "CygOB2-A",
+      "family": "MIST",
+      "R_V": 3.5,
+      "alpha": 2.3,
+      "nodes_Myr": [
+        2.2477603184951818
+      ],
+      "prior_weights": [
+        1.0000000000000002
+      ],
+      "posterior_weights": [
+        1.0
+      ],
+      "prior_mean_Myr": 2.247760318495182,
+      "posterior_mean_Myr": 2.2477603184951818,
+      "posterior_map_Myr": 2.2477603184951818
+    },
+    {
+      "subgroup": "CygOB2-A",
+      "family": "MIST",
+      "R_V": 3.5,
+      "alpha": 2.6,
+      "nodes_Myr": [
+        2.2477603184951818
+      ],
+      "prior_weights": [
+        1.0000000000000002
+      ],
+      "posterior_weights": [
+        1.0
+      ],
+      "prior_mean_Myr": 2.247760318495182,
+      "posterior_mean_Myr": 2.2477603184951818,
+      "posterior_map_Myr": 2.2477603184951818
+    },
+    {
+      "subgroup": "CygOB2-B",
+      "family": "MIST",
+      "R_V": 3.5,
+      "alpha": 2.0,
+      "nodes_Myr": [
+        2.2477603184951818
+      ],
+      "prior_weights": [
+        1.0000000000000002
+      ],
+      "posterior_weights": [
+        1.0
+      ],
+      "prior_mean_Myr": 2.247760318495182,
+      "posterior_mean_Myr": 2.2477603184951818,
+      "posterior_map_Myr": 2.2477603184951818
+    },
+    {
+      "subgroup": "CygOB2-B",
+      "family": "MIST",
+      "R_V": 3.5,
+      "alpha": 2.3,
+      "nodes_Myr": [
+        2.2477603184951818
+      ],
+      "prior_weights": [
+        1.0000000000000002
+      ],
+      "posterior_weights": [
+        1.0
+      ],
+      "prior_mean_Myr": 2.247760318495182,
+      "posterior_mean_Myr": 2.2477603184951818,
+      "posterior_map_Myr": 2.2477603184951818
+    },
+    {
+      "subgroup": "CygOB2-B",
+      "family": "MIST",
+      "R_V": 3.5,
+      "alpha": 2.6,
+      "nodes_Myr": [
+        2.2477603184951818
+      ],
+      "prior_weights": [
+        1.0000000000000002
+      ],
+      "posterior_weights": [
+        1.0
+      ],
+      "prior_mean_Myr": 2.247760318495182,
+      "posterior_mean_Myr": 2.2477603184951818,
+      "posterior_map_Myr": 2.2477603184951818
+    },
+    {
+      "subgroup": "CygOB2-C",
+      "family": "MIST",
+      "R_V": 3.5,
+      "alpha": 2.0,
+      "nodes_Myr": [
+        2.2477603184951818
+      ],
+      "prior_weights": [
+        1.0000000000000002
+      ],
+      "posterior_weights": [
+        1.0
+      ],
+      "prior_mean_Myr": 2.247760318495182,
+      "posterior_mean_Myr": 2.2477603184951818,
+      "posterior_map_Myr": 2.2477603184951818
+    },
+    {
+      "subgroup": "CygOB2-C",
+      "family": "MIST",
+      "R_V": 3.5,
+      "alpha": 2.3,
+      "nodes_Myr": [
+        2.2477603184951818
+      ],
+      "prior_weights": [
+        1.0000000000000002
+      ],
+      "posterior_weights": [
+        1.0
+      ],
+      "prior_mean_Myr": 2.247760318495182,
+      "posterior_mean_Myr": 2.2477603184951818,
+      "posterior_map_Myr": 2.2477603184951818
+    },
+    {
+      "subgroup": "CygOB2-C",
+      "family": "MIST",
+      "R_V": 3.5,
+      "alpha": 2.6,
+      "nodes_Myr": [
+        2.2477603184951818
+      ],
+      "prior_weights": [
+        1.0000000000000002
+      ],
+      "posterior_weights": [
+        1.0
+      ],
+      "prior_mean_Myr": 2.247760318495182,
+      "posterior_mean_Myr": 2.2477603184951818,
+      "posterior_map_Myr": 2.2477603184951818
+    }
+  ],
+  "gate": {
+    "baseline_all_subgroups_residual_gate": false,
+    "no_A_or_C_branch_regression": false,
+    "regression_baseline_version": "repair_v8",
+    "A_or_C_regressions": [
+      {
+        "subgroup": "CygOB2-A",
+        "family": "PARSEC",
+        "R_V": 3.0,
+        "alpha": 2.3,
+        "max_abs_residual_before": 1.900118039057172,
+        "max_abs_residual_after": 6.637710754934993
+      },
+      {
+        "subgroup": "CygOB2-A",
+        "family": "PARSEC",
+        "R_V": 3.0,
+        "alpha": 2.6,
+        "max_abs_residual_before": 1.858120742074511,
+        "max_abs_residual_after": 7.180742356124922
+      },
+      {
+        "subgroup": "CygOB2-A",
+        "family": "PARSEC",
+        "R_V": 3.1,
+        "alpha": 2.3,
+        "max_abs_residual_before": 1.7412763870752606,
+        "max_abs_residual_after": 6.666687674112941
+      },
+      {
+        "subgroup": "CygOB2-A",
+        "family": "PARSEC",
+        "R_V": 3.1,
+        "alpha": 2.6,
+        "max_abs_residual_before": 1.7012767836126552,
+        "max_abs_residual_after": 7.21097165128202
+      },
+      {
+        "subgroup": "CygOB2-A",
+        "family": "PARSEC",
+        "R_V": 3.5,
+        "alpha": 2.0,
+        "max_abs_residual_before": 1.3603719687003943,
+        "max_abs_residual_after": 6.767191543474538
+      },
+      {
+        "subgroup": "CygOB2-A",
+        "family": "PARSEC",
+        "R_V": 3.5,
+        "alpha": 2.3,
+        "max_abs_residual_before": 1.2464134425510096,
+        "max_abs_residual_after": 7.011944379042165
+      },
+      {
+        "subgroup": "CygOB2-A",
+        "family": "PARSEC",
+        "R_V": 3.5,
+        "alpha": 2.6,
+        "max_abs_residual_before": 2.153979780890296,
+        "max_abs_residual_after": 7.5127938343541345
+      },
+      {
+        "subgroup": "CygOB2-A",
+        "family": "MIST",
+        "R_V": 3.0,
+        "alpha": 2.3,
+        "max_abs_residual_before": 1.8508149331891017,
+        "max_abs_residual_after": 6.241479813854031
+      },
+      {
+        "subgroup": "CygOB2-A",
+        "family": "MIST",
+        "R_V": 3.0,
+        "alpha": 2.6,
+        "max_abs_residual_before": 1.7736121628244943,
+        "max_abs_residual_after": 6.7528874407473864
+      },
+      {
+        "subgroup": "CygOB2-A",
+        "family": "MIST",
+        "R_V": 3.1,
+        "alpha": 2.3,
+        "max_abs_residual_before": 1.8468299938093662,
+        "max_abs_residual_after": 6.685136875005981
+      },
+      {
+        "subgroup": "CygOB2-A",
+        "family": "MIST",
+        "R_V": 3.1,
+        "alpha": 2.6,
+        "max_abs_residual_before": 1.7517412480442014,
+        "max_abs_residual_after": 7.205535934464437
+      },
+      {
+        "subgroup": "CygOB2-A",
+        "family": "MIST",
+        "R_V": 3.5,
+        "alpha": 2.0,
+        "max_abs_residual_before": 1.5231717470381305,
+        "max_abs_residual_after": 6.748959026320676
+      },
+      {
+        "subgroup": "CygOB2-A",
+        "family": "MIST",
+        "R_V": 3.5,
+        "alpha": 2.3,
+        "max_abs_residual_before": 1.2746309986098834,
+        "max_abs_residual_after": 6.987072845023711
+      },
+      {
+        "subgroup": "CygOB2-A",
+        "family": "MIST",
+        "R_V": 3.5,
+        "alpha": 2.6,
+        "max_abs_residual_before": 2.25156081800723,
+        "max_abs_residual_after": 7.476608918532076
+      },
+      {
+        "subgroup": "CygOB2-C",
+        "family": "PARSEC",
+        "R_V": 3.0,
+        "alpha": 2.0,
+        "max_abs_residual_before": 1.9075650660811052,
+        "max_abs_residual_after": 2.4993284539411165
+      },
+      {
+        "subgroup": "CygOB2-C",
+        "family": "PARSEC",
+        "R_V": 3.1,
+        "alpha": 2.6,
+        "max_abs_residual_before": 2.442333225613627,
+        "max_abs_residual_after": 2.5134187945783952
+      },
+      {
+        "subgroup": "CygOB2-C",
+        "family": "MIST",
+        "R_V": 3.0,
+        "alpha": 2.6,
+        "max_abs_residual_before": 2.967694069500024,
+        "max_abs_residual_after": 3.002267810741068
+      },
+      {
+        "subgroup": "CygOB2-C",
+        "family": "MIST",
+        "R_V": 3.1,
+        "alpha": 2.0,
+        "max_abs_residual_before": 1.0149000079017931,
+        "max_abs_residual_after": 2.8934689091182664
+      }
+    ],
+    "baseline_mass_within_factor_two": true,
+    "all_branch_subgroups_residual_gate": false,
+    "all_branch_masses_within_factor_two": false,
+    "branches_passing": 11,
+    "branches_total": 54,
+    "minimum_50_sources_per_subgroup_branch": true,
+    "G3_pass": false
+  },
+  "baseline": {
+    "family": "PARSEC",
+    "R_V": 3.1,
+    "alpha": 2.3,
+    "k_total_median": 5881.405245855155,
+    "k_total_lo68": 5636.668379397025,
+    "k_total_hi68": 6132.47373217969,
+    "primary_system_mass_median_Msun": 26949.94592414744,
+    "primary_system_mass_lo68_Msun": 25828.505547064073,
+    "primary_system_mass_hi68_Msun": 28100.39923366428,
+    "multiplicity_adjusted_mass_median_Msun": 32579.277087237482,
+    "multiplicity_adjusted_mass_lo68_Msun": 31223.58914320051,
+    "multiplicity_adjusted_mass_hi68_Msun": 33970.03821351845,
+    "companion_mass_fraction": 0.17278870700587964,
+    "literature_mass_Msun": 16500.0,
+    "within_factor_two_literature": true
+  },
+  "completeness_curve_convention": "wp5_completeness_curves_{version}.parquet holds the PRIOR-weighted truth-age node mixture per branch and subgroup.  It is not posterior-weighted: the calibration window must be fixed before the fit, never derived from the outcome (CUTS_AND_THRESHOLDS.md 6.4).  Fitted node posteriors are in truth_age_posteriors above.",
+  "outputs": {
+    "data/processed/wp5_imf_normalization_repair_v9_scan01.parquet": {
+      "sha256": "ab80b4478be34f6312c9c193e48c418acccdaf5afcfabf29db1979d8949523f7",
+      "bytes": 28025
+    },
+    "data/processed/wp5_mass_function_bins_repair_v9_scan01.parquet": {
+      "sha256": "8fcb8d5be44538bb9fdc7b44cb42dedc5c86272b3a645505b605bde9cd650ad3",
+      "bytes": 19425
+    },
+    "data/processed/wp5_association_mass_repair_v9_scan01.parquet": {
+      "sha256": "0f649f65fd3e386426b381c6cca54a7e3b5043607cf9b9bfef7b4ba816b7829f",
+      "bytes": 12056
+    },
+    "data/processed/wp5_completeness_curves_repair_v9_scan01.parquet": {
+      "sha256": "974e0d147fe25b3a7c8857ab979e476d21b60803de5eec1fd0e1dbac6cd78728",
+      "bytes": 17055
+    },
+    "data/processed/wp5_imf_posterior_draws_repair_v9_scan01.npz": {
+      "sha256": "1ae8f810ec7012c92db664f546c511172e8add1913fe4913bc5b3c25a3b1f34b",
+      "bytes": 5336500
+    }
+  }
+}

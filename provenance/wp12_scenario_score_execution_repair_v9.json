@@ -1,0 +1,148 @@
+{
+  "created_utc": "2026-10-07T18:36:39+00:00",
+  "script": "scripts/wp12_scenario_score.py",
+  "work_package": "WP12 -- manuscript revision analysis",
+  "chain": "repair_v9",
+  "preregistration": "provenance/wp12_revision_prereg_repair_v9.json",
+  "preregistration_sha256": "36fcacdb8df3642e7a2698484ed63a2600e87a3ec7369be87523c851305266e3",
+  "python": "3.11.15",
+  "platform": "Linux-5.14.0-570.49.1.el9_6.x86_64-x86_64-with-glibc2.34",
+  "item": "WP12.3 + WP12.4 -- conditional scenario-availability score",
+  "rename": {
+    "from": "P_verdict",
+    "to": "conditional scenario-availability score S",
+    "why": "S = C1 x C3 x C4 multiplies a sampled Monte-Carlo probability (C1) by a deterministic model mapping (C3) and an upper bound (C4), assuming independence.  It is a scenario score, not a calibrated probability, and the manuscript must not call it one.",
+    "what_S_is": "the probability, under the adopted branch and CONDITIONAL on the adopted type mapping and on the in-situ bound holding with equality, that Cyg OB2 made an explosion of the required age, type and location"
+  },
+  "engine_validation": {
+    "iterations": 200000,
+    "seed": 20260804,
+    "reference": "tables/wp9_verdict.csv at 2e6 iterations",
+    "worst_absolute_C1_difference": 0.00235,
+    "declared_tolerance_C1": 0.01,
+    "worst_absolute_C3_difference": 0.0,
+    "declared_tolerance_C3": 1e-09,
+    "pass": true
+  },
+  "wp12_3_c4_sensitivity": {
+    "adopted_C4": 0.854,
+    "adopted_C4_status": "an UPPER BOUND on the in-situ fraction from a 2-D, footprint-limited runaway census of living stars below the turnoff, applied to dead, more massive progenitors",
+    "C4_below_which_at_least_one_alpha2p0_branch_falls_below_0p5": 0.6471,
+    "C4_below_which_every_alpha2p0_branch_falls_below_0p5": 0.5292,
+    "C4_above_which_the_first_alpha2p3_branch_would_rise_above_0p5": 0.7144,
+    "C4_above_which_every_alpha2p3_branch_would_rise_above_0p5": 1.1231,
+    "alpha2p3_cannot_be_lifted_by_C4_alone": false,
+    "correction_to_the_manuscript": "the current text says C4 would have to fall below 0.60 to move ANY alpha = 2.0 branch under 0.5.  0.60 is close to the threshold at which ALL of them do (0.5806); the threshold at which the FIRST one does is 0.7198.  The two must be stated separately.",
+    "strict_subset": {
+      "alpha2p0_all_subgroup_pass_branches": 0,
+      "C4_any_strict": null,
+      "C4_all_strict": null,
+      "alpha2p3_all_subgroup_pass_branches": 3
+    }
+  },
+  "wp12_4_c3_subtype": {
+    "baseline_mapping": "deterministic step at 30 Msun",
+    "baseline_C3_is_exactly_one": true,
+    "why_it_is_one": "every sampled progenitor exceeds the threshold.  That is a fact about the ledger's mass floor, not evidence that every explosion would have been observed as type Ib/c.",
+    "threshold_scan_C3_range": {
+      "step_20": [
+        1.0,
+        1.0
+      ],
+      "step_25": [
+        1.0,
+        1.0
+      ],
+      "step_30": [
+        1.0,
+        1.0
+      ],
+      "step_35": [
+        1.0,
+        1.0
+      ],
+      "step_40": [
+        0.9964,
+        1.0
+      ],
+      "step_45": [
+        0.9665,
+        1.0
+      ],
+      "step_50": [
+        0.9118,
+        1.0
+      ],
+      "step_60": [
+        0.7609,
+        0.9991
+      ],
+      "step_70": [
+        0.5959,
+        0.9303
+      ]
+    },
+    "logistic_C3_range": {
+      "logistic_m0_30_dm_5": [
+        0.9944,
+        0.9999
+      ],
+      "logistic_m0_30_dm_10": [
+        0.9654,
+        0.9947
+      ],
+      "logistic_m0_45_dm_5": [
+        0.9365,
+        0.9985
+      ],
+      "logistic_m0_45_dm_10": [
+        0.8847,
+        0.9775
+      ],
+      "logistic_m0_60_dm_5": [
+        0.7527,
+        0.9742
+      ],
+      "logistic_m0_60_dm_10": [
+        0.7241,
+        0.9152
+      ]
+    },
+    "pessimistic_60_Msun_C3_range": [
+      0.7609,
+      0.9991
+    ],
+    "score_under_pessimistic_C3": {
+      "range": [
+        0.3515,
+        0.7977
+      ],
+      "alpha2p0_above_0p5": 18,
+      "alpha2p0_branches": 18,
+      "alpha2p3_above_0p5": 4
+    },
+    "progenitor_mass_floor": {
+      "min_over_headline_branches_Msun": 32.878,
+      "max_over_headline_branches_Msun": 54.972
+    },
+    "sourcing_note": "The dependence of envelope stripping on wind mass loss, metallicity, rotation and binarity is why a single ZAMS-mass threshold cannot be a measurement.  The manuscript cites primary sources for that dependence where it quotes C3."
+  },
+  "predictions": [
+    {
+      "id": "R5",
+      "statement": "C3 is not robust to its mapping: under the pessimistic 60 Msun stripping assumption C3 falls below 0.95 on at least one headline branch.",
+      "pass_if": "min over headline branches of C3(60 Msun step) < 0.95",
+      "outcome": "PASS",
+      "measured": {
+        "min_C3_at_60_Msun_over_headline_branches": 0.76094,
+        "max_C3_at_60_Msun_over_headline_branches": 0.99906,
+        "C3_at_30_Msun_is_exactly_one_everywhere": true
+      }
+    }
+  ],
+  "outputs": {
+    "tables/wp12_c4_scan_repair_v9.csv": "9fafc48c678317e49e5cb10e17487561b0903db0cf27534e467dc4a6da53c780",
+    "tables/wp12_c3_subtype_repair_v9.csv": "987f8b749d024aba89cb00ca28ae1417f9ef8d24a2310f2b3c0570841054a62b",
+    "tables/wp12_scenario_score_repair_v9.csv": "c52c214ac191890c51fab22e6eaac39c84b8c43c6d27f62a849f4578f683f2f0"
+  }
+}
