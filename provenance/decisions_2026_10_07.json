@@ -1,0 +1,34 @@
+{
+  "created_utc": "2026-10-07T15:57:22+00:00",
+  "script": "scripts/decisions_2026_10_07.py",
+  "decided_by": "project owner, 2026-10-07 ('I accept it, but with proper documentation'; 'All subgroups should test all possible ages'; then chose the 2.0-6.3 Myr native grid and the A,C-spectroscopic / B-borrows headline)",
+  "decisions": {
+    "6_accept_stage1_outcome": {
+      "question": "Accept the frozen Stage 1 outcome for A and C: GA1 failed in every cell, so repair_v9 carries the Phase A' test-c spectroscopic-HRD posteriors (eps 0.05) for A (PARSEC 3.16, MIST 3.57 Myr) and C (3.55, 4.01 Myr)?",
+      "decision": "Accepted, with full documentation: the ages are spectroscopic-HRD ages (Gaia G, Gaia-based distance and WP3 extinction on the luminosity axis; literature spectral-type temperatures on the other), not Gaia-photometry-only ages, and the failure of the Gaia optical CMD age (injections, real-data instability, one-star dominance) is reported as a result in its own right.",
+      "owner_concern_recorded": "whether adopting spectroscopic ages diminishes the Gaia work; the answer given: membership, subgroups, distance, extinction, the census that sets k, and the kinematics stay Gaia products; only the claim of a Gaia-photometry-only age is lost."
+    },
+    "7_age_scan_all_subgroups": {
+      "question": "B has no usable age (flagged M1 1.4-5.7 Myr across R_V; 4 spectroscopic stars). Options offered: (a) borrow A+C's spectroscopic age, (b) fixed-age branches, (c) keep the flagged M1 row.",
+      "decision": "Every subgroup (A, B and C) is scanned over all plausible ages: the 11 native isochrone ages from 2.0 to 6.3 Myr (PARSEC 2.00-6.31, MIST 2.00-6.37), each subgroup independently, with the WP5 normalisation k refitted at every age. Subgroup ledgers are independent Poisson populations summed per iteration, so any (t_A, t_B, t_C) combination follows from the three one-dimensional scans. The full scan is published.",
+      "headline_weighting": "A and C: their own test-c spectroscopic posteriors. B: the A+C combined spectroscopic posterior (product of the two test-c likelihood curves, same family and R_V), flagged 'not measured for B' wherever quoted.",
+      "alternatives_declined": [
+        "full 1-10 Myr grid",
+        "scan only, no headline",
+        "B uniform over the scan"
+      ]
+    }
+  },
+  "changes": "the repair_v9 pre-registration (brief \u00a74.1) adds the per-subgroup age-scan dimension and the headline weighting above; it supersedes the frozen flagged-M1 row as B's headline age (that row stays in wp4_age_posteriors_repair_v9.parquet, unedited)",
+  "does_not_change": "the Stage 1 scoring (GA1-GA3, W1-W4) and every Stage 1 output; repair_v8 stays the quoted chain until repair_v9 passes its pre-registered adoption rule",
+  "evidence": {
+    "reports/wp4v9_age_redesign.md": "89097d0a205805b8f1f2e9f7de0a6a5816efb2ad056018deaf5326314f15fcb5",
+    "provenance/wp4v9_age_prereg.json": "72d4718313051bb93700587921f344bdf3a275a0885a0c0981825c5ca1b21e46",
+    "provenance/wp4v9_age_outcome.json": "5eb4814d8224e91bf4ae817188c7f62e30ed76d92bcafc58c3b1d5639cdfa357",
+    "tables/wp4v9_injection_validation.csv": "3cfe503c6fa55b0b5b7f0bc3bb588b7679ffadb679bf1e9e8228b20547646b63",
+    "tables/wp4v9_real_fits.csv": "2cd617ce492f96bcd669a42713934b0dd14fef7fe4c02ae33e63884dfd48143f",
+    "tables/wp4v9_posthoc_refits.csv": "7e93c4b78e55783b5e561f97af1855ed92b7ed43e0830a52f0d56e1c626c4ac0",
+    "tables/wp4v9_posthoc_star_contributions.csv": "d132781e685fc495d302f5a07aacf91bec5f49257dec18e14f1a4ff5a4c81584",
+    "tables/issue20b_age_tests.csv": "f121100987d66cd071d6beae43c0093c46e26da0c04311269a11388c95029755"
+  }
+}

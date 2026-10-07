@@ -1,0 +1,704 @@
+{
+  "created_utc": "2026-10-07T12:15:32+00:00",
+  "script": "scripts/wp4v9_score.py",
+  "preregistration": {
+    "path": "provenance/wp4v9_age_prereg.json",
+    "sha256": "72d4718313051bb93700587921f344bdf3a275a0885a0c0981825c5ca1b21e46"
+  },
+  "GA1": {
+    "CygOB2-A|MIST": {
+      "bias_by_age": {
+        "2.52": -0.011440546049528585,
+        "3.18": -0.28034762478953457,
+        "4.01": -0.12508488207754018,
+        "5.05": -0.3358748468985662
+      },
+      "coverage68": 0.665,
+      "n": 400,
+      "pass": false
+    },
+    "CygOB2-B|MIST": {
+      "bias_by_age": {
+        "2.52": 0.1380074387734329,
+        "3.18": -0.08616682641549055,
+        "4.01": -0.03110423448462385,
+        "5.05": -0.21819771733696325
+      },
+      "coverage68": 0.645,
+      "n": 400,
+      "pass": false
+    },
+    "CygOB2-C|MIST": {
+      "bias_by_age": {
+        "2.52": -0.04899077087536359,
+        "3.18": -0.28217081541764727,
+        "4.01": -0.10521370358677937,
+        "5.05": -0.13793100265625877
+      },
+      "coverage68": 0.6775,
+      "n": 400,
+      "pass": false
+    },
+    "CygOB2-A|PARSEC": {
+      "bias_by_age": {
+        "2.51": 0.16097917531467104,
+        "3.16": -0.21812350557931495,
+        "3.98": -0.39214060719140986,
+        "5.01": -0.48167076677596526
+      },
+      "coverage68": 0.695,
+      "n": 400,
+      "pass": false
+    },
+    "CygOB2-B|PARSEC": {
+      "bias_by_age": {
+        "2.51": 0.20407000983608053,
+        "3.16": 0.08166464941756078,
+        "3.98": -0.2920641713040309,
+        "5.01": -0.2320866062036985
+      },
+      "coverage68": 0.7125,
+      "n": 400,
+      "pass": false
+    },
+    "CygOB2-C|PARSEC": {
+      "bias_by_age": {
+        "2.51": 0.16267168934524467,
+        "3.16": -0.056548220141426,
+        "3.98": -0.34388856751285907,
+        "5.01": -0.2839911799498857
+      },
+      "coverage68": 0.7125,
+      "n": 400,
+      "pass": false
+    }
+  },
+  "old_model_injection_bias": {
+    "MIST|bright": -0.3777852361631142,
+    "MIST|faint": -0.022242684009288888,
+    "MIST|full": -0.036304865879258345,
+    "PARSEC|bright": -0.5665588067533219,
+    "PARSEC|faint": -0.022296116336116893,
+    "PARSEC|full": -0.06442533900244085
+  },
+  "M1_injection_bias_other_windows": {
+    "MIST|bright": -0.12704296098457193,
+    "MIST|faint": 0.003483330893465803,
+    "MIST|full": 0.004862688981590026,
+    "PARSEC|bright": -0.1409273417287528,
+    "PARSEC|faint": 0.004539848971709978,
+    "PARSEC|full": 0.002819127880734448
+  },
+  "m_lo": {
+    "PARSEC|3.0": {
+      "CygOB2-A": {
+        "m_lo": 22.7814865112,
+        "star": "O7III",
+        "source_id": 2067835682818357376,
+        "n_candidates": 46
+      },
+      "CygOB2-B": {
+        "m_lo": 14.712023735,
+        "star": "O9.7III(n)",
+        "source_id": 2068008164405551104,
+        "n_candidates": 2
+      },
+      "CygOB2-C": {
+        "m_lo": 31.3329238892,
+        "star": "O5III",
+        "source_id": 2067784246289931776,
+        "n_candidates": 30
+      }
+    },
+    "PARSEC|3.1": {
+      "CygOB2-A": {
+        "m_lo": 22.7814865112,
+        "star": "O7III",
+        "source_id": 2067835682818357376,
+        "n_candidates": 47
+      },
+      "CygOB2-B": {
+        "m_lo": 14.9503040314,
+        "star": "O9.7III(n)",
+        "source_id": 2068008164405551104,
+        "n_candidates": 2
+      },
+      "CygOB2-C": {
+        "m_lo": 33.3276062012,
+        "star": "O5III",
+        "source_id": 2067784246289931776,
+        "n_candidates": 30
+      }
+    },
+    "PARSEC|3.5": {
+      "CygOB2-A": {
+        "m_lo": 24.46235466,
+        "star": "O7III",
+        "source_id": 2067835682818357376,
+        "n_candidates": 45
+      },
+      "CygOB2-B": {
+        "m_lo": 16.0,
+        "star": "O9.7III(n)",
+        "source_id": 2068008164405551104,
+        "n_candidates": 2
+      },
+      "CygOB2-C": {
+        "m_lo": 35.0,
+        "star": "O5III",
+        "source_id": 2067784246289931776,
+        "n_candidates": 31
+      }
+    },
+    "MIST|3.0": {
+      "CygOB2-A": {
+        "m_lo": 22.983293389336534,
+        "star": "O7III",
+        "source_id": 2067835682818357376,
+        "n_candidates": 47
+      },
+      "CygOB2-B": {
+        "m_lo": 14.978649877925823,
+        "star": "O9.7III(n)",
+        "source_id": 2068008164405551104,
+        "n_candidates": 2
+      },
+      "CygOB2-C": {
+        "m_lo": 31.280828422672695,
+        "star": "O5III",
+        "source_id": 2067784246289931776,
+        "n_candidates": 31
+      }
+    },
+    "MIST|3.1": {
+      "CygOB2-A": {
+        "m_lo": 23.557474768936167,
+        "star": "O7III",
+        "source_id": 2067835682818357376,
+        "n_candidates": 47
+      },
+      "CygOB2-B": {
+        "m_lo": 15.266283103974486,
+        "star": "O9.7III(n)",
+        "source_id": 2068008164405551104,
+        "n_candidates": 2
+      },
+      "CygOB2-C": {
+        "m_lo": 31.512730634160683,
+        "star": "O5III",
+        "source_id": 2067784246289931776,
+        "n_candidates": 31
+      }
+    },
+    "MIST|3.5": {
+      "CygOB2-A": {
+        "m_lo": 24.574351308266458,
+        "star": "O7III",
+        "source_id": 2067835682818357376,
+        "n_candidates": 47
+      },
+      "CygOB2-B": {
+        "m_lo": 16.621568149129004,
+        "star": "O9.7III(n)",
+        "source_id": 2068008164405551104,
+        "n_candidates": 2
+      },
+      "CygOB2-C": {
+        "m_lo": 35.134306320971284,
+        "star": "O5III",
+        "source_id": 2067784246289931776,
+        "n_candidates": 31
+      }
+    }
+  },
+  "decisions": {
+    "CygOB2-A|PARSEC": {
+      "M1": {
+        "age_map": 1.2589254117941673,
+        "age_median": 1.2667334476388772,
+        "age_lo68": 1.1330413955723753,
+        "age_hi68": 1.4560341144189652,
+        "age_lo95": 1.067477674204467,
+        "age_hi95": 2.818452877982014
+      },
+      "measurable": true,
+      "spec68": [
+        2.797017062648578,
+        3.4972199486270674
+      ],
+      "GA2": false,
+      "GA3_fraction": 3.482898661145869e-142,
+      "GA3": true,
+      "GA1": false,
+      "mode": "not_adopted"
+    },
+    "CygOB2-B|PARSEC": {
+      "M1": {
+        "age_map": 5.011872336272724,
+        "age_median": 4.847436734147351,
+        "age_lo68": 4.020654846171795,
+        "age_hi68": 5.030366664327349,
+        "age_lo95": 2.545898802146054,
+        "age_hi95": 5.127510612112499
+      },
+      "measurable": true,
+      "GA3_fraction": 0.0,
+      "GA3": true,
+      "GA1": false,
+      "mode": "not_adopted"
+    },
+    "CygOB2-C|PARSEC": {
+      "M1": {
+        "age_map": 5.011872336272724,
+        "age_median": 4.521632247812106,
+        "age_lo68": 4.0244784761584995,
+        "age_hi68": 4.967077813307786,
+        "age_lo95": 3.927131118726594,
+        "age_hi95": 5.077878007079565
+      },
+      "measurable": true,
+      "spec68": [
+        3.318436909333359,
+        3.974188905169688
+      ],
+      "GA2": false,
+      "GA3_fraction": 3.031571068517731e-13,
+      "GA3": true,
+      "GA1": false,
+      "mode": "not_adopted"
+    },
+    "CygOB2-A|MIST": {
+      "M1": {
+        "age_map": 1.1226645259802346,
+        "age_median": 1.1837325381328645,
+        "age_lo68": 1.1245177105681692,
+        "age_hi68": 1.4067067514238896,
+        "age_lo95": 1.1053961646662378,
+        "age_hi95": 1.4417054425749516
+      },
+      "measurable": false,
+      "spec68": [
+        3.3109061558094255,
+        3.696880435419999
+      ],
+      "GA2": false,
+      "GA3_fraction": 4.142541089111539e-77,
+      "GA3": true,
+      "GA1": false,
+      "mode": "not_adopted"
+    },
+    "CygOB2-B|MIST": {
+      "M1": {
+        "age_map": 4.500388435263084,
+        "age_median": 4.350213471667767,
+        "age_lo68": 4.064158186779206,
+        "age_hi68": 4.497219820516449,
+        "age_lo95": 1.3980884109693024,
+        "age_hi95": 4.570878396325424
+      },
+      "measurable": true,
+      "GA3_fraction": 0.0,
+      "GA3": true,
+      "GA1": false,
+      "mode": "not_adopted"
+    },
+    "CygOB2-C|MIST": {
+      "M1": {
+        "age_map": 3.570672345572628,
+        "age_median": 3.406499192084069,
+        "age_lo68": 3.1837172046116926,
+        "age_hi68": 3.574923509899416,
+        "age_lo95": 2.985770757380185,
+        "age_hi95": 3.6705222419837513
+      },
+      "measurable": true,
+      "spec68": [
+        3.759521773921085,
+        4.266149926142945
+      ],
+      "GA2": false,
+      "GA3_fraction": 5.60559629579159e-31,
+      "GA3": true,
+      "GA1": false,
+      "mode": "not_adopted"
+    }
+  },
+  "qualifiers": {
+    "CygOB2-A|PARSEC": {
+      "robust": false,
+      "cells": {
+        "3.0|0.3": {
+          "GA2": false,
+          "GA3": true
+        },
+        "3.0|0.4": {
+          "GA2": false,
+          "GA3": true
+        },
+        "3.0|0.5": {
+          "GA2": false,
+          "GA3": true
+        },
+        "3.1|0.3": {
+          "GA2": false,
+          "GA3": true
+        },
+        "3.1|0.5": {
+          "GA2": false,
+          "GA3": true
+        },
+        "3.5|0.3": {
+          "GA2": false,
+          "GA3": true
+        },
+        "3.5|0.4": {
+          "GA2": true,
+          "GA3": true
+        },
+        "3.5|0.5": {
+          "GA2": true,
+          "GA3": true
+        }
+      }
+    },
+    "CygOB2-B|PARSEC": {
+      "robust": true,
+      "cells": {
+        "3.0|0.3": {
+          "GA2": null,
+          "GA3": true
+        },
+        "3.0|0.4": {
+          "GA2": null,
+          "GA3": true
+        },
+        "3.0|0.5": {
+          "GA2": null,
+          "GA3": true
+        },
+        "3.1|0.3": {
+          "GA2": null,
+          "GA3": true
+        },
+        "3.1|0.5": {
+          "GA2": null,
+          "GA3": true
+        },
+        "3.5|0.3": {
+          "GA2": null,
+          "GA3": true
+        },
+        "3.5|0.4": {
+          "GA2": null,
+          "GA3": true
+        },
+        "3.5|0.5": {
+          "GA2": null,
+          "GA3": true
+        }
+      }
+    },
+    "CygOB2-C|PARSEC": {
+      "robust": true,
+      "cells": {
+        "3.0|0.3": {
+          "GA2": false,
+          "GA3": true
+        },
+        "3.0|0.4": {
+          "GA2": false,
+          "GA3": true
+        },
+        "3.0|0.5": {
+          "GA2": false,
+          "GA3": true
+        },
+        "3.1|0.3": {
+          "GA2": false,
+          "GA3": true
+        },
+        "3.1|0.5": {
+          "GA2": false,
+          "GA3": true
+        },
+        "3.5|0.3": {
+          "GA2": false,
+          "GA3": true
+        },
+        "3.5|0.4": {
+          "GA2": false,
+          "GA3": true
+        },
+        "3.5|0.5": {
+          "GA2": false,
+          "GA3": true
+        }
+      }
+    },
+    "CygOB2-A|MIST": {
+      "robust": true,
+      "cells": {
+        "3.0|0.3": {
+          "GA2": false,
+          "GA3": true
+        },
+        "3.0|0.4": {
+          "GA2": false,
+          "GA3": true
+        },
+        "3.0|0.5": {
+          "GA2": false,
+          "GA3": true
+        },
+        "3.1|0.3": {
+          "GA2": false,
+          "GA3": true
+        },
+        "3.1|0.5": {
+          "GA2": false,
+          "GA3": true
+        },
+        "3.5|0.3": {
+          "GA2": false,
+          "GA3": true
+        },
+        "3.5|0.4": {
+          "GA2": false,
+          "GA3": true
+        },
+        "3.5|0.5": {
+          "GA2": false,
+          "GA3": true
+        }
+      }
+    },
+    "CygOB2-B|MIST": {
+      "robust": true,
+      "cells": {
+        "3.0|0.3": {
+          "GA2": null,
+          "GA3": true
+        },
+        "3.0|0.4": {
+          "GA2": null,
+          "GA3": true
+        },
+        "3.0|0.5": {
+          "GA2": null,
+          "GA3": true
+        },
+        "3.1|0.3": {
+          "GA2": null,
+          "GA3": true
+        },
+        "3.1|0.5": {
+          "GA2": null,
+          "GA3": true
+        },
+        "3.5|0.3": {
+          "GA2": null,
+          "GA3": true
+        },
+        "3.5|0.4": {
+          "GA2": null,
+          "GA3": true
+        },
+        "3.5|0.5": {
+          "GA2": null,
+          "GA3": true
+        }
+      }
+    },
+    "CygOB2-C|MIST": {
+      "robust": true,
+      "cells": {
+        "3.0|0.3": {
+          "GA2": false,
+          "GA3": true
+        },
+        "3.0|0.4": {
+          "GA2": false,
+          "GA3": true
+        },
+        "3.0|0.5": {
+          "GA2": false,
+          "GA3": true
+        },
+        "3.1|0.3": {
+          "GA2": false,
+          "GA3": true
+        },
+        "3.1|0.5": {
+          "GA2": false,
+          "GA3": true
+        },
+        "3.5|0.3": {
+          "GA2": false,
+          "GA3": true
+        },
+        "3.5|0.4": {
+          "GA2": false,
+          "GA3": true
+        },
+        "3.5|0.5": {
+          "GA2": false,
+          "GA3": true
+        }
+      }
+    }
+  },
+  "adopted_age_map_decision_cell": {
+    "CygOB2-A|PARSEC": 3.1622776601683795,
+    "CygOB2-B|PARSEC": 5.011872336272724,
+    "CygOB2-C|PARSEC": 3.548133892335755,
+    "CygOB2-A|MIST": 3.570672345572628,
+    "CygOB2-B|MIST": 4.500388435263084,
+    "CygOB2-C|MIST": 4.008667176273027
+  },
+  "predictions": {
+    "W1": true,
+    "W2": true,
+    "W3": false,
+    "W4": "PASS",
+    "W4_causes": {
+      "M4_i_no_pms": {
+        "reconciles": false,
+        "n_cells": 1,
+        "cells_overlapping": 0
+      },
+      "M4_ii_fbin0.6": {
+        "reconciles": false,
+        "n_cells": 5,
+        "cells_overlapping": 1
+      },
+      "M4_ii_fbin0.7": {
+        "reconciles": false,
+        "n_cells": 4,
+        "cells_overlapping": 1
+      },
+      "M4_iii_P_gt_0.9": {
+        "reconciles": false,
+        "n_cells": 5,
+        "cells_overlapping": 0
+      },
+      "M4_iv_outliers": {
+        "reconciles": false,
+        "n_cells": 5,
+        "cells_overlapping": 1
+      }
+    }
+  },
+  "double_counting_sensitivity": {
+    "CygOB2-A|PARSEC|3.0": {
+      "median_shift": -0.04816666640960321,
+      "width68_primary": 0.22644123321465792,
+      "width68_widened": 0.25450323195450464,
+      "double_counting_sensitive": false
+    },
+    "CygOB2-A|PARSEC|3.1": {
+      "median_shift": -0.005003493971966311,
+      "width68_primary": 0.32299271884659,
+      "width68_widened": 0.19010970225325452,
+      "double_counting_sensitive": false
+    },
+    "CygOB2-A|PARSEC|3.5": {
+      "median_shift": -2.819324451608244,
+      "width68_primary": 3.1081015921064488,
+      "width68_widened": 0.12868001913364457,
+      "double_counting_sensitive": true
+    },
+    "CygOB2-A|MIST|3.0": {
+      "median_shift": -0.08324647601004465,
+      "width68_primary": 0.27699357065404384,
+      "width68_widened": 0.20220436341644388,
+      "double_counting_sensitive": false
+    },
+    "CygOB2-A|MIST|3.1": {
+      "median_shift": 0.046344323502460094,
+      "width68_primary": 0.2821890408557204,
+      "width68_widened": 0.2634558782204135,
+      "double_counting_sensitive": false
+    },
+    "CygOB2-A|MIST|3.5": {
+      "median_shift": -3.105565225470082,
+      "width68_primary": 0.41422276338061703,
+      "width68_widened": 0.03655281626456741,
+      "double_counting_sensitive": true
+    },
+    "CygOB2-B|PARSEC|3.0": {
+      "median_shift": -3.736197760751695,
+      "width68_primary": 0.7918726587439053,
+      "width68_widened": 0.19811346382386352,
+      "double_counting_sensitive": true
+    },
+    "CygOB2-B|PARSEC|3.1": {
+      "median_shift": -3.612784762616535,
+      "width68_primary": 1.0097118181555533,
+      "width68_widened": 0.22246687748403016,
+      "double_counting_sensitive": true
+    },
+    "CygOB2-B|PARSEC|3.5": {
+      "median_shift": -2.5442499001134724,
+      "width68_primary": 0.1299908361685045,
+      "width68_widened": 0.05721413353701954,
+      "double_counting_sensitive": true
+    },
+    "CygOB2-B|MIST|3.0": {
+      "median_shift": -0.15088327295840198,
+      "width68_primary": 2.5561216668413587,
+      "width68_widened": 0.2697868710215987,
+      "double_counting_sensitive": false
+    },
+    "CygOB2-B|MIST|3.1": {
+      "median_shift": -3.0561913248355834,
+      "width68_primary": 0.4330616337372426,
+      "width68_widened": 0.21028616110013676,
+      "double_counting_sensitive": true
+    },
+    "CygOB2-B|MIST|3.5": {
+      "median_shift": -4.690005000734719,
+      "width68_primary": 0.39328722603621546,
+      "width68_widened": 0.0378026494094168,
+      "double_counting_sensitive": true
+    },
+    "CygOB2-C|PARSEC|3.0": {
+      "median_shift": -3.7796935854050178,
+      "width68_primary": 0.4721787150696839,
+      "width68_widened": 0.08554601974826137,
+      "double_counting_sensitive": true
+    },
+    "CygOB2-C|PARSEC|3.1": {
+      "median_shift": -3.4698255310915345,
+      "width68_primary": 0.9425993371492867,
+      "width68_widened": 0.0938181721833653,
+      "double_counting_sensitive": true
+    },
+    "CygOB2-C|PARSEC|3.5": {
+      "median_shift": 0.05854668046590583,
+      "width68_primary": 0.046919055587743896,
+      "width68_widened": 0.12475224910437865,
+      "double_counting_sensitive": true
+    },
+    "CygOB2-C|MIST|3.0": {
+      "median_shift": -1.9809930407084386,
+      "width68_primary": 0.4621625663719704,
+      "width68_widened": 0.07783427354570249,
+      "double_counting_sensitive": true
+    },
+    "CygOB2-C|MIST|3.1": {
+      "median_shift": -2.360739451238798,
+      "width68_primary": 0.3912063052877235,
+      "width68_widened": 0.08671023697091673,
+      "double_counting_sensitive": true
+    },
+    "CygOB2-C|MIST|3.5": {
+      "median_shift": 0.04898189398806552,
+      "width68_primary": 0.05030126502206045,
+      "width68_widened": 0.10964045956219959,
+      "double_counting_sensitive": true
+    }
+  },
+  "outputs": {
+    "data/processed/wp4_age_posteriors_repair_v9.parquet": "9c1cc47ed8868abc742c98ca4b8252ec235ac4c0d25e1500c90f9cef3f9a81a0"
+  }
+}

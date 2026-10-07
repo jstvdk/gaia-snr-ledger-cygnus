@@ -21,9 +21,10 @@ Inputs are read through wp12_common.frozen() and wp10_inputs.resolve(); nothing
 is refitted and no stored number moves.
 
 Outputs: figures/drafts/fig04_cmd_redesign_draft.{pdf,png}
+         figures/drafts/fig04_cmd_only_draft.{pdf,png}   (--cmd-only: CMD panels and legend only)
 
 Run:
-  PYTHONPATH=scripts python3 scripts/draft_fig04_cmd_redesign.py
+  PYTHONPATH=scripts python3 scripts/draft_fig04_cmd_redesign.py [--cmd-only]
 """
 from __future__ import annotations
 
@@ -202,7 +203,7 @@ def age_cost(ax, lo: float, hi: float) -> None:
     ax.set_title("what the age range costs", fontsize=7, color=MUTED)
 
 
-def main() -> None:
+def main(cmd_only: bool = False) -> None:
     OUT.mkdir(parents=True, exist_ok=True)
     rv = W.BASE["R_V"]
     photo = with_labels(pd.read_parquet(W.frozen("wp3_extinction")))
@@ -219,8 +220,12 @@ def main() -> None:
     isochrones = {family: pd.read_parquet(W.frozen(f"wp3_isochrones_{family.lower()}"))
                   for family in w.FAMILIES}
 
-    fig = plt.figure(figsize=(WIDE, 10.4))
-    outer = fig.add_gridspec(3, 1, height_ratios=[4.7, 0.42, 1.35], hspace=0.16)
+    if cmd_only:
+        fig = plt.figure(figsize=(WIDE, 8.3))
+        outer = fig.add_gridspec(2, 1, height_ratios=[4.7, 0.42], hspace=0.14)
+    else:
+        fig = plt.figure(figsize=(WIDE, 10.4))
+        outer = fig.add_gridspec(3, 1, height_ratios=[4.7, 0.42, 1.35], hspace=0.16)
     top = outer[0].subgridspec(2, 2, hspace=0.16, wspace=0.08)
     first = fig.add_subplot(top[0, 0])
     axes = [first] + [fig.add_subplot(top[i // 2, i % 2], sharex=first,
@@ -289,15 +294,18 @@ def main() -> None:
                      frameon=False)
 
     # ---- bottom row: the age evidence and what the age range costs ---------
-    lo, hi = retained_envelope()
-    bottom = outer[2].subgridspec(1, 3, wspace=0.32)
-    age_strip(fig.add_subplot(bottom[0, :2]), norm, lo, hi)
-    age_cost(fig.add_subplot(bottom[0, 2]), lo, hi)
+    if not cmd_only:
+        lo, hi = retained_envelope()
+        bottom = outer[2].subgridspec(1, 3, wspace=0.32)
+        age_strip(fig.add_subplot(bottom[0, :2]), norm, lo, hi)
+        age_cost(fig.add_subplot(bottom[0, 2]), lo, hi)
 
+    stem = "fig04_cmd_only_draft" if cmd_only else "fig04_cmd_redesign_draft"
     for ext in ("pdf", "png"):
-        fig.savefig(OUT / f"fig04_cmd_redesign_draft.{ext}", bbox_inches="tight")
-    print(f"wrote {OUT / 'fig04_cmd_redesign_draft.png'}")
+        fig.savefig(OUT / f"{stem}.{ext}", bbox_inches="tight")
+    print(f"wrote {OUT / (stem + '.png')}")
 
 
 if __name__ == "__main__":
-    main()
+    import sys
+    main(cmd_only="--cmd-only" in sys.argv[1:])

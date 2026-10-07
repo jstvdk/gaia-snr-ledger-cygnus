@@ -2,6 +2,22 @@
 
 **Group-meeting briefing — 30 September 2026**
 
+> **Status update, 2 October 2026.** The numbers in the tables below are from the repair_v7 chain unless marked otherwise.
+>
+> **The adopted chain is now repair_v8** (issue #19, closed). Baseline deaths are **8.36** (A 4.10 · B 4.26 · C 0); P(≥1) is 0.9996; P(death in the last 100 kyr) is 0.547; closing slopes are A 2.29 · B 2.25 · C 2.05.
+>
+> **Two decisions on 2 October:**
+> - the headline IMF slope is now **α = 2.3**, with 2.0 and 2.6 reported as sensitivity branches;
+> - **C's age gets three independent tests (Phase A′) before WP13 is run** (issue #20, §8).
+>
+> **Update, 6 October: C is not shown to be young, and the photometric age fit has a flaw (issues #20, #21).**
+> - The three independent age tests resolved only 1 of 18 cells (C in MIST, 4.45 Myr).
+> - Every stable measurement puts C at about 3.2–4 Myr: its spectroscopic stars, and its bright upper main sequence.
+> - The photometric fit behind all chain ages treats extinction errors as independent in magnitude and colour; corrected, the faint part of the window is mis-modelled, and that faint part is what makes C look 2.5 Myr old.
+> - The 8.36 baseline and everything built on these ages will move. A pre-registered redesign of the age fit is recommended; the decision is pending.
+>
+> The Monte Carlo method is explained in full in `reports/monte_carlo_methodology_explained.md`. A guide to every slide of the deck is in `reports/deck_slide_guide.md`.
+
 ## The project in one sentence
 
 I used Gaia DR3 and supporting photometry and spectroscopy to separate Cygnus OB2 into stellar subgroups, infer their ages and population sizes, and reconstruct a **model-dependent history of massive-star deaths**. The analysis is largely complete, but one final comparison is needed to prove that resolving the subgroups adds scientific value beyond a simpler one-age calculation.
@@ -492,6 +508,29 @@ Other limitations that must be stated clearly:
   - The quoted age envelope was stale: it is 2.00–4.01 Myr, not 2.25–5.67 Myr, and there is no usable pre-main-sequence age.
   - The 150 spectroscopic anchor masses were read at the old ages. Re-read at the correct ages, 8 anchors in A (11 at R_V = 3.5) move above 8 M☉ on PARSEC branches.
   - Measured effect: the headline count moves from 8.43 to **8.36** (A 4.17 → 4.10); headline range 5.57–28.7. A's census now closes at Salpeter (closure 0.865 → **1.006**, closing slope 2.34 → **2.29**). The α split and the INCONCLUSIVE verdict are unchanged. One gate changes: WP5's no-regression check now fails on two α = 2.0 cells of A. 4 of 6 pre-registered predictions passed. Report: `reports/issue19_completion_report.md`. **The numbers in the tables and slides above are still the repair_v7 ones;**
+- **issue #20 (found 2026-10-01, open): is C really young?** C's young photometric age is what gives it zero deaths, and with it the candidate novelty.
+  - **Phase A (2 October, pre-registered).** C's own spectroscopic stars give a single age of **3.98 Myr (PARSEC) / 4.01 Myr (MIST)**, at least as old as A. "C is young" (H1) failed in every run.
+  - **The formal verdict was "two components" (H3), but it is not specific to C.** The test on A passes too, and the extra component sits at the edge of the age grid, absorbing outlier stars. It reads as a mis-specified model, not a second star-formation episode.
+  - **C's young age is carried by the extinction of its 369 photometric-only stars.** It comes from the repair_v1 extinction, not from its supergiants: their A_V did not change.
+  - **Decision:** run Phase A′, three independent age tests applied identically to A, B and C:
+    - a near-IR free-extinction fit of the colour–magnitude diagram;
+    - Gaia DR3 hot-star parameters;
+    - an outlier-robust spectroscopic HRD fit.
+
+    The agreed ages go into a separately pre-registered chain, repair_v9, **before** WP13 reads its results.
+  - **Phase A′ result (6 October).** Only 1 of 18 cells was resolved: C in MIST, adopted at 4.45 Myr (68 % 3.89–4.51).
+    - The Gaia hot-star test failed its own pre-registered validity check.
+    - The near-IR test gave physically impossible ages for A and B (5–8 Myr). A contains O5–O7 supergiants, which cannot survive to that age.
+    - The two-component C did not survive once outlier stars were allowed for (ΔBIC −2.6 and −5.3).
+    - Every stable measurement puts C at about 3.2–4 Myr: spectroscopic HRD 3.55 (PARSEC) / 4.01 (MIST), and the bright upper main sequence alone 3.98 (PARSEC) / 3.18 (MIST). Report: `reports/issue20b_phase_a_prime_report.md`.
+  - **"C is young" is not established, and is now unlikely.** No claim may rest on it. If C is older, it contributes deaths and the pooled-versus-resolved difference shrinks.
+  - **If C turns out genuinely young or mixed,** it becomes a focus-study target: why it formed later, a wind-only feedback site, and its top-heavy IMF. Report: `reports/issue20_phase_a_report.md`; task: `tasks/issue20_subgroup_c_age_brief.md`.
+- **issue #21 (found 2026-10-06, open): the photometric age fit has an error-model flaw.**
+  - The age fit adds each star's extinction uncertainty to its magnitude and its colour as two *independent* errors. A real extinction error moves the star *along* the reddening vector, so the two are fully correlated. With extinction errors of 0.6–0.9 mag this matters.
+  - Propagated correctly, every subgroup comes out 4.5–8 Myr old. That is impossible for A, which contains O5–O7 supergiants. So the faint part of the fitting window is mis-modelled, whatever the error model.
+  - **The bright upper main sequence (M_G0 ≤ −1) is stable to the choice, and there C comes out at 3.98 Myr (PARSEC).** C's 2.51 Myr comes from the faint part under the independent-error approximation.
+  - Consequence: none of the photometric ages (A 3.98, B 3.55, C 2.51) is established. Every downstream product inherits them, including N_death = 8.36.
+  - **Decision pending.** Recommended: a pre-registered redesign of the WP4 age fit (correlated errors, a bright-window indicator, an acceptance check against the spectroscopic ages), then repair_v9.
 - the formal convergence criterion failed, although the practically important results changed only slightly;
 - the high-energy interpretation remains a conditional application, not a confirmed origin of the Cygnus gamma-ray emission.
 
@@ -503,7 +542,9 @@ Administrative work also remains: confirm co-authors and affiliations, archive t
 
 ### Essential scientific test
 
-0. **Fix issue #19 first** (repair_v8: re-derive the anchor masses at the repaired ages, then rerun WP5 → WP6 → WP7). WP13's thresholds can be frozen now, but M0 and M1 should be read on the repaired chain.
+0. ~~**Fix issue #19 first**~~ **Done 2026-10-01** (repair_v8 adopted).
+0b. ~~Settle C's age with Phase A′~~ **Run 2026-10-06:** not settled by the frozen rule, but no stable measurement supports a young C.
+0c. **Redesign the WP4 age fit (issue #21; decision pending), then build repair_v9.** WP13's thresholds can be frozen now, but M0 and M1 are read only on repair_v9.
 1. Reproduce the simple Menchiari-style calculation under matched assumptions.
 2. Fit the same Gaia-selected stars as **one pooled population**, obtaining its age and population normalization from the data.
 3. Compare that pooled model with the existing three-subgroup model while keeping every other assumption fixed.

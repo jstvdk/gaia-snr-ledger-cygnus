@@ -1,0 +1,52 @@
+{
+  "created_utc": "2026-10-07T11:53:07+00:00",
+  "script": "scripts/wp4v9_injections.py",
+  "preregistration": {
+    "path": "provenance/wp4v9_age_prereg.json",
+    "sha256": "72d4718313051bb93700587921f344bdf3a275a0885a0c0981825c5ca1b21e46"
+  },
+  "method_check": {
+    "scripts/wp4v9_common.py": {
+      "sha256": "3022868fc2739628d985096ee03c75f1b26b9cfabd93de27829e13694c9b615e",
+      "deviation": null
+    },
+    "scripts/wp4_common.py": {
+      "sha256": "0c5d018da64be66d7b3617172755772d0616bc711793c3b861567e834cd88f21",
+      "deviation": null
+    },
+    "scripts/wp4_fit_ages.py": {
+      "sha256": "84bcac5d298c507bfc7fd66514461e3433e09ed0acbd4e7d70cd5fa0a030b486",
+      "deviation": null
+    },
+    "scripts/issue20_common.py": {
+      "sha256": "ad1b5f12d4181922b0bf75116e952547f100aab5803f2ab3765840e0f4f2b028",
+      "deviation": null
+    },
+    "scripts/wp6_mass_extension_decision.py": {
+      "sha256": "56f125fdecd1a192007d04d264d4326955eb7778371aa29edd02a925be15098e",
+      "deviation": null
+    }
+  },
+  "seed": 20261006,
+  "true_ages_requested": [
+    2.5,
+    3.2,
+    4.0,
+    5.0
+  ],
+  "R_primary": 100,
+  "R_other": 20,
+  "parts": {
+    "data/processed/wp4v9_injection_parts/PARSEC_CygOB2-A.csv": "44e51b7e117ff689889315089d0009f8eb0d021823dfcd40d4768f79336de909",
+    "data/processed/wp4v9_injection_parts/PARSEC_CygOB2-B.csv": "1f01f2369ab58940e5aadbd5b712e40df10626e2e32cb89a170bd49109f606f8",
+    "data/processed/wp4v9_injection_parts/PARSEC_CygOB2-C.csv": "08a7d1695df977acf2269e309b8a531dcc12924a722c852f1c5ea56a346b771c",
+    "data/processed/wp4v9_injection_parts/MIST_CygOB2-A.csv": "09f03bf25029232a72b505a4194f8e48019528ae2ebe988cfcb58b9cd5128ce4",
+    "data/processed/wp4v9_injection_parts/MIST_CygOB2-B.csv": "fd84b784004b566ecc98f67735b53d1b5461e2e2732631c2d6300186a2ebba49",
+    "data/processed/wp4v9_injection_parts/MIST_CygOB2-C.csv": "52acf6711f8e31a3f40d6f0b9fd815c7e70c056c75e994a61a77820b526945e8"
+  },
+  "note": "run in resumable blocks; a 2026-10-06 run was killed before writing anything",
+  "runtime_s_this_invocation": 7892.8,
+  "outputs": {
+    "tables/wp4v9_injection_validation.csv": "3cfe503c6fa55b0b5b7f0bc3bb588b7679ffadb679bf1e9e8228b20547646b63"
+  }
+}
