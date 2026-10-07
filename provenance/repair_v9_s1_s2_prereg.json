@@ -1,0 +1,124 @@
+{
+  "created_utc": "2026-10-07T17:10:42+00:00",
+  "script": "scripts/repair_v9_s1_s2_prereg.py",
+  "python": "3.11.15",
+  "basis": "brief \u00a74.5 (tasks/stage_repair_v9_wp4_age_redesign_and_wp13.md); parent chain provenance/repair_v9_prereg.json",
+  "signoff": "delegated by the owner for the night of 2026-10-07 (decision O3, provenance/decisions_2026_10_07_overnight.json)",
+  "runs_only_if": "repair_v9 is adopted (I1-I5 pass), decision O4",
+  "blindness": "written while the repair_v9 chain was running; no repair_v9 WP5/WP7 product existed",
+  "S1": {
+    "design": "m_max in {100, 120, 150} Msun; WP7 engine unmodified (IMF_UPPER_LIMIT set in the wp7_ledger namespace); the 18 alpha = 2.3 branches, each subgroup and the association; all-explode; 2,000,000 iterations on the repair_v9 WP5 draws; the same seed for every m_max (paired)",
+    "issue_14": "150 Msun is an evolutionary turnoff in both grids (PARSEC 2.82 Myr; MIST between 2.00 and 2.25 Myr), below the table ceilings 300 / 210 Msun; TurnoffRelation refuses to build if the grid does not bracket m_max",
+    "integrity": {
+      "S1-I1": "at m_max = 120 the PARSEC baseline association mean reproduces tables/wp7_ledger_repair_v9.csv within 0.1 (different seeds)"
+    },
+    "analytic_expectation": {
+      "PARSEC": {
+        "subgroups": {
+          "CygOB2-A": {
+            "age_Myr": 3.1622776601683795,
+            "turnoff_Msun": 96.0,
+            "N_100": 0.18,
+            "N_120": 0.87,
+            "N_150": 1.52
+          },
+          "CygOB2-B": {
+            "age_Myr": 3.548133892335755,
+            "turnoff_Msun": 73.7,
+            "N_100": 1.552,
+            "N_120": 2.224,
+            "N_150": 2.856
+          },
+          "CygOB2-C": {
+            "age_Myr": 3.548133892335755,
+            "turnoff_Msun": 73.7,
+            "N_100": 1.784,
+            "N_120": 2.556,
+            "N_150": 3.283
+          }
+        },
+        "association": {
+          "N_100": 3.516,
+          "N_120": 5.649,
+          "N_150": 7.658
+        },
+        "ratio_100_to_120": 0.622,
+        "ratio_150_to_120": 1.356
+      },
+      "MIST": {
+        "subgroups": {
+          "CygOB2-A": {
+            "age_Myr": 3.570672345572628,
+            "turnoff_Msun": 69.0,
+            "N_100": 1.97,
+            "N_120": 2.642,
+            "N_150": 3.275
+          },
+          "CygOB2-B": {
+            "age_Myr": 3.570672345572628,
+            "turnoff_Msun": 69.0,
+            "N_100": 1.935,
+            "N_120": 2.595,
+            "N_150": 3.217
+          },
+          "CygOB2-C": {
+            "age_Myr": 4.008667176273027,
+            "turnoff_Msun": 58.6,
+            "N_100": 3.446,
+            "N_120": 4.17,
+            "N_150": 4.851
+          }
+        },
+        "association": {
+          "N_100": 7.351,
+          "N_120": 9.407,
+          "N_150": 11.342
+        },
+        "ratio_100_to_120": 0.781,
+        "ratio_150_to_120": 1.206
+      }
+    },
+    "analytic_note": "Coeval, MAP-age, analytic: N_sg ~ k_sg * integral[M_to(t_sg), m_max] M^-2.3,\n    with k from repair_v8's baseline cell (the v9 k does not exist yet) and t\n    the repair_v9 headline MAP.  The posterior widths smear the turnoff, which\n    pulls the real ratios towards 1 relative to this point estimate.",
+    "disclosure": "the brief's 'analytic expectation on v8 inputs: 100 -> 7.0, 120 -> 8.4, 150 -> 9.7' used the repair_v8 turnoffs (~58 Msun).  At the repair_v9 headline ages the turnoffs are 74-96 Msun, close to the ceiling, so the ceiling matters much more; the expectation above replaces the brief's numbers",
+    "predictions": {
+      "S1-P1": "N_death(100) <= N_death(120) <= N_death(150) in every branch x subgroup row",
+      "S1-P2": "PARSEC baseline association ratios N(100)/N(120) and N(150)/N(120) each within +-30% (relative) of the analytic expectation above"
+    }
+  },
+  "S2": {
+    "design": "replay the frozen WP2 mixture (k = 3, full covariance, StandardScaler on l, b, pmra, pmdec, the 50 frozen seeds, components named by wp2_derive_subgroups.name_components); responsibilities = predict_proba averaged over seeds; every labelled star of the clean WP2 set enters each subgroup with weight membership_probability x r_subgroup (the WP5 fit's own counting rule); each star keeps its repair_v9 mass posterior; WP5 refitted on the repair_v9 ages and responses; WP7 engine on both the repair_v9 (hard) and S2 (soft) draws with identical seeds, 54 branches, 500,000 iterations",
+    "approximation": "a relabelled star keeps the mass posterior computed at its hard subgroup's age; the headline ages differ by <= 0.4 Myr, which moves masses near the turnoff, not in WP5's calibration window below 8 Msun",
+    "integrity": {
+      "S2-I1": "summed soft membership weight equals summed hard weight over the soft stars within 1e-06 (responsibilities sum to 1)"
+    },
+    "disclosed_prior": "the brief reports a median maximum responsibility of 0.90 and 51 % of stars above 0.9, B clean, A and C mixing ~15 % each way",
+    "predictions": {
+      "S2-P1": "PARSEC baseline association N_death (soft) within 10% of hard",
+      "S2-P2": "PARSEC baseline cell k_median (soft) within 15% of hard, each subgroup",
+      "S2-P3": "B's k_median changes least of the three subgroups (B is the cleanest)"
+    }
+  },
+  "thresholds": {
+    "S1_TOL_REL": 0.3,
+    "S1_REPLAY_ABS": 0.1,
+    "S2_ASSOC_REL": 0.1,
+    "S2_K_REL": 0.15,
+    "S2_WEIGHT_CONSERVATION_REL": 1e-06
+  },
+  "failed_predictions_rule": "scored as written; a failed prediction stays failed",
+  "consumed_inputs": {
+    "data/processed/wp4_age_posteriors_repair_v9_headline.parquet": "6d832504f639681e8c73a2de1875bbc7328fcd444921b8bb3a84ba9d89310fd4",
+    "data/processed/wp5_imf_normalization_repair_v8.parquet": "ca841c082672fced85e692b682b534b28fa5fc9739167d11e1efe745044b54c3",
+    "tables/wp2_subgroup_labels.parquet": "44a5ee7b9190703dae8dca9540c192757423db293c9ecc1ea123065849800887",
+    "data/processed/wp2_members.parquet": "5db938b116edd70e8c7af3d2d4bbc8c9273d4e4c9cde76309ffc84d8cdaf90be"
+  },
+  "frozen_code": {
+    "scripts/repair_v9_s1_imf_ceiling.py": "24a805387e08b8cba136c74fc2e3fc90e8b51596b1dde4f74ccb986951cb3890",
+    "scripts/repair_v9_s2_label_uncertainty.py": "44db839ecb9aa04846198a8aa2b26b7a6e4d33ecfb85df0b8fdb2d01b0daf886",
+    "scripts/repair_v9_s1_s2_prereg.py": "84615a394f38d00b2f2167fe9eb9f95fcd9398a2d8cd07d3985a3da63de098d7",
+    "scripts/wp7_ledger.py": "e02b8e4a55875129df6a441181ba0aeaecbc1234ec092d67c17bf928803837c4",
+    "scripts/wp2_derive_subgroups.py": "62fd977fd1a240fdccbf69c311edd7109d64f322a6b65f15c7803fe29f321a74",
+    "scripts/wp5_fit_imf_joint.py": "117ba6741c8cba243b86cbc8685dca752c19c3d2401f38c82d50278702ee0be7",
+    "scripts/wp5_joint_age_fit.py": "5532c12b909c6b393377b70ed1e983351b91f4beaa2f8a2bb356085dbde5d773"
+  }
+}
