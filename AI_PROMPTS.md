@@ -33,3 +33,7 @@ Entries before 2026-10-07 18:41 CEST were backfilled by hand from the session in
 ### 2026-10-07 ~18:40 CEST · dta250054 (backfilled)
 
 > Btw, also now I want to have additional dedicated .md document that will track all AI prompts that I use. Please add there with date and time what I ask you everytime I ask it
+
+### 2026-10-07 19:00:13 CEST · dta250054
+
+> do you know all your next steps? Earlier other agent told that these should run around 9-10 hours to result. I am asking becasue soon I will go home and left pc in the office. I want everything to run over the night so you dont need any input from me. Just keep working and decide everything beforehand - now

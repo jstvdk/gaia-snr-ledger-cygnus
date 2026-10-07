@@ -1,0 +1,18 @@
+{
+  "created_local": "2026-10-07T19:05+02:00",
+  "recorded_by": "AI assistant (Claude), at the owner's request before leaving the machine unattended",
+  "source": "owner answers in the session of 2026-10-07 (~19:03 CEST); the request itself is logged in AI_PROMPTS.md at 19:00:13",
+  "context": "repair_v9 chain launched at 18:56 CEST from commit d947f31 (pre-registration provenance/repair_v9_prereg.json). The owner asked that everything run overnight with no further input, all decisions taken in advance.",
+  "decisions": {
+    "O1_commits": "Commit each finished stage on main (tracked outputs, reports, docs); do NOT push.",
+    "O2_if_adopted": "Full adoption without prose: ADOPTED = repair_v9 in chain.py, reports/repair_v9_completion_report.md, close #21, update #20, CLAUDE.md headline numbers and withdrawn table, regenerate numbers.tex / tables / figures and run wp10_validate. manuscript/main.tex prose (claims built on a young C) is left for Stage 4.",
+    "O3_after_repair_v9": [
+      "S1 IMF ceiling m_max in {100, 120, 150} Msun, baseline branch (brief 4.5) -- own pre-registration, written and committed by the assistant, then run",
+      "S2 subgroup-assignment uncertainty (brief 4.5) -- own pre-registration, then run",
+      "WP13: re-base the brief on repair_v9 and DRAFT its pre-registration for owner sign-off; M0 is NOT run"
+    ],
+    "O3_not_chosen": "WP13 M0 run (needs owner sign-off of frozen thresholds); S3 parallax-blind membership check (optional in the brief, recorded as not done)",
+    "O4_if_not_adopted": "If an integrity check fails because of a bug in a CHECK or in version plumbing (not science), fix it, record the deviation in provenance/repair_v9_deviations.json, rerun the affected step and rescore. Never loosen a pre-registered threshold. A genuine failure (science or cross-platform drift beyond tolerance) leaves repair_v8 quoted, is reported, and the follow-on stages O3 are skipped except the WP13 re-base draft.",
+    "O5_standing_rules": "S1/S2 sign-off is delegated to the assistant by this record for tonight only; it does not extend to later stages. Pre-registrations are still written, hashed and committed before their runs."
+  }
+}
