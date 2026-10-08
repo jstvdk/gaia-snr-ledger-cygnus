@@ -36,6 +36,12 @@ sed '/^prefix:/d' provenance/environment_cygob2-gaia_from-history.yml > /tmp/cyg
 conda env create -n cygob2-gaia -f /tmp/cygob2-gaia.yml
 ```
 
+On Linux, also install the pip-only packages from the pinned file. `gaiadr3-zeropoint` is required, because `wp5_common` imports `zero_point`:
+
+```sh
+conda run -n cygob2-gaia pip install gaiadr3-zeropoint==0.1.0 lxml==6.1.1 pymupdf==1.28.0 pypdf==6.14.2 python-pptx==1.0.2 xlsxwriter==3.2.9
+```
+
 Versions in use on the original machine (from the injection provenance record): Python 3.11.15, numpy 2.4.6, pandas 3.0.3, scipy 1.17.1, scikit-learn 1.9.0. If the new machine resolves different versions, results can differ slightly at the Monte Carlo level. **Do not treat such differences as a finding, and never overwrite an existing product with them.**
 
 Check it:
@@ -75,7 +81,9 @@ rsync -a --info=progress2 /Volumes/<SSD>/cygnus_data/ data/
 (cd data && find . -type f -print0 | sort -z | xargs -0 shasum -a 256) | diff - /Volumes/<SSD>/cygnus_data.sha256 && echo "data copy verified"
 ```
 
-`diff` prints nothing and the message appears if every file matches. Use `sha256sum` instead of `shasum -a 256` on Linux; the line format is the same.
+`diff` prints nothing and the message appears if every file matches.
+
+**The repair_v9 products (2026-10-07) were made on the AlmaLinux machine.** They are 1,300 files, 3.6 GB, listed with SHA-256 in `provenance/repair_v9_data_manifest.sha256`. Copy them, or the whole `data/` (now about 13 GB), and verify from the repository root with `(cd data && sha256sum -c ../provenance/repair_v9_data_manifest.sha256 --quiet)`. On macOS use `shasum -a 256 -c`. Use `sha256sum` instead of `shasum -a 256` on Linux; the line format is the same.
 
 Also copy these if you want them, since they are not (or not entirely) in git:
 - `manuscript/aa.cls` and `manuscript/aa.bst`: the A&A class files, deliberately not committed. Fetch them from <https://www.aanda.org/doc_journal/instructions/macro/aa/macro-latex-aa.zip> or copy them. They are only needed to compile the paper.

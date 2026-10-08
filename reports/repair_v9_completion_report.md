@@ -4,6 +4,75 @@ Date: 2026-10-07 (the chain ran 18:57–20:37 CEST on the owner's AlmaLinux mach
 
 Pre-registration: `provenance/repair_v9_prereg.json`, committed in `d947f31` before any chain step. Integrity record: `provenance/repair_v9_integrity.json`. Outcome: `provenance/repair_v9_outcome.json`. Before/after table: `tables/repair_v9_before_after.csv`.
 
+## 0. Handoff: start here (for the next agent)
+
+This report replaces [tasks/HANDOFF_repair_v9.md](../tasks/HANDOFF_repair_v9.md), whose work is all done. Read this section, then `CLAUDE.md`. "The owner" is the project's human lead; use they/them.
+
+### 0.1 Check before anything else
+
+1. **Code:** `git log --oneline -1` should show the handoff commit, which comes after `146698a`.
+2. **Data:** `data/` is gitignored, and repair_v9 added 1,300 files (3.6 GB), so `data/` is now about 13 GB. They are listed with SHA-256 in `provenance/repair_v9_data_manifest.sha256`.
+   - Verify from the repository root:
+     ```sh
+     (cd data && sha256sum -c ../provenance/repair_v9_data_manifest.sha256 --quiet) && echo "v9 data present"
+     ```
+     On macOS use `shasum -a 256 -c`.
+   - If the files are missing, **do not regenerate them.** Ask the owner to copy `data/` from the AlmaLinux machine (`/home/vvoitsek/science/gaia-snr-ledger-cygnus/data`), all of it or just the 1,300 manifest files.
+   - Then run `PYTHONPATH=scripts python scripts/wp10_inputs.py`; it must report `audit: PASS`.
+3. **Environment:** follow `INSTALL.md`. On Linux the env also needs the pip packages from the pinned file, including `gaiadr3-zeropoint`, or `wp5_common` fails to import.
+4. **Prompt log:** the owner wants every prompt they give recorded in `AI_PROMPTS.md` with the date and time. A `UserPromptSubmit` hook in `.claude/settings.json` does this automatically. If a prompt is missing from the log, add it by hand, marked "(backfilled)".
+
+### 0.2 Where things stand (2026-10-08)
+
+- **Quoted chain:** `repair_v9`, adopted 2026-10-07. The ages are spectroscopic; C is coeval with A.
+  - Baseline N_death **6.66** (A 2.09, B 2.85, C 1.72).
+  - P(last < 100 kyr) 0.697.
+  - 36-branch range 6.29–34.5.
+- **Manuscript:** `numbers.tex`, the tables and figures are regenerated, and `wp10_validate` passes. The prose in `main.tex` is **not** updated.
+- **Done:** S1 (IMF ceiling) and S2 (subgroup labels); see [repair_v9_sensitivity_s1_s2.md](repair_v9_sensitivity_s1_s2.md). WP13 is re-based, with its pre-registration **drafted, not signed**.
+- **Not done, recorded:** S3 (the parallax-blind membership check).
+
+### 0.3 Next steps, in order. Each needs the owner where marked.
+
+1. **Issue #22 (owner decision).** The WP5 low-mass counts disagree with the spectroscopic ages: the gate passes in 28 of 54 cells, C in 6 of 18 (§2, §5; PROJECT_TRACE §9 #22). Two options:
+   - (a) accept it as a stated caveat;
+   - (b) investigate it first. Candidate causes from #22: the faint-window mis-modelling of #21; low-mass membership contamination (Stage 1 M4 (iii)); a real age spread in C.
+   
+   Any investigation needs its own pre-registration.
+2. **WP13 sign-off (owner).** [tasks/wp13_prereg_proposal.md](../tasks/wp13_prereg_proposal.md) lists decisions D1–D6. The recommended age method for M0 is a pooled test-c spectroscopic fit. After sign-off:
+   - transcribe it into `scripts/wp13_prereg.py`, hash it and commit it **before** computing anything on the M0 side, including T1, which is computable in seconds and deliberately not computed;
+   - run M0, using `scripts/repair_v9_injections.py` with a pooled-label age table;
+   - score T1–T7 and write `reports/wp13_ablation.md`.
+   
+   The disclosed expectation is the "equivalent" outcome.
+3. **Stage 4, the manuscript** (stage brief §6), after WP13 decides the framing:
+   - rewrite the abstract, results and conclusions; remove every young-C, PMS and below-the-first-death-boundary claim;
+   - macro names such as `\ageumsA` and `\ageumsC` now hold spectroscopic ages; rename them in `wp10_numbers.py`;
+   - two macros render as a dash on repair_v9 (`\strictTwolo` / `\strictTwohi` and `\mixedShiftDead`). The sentences that use them must change;
+   - add S1's ceiling systematic (−32 % / +30 %) and S2's ±0.5 per-subgroup label uncertainty to the sensitivity section;
+   - Figure 4: adopt the CMD-only redesign (owner approval);
+   - compile with Tectonic once `manuscript/aa.cls` and `aa.bst` are fetched;
+   - regenerate `AUDIT.txt` with `audit.py`. **Never open `AUDIT.txt`.**
+4. **Talk materials (stage brief §6.3):**
+   - the deck and `reports/deck_slide_guide.md`;
+   - `reports/group_meeting_brief_2026-09-30.md`;
+   - `slides/cygob2_supernova_history_talk.pptx`, which still has repair_v7 values. Check for an open lock file first.
+   - `slides/make_talk.py` still says "This is a genuine discovery about the system"; remove that.
+5. **Separate changes, each pre-registered later:**
+   - F3(a), anchor masses from `Mass` to `Mini`;
+   - `wp6_external_crosschecks.py` still reads the repair_v6 normalization;
+   - optionally S3.
+
+### 0.4 Rules learned in this stage (in addition to CLAUDE.md)
+
+- **Order of work:** pre-register, commit, then run.
+  - Commit only when the owner asks. The overnight delegation (`provenance/decisions_2026_10_07_overnight.json`) covered 2026-10-07 only.
+  - A defect in a check is fixed and recorded in `provenance/repair_v9_deviations.json`; a threshold is never loosened.
+- **Long runs:** use `tmux` on Linux (there is no `screen` or `caffeinate` there), with `OMP_NUM_THREADS=1`.
+  - `scripts/repair_v9_injections.py` parallelises injections safely: every node starts a fresh seed. With 28 workers, 162 nodes take about 20 min.
+- **Chain registry:** `scripts/chain.py` registers `repair_v9`, `repair_v9_replay` and `repair_v9_scan00`–`10`. Use `CYGOB2_CHAIN` to address a non-adopted chain.
+- **Generated figures can carry hard-coded prose.** Check each claim against the active chain after any rerun. Three such claims were stale this time (§7).
+
 ## Morning summary for the owner
 
 1. **repair_v9 is adopted.** All the integrity checks pass, I1–I5.

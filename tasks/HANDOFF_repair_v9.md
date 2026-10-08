@@ -1,5 +1,7 @@
 # Handoff: repair_v9 (WP4 age redesign → repair_v9 chain → WP13)
 
+> **SUPERSEDED 2026-10-08.** Everything below was executed on 2026-10-07: repair_v9 is adopted. The current handoff is §0 of [reports/repair_v9_completion_report.md](../reports/repair_v9_completion_report.md). Kept for the record.
+
 Written 2026-10-07 for an agent continuing this work on another machine. Read it top to bottom before touching anything.
 
 ## 0. Read first
