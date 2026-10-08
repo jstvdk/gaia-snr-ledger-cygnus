@@ -17,6 +17,7 @@ This report replaces [tasks/HANDOFF_repair_v9.md](../tasks/HANDOFF_repair_v9.md)
      (cd data && sha256sum -c ../provenance/repair_v9_data_manifest.sha256 --quiet) && echo "v9 data present"
      ```
      On macOS use `shasum -a 256 -c`.
+   - **If `data/` is missing or outdated:** the owner's external SSD "Crucial2TB" holds a verified copy of all of `data/` as of 2026-10-08. Follow [tasks/TRANSFER_DATA_FROM_SSD.md](../tasks/TRANSFER_DATA_FROM_SSD.md) step by step; its full manifest is `provenance/data_manifest_2026-10-08.sha256`.
    - If the files are missing, **do not regenerate them.** Ask the owner to copy `data/` from the AlmaLinux machine (`/home/vvoitsek/science/gaia-snr-ledger-cygnus/data`), all of it or just the 1,300 manifest files.
    - Then run `PYTHONPATH=scripts python scripts/wp10_inputs.py`; it must report `audit: PASS`.
 3. **Environment:** follow `INSTALL.md`. On Linux the env also needs the pip packages from the pinned file, including `gaiadr3-zeropoint`, or `wp5_common` fails to import.
